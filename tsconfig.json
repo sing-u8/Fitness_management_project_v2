@@ -21,7 +21,14 @@
         "target": "es2022",
         "module": "es2022",
         "useDefineForClassFields": false,
-        "lib": ["es2022", "dom"]
+        "lib": ["es2022", "dom"],
+        "paths": {
+            "@schemas/*": ["./src/app/core/schemas/*"],
+            "@services/*": ["./src/app/core/services/*"],
+            "@shared/*": ["./src/app/shared/*"],
+            "@environments/*": ["./src/environments/*"],
+            "@guards/*": ["./src/app/core/guards/*"]
+        }
     },
     "angularCompilerOptions": {
         "enableI18nLegacyMessageIdFormat": false,

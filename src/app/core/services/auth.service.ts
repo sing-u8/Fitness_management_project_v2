@@ -6,7 +6,7 @@ import handleError from './handleError'
 
 import { environment } from '@environments/environment'
 import { StorageService } from '@services/storage.service'
-import { WsChatService } from '@services/web-socket/ws-chat.service'
+// import { WsChatService } from '@services/web-socket/ws-chat.service'
 
 import { Response } from '@schemas/response'
 import { User } from '@schemas/user'
@@ -26,7 +26,10 @@ export const PERMISSION = {}
 export class AuthService {
     private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/auth`
 
-    constructor(private http: HttpClient, private storageService: StorageService, private WsChat: WsChatService) {}
+    constructor(
+        private http: HttpClient,
+        private storageService: StorageService // private WsChat: WsChatService
+    ) {}
 
     signInWithFirebase(requestBody: SignInWithFirebaseRequestBody): Observable<User> {
         const url = this.SERVER + '/firebase'
@@ -41,7 +44,7 @@ export class AuthService {
             map((res) => {
                 const user: User = res.dataset[0]
                 this.storageService.setUser(user)
-                this.WsChat.subscribeChatWs(user.access_token)
+                // this.WsChat.subscribeChatWs(user.access_token)
                 return user
             }),
             catchError(handleError)
@@ -61,7 +64,7 @@ export class AuthService {
             map((res) => {
                 const user: User = res.dataset[0]
                 this.storageService.setUser(user)
-                this.WsChat.subscribeChatWs(user.access_token)
+                // this.WsChat.subscribeChatWs(user.access_token)
                 return user
             }),
             catchError(handleError)
@@ -81,7 +84,7 @@ export class AuthService {
             map((res) => {
                 const user: User = res.dataset[0]
                 this.storageService.setUser(user)
-                this.WsChat.subscribeChatWs(user.access_token)
+                // this.WsChat.subscribeChatWs(user.access_token)
                 return user
             }),
             catchError(handleError)

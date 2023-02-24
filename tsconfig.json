@@ -27,7 +27,8 @@
             "@services/*": ["./src/app/core/services/*"],
             "@shared/*": ["./src/app/shared/*"],
             "@environments/*": ["./src/environments/*"],
-            "@guards/*": ["./src/app/core/guards/*"]
+            "@guards/*": ["./src/app/core/guards/*"],
+            "@appStore/*": ["./src/app/store/*"]
         }
     },
     "angularCompilerOptions": {

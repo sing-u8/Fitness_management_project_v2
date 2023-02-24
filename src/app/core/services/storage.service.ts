@@ -22,13 +22,14 @@ export class StorageService {
     constructor(private fireAuth: Auth, private router: Router) {}
 
     getUser(): User {
-        return JSON.parse(this.storage.getItem(this.userKey))
+        const user = JSON.parse(this.storage.getItem(this.userKey) as string) as User
+        return !_.isEmpty(user) ? user : ({} as User)
     }
     setUser(user: UserOrEmpty): void {
         this.storage.setItem(this.userKey, JSON.stringify(user))
     }
     isUserEmpty(): boolean {
-        const user = JSON.parse(this.storage.getItem(this.userKey))
+        const user = JSON.parse(this.storage.getItem(this.userKey) as string)
         return (
             // 한번 info화면에서 이메일 정보를 입력한 뒤의 경우와 단순히 빈 유저 데이터일 경우
             (!_.isEmpty(user) &&
@@ -38,7 +39,7 @@ export class StorageService {
         )
     }
     isSocialUser(): boolean {
-        const user = JSON.parse(this.storage.getItem(this.userKey))
+        const user = JSON.parse(this.storage.getItem(this.userKey) as string)
         return this.isUserEmpty() ? false : user?.sign_in_method != 'email'
     }
 
@@ -67,7 +68,7 @@ export class StorageService {
     }
 
     setSignInMethod(signInMethod: string): void {
-        const user = this.getUser() ?? { sign_in_method: '' }
+        const user = this.getUser()
         user.sign_in_method = signInMethod
         this.setUser(user)
     }
@@ -77,7 +78,7 @@ export class StorageService {
         if (!_.isEmpty(user) && user.selected_center) {
             return user.selected_center
         } else {
-            return null
+            return {} as Center
         }
     }
     setCenter(center: Center): void {
@@ -87,8 +88,10 @@ export class StorageService {
     }
     removeCenter(): void {
         const user: User = this.getUser()
-        user.selected_center = null
-        this.setUser(user)
+        if (!_.isEmpty(user)) {
+            user.selected_center = undefined
+            this.setUser(user)
+        }
     }
 
     setCenterUser(cu: CenterUser): void {
@@ -98,15 +101,15 @@ export class StorageService {
     }
     getCenterUser(): CenterUser {
         const user: User = this.getUser()
-        if (!_.isEmpty(user) && user.selected_center) {
-            return user.selected_center_user
+        if (!_.isEmpty(user) && !_.isEmpty(user.selected_center)) {
+            return user.selected_center_user as CenterUser
         } else {
-            return null
+            return {} as CenterUser
         }
     }
     updateCenterUser(cu: CenterUser) {
         const centerUser = this.getCenterUser()
-        if (cu.id == centerUser.id) {
+        if (!_.isEmpty(centerUser) && cu.id == centerUser.id) {
             this.setCenterUser(cu)
         }
     }

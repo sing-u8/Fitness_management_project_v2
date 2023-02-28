@@ -1,4 +1,21 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
+
+import { Auth, authState } from '@angular/fire/auth'
+
+// ngrx
+import { Store, select } from '@ngrx/store'
+import { modalSelector, toastSelector } from '@appStore/selectors/selectors'
+import { hideModal } from '@appStore/actions/modal.action'
+import { hideToast } from '@appStore/actions/toast.action'
+
+// schemas
+import { Modal } from '@schemas/appStore/modal.interface'
+import { Toast } from '@schemas/appStore/toast.interface'
+import { RoleModal } from '@schemas/appStore/modal.interface'
+
+import _ from 'lodash'
 
 @Component({
     selector: 'app-root',
@@ -6,5 +23,32 @@ import { Component } from '@angular/core'
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    title = 'rw-ng-renewal'
+    public unSubscriber$ = new Subject<void>()
+
+    public modalState: Modal
+    public toastState: Toast
+    public roleModalState: RoleModal
+
+    constructor(private nxStore: Store, private fireAuth: Auth) {
+        this.nxStore.pipe(select(modalSelector), takeUntil(this.unSubscriber$)).subscribe((modal) => {
+            this.modalState = modal
+        })
+        this.nxStore.pipe(select(toastSelector), takeUntil(this.unSubscriber$)).subscribe((toast) => {
+            this.toastState = toast
+        })
+    }
+
+    ngOnInit(): void {}
+
+    ngOnDestroy(): void {
+        this.unSubscriber$.next()
+        this.unSubscriber$.complete()
+    }
+
+    hideModal() {
+        this.nxStore.dispatch(hideModal())
+    }
+    hideToast() {
+        this.nxStore.dispatch(hideToast())
+    }
 }

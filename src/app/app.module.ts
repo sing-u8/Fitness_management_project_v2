@@ -69,6 +69,9 @@ import { StepperComponent } from './stepper/stepper.component'
         }),
         // Google reCAPTCHA
         RecaptchaV3Module,
+        // module
+        SharedModule,
+        CoreModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

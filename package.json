@@ -32,6 +32,7 @@
         "ng-recaptcha": "^11.0.0",
         "ngrx-immer": "^2.0.1",
         "ngx-device-detector": "^5.0.1",
+        "ngx-gauge": "^7.0.0",
         "ngx-skeleton-loader": "^7.0.0",
         "ngx-spinner": "^15.0.1",
         "rxjs": "~7.8.0",

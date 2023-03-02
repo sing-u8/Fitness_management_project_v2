@@ -23,6 +23,7 @@
         "useDefineForClassFields": false,
         "lib": ["es2022", "dom"],
         "paths": {
+            "@test/*": ["./test/*"],
             "@schemas/*": ["./src/app/core/schemas/*"],
             "@services/*": ["./src/app/core/services/*"],
             "@shared/*": ["./src/app/shared/*"],

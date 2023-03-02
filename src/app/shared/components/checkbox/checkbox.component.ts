@@ -6,18 +6,12 @@ import { Component, Input, ElementRef, Renderer2, AfterViewInit } from '@angular
     styleUrls: ['./checkbox.component.scss'],
 })
 export class CheckboxComponent implements AfterViewInit {
-    @Input() checked: boolean
-    @Input() text: string
-    @Input() disabled: boolean
-    @Input() noOpacity: boolean
+    @Input() checked = false
+    @Input() text = ''
+    @Input() disabled = false
+    @Input() noOpacity = false
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
-        this.checked = false
-        this.disabled = false
-        this.noOpacity = false
-    }
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
 
-    ngAfterViewInit(): void {
-        this.text = this.text ?? ''
-    }
+    ngAfterViewInit(): void {}
 }

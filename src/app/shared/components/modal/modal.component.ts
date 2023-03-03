@@ -9,22 +9,29 @@ import {
     SimpleChanges,
     AfterViewChecked,
     ViewChild,
+    ChangeDetectorRef,
 } from '@angular/core'
+import { setVisibleOnChange } from '@shared/helper/modal-helper'
 
 @Component({
     selector: 'rw-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnChanges, AfterViewChecked {
-    @Input() visible: boolean
-    @Input() data: any
+export class ModalComponent implements OnChanges {
+    @Input() visible = false
+    @Input() data: {
+        text?: string
+        subText?: string
+        cancelButtonText?: string
+        confirmButtonText?: string
+    }
     @Input() type: string
 
     @Input() blockClickOutside = false
 
-    @ViewChild('modalBackgroundElement') modalBackgroundElement
-    @ViewChild('modalWrapperElement') modalWrapperElement
+    @ViewChild('modalBackgroundElement') modalBackgroundElement: ElementRef
+    @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
 
     @Output() visibleChange = new EventEmitter<boolean>()
     @Output() cancel = new EventEmitter<any>()
@@ -34,39 +41,13 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
 
     public isMouseModalDown: boolean
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(private el: ElementRef, private renderer: Renderer2, private cd: ChangeDetectorRef) {
         this.type = 'type1'
         this.isMouseModalDown = false
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (!changes['visible'].firstChange) {
-            if (changes['visible'].previousValue != changes['visible'].currentValue) {
-                this.changed = true
-            }
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (this.changed) {
-            this.changed = false
-
-            if (this.visible) {
-                this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
-                this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
-                setTimeout(() => {
-                    this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
-                    this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
-                }, 0)
-            } else {
-                this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
-                this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
-                setTimeout(() => {
-                    this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
-                    this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
-                }, 200)
-            }
-        }
+        setVisibleOnChange(changes, this.renderer, this.modalBackgroundElement, this.modalWrapperElement)
     }
 
     onCancel(): void {

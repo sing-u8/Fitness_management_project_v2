@@ -5,11 +5,11 @@ import { AuthGuard } from '@guards/auth.guard'
 import { TermsGuard } from '@guards/terms.guard'
 
 import { TermsComponent } from './terms/terms.component'
+import { LoginComponent } from './login/login.component'
 
 const routes: Routes = [
-    { path: '', redirectTo: 'terms', pathMatch: 'full' },
-    // { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
-    // { path: 'email', canActivate: [AuthGuard], component: EmailLoginComponent },
+    { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'terms', component: TermsComponent },
     // {
     //   path: 'registration',

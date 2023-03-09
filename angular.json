@@ -8,6 +8,9 @@
             "schematics": {
                 "@schematics/angular:component": {
                     "style": "scss"
+                },
+                "@schematics/angular:application": {
+                    "strict": true
                 }
             },
             "root": "",
@@ -30,7 +33,11 @@
                             "src/robots.txt",
                             "src/sitemap.xml"
                         ],
-                        "styles": ["src/assets/styles/bootstrap-grid.min.css", "src/styles.scss"],
+                        "styles": [
+                            "src/assets/styles/bootstrap-grid.min.css",
+                            "src/styles.scss",
+                            "node_modules/ngx-spinner/animations/ball-clip-rotate.css"
+                        ],
                         "scripts": ["src/assets/javascripts/kakao.min.js"],
                         "allowedCommonJsDependencies": ["lodash"]
                     },
@@ -98,7 +105,11 @@
                             "src/robots.txt",
                             "src/sitemap.xml"
                         ],
-                        "styles": ["src/assets/styles/bootstrap-grid.min.css", "src/styles.scss"],
+                        "styles": [
+                            "src/assets/styles/bootstrap-grid.min.css",
+                            "src/styles.scss",
+                            "node_modules/ngx-spinner/animations/ball-clip-rotate.css"
+                        ],
                         "scripts": ["src/assets/javascripts/kakao.min.js"]
                     }
                 }

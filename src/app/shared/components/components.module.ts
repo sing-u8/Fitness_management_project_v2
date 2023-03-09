@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 
@@ -16,6 +16,14 @@ import { ModalComponent } from './modal/modal.component'
 @NgModule({
     declarations: [ButtonComponent, RadioButtonComponent, CheckboxComponent, ToastComponent, ModalComponent],
     imports: [NgxGaugeModule, NgxSpinnerModule, NgxSkeletonLoaderModule, FormsModule, CommonModule],
-    exports: [ButtonComponent, RadioButtonComponent, CheckboxComponent, ToastComponent, ModalComponent],
+    exports: [
+        ButtonComponent,
+        RadioButtonComponent,
+        CheckboxComponent,
+        ToastComponent,
+        ModalComponent,
+        NgxSpinnerModule,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class SharedComponentsModule {}

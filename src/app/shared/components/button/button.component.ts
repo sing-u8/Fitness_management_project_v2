@@ -17,6 +17,8 @@ import { NgxSpinnerService } from 'ngx-spinner'
 
 import { ButtonEmit } from '@schemas/components/button'
 
+import { detectChangesFor } from '@shared/helper/component-helper'
+
 @Component({
     selector: 'rw-button',
     templateUrl: './button.component.html',
@@ -60,30 +62,25 @@ export class ButtonComponent implements OnInit, OnChanges, AfterViewChecked, Aft
     constructor(private renderer: Renderer2, private spinner: NgxSpinnerService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (
-            changes['disabled'] &&
-            !changes['disabled'].firstChange &&
-            changes['disabled'].previousValue != changes['disabled'].currentValue
-        ) {
+        detectChangesFor(changes, 'disabled', () => {
             this.changed = true
-        }
-
-        if (
-            changes['width'] &&
-            !changes['width'].firstChange &&
-            changes['width'].previousValue != changes['width'].currentValue
-        ) {
+        })
+        detectChangesFor(changes, 'width', () => {
             this.changed = true
-            this.renderer.setStyle(this.button_el.nativeElement, 'width', `${this.width}px`)
-        }
+            this.renderer.setStyle(this.button_el.nativeElement, 'width', `${this.width}`)
+        })
+        detectChangesFor(changes, 'height', () => {
+            this.changed = true
+            this.renderer.setStyle(this.button_el.nativeElement, 'height', `${this.height}`)
+        })
     }
     ngAfterViewInit(): void {
         if (this.width) {
-            this.renderer.setStyle(this.button_el.nativeElement, 'width', `${this.width}px`)
+            this.renderer.setStyle(this.button_el.nativeElement, 'width', `${this.width}`)
         }
 
         if (this.height) {
-            this.renderer.setStyle(this.button_el.nativeElement, 'height', `${this.height}px`)
+            this.renderer.setStyle(this.button_el.nativeElement, 'height', `${this.height}`)
         }
 
         if (this.padding) {
@@ -94,11 +91,12 @@ export class ButtonComponent implements OnInit, OnChanges, AfterViewChecked, Aft
             this.renderer.setStyle(this.button_el.nativeElement, 'backgroundColor', `${this.color}`)
             this.renderer.setStyle(this.button_el.nativeElement, 'color', 'var(--white)', RendererStyleFlags2.Important)
             this.renderer.addClass(this.button_el.nativeElement, 'cmp-button-type2')
-        } else if (this.borderColor) {
-            this.renderer.setStyle(this.button_el.nativeElement, 'border', `1px solid ${this.borderColor}`)
-            this.renderer.setStyle(this.button_el.nativeElement, 'color', 'var(--font-color)')
-            this.renderer.addClass(this.button_el.nativeElement, 'cmp-button-type1')
         } else {
+            this.renderer.addClass(this.button_el.nativeElement, 'cmp-button-type1')
+        }
+
+        if (this.borderColor) {
+            this.renderer.setStyle(this.button_el.nativeElement, 'border', `1px solid ${this.borderColor}`)
             this.renderer.addClass(this.button_el.nativeElement, 'cmp-button-type1')
         }
 

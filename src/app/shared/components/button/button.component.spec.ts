@@ -13,8 +13,8 @@ describe('ButtonComponent', () => {
     let buttonEl: HTMLElement
 
     const inputObj = {
-        width: '300',
-        height: '200',
+        width: '300px',
+        height: '200px',
         color: 'rgb(227, 74, 94)',
         borderColor: '#f6f6f6',
         borderRadius: '5px',
@@ -46,8 +46,9 @@ describe('ButtonComponent', () => {
         component.disabled = inputObj.disabled
         fixture.detectChanges()
 
-        expect(buttonEl.style.width).withContext('should equal to input width').toEqual(`${inputObj.width}px`)
-        expect(buttonEl.style.height).withContext('should equal to input height').toEqual(`${inputObj.height}px`)
+        expect(buttonEl.style.width).withContext('should equal to input width').toEqual(`${inputObj.width}`)
+        console.log('style width : ', buttonEl.style.width, inputObj.width)
+        expect(buttonEl.style.height).withContext('should equal to input height').toEqual(`${inputObj.height}`)
         expect(buttonEl.style.backgroundColor).withContext('should equal to input color').toEqual(`${inputObj.color}`)
         expect(buttonEl.classList).toContain('cmp-button-type2')
         expect(buttonEl.style.borderRadius)

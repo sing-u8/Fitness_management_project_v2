@@ -7,9 +7,10 @@ import { SharedModule } from '@shared/shared.module'
 // components
 import { AuthHeaderComponent } from './components/auth-header/auth-header.component'
 import { TermsComponent } from './terms/terms.component'
+import { LoginComponent } from './login/login.component'
 
 @NgModule({
-    declarations: [AuthHeaderComponent, TermsComponent],
+    declarations: [AuthHeaderComponent, TermsComponent, LoginComponent],
     imports: [CommonModule, SharedModule, AuthRoutingModule],
 })
 export class AuthModule {}

@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { COMPOSITION_BUFFER_MODE } from '@angular/forms'
 
 import { environment } from '@environments/environment'
 
@@ -40,6 +42,7 @@ import { StepperComponent } from './stepper/stepper.component'
     declarations: [AppComponent, StepperComponent],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         AppRoutingModule,
         // firebase
         provideFirebaseApp(() => initializeApp(environment.firebase)),
@@ -73,7 +76,15 @@ import { StepperComponent } from './stepper/stepper.component'
         SharedModule,
         CoreModule,
     ],
-    providers: [],
+    exports: [],
+    providers: [
+        {
+            provide: RECAPTCHA_V3_SITE_KEY,
+            useValue: environment.RECAPTCHA_SITE_KEY,
+        },
+        // 한글 바로 입력되게 설정
+        { provide: COMPOSITION_BUFFER_MODE, useValue: false },
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}

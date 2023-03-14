@@ -3,7 +3,6 @@ import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from
 
 import { StorageService } from '@services/storage.service'
 
-import * as _ from 'lodash'
 import { Store } from '@ngrx/store'
 import { debugLog } from '@appStore/actions/log.action'
 import { Registration } from '@schemas/appStore/registration.interface'

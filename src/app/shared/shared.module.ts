@@ -14,6 +14,8 @@ import { TermsPrivacyComponent } from './terms/terms-privacy/terms-privacy.compo
 // modules
 import { SharedTermsModule } from './terms/terms.module'
 import { SharedComponentsModule } from './components/components.module'
+import { PipesModule } from './pipes/pipes.module'
+import { DirectivesModule } from './directives/directives.module'
 
 @NgModule({
     declarations: [],
@@ -24,6 +26,8 @@ import { SharedComponentsModule } from './components/components.module'
         // modules
         SharedTermsModule,
         SharedComponentsModule,
+        PipesModule,
+        DirectivesModule,
     ],
     // schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })

@@ -11,10 +11,10 @@ const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'terms', component: TermsComponent },
-    // {
-    //   path: 'registration',
-    //   loadChildren: () => import('./registration/registration.module').then((m) => m.RegistrationModule),
-    // },
+    {
+        path: 'registration',
+        loadChildren: () => import('./registration/registration.module').then((m) => m.RegistrationModule),
+    },
     // {
     //   path: 'forgot-password',
     //   canActivate: [AuthGuard],

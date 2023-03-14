@@ -58,17 +58,9 @@ export class TermsComponent implements OnInit, OnDestroy {
             this.termsPrivacy = reg.privacy
             this.marketingSMS = reg.sms_marketing
             this.marketingEmail = reg.email_marketing
-            if (this.marketingSMS && this.marketingEmail) {
-                this.marketing = true
-            } else {
-                this.marketing = false
-            }
-
-            if (this.marketing && this.termsEULA && this.termsPrivacy) {
-                this.all = true
-            } else {
-                this.all = false
-            }
+            this.marketing = this.marketingSMS && this.marketingEmail
+            this.all = this.marketing && this.termsEULA && this.termsPrivacy
+            this.formCheck()
         })
     }
 

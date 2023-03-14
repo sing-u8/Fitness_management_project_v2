@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from '@angular/router'
 
 import { StorageService } from '@services/storage.service'
+import _ from 'lodash'
 
 @Injectable({
     providedIn: 'root',
@@ -12,16 +13,12 @@ export class RegPhoneGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         const user = this.storageService.getUser()
 
-        if (!user) {
-            this.router.navigateByUrl('/auth/login')
+        if (_.isEmpty(user)) {
+            this.router.navigateByUrl('/auth/terms')
             return false
-        } else if (user && user.phone_number_verified) {
+        } else if (!_.isEmpty(user) && user.phone_number_verified) {
             this.router.navigateByUrl('/redwhale-home')
             return false
-        } else if (user && !user.phone_number_verified) {
-            return true
-        } else {
-            return false
-        }
+        } else return user && !user.phone_number_verified
     }
 }

@@ -1,0 +1,23 @@
+.completed {
+    .box {
+        width: 415px;
+        padding-top: 70px;
+
+        .headline {
+            .rw-typo-subtext1 {
+                margin-top: 5px;
+                color: var(--font-color);
+            }
+
+            img {
+                width: 73px;
+                height: 73px;
+                margin-bottom: 30px;
+            }
+        }
+
+        .next {
+            margin-top: 35px;
+        }
+    }
+}

@@ -82,7 +82,7 @@ export const appReducer = createImmerReducer(
     // -------------------------------------------------------------------------------------//
     on(debugLog, (state, action): AppStateInterface => {
         if (environment.production == false) {
-            console.log('-- debug logger : ', action.log)
+            console.log('-- debug logger --\n', ...action.log)
         }
         return state
     })

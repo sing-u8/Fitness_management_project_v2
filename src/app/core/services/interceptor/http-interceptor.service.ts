@@ -8,11 +8,14 @@ import { StorageService } from '@services/storage.service'
 import { AuthService } from '@services/auth.service'
 import { ErrorObj } from '@schemas/error'
 
+import { Store } from '@ngrx/store'
+import { debugLog } from '@appStore/actions/log.action'
+
 @Injectable({
     providedIn: 'root',
 })
 export class HttpInterceptorService implements HttpInterceptor {
-    constructor(private storageService: StorageService, private authService: AuthService) {}
+    constructor(private storageService: StorageService, private authService: AuthService, private nxStore: Store) {}
 
     private isRefreshing = false
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null)
@@ -31,7 +34,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                     if (err.status == 401) {
                         return this.handle401Error(req, next)
                     }
-                    console.log('interceptor err : ', err)
+                    this.nxStore.dispatch(debugLog({ log: [`interceptor err :`, err] }))
                     return throwError(() => err)
                 })
             )

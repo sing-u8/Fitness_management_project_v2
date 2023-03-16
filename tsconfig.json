@@ -29,7 +29,9 @@
             "@shared/*": ["./src/app/shared/*"],
             "@environments/*": ["./src/environments/*"],
             "@guards/*": ["./src/app/core/guards/*"],
-            "@appStore/*": ["./src/app/store/*"]
+            "@appStore/*": ["./src/app/store/*"],
+            "@feature/*": ["./src/app/feature/*"],
+            "@redwhale/*": ["./src/app/feature/redwhale/*"]
         }
     },
     "angularCompilerOptions": {

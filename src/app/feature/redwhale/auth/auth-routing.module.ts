@@ -6,8 +6,10 @@ import { TermsGuard } from '@guards/terms.guard'
 
 import { TermsComponent } from './terms/terms.component'
 import { LoginComponent } from './login/login.component'
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component'
+import { ResetPasswordComponent } from './reset-password/reset-password.component'
 
-const routes: Routes = [
+export const routes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'terms', component: TermsComponent },
@@ -15,16 +17,16 @@ const routes: Routes = [
         path: 'registration',
         loadChildren: () => import('./registration/registration.module').then((m) => m.RegistrationModule),
     },
-    // {
-    //   path: 'forgot-password',
-    //   canActivate: [AuthGuard],
-    //   component: ForgotPasswordComponent,
-    // },
-    // {
-    //   path: 'reset-password',
-    //   canActivate: [AuthGuard],
-    //   component: ResetPasswordComponent,
-    // },
+    {
+        path: 'forgot-password',
+        canActivate: [AuthGuard],
+        component: ForgotPasswordComponent,
+    },
+    {
+        path: 'reset-password',
+        canActivate: [AuthGuard],
+        component: ResetPasswordComponent,
+    },
 ]
 
 @NgModule({

@@ -8,10 +8,16 @@
                 <div class="rw-typo-subtext1">원활한 서비스 이용을 위해 아래 약관에 동의해주세요.</div>
             </div>
             <div class="select-all d-flex align-items-center">
-                <rw-radio-button text="모두 동의해요." [checked]="all" (click)="onClick('all')"></rw-radio-button>
+                <rw-radio-button
+                    data-testid="bt-radio-all"
+                    text="모두 동의해요."
+                    [checked]="all"
+                    (click)="onClick('all')"
+                ></rw-radio-button>
             </div>
             <div class="terms-eula d-flex justify-content-between align-items-center">
                 <rw-radio-button
+                    data-testid="bt-radio-eula"
                     text="레드웨일 서비스 이용약관 (필수)"
                     [checked]="termsEULA"
                     (click)="onClick('termsEULA')"
@@ -20,6 +26,7 @@
             </div>
             <div class="terms-privacy d-flex justify-content-between align-items-center">
                 <rw-radio-button
+                    data-testid="bt-radio-privacy"
                     text="개인정보 보호 및 이용 (필수)"
                     [checked]="termsPrivacy"
                     (click)="onClick('termsPrivacy')"
@@ -28,13 +35,20 @@
             </div>
             <div class="marketing d-flex align-items-center">
                 <rw-radio-button
+                    data-testid="bt-radio-marketing"
                     text="마케팅 정보 수신 (선택)"
                     [checked]="marketing"
                     (click)="onClick('marketing')"
                 ></rw-radio-button>
                 <div class="checkbox-group d-flex align-items-center">
-                    <rw-checkbox text="SMS" [checked]="marketingSMS" (click)="onClick('marketingSMS')"></rw-checkbox>
                     <rw-checkbox
+                        data-testid="bt-check-sms"
+                        text="SMS"
+                        [checked]="marketingSMS"
+                        (click)="onClick('marketingSMS')"
+                    ></rw-checkbox>
+                    <rw-checkbox
+                        data-testid="bt-check-email"
                         text="이메일"
                         [checked]="marketingEmail"
                         (click)="onClick('marketingEmail')"
@@ -44,6 +58,8 @@
 
             <ng-template #none_social_user_next_button [ngIf]="!isSocialUser" [ngIfElse]="social_user_next_button">
                 <rw-button
+                    id="bt-next-for-normal"
+                    data-testid="bt-next-for-normal"
                     class="next"
                     [height]="'55'"
                     [color]="'var(--red)'"
@@ -56,6 +72,7 @@
             <ng-template #social_user_next_button>
                 <div class="social-buttons">
                     <rw-button
+                        data-testid="bt-next-for-social"
                         class="next"
                         [height]="'55'"
                         [width]="'78'"
@@ -66,6 +83,7 @@
                         <div class="button-text">취소</div>
                     </rw-button>
                     <rw-button
+                        data-testid="bt-cancel-for-social"
                         class="next"
                         [height]="'55'"
                         [width]="'327'"

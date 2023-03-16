@@ -51,7 +51,7 @@ export class PhoneComponent implements OnInit, AfterViewInit, OnDestroy {
     public veriNumberSubscription: Subscription
 
     public timeLeft: number
-    public interval: NodeJS.Timeout
+    public interval: any // NodeJS.Timeout
 
     public routerSubscription: Subscription
     public isSocial: boolean

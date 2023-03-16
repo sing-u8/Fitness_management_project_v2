@@ -45,13 +45,15 @@ export class AuthGuard implements CanActivate {
             if (url[1] == 'auth') {
                 if (url[2] == 'registration' && this.canActivateBy(route.routeConfig.path)) {
                     return true
-                } else {
+                } else if (url[2] == 'registration') {
                     this.router.navigateByUrl('/auth/terms')
                     return false
+                } else {
+                    return true
                 }
             } else {
                 this.router.navigateByUrl('/auth/login')
-                return false
+                return true
             }
         }
     }

@@ -56,7 +56,7 @@ export class EmailComponent implements OnInit, AfterViewInit, OnDestroy {
     public veriNumberSubscription: Subscription
 
     public timeLeft: number
-    public interval: NodeJS.Timeout
+    public interval: any // NodeJS.Timeout
 
     subscription: Subscription
 

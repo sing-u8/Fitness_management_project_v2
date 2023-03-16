@@ -24,23 +24,22 @@ import { setRegistration } from '@appStore/actions/registration.action'
     styleUrls: ['./terms.component.scss'],
 })
 export class TermsComponent implements OnInit, OnDestroy {
+    public user: User
+    public isUserEmpty = false
+    public isSocialUser = false
+    public registration: any
+
+    public all = false
+    public termsEULA = false
+    public termsPrivacy = false
+    public marketing = false
+    public marketingSMS = false
+    public marketingEmail = false
+
+    public termsEULAVisible = false
+    public termsPrivacyVisible = false
+
     public unSubscriber$ = new Subject<void>()
-
-    user: User
-    isUserEmpty: boolean
-    isSocialUser: boolean
-
-    registration: any
-
-    all: boolean
-    termsEULA: boolean
-    termsPrivacy: boolean
-    marketing: boolean
-    marketingSMS: boolean
-    marketingEmail: boolean
-
-    termsEULAVisible: boolean
-    termsPrivacyVisible: boolean
 
     constructor(
         private router: Router,
@@ -49,7 +48,6 @@ export class TermsComponent implements OnInit, OnDestroy {
         private usersService: UsersService // private wsChatService: WsChatService
     ) {
         this.user = this.storageService.getUser()
-
         this.isUserEmpty = this.storageService.isUserEmpty()
         this.isSocialUser = this.storageService.isSocialUser()
 

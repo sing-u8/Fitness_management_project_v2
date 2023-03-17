@@ -1,0 +1,16 @@
+image: node:16
+
+pipelines:
+    branches: # When should this pipeline run? At the moment it runs on every commit to master or pull request against master
+        '{master}':
+            -   step: # the step comprised of bash scripts
+                    name: 'Install, build, lint, and test'
+#                    image: zenika/alpine-chrome:with-node  # the image we would like to run the scripts in. In this case, this is a public image
+                    caches: # what should we keep between each step. - node says keep node_modules folder so we don't have to install node_modules between each step
+                        - node
+                    script: # series of steps to run
+                        - npm install
+                        - npm run lint
+                        - npm run build
+                        - set -e
+

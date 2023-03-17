@@ -6,7 +6,8 @@
         "start": "ng serve",
         "build": "ng build",
         "watch": "ng build --watch --configuration development",
-        "test": "ng test",
+        "test": "ng test --watch=true --browsers Chrome",
+        "test:ci": "ng test --watch=false --browsers ChromiumNoSandbox",
         "lint": "eslint src/**/*.ts",
         "lint:fix": "eslint --fix src/**/*.ts"
     },

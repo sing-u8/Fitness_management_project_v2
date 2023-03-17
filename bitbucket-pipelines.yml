@@ -1,3 +1,4 @@
+
 pipelines:
     branches: # When should this pipeline run? At the moment it runs on every commit to master or pull request against master
         '{master}':
@@ -10,5 +11,5 @@ pipelines:
                     - npm install
                     - npm run build
                     - npm run lint
-                    - npm run test:ci
+                    - npm run test
                     - set -e

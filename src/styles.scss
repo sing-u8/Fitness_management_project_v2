@@ -54,248 +54,121 @@
     --state-etc-100: #3457b1;
     --state-etc-10: #ebeff8;
     --state-etc-5: #f5f6fb;
+
+    // etc
+    --font-color: #141517;
 }
 
 // Typography
-.rw-typo-headline1 {
-    font-size: 2.2rem;
+@mixin rw-type-b($fontSize: 3.2rem, $lineHeight: 44px, $color: var(--font-color)) {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
     font-weight: 700;
-    line-height: 32px;
-    letter-spacing: -0.484px;
-    color: var(--font-color);
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
+}
+@mixin rw-type-r($fontSize: 1.8rem, $lineHeight: 29px, $color: var(--font-color)) {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: $fontSize;
+    line-height: $lineHeight;
+    color: $color;
 }
 
-.rw-typo-headline2 {
+.rw-type-b32 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 3.2rem;
+    line-height: 44px;
+    color: var(--font-color);
+}
+.rw-type-b27 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 2.7rem;
+    line-height: 39px;
+    color: var(--font-color);
+}
+.rw-type-b22 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     font-size: 2.2rem;
-    font-weight: 500;
-    line-height: 32px;
-    letter-spacing: -0.484px;
+    line-height: 30px;
     color: var(--font-color);
 }
-
-.rw-typo-title1 {
+.rw-type-b18 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 1.8rem;
+    line-height: 29px;
+    color: var(--font-color);
+}
+.rw-type-b16 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 700;
     font-size: 1.6rem;
-    font-weight: 700;
     line-height: 23px;
-    letter-spacing: -0.256px;
     color: var(--font-color);
 }
-
-.rw-typo-title2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 22px;
-    letter-spacing: -0.225px;
-    color: var(--font-color);
-}
-
-.rw-typo-title2-none-color {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 22px;
-    letter-spacing: -0.225px;
-}
-
-.rw-typo-title2-medium {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 22px;
-    letter-spacing: -0.225px;
-    color: var(--font-color);
-}
-
-.rw-typo-bodytext0-bold {
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 20px;
-    letter-spacing: -0.196px;
-    color: var(--font-color);
-}
-.rw-typo-bodytext0-regular {
-    font-size: 1.4rem;
+.rw-type-r18 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
     font-weight: 400;
-    line-height: 20px;
-    letter-spacing: -0.196px;
+    font-size: 1.8rem;
+    line-height: 29px;
     color: var(--font-color);
 }
-
-.rw-typo-bodytext0-darkgrey-bold {
-    font-size: 1.4rem;
-    font-weight: 700;
+.rw-type-r16 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.6rem;
     line-height: 23px;
-    letter-spacing: -0.256px;
-    color: var(--darkgrey);
+    color: var(--font-color);
 }
-.rw-typo-bodytext0-red-bold {
+.rw-type-r14 {
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-style: normal;
+    font-weight: 400;
     font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 23px;
-    letter-spacing: -0.256px;
-    color: var(--red);
-}
-
-.rw-typo-bodytext0 {
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: -0.196px;
-    color: var(--font-color);
-}
-
-.rw-typo-bodytext0-darkgrey {
-    font-size: 1.4rem;
-    font-weight: 500;
-    line-height: 20px;
-    letter-spacing: -0.196px;
-    color: var(--darkgrey);
-}
-
-.rw-typo-bodytext1 {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.196px;
-    color: var(--font-color);
-}
-.rw-typo-bodytext1_darkgrey {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.196px;
-    color: var(--darkgrey);
-}
-.rw-typo-bodytext1_grey {
-    font-size: 1.4rem;
-    font-weight: 400;
-    line-height: 22px;
-    letter-spacing: -0.196px;
-    color: var(--grey);
-}
-
-.rw-typo-bodytext2 {
-    font-size: 1.3rem;
     line-height: 19px;
-    font-weight: 500;
-    letter-spacing: -0.182px;
     color: var(--font-color);
 }
 
-.rw-typo-bodytext2-regular {
-    font-size: 1.3rem;
-    line-height: 19px;
-    font-weight: 400;
-    letter-spacing: -0.182px;
-    color: var(--font-color);
+// shadows
+.layout-shadow {
+    box-shadow: 0 5px 18px #efeeed;
 }
-
-.rw-typo-bodytext1-regular_darkgrey {
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--darkgrey);
+.modal-shadow {
+    box-shadow: 0 5px 18px #c6c6c6;
 }
-.rw-typo-bodytext2-regular_darkgrey {
-    font-size: 1.3rem;
-    line-height: 19px;
-    font-weight: 400;
-    letter-spacing: -0.182px;
-    color: var(--darkgrey);
+.mini-modal-shadow {
+    box-shadow: 0 3px 14px #e0e0e0;
 }
-.rw-typo-bodytext2-normal_darkgrey {
-    font-size: 1.3rem;
-    line-height: 19px;
-    font-weight: 500;
-    letter-spacing: -0.182px;
-    color: var(--darkgrey);
+@mixin folder-shadow($color: rgba(235, 124, 124, 0.3)) {
+    box-shadow: 0 3px 6px $color;
 }
-
-.rw-typo-bodytext2-bold {
-    font-size: 1.3rem;
-    line-height: 19px;
-    font-weight: 700;
-    letter-spacing: -0.182px;
-    color: var(--font-color);
+@mixin locker-and-card-shadow {
+    box-shadow: 1px 2px 4px #f2f2f2;
 }
-.rw-typo-bodytext2-bold_darkgrey {
-    font-size: 1.3rem;
-    line-height: 19px;
-    font-weight: 700;
-    letter-spacing: -0.182px;
-    color: var(--darkgrey);
+@mixin move-locker-shadow {
+    box-shadow: 1px 1px 13px 3px #c7c7c7;
 }
-
-.rw-typo-subtext0 {
-    font-size: 1.2rem;
-    font-weight: 500;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--font-color);
+@mixin card-shadow {
+    box-shadow: 0 1px 7px 1px #e1e1e1;
 }
-
-.rw-typo-subtext0-regular {
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--font-color);
+@mixin upper-bar-shadow {
+    box-shadow: 0 2px 10px #efeeed;
 }
-
-.rw-typo-subtext1 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--darkgrey);
-}
-
-.rw-typo-subtext2 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    // line-height: 17px;
-    line-height: 19px;
-    letter-spacing: -0.144px;
-    color: var(--grey);
-}
-.rw-typo-subtext2-1 {
-    font-size: 1.2rem;
-    font-weight: 400;
-    // line-height: 17px;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--grey);
-}
-.rw-typo-subtext2-fontcolor {
-    font-size: 1.2rem;
-    font-weight: 400;
-    // line-height: 17px;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: var(--font-color);
-}
-
-.rw-typo-subtext3 {
-    font-size: 1.1rem;
-    line-height: 16px;
-    font-weight: 500;
-    letter-spacing: -0.12px;
-    color: var(--font-color);
-}
-
-.rw-typo-subtext3-darkgrey {
-    font-size: 1.1rem;
-    line-height: 16px;
-    font-weight: 500;
-    letter-spacing: -0.12px;
-    color: var(--darkgrey);
-}
-
-.rw-typo-subtext4 {
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: -0.12px;
-    color: var(--grey);
+@mixin lower-bar-shadow {
+    box-shadow: 0 -2px 15px #efeeed;
 }
 
 // Tooltip
@@ -315,7 +188,7 @@
     background-color: var(--darkgrey);
     border-radius: 6px;
     opacity: 0;
-    z-index: 9999;
+    z-index: 10;
 }
 
 .rw-tooltip-show {

@@ -14,6 +14,7 @@ import { Loading } from '@schemas/loading'
 export class ComponentComponent {
     constructor() {
         setTimeout(() => {
+            this.button1.width = '140px'
             this.button1.status = 'done'
             this.button1.progress = 0
             this.button2.status = 'pending'
@@ -23,6 +24,7 @@ export class ComponentComponent {
 
     // button
     button1 = {
+        width: '110px',
         status: 'idle' as Loading,
         loadingName: 'button1',
         progress: 0,
@@ -38,5 +40,23 @@ export class ComponentComponent {
     }
     button1_2 = {
         status: 'idle' as Loading,
+    }
+    button1_2Disable = true
+
+    // // ghost button
+    gbt1 = {
+        disable: false,
+    }
+    gbt2 = {
+        progress: 'idle' as Loading,
+    }
+    gbt2Click() {
+        if (this.gbt2.progress == 'idle') {
+            this.gbt2.progress = 'pending'
+        } else if (this.gbt2.progress == 'pending') {
+            this.gbt2.progress = 'done'
+        } else {
+            this.gbt2.progress = 'idle'
+        }
     }
 }

@@ -13,9 +13,16 @@ import {
     ButtonIdleContentDirective,
     ButtonPendingContentDirective,
 } from './button/button.component'
+import {
+    GhostButtonComponent,
+    GhostButtonDoneContentDirective,
+    GhostButtonPendingContentDirective,
+    GhostButtonIdleContentDirective,
+} from './ghost-button/ghost-button.component'
 // svg
 import { BallClipRotateComponent } from './svg/ball-clip-rotate/ball-clip-rotate.component'
-import { CheckComponent } from './svg/check/check.component'
+import { CheckComponent } from './svg/check/check.component';
+import { PlusComponent } from './svg/plus/plus.component'
 
 @NgModule({
     declarations: [
@@ -24,9 +31,14 @@ import { CheckComponent } from './svg/check/check.component'
         ButtonIdleContentDirective,
         ButtonPendingContentDirective,
         ButtonDoneContentDirective,
+        GhostButtonComponent,
+        GhostButtonDoneContentDirective,
+        GhostButtonPendingContentDirective,
+        GhostButtonIdleContentDirective,
         // svg
         BallClipRotateComponent,
         CheckComponent,
+        PlusComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule],
     exports: [
@@ -35,9 +47,14 @@ import { CheckComponent } from './svg/check/check.component'
         ButtonIdleContentDirective,
         ButtonPendingContentDirective,
         ButtonDoneContentDirective,
-        BallClipRotateComponent,
-        CheckComponent
+        GhostButtonComponent,
+        GhostButtonDoneContentDirective,
+        GhostButtonPendingContentDirective,
+        GhostButtonIdleContentDirective,
         //
+        BallClipRotateComponent,
+        CheckComponent,
+        PlusComponent
     ],
     schemas: [],
 })

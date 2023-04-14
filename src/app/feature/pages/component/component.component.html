@@ -2,7 +2,7 @@
     <h1>- buttons</h1>
     <h2>기본</h2>
     <div class="d-flex align-items-center">
-        <rwa-button [status]="button1.status" [loadingName]="button1.loadingName" [fontColor]="">
+        <rwa-button [status]="button1.status" [loadingName]="button1.loadingName" [width]="button1.width">
             <ng-template btIdleContent>저장하기</ng-template>
             <ng-template btPendingContent>저장중</ng-template>
             <ng-template btDoneContent>완료</ng-template>
@@ -39,35 +39,152 @@
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_2.status" [bgColor]="'red'">
+        <rwa-button [status]="button1_2.status" [bgColor]="'#E34A5E'" [hoverBgColor]="'#D3243B'">
             <ng-template btIdleContent>bt red</ng-template>
         </rwa-button>
         <div class="h-padding"></div>
-        <rwa-button [status]="button1_2.status" [bgColor]="'red'" [disable]="true">
+        <rwa-button
+            [status]="button1_2.status"
+            [bgColor]="'#E34A5E'"
+            [hoverBgColor]="'#D3243B'"
+            [disable]="button1_2Disable"
+            [disableBgColor]="'#EEEEEE'"
+            (onClick)="button1_2Disable = !button1_2Disable"
+        >
             <ng-template btIdleContent>bt red disable</ng-template>
         </rwa-button>
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_2.status" [bgColor]="'gray'">
+        <rwa-button [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
             <ng-template btIdleContent>bt gray</ng-template>
         </rwa-button>
         <div class="h-padding"></div>
-        <rwa-button [status]="button1_2.status" [bgColor]="'gray'" [disable]="true">
+        <rwa-button
+            [status]="button1_2.status"
+            [bgColor]="'#2F2D2D'"
+            [hoverBgColor]="'#141517'"
+            [disable]="true"
+            [disableBgColor]="'#EEEEEE'"
+        >
             <ng-template btIdleContent>bt gray disable</ng-template>
         </rwa-button>
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_2.status" [bgColor]="'white'">
+        <rwa-button
+            [status]="button1_2.status"
+            [bgColor]="'var(--white)'"
+            [fontColor]="'#575555'"
+            [hoverBgColor]="'#FAF9F9'"
+        >
             <ng-template btIdleContent>bt white</ng-template>
         </rwa-button>
         <div class="h-padding"></div>
-        <rwa-button [status]="button1_2.status" [bgColor]="'white'" [disable]="true">
+        <rwa-button
+            [status]="button1_2.status"
+            [bgColor]="'white'"
+            [disable]="true"
+            [disableBgColor]="'#FFFFFF'"
+            [disableFontColor]="'#D8D8D8'"
+        >
             <ng-template btIdleContent>bt white disable</ng-template>
         </rwa-button>
     </div>
 
     <p class="v-padding"></p>
     <h2>고스트</h2>
+    <div class="d-flex align-items-center">
+        <rwa-ghost-button>
+            <ng-template gbtIdleContent>문의하기</ng-template>
+        </rwa-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-ghost-button [disable]="true">
+            <ng-template gbtIdleContent>문의하기</ng-template>
+        </rwa-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-ghost-button
+            [disable]="true"
+            [disableFontColor]="'var(--label-green)'"
+            [disableBgColor]="'var(--state-etc-5)'"
+        >
+            <ng-template gbtIdleContent>문의하기</ng-template>
+        </rwa-ghost-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-ghost-button
+            [width]="'117px'"
+            [height]="'42px'"
+            [borderColor]="'var(--red-100)'"
+            [hoverBorderColor]="'var(--red-100)'"
+            [fontColor]="'var(--red-100)'"
+            [hoverBgColor]="'var(--red-5)'"
+        >
+            <ng-template gbtIdleContent> <rwa-plus [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template>
+        </rwa-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-ghost-button
+            [width]="'117px'"
+            [height]="'42px'"
+            [borderColor]="'var(--red-100)'"
+            [hoverBorderColor]="'var(--red-100)'"
+            [fontColor]="'var(--red-100)'"
+            [hoverBgColor]="'var(--red-5)'"
+            [disableBgColor]="'var(--white)'"
+            [disableFontColor]="'var(--red-20)'"
+            [disableBorderColor]="'var(--red-20)'"
+            [disable]="gbt1.disable"
+            (onClick)="gbt1.disable = !gbt1.disable"
+        >
+            <ng-template gbtIdleContent>
+                <rwa-plus *ngIf="gbt1.disable" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-plus>
+                <rwa-plus *ngIf="!gbt1.disable" [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template
+            >
+        </rwa-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-ghost-button
+            [width]="'117px'"
+            [height]="'42px'"
+            [borderColor]="'var(--red-100)'"
+            [hoverBorderColor]="'var(--red-100)'"
+            [fontColor]="'var(--red-100)'"
+            [hoverBgColor]="'var(--red-5)'"
+            [disableBgColor]="'var(--white)'"
+            [disableFontColor]="'var(--red-20)'"
+            [disableBorderColor]="'var(--red-20)'"
+            [disable]="true"
+        >
+            <ng-template gbtIdleContent>
+                <rwa-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-plus>
+                <rwa-plus *ngIf="!true" [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template
+            >
+        </rwa-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-ghost-button
+            [width]="'117px'"
+            [height]="'42px'"
+            [borderColor]="'var(--red-100)'"
+            [hoverBorderColor]="'var(--red-100)'"
+            [fontColor]="'var(--red-100)'"
+            [hoverBgColor]="'var(--red-5)'"
+            [disableBgColor]="'var(--white)'"
+            [disableFontColor]="'var(--red-20)'"
+            [disableBorderColor]="'var(--red-20)'"
+            [loadingColor]="'var(--red-100)'"
+            [status]="gbt2.progress"
+            [progressPercent]="75"
+            [progressBgColor]="'var(--red-5)'"
+            (onClick)="gbt2Click()"
+        >
+            <ng-template gbtIdleContent>
+                <rwa-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-100)'"></rwa-plus>
+                수업 추가 st
+            </ng-template>
+            <ng-template gbtPendingContent> 처리중 </ng-template>
+            <ng-template gbtDoneContent>
+                <rwa-check [margin]="'2.5px 4px 0 0'" [color]="'var(--red-100)'"></rwa-check> 완료
+            </ng-template>
+        </rwa-ghost-button>
+    </div>
 </div>

@@ -25,6 +25,9 @@
     &:focus {
         border: 2px solid var(--font-color);
     }
+    &:active {
+        border: none !important;
+    }
     &:hover {
         opacity: 0.9;
     }

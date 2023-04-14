@@ -1,0 +1,15 @@
+<svg
+    [style.width]="width"
+    [style.height]="width"
+    [attr.fill] = "bgColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+>
+    <path
+        fill-rule="evenodd"
+        clip-rule="evenodd"
+        d="M2 10.5C2 14.9183 5.58172 18.5 10 18.5C14.4183 18.5 18 14.9183 18 10.5C18 6.08172 14.4183 2.5 10 2.5V0.5C15.5228 0.5 20 4.97715 20 10.5C20 16.0228 15.5228 20.5 10 20.5C4.47715 20.5 0 16.0228 0 10.5H2Z"
+        [attr.fill]="color"
+    />
+</svg>
+

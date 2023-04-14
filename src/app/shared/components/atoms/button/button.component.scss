@@ -1,0 +1,92 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-button {
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+    border: none;
+
+    .l-spinner {
+        position: relative;
+        min-width: 22px;
+        min-height: 22px;
+        margin-right: 5px;
+    }
+
+    &:focus {
+        border: 2px solid var(--font-color);
+    }
+    &:hover {
+        opacity: 0.9;
+    }
+
+    &.disable {
+        cursor: not-allowed;
+        &:hover {
+            opacity: 1;
+        }
+    }
+
+    .idle,
+    .pending,
+    .done {
+        z-index: 5;
+    }
+
+    .progress {
+        height: 100%;
+        width: 0;
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+    }
+}
+
+.red-bg {
+    background-color: var(--red-100) !important;
+    color: var(--white) !important;
+    &:hover {
+        background-color: var(--red-200) !important;
+    }
+    &.disable {
+        background-color: var(--gray-50) !important;
+        color: var(--white) !important;
+        cursor: not-allowed;
+    }
+}
+.gray-bg {
+    background-color: var(--gray-100) !important;
+    color: var(--white) !important;
+    &:hover {
+        background-color: var(--font-color) !important;
+    }
+    &.disable {
+        background-color: var(--gray-50) !important;
+        color: var(--white) !important;
+        cursor: not-allowed;
+    }
+}
+.white-bg {
+    background-color: var(--white) !important;
+    color: var(--gray-90) !important;
+    &:hover {
+        background-color: var(--background-color) !important;
+    }
+    &.disable {
+        background-color: var(--white) !important;
+        color: var(--gray-60) !important;
+        cursor: not-allowed;
+    }
+}

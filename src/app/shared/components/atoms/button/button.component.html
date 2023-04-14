@@ -1,0 +1,42 @@
+<button
+    #l_button
+    type="button"
+    class="l-button"
+    [style.width]="width"
+    [style.height]="height"
+    [style.border-radius]="borderRadius"
+    [style.padding]="padding"
+    [class.disable]="disable"
+    (click)="onClick.emit()"
+>
+    <div *ngIf="status == 'idle'" class="idle d-flex align-items-center justify-content-center">
+        <ng-container [ngTemplateOutlet]="idleRef.templateRef"></ng-container>
+    </div>
+
+    <div *ngIf="status == 'pending'" class="pending d-flex align-items-center justify-content-center">
+        <div class="l-spinner">
+            <ngx-spinner
+                bdColor="rgba(0, 0, 0, 0.8)"
+                type="ball-clip-rotate"
+                [size]="loadingSize"
+                [color]="loadingColor"
+                [bdColor]="'transparent'"
+                [fullScreen]="false"
+                [name]="loadingName"
+            >
+            </ngx-spinner>
+        </div>
+        <ng-container [ngTemplateOutlet]="pendingRef.templateRef"> </ng-container>
+    </div>
+
+    <div *ngIf="status == 'done'" class="done d-flex align-items-center justify-content-center">
+        <ng-container [ngTemplateOutlet]="doneRef.templateRef"></ng-container>
+    </div>
+
+    <div
+        #progress
+        [style.width]="progressPercent + '%'"
+        [style.background-color]="progressBgColor"
+        class="progress"
+    ></div>
+</button>

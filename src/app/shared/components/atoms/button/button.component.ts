@@ -44,6 +44,19 @@ export class ButtonDoneContentDirective {
 })
 export class ButtonComponent implements AfterViewInit {
     @Output() onClick = new EventEmitter<any>()
+    _onClick() {
+        this.onClick.emit()
+    }
+
+    @Input() hoverBgColor = 'var(--red-200)'
+    onHover() {
+        if (this.disable) return
+        this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.hoverBgColor)
+    }
+    onHoverOut() {
+        if (this.disable) return
+        this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+    }
 
     @Input() bgColor = 'var(--red-100)'
     @Input() progressPercent = 0 // 0 ~ 100
@@ -87,30 +100,21 @@ export class ButtonComponent implements AfterViewInit {
                 this.spinner.hide(this.loadingName)
             }
         })
+
+        this.fontColor$.subscribe((fontColor) => {
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'color', fontColor)
+        })
+        this.bgColor$.subscribe((bgColor) => {
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
+        })
+
         this.disable$.subscribe((disable) => {
             if (disable) {
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.disableFontColor}`)
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.disableBgColor}`)
             } else {
-                this.renderer.removeStyle(this.l_button_el.nativeElement, 'color')
-                this.renderer.removeStyle(this.l_button_el.nativeElement, 'backgroundColor')
-            }
-        })
-        this.fontColor$.subscribe((fontColor) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'color', fontColor)
-        })
-        this.bgColor$.subscribe((bgColor) => {
-            if (bgColor == 'red') {
-                this.loadingColor = 'var(--white)'
-                this.renderer.addClass(this.l_button_el.nativeElement, 'red-bg')
-            } else if (bgColor == 'gray') {
-                this.loadingColor = 'var(--white)'
-                this.renderer.addClass(this.l_button_el.nativeElement, 'gray-bg')
-            } else if (bgColor == 'white') {
-                this.loadingColor = 'var(--font-color)'
-                this.renderer.addClass(this.l_button_el.nativeElement, 'white-bg')
-            } else {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.fontColor}`)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.bgColor}`)
             }
         })
     }

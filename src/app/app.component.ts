@@ -6,9 +6,9 @@ import { Auth, authState } from '@angular/fire/auth'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
-import { modalSelector, toastSelector } from '@appStore/selectors/selectors'
-import { hideModal } from '@appStore/actions/modal.action'
-import { hideToast } from '@appStore/actions/toast.action'
+import { modalSelector, toastSelector } from '@store/app/selectors/selectors'
+import { hideModal } from '@store/app/actions/modal.action'
+import { hideToast } from '@store/app/actions/toast.action'
 
 // schemas
 import { Modal } from '@schemas/appStore/modal.interface'

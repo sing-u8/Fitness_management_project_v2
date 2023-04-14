@@ -1,0 +1,73 @@
+<div id="l-rwp-component" class="d-flex flex-column">
+    <h1>- buttons</h1>
+    <h2>기본</h2>
+    <div class="d-flex align-items-center">
+        <rwa-button [status]="button1.status" [loadingName]="button1.loadingName" [fontColor]="">
+            <ng-template btIdleContent>저장하기</ng-template>
+            <ng-template btPendingContent>저장중</ng-template>
+            <ng-template btDoneContent>완료</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button [status]="button2.status" [loadingName]="button2.loadingName" [progressPercent]="10">
+            <ng-template btIdleContent>저장하기</ng-template>
+            <ng-template btPendingContent>저장중</ng-template>
+            <ng-template btDoneContent>완료</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button
+            [status]="button2.status"
+            [loadingName]="button2.loadingName"
+            [progressBgColor]="'var(--red-200)'"
+            [progressPercent]="button2.progress"
+        >
+            <ng-template btIdleContent>저장하기</ng-template>
+            <ng-template btPendingContent>저장중</ng-template>
+            <ng-template btDoneContent>완료</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button [status]="'done'" [loadingName]="button2.loadingName">
+            <ng-template btIdleContent>저장하기</ng-template>
+            <ng-template btPendingContent>저장중</ng-template>
+            <ng-template btDoneContent> <rwa-check [margin]="'2.5px 4px 0 0'"></rwa-check> 완료 </ng-template>
+        </rwa-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button [status]="button1_1.status" [loadingName]="button1_1.loadingName">
+            <ng-template btIdleContent>button1_1</ng-template>
+        </rwa-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button [status]="button1_2.status" [bgColor]="'red'">
+            <ng-template btIdleContent>bt red</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button [status]="button1_2.status" [bgColor]="'red'" [disable]="true">
+            <ng-template btIdleContent>bt red disable</ng-template>
+        </rwa-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button [status]="button1_2.status" [bgColor]="'gray'">
+            <ng-template btIdleContent>bt gray</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button [status]="button1_2.status" [bgColor]="'gray'" [disable]="true">
+            <ng-template btIdleContent>bt gray disable</ng-template>
+        </rwa-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button [status]="button1_2.status" [bgColor]="'white'">
+            <ng-template btIdleContent>bt white</ng-template>
+        </rwa-button>
+        <div class="h-padding"></div>
+        <rwa-button [status]="button1_2.status" [bgColor]="'white'" [disable]="true">
+            <ng-template btIdleContent>bt white disable</ng-template>
+        </rwa-button>
+    </div>
+
+    <p class="v-padding"></p>
+    <h2>고스트</h2>
+</div>

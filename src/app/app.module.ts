@@ -17,9 +17,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { EffectsModule } from '@ngrx/effects'
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store'
 // - // store
-import { appFeatureKey, appReducer } from '@appStore/reducers/reducers'
-import { metaReducers } from '@appStore/reducers/meta-reducers'
-import { AppEffect } from '@appStore/effects/effects'
+import { appFeatureKey, appReducer } from '@store/app/reducers/reducers'
+import { metaReducers } from '@store/app/reducers/meta-reducers'
+import { AppEffect } from '@store/app/effects/effects'
 
 // Firebase
 import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app'
@@ -36,10 +36,8 @@ import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth'
 // Google reCAPTCHA
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha'
 
-import { StepperComponent } from './stepper/stepper.component'
-
 @NgModule({
-    declarations: [AppComponent, StepperComponent],
+    declarations: [AppComponent],
     imports: [
         BrowserModule,
         BrowserAnimationsModule,

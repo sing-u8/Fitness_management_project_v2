@@ -4,16 +4,16 @@ import { AuthGuard } from '@guards/auth.guard'
 // import { CenterGuard } from '@guards/center.guard'
 
 import { NotFoundComponent } from '@shared/route-components/not-found/not-found.component'
-import { DashboardComponent } from './feature/redwhale/main/dashboard/dashboard.component'
+import { ComponentComponent } from '@pages/component/component.component'
 
 const routes: Routes = [
     {
-        path: 'auth',
-        loadChildren: () => import('./feature/redwhale/auth/auth.module').then((m) => m.AuthModule),
+        path: 'main',
+        loadChildren: () => import('./feature/pages/main/main.routes'),
     },
     {
-        path: 'redwhale-home',
-        component: DashboardComponent,
+        path: 'components',
+        component: ComponentComponent,
     },
     { path: '404', component: NotFoundComponent },
     { path: '**', redirectTo: '/404' },

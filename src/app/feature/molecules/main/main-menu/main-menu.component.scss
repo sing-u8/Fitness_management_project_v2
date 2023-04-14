@@ -1,0 +1,137 @@
+@import './src/styles.scss';
+
+* {
+    @include css-init;
+}
+
+.l-main-menu {
+    $nd_width: 275px;
+    height: 100%;
+    width: $nd_width;
+    background: #f1f0ef;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .top {
+        display: flex;
+        flex-direction: column;
+        padding: 30px 30px 0 30px;
+        .top-upper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .gear-icon {
+                cursor: pointer;
+            }
+        }
+        .top-bottom {
+            margin-top: 5px;
+        }
+    }
+
+    .content {
+        padding: 0 25px 0 20px;
+        .navigation-button {
+            width: 230px;
+            height: 50px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            @include rw-type-r(1.8rem, 29px, var(--gray-100));
+            .nb-icon {
+                margin-right: 10px;
+            }
+            span {
+                margin-top: 3px;
+            }
+
+            &:hover {
+                @include rw-type-b(1.8rem, 29px, var(--font-color));
+            }
+            &:focus {
+                box-sizing: border-box;
+                border: 2px solid var(--font-color);
+            }
+
+            &.selected {
+                background-color: var(--gray-60);
+                @include rw-type-b(1.8rem, 29px, var(--font-color));
+
+                &:hover {
+                    background-color: var(--gray-60);
+                    @include rw-type-b(1.8rem, 29px, var(--font-color));
+                }
+                &:focus {
+                    box-sizing: border-box;
+                    border: 2px solid var(--font-color);
+                }
+            }
+        }
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        padding: 22px;
+        .l-center-user {
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            .avatar {
+                background: #eb7c7c;
+                border-radius: 19px;
+                width: 46px;
+                height: 46px;
+                margin-right: 12px;
+            }
+            .l-user-info {
+                display: flex;
+                flex-direction: column;
+                width: calc(100% - 70px);
+                .user-name {
+                    @include rw-type-r(1.8rem, 29px, var(--font-color));
+                }
+                .user-position {
+                    @include rw-type-r(1.6rem, 23px, var(--gray-90));
+                }
+            }
+            .gear-icon {
+                cursor: pointer;
+            }
+        }
+        .l-inquiry-button {
+            margin-top: 24px;
+            border: 1.5px solid #d8d8d8;
+            border-radius: 14px;
+            cursor: pointer;
+            width: 230px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+}
+
+.sale-icon {
+    @include icon('/assets/icons/main_menu/arrow-fat-line-up.svg');
+}
+.calendar-icon {
+    @include icon('/assets/icons/main_menu/calendar-blank.svg');
+}
+.chatting-icon {
+    @include icon('/assets/icons/main_menu/chat-circle-dots.svg');
+}
+.message-icon {
+    @include icon('/assets/icons/main_menu/envelope-simple.svg');
+}
+.product-icon {
+    @include icon('/assets/icons/main_menu/ticket.svg');
+}
+.lesson-icon {
+    @include icon('/assets/icons/main_menu/person.svg');
+}

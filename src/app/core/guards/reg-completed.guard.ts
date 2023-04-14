@@ -5,8 +5,8 @@ import { Registration } from '@schemas/appStore/registration.interface'
 
 // ngrx
 import { select, Store } from '@ngrx/store'
-import { registrationSelector } from '@appStore/selectors/selectors'
-import { debugLog } from '@appStore/actions/log.action'
+import { registrationSelector } from '@store/app/selectors/selectors'
+import { debugLog } from '@store/app/actions/log.action'
 import { take } from 'rxjs/operators'
 
 @Injectable({

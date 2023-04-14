@@ -1,0 +1,81 @@
+<section class="l-main-tablet-header user-select-none">
+    <header>
+        <aside class="left">
+            <div class="header-button" (click)="toggleShowNavDrawer()">
+                <div class="list-bold-icon"></div>
+            </div>
+        </aside>
+        <main class="rw-type-b18">
+            {{ 'route-name' }}
+        </main>
+        <aside class="right">
+            <div class="header-button">
+                <div class="user-list-icon"></div>
+            </div>
+            <div class="header-button">
+                <div class="chat-circle-dots-icon"></div>
+            </div>
+        </aside>
+    </header>
+</section>
+
+<div class="nav-drawer-background" [class.show-nav-drawer-background]="showNavDrawer"></div>
+<section class="l-nav-drawer user-select-none" [class.show-drawer]="showNavDrawer">
+    <div class="top">
+        <div class="top-upper">
+            <span class="rw-type-b22">센터명</span>
+            <div class="gear-icon"></div>
+        </div>
+        <div class="top-bottom">
+            {{ 'redwhale.xyz/centerurl' }}
+        </div>
+    </div>
+    <div class="content">
+        <div class="navigation-button" [class.selected]="true">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>회원관리</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>매출</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>스케줄</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>채팅</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>문자</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>상품</span>
+        </div>
+        <div class="navigation-button" [class.selected]="false">
+            <div class="nb-icon user-circle-icon"></div>
+            <span>수업</span>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="l-center-user">
+            <div class="avatar"></div>
+            <div class="l-user-info">
+                <div class="user-name">
+                    {{ '강신호' }}
+                </div>
+                <div class="user-position">
+                    {{ '운영자' }}
+                </div>
+            </div>
+            <div class="three-dots-icon"></div>
+        </div>
+        <div class="l-inquiry-button rw-type-r18">문의하기</div>
+    </div>
+    <div class="close-button" *ngIf="showNavDrawer" (click)="showNavDrawer = false">
+        <div class="close-icon"></div>
+    </div>
+</section>

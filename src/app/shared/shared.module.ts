@@ -8,8 +8,6 @@ import { NgxSpinnerModule } from 'ngx-spinner'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
 
 // components
-import { TermsEULAComponent } from './terms/terms-eula/terms-eula.component'
-import { TermsPrivacyComponent } from './terms/terms-privacy/terms-privacy.component'
 
 // modules
 import { SharedTermsModule } from './terms/terms.module'

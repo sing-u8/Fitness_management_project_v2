@@ -27,8 +27,19 @@
     &:disabled {
         opacity: 0.45;
         cursor: not-allowed;
-        input {
-            cursor: not-allowed;
+        input,
+        label {
+            cursor: not-allowed !important;
+        }
+        &:hover {
+            input {
+                background-color: var(--gray-50);
+                border-color: var(--gray-50);
+                &:checked {
+                    border-color: var(--red-100);
+                    background-color: var(--red-100);
+                }
+            }
         }
     }
 

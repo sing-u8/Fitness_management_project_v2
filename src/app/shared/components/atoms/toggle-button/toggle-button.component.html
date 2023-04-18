@@ -1,7 +1,7 @@
 <button
     #l_button
     class="l-toggle-button user-select-none"
-    [class.without-label]="!label"
+    [class.without-label]="!label && !isMouseDown"
     [class.with-label]="label && !isMouseDown"
     [disabled]="disable"
     (click)="_onClick()"

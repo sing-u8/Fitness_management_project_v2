@@ -1,0 +1,46 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.text-button {
+    outline: none;
+    border: 2px solid transparent;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2px;
+    font-family: 'NEXON2_Regular', sans-serif;
+    background-color: transparent !important;
+    cursor: pointer;
+
+    &.focused {
+        border-color: var(--font-color) !important;
+    }
+    &:focus {
+        border-width: 2px !important;
+        border-style: solid !important;
+    }
+    &:active {
+        border: 2px solid transparent !important;
+    }
+    &:active,
+    &:hover {
+        font-family: 'NEXON2_Bold', sans-serif;
+        text-decoration: underline;
+        text-underline-offset: 7px;
+        text-decoration-thickness: 1px;
+        text-decoration-color: var(--font-color);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+
+    &.underline {
+        text-decoration: underline;
+        text-underline-offset: 7px;
+        text-decoration-thickness: 1px;
+    }
+}

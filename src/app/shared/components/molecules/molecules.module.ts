@@ -6,6 +6,8 @@ import { FormsModule } from '@angular/forms'
 import { NgxSpinnerModule } from 'ngx-spinner'
 import { AtomsModule } from '@shared/components/atoms/atoms.module'
 
+
+
 @NgModule({
     declarations: [],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, AtomsModule],

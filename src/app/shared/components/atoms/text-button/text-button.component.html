@@ -1,0 +1,15 @@
+<button
+    #l_button
+    class="text-button"
+    [class.underline]="showUnderLine"
+    [style.font-size]="fontSize"
+    [style.line-height]="lineHeight"
+    [disabled]="disable"
+    (click)="_onClick()"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus()"
+    (focusout)="onFocusOut()"
+>
+    <ng-content></ng-content>
+</button>

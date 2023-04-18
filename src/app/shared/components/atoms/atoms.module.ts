@@ -19,10 +19,20 @@ import {
     GhostButtonPendingContentDirective,
     GhostButtonIdleContentDirective,
 } from './ghost-button/ghost-button.component'
+import { IconButtonComponent } from './icon-button/icon-button.component'
+import { IconGhostButtonComponent } from './icon-ghost-button/icon-ghost-button.component'
+import { CheckboxComponent } from './checkbox/checkbox.component'
 // svg
 import { BallClipRotateComponent } from './svg/ball-clip-rotate/ball-clip-rotate.component'
-import { CheckComponent } from './svg/check/check.component';
+import { CheckComponent } from './svg/check/check.component'
 import { PlusComponent } from './svg/plus/plus.component'
+import { TextButtonComponent } from './text-button/text-button.component'
+import { UserListComponent } from './svg/user-list/user-list.component'
+import { PencilComponent } from './svg/pencil/pencil.component'
+import { GearComponent } from './svg/gear/gear.component'
+import { DotsThreeComponent } from './svg/dots-three/dots-three.component'
+import { RadioButtonComponent } from './radio-button/radio-button.component'
+import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
 
 @NgModule({
     declarations: [
@@ -35,10 +45,20 @@ import { PlusComponent } from './svg/plus/plus.component'
         GhostButtonDoneContentDirective,
         GhostButtonPendingContentDirective,
         GhostButtonIdleContentDirective,
+        TextButtonComponent,
+        IconButtonComponent,
+        IconGhostButtonComponent,
         // svg
         BallClipRotateComponent,
         CheckComponent,
         PlusComponent,
+        UserListComponent,
+        PencilComponent,
+        GearComponent,
+        DotsThreeComponent,
+        CheckboxComponent,
+        RadioButtonComponent,
+        ToggleButtonComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule],
     exports: [
@@ -51,10 +71,20 @@ import { PlusComponent } from './svg/plus/plus.component'
         GhostButtonDoneContentDirective,
         GhostButtonPendingContentDirective,
         GhostButtonIdleContentDirective,
+        TextButtonComponent,
+        IconButtonComponent,
+        IconGhostButtonComponent,
+        CheckboxComponent,
+        RadioButtonComponent,
+        ToggleButtonComponent,
         //
         BallClipRotateComponent,
         CheckComponent,
-        PlusComponent
+        PlusComponent,
+        UserListComponent,
+        PencilComponent,
+        GearComponent,
+        DotsThreeComponent,
     ],
     schemas: [],
 })

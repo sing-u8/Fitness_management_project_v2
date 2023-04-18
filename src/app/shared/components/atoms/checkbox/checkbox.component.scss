@@ -1,0 +1,88 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-checkbox {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid transparent;
+    background-color: transparent;
+    box-sizing: border-box;
+    border-radius: 2px;
+    &.without-label {
+        &:focus {
+            input {
+                border: 2px solid var(--font-color) !important;
+            }
+        }
+    }
+    &.with-label {
+        &:focus {
+            border: 2px solid var(--font-color) !important;
+        }
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        &:hover {
+            input {
+                cursor: not-allowed !important;
+                background-color: var(--gray-50) !important;
+                &:checked {
+                    background-color: var(--red-100) !important;
+                }
+            }
+            label {
+                cursor: not-allowed !important;
+            }
+        }
+    }
+
+    &:hover {
+        input {
+            background-color: var(--gray-60);
+            &:checked {
+                background-color: var(--red-200);
+            }
+        }
+    }
+
+    input {
+        width: 34px;
+        height: 34px;
+        background-color: var(--gray-50);
+        border-radius: 8px;
+        cursor: pointer;
+        appearance: none;
+
+        display: inline-block;
+        background-image: url('/assets/icons/etc/check-bold-white.svg');
+        background-repeat: no-repeat;
+        background-position: 50%;
+        vertical-align: middle;
+
+        &:checked {
+            background-image: url('/assets/icons/etc/check-bold-white.svg');
+            background-repeat: no-repeat;
+            background-position: 50%;
+            background-color: var(--red-100);
+        }
+
+        + label {
+            cursor: pointer;
+            span {
+                font-family: 'NEXON2_Regular', sans-serif;
+                font-weight: 400;
+                font-size: 17px;
+                line-height: 28px;
+                vertical-align: middle;
+                padding: 0 0 0 10px;
+                color: var(--font-color);
+            }
+        }
+    }
+}

@@ -847,3 +847,91 @@ body {
     width: 24px;
     height: 24px;
 }
+
+// Tooltip
+.rw-tooltip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    max-width: 150px;
+    padding: 6px 9px 4px !important;
+    font-family: 'NEXON2_Regular', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 400;
+    line-height: 23px;
+    text-align: center;
+    color: var(--white);
+    overflow-wrap: break-word;
+    background-color: var(--gray-100);
+    border-radius: 10px;
+    opacity: 0;
+    z-index: 9999;
+}
+
+.rw-tooltip-show {
+    opacity: 1;
+}
+
+.rw-tooltip-top {
+    &:after {
+        content: '';
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: var(--darkgrey) transparent transparent transparent;
+    }
+}
+
+.rw-tooltip-right {
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent var(--gray-100) transparent transparent;
+    }
+}
+
+.rw-tooltip-bottom {
+    &:after {
+        content: '';
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        margin-left: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent var(--gray-100) transparent;
+    }
+    &-right {
+        &:after {
+            content: '';
+            position: absolute;
+            bottom: 100%;
+            left: 80%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent transparent var(--gray-100) transparent;
+        }
+    }
+}
+
+.rw-tooltip-left {
+    &:after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent transparent transparent var(--gray-100);
+    }
+}

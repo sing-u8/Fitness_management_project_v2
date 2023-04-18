@@ -45,6 +45,7 @@ export class ButtonDoneContentDirective {
 export class ButtonComponent implements AfterViewInit {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
+        this.l_button_el.nativeElement.blur()
         this.onClick.emit()
     }
 

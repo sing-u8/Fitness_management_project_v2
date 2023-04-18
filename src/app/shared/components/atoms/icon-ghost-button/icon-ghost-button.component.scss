@@ -1,0 +1,34 @@
+@import '../../../../../styles';
+* {
+    @include css-init;
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-width: 1.5px;
+    border-style: solid;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    outline: none;
+
+    &.focused {
+        border-color: var(--font-color) !important;
+    }
+
+    &:focus {
+        border-width: 2px !important;
+        border-style: solid !important;
+    }
+
+    &:active {
+        //border: none !important;
+        border-width: 1.5px !important;
+        border-style: solid !important;
+    }
+    &.border-none {
+        border: none !important;
+    }
+}

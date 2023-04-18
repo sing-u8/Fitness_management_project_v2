@@ -1,15 +1,16 @@
 import {
+    AfterViewInit,
     Component,
+    ContentChild,
+    Directive,
+    ElementRef,
+    EventEmitter,
     Input,
     Output,
-    EventEmitter,
     Renderer2,
-    ViewChild,
-    ElementRef,
-    AfterViewInit,
-    Directive,
+    RendererStyleFlags2,
     TemplateRef,
-    ContentChild,
+    ViewChild,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
 import { Observe } from '@shared/helper/decorator/Observe'
@@ -44,10 +45,11 @@ export class GhostButtonDoneContentDirective {
 export class GhostButtonComponent implements AfterViewInit {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
+        this.l_button_el.nativeElement.blur()
         this.onClick.emit()
     }
     @Input() hoverBgColor = 'var(--gray-30)'
-    @Input() hoverBorderColor = '--gray-60'
+    @Input() hoverBorderColor = 'var(--gray-60)'
     onHover() {
         if (this.disable || this.status == 'pending') return
         this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.hoverBgColor)
@@ -57,6 +59,20 @@ export class GhostButtonComponent implements AfterViewInit {
         if (this.disable) return
         this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
         this.renderer.setStyle(this.l_button_el.nativeElement, 'borderColor', this.borderColor)
+    }
+
+    public isMouseDown = false
+    onMouseDown() {
+        this.isMouseDown = true
+    }
+    onMouseUp() {
+        this.isMouseDown = false
+    }
+    onFocus() {
+        if (!this.isMouseDown) this.renderer.addClass(this.l_button_el.nativeElement, 'focused')
+    }
+    onFocusOut() {
+        this.renderer.removeClass(this.l_button_el.nativeElement, 'focused')
     }
 
     @Input() bgColor = 'var(--white)'
@@ -75,7 +91,7 @@ export class GhostButtonComponent implements AfterViewInit {
     @Input() loadingName = 'ghost-button-loading'
 
     @Input() borderRadius = '14px'
-    @Input() borderColor = '--gray-60'
+    @Input() borderColor = 'var(--gray-60)'
 
     @Input() status: Loading = 'idle'
     @Input() padding = '9px 10px 7px 10px' // padding prop

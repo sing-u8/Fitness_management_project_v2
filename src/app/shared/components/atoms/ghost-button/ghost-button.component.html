@@ -7,10 +7,14 @@
     [style.border-radius]="borderRadius"
     [style.border-color]="borderColor"
     [style.padding]="padding"
-    [class.disable]="disable"
+    [disabled]="disable"
     (click)="_onClick()"
     (mouseenter)="onHover()"
     (mouseleave)="onHoverOut()"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus()"
+    (focusout)="onFocusOut()"
 >
     <div *ngIf="status == 'idle'" class="idle d-flex align-items-center justify-content-center">
         <ng-container [ngTemplateOutlet]="idleRef.templateRef"></ng-container>

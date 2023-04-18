@@ -59,4 +59,37 @@ export class ComponentComponent {
             this.gbt2.progress = 'idle'
         }
     }
+
+    checkbox1 = false
+    checkbox2 = false
+    onCheckBox1(e) {
+        this.checkbox1 = e
+        console.log('on check box 1 click : ', this.checkbox1)
+    }
+    onCheckBox2(e) {
+        this.checkbox2 = e
+        console.log('on check box 2 click : ', this.checkbox2)
+    }
+
+    radio1 = false
+    radio2 = false
+    onRadio1(e) {
+        this.radio1 = e
+        console.log('on radio 1 click : ', this.radio1)
+    }
+    onRadio2(e) {
+        this.radio2 = e
+        console.log('on radio 2 click : ', this.radio2)
+    }
+
+    toggle1 = false
+    toggle2 = false
+    ontoggle1(e) {
+        this.toggle1 = e
+        console.log('on toggle 1 click : ', this.toggle1)
+    }
+    ontoggle2(e) {
+        this.toggle2 = e
+        console.log('on radio 2 click : ', this.radio2)
+    }
 }

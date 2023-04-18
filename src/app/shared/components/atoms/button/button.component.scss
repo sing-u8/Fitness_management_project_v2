@@ -29,7 +29,7 @@
         border: none !important;
     }
 
-    &.disable {
+    &:disabled {
         cursor: not-allowed;
         &:hover {
             opacity: 1;

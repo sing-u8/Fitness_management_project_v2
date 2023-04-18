@@ -1,0 +1,87 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-radio-button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    outline: none;
+    border: 2px solid transparent;
+    background-color: transparent;
+    box-sizing: border-box;
+    &.without-label {
+        &:focus {
+            input {
+                border: 2px solid var(--font-color) !important;
+            }
+        }
+    }
+    &.with-label {
+        &:focus {
+            border: 2px solid var(--font-color) !important;
+        }
+    }
+
+    &:disabled {
+        opacity: 0.45;
+        cursor: not-allowed;
+        input {
+            cursor: not-allowed;
+        }
+    }
+
+    &:hover {
+        input {
+            background-color: var(--gray-30);
+            &:checked {
+                background-color: var(--red-5);
+                border-color: var(--red-200);
+                &:after {
+                    background-color: var(--red-200);
+                }
+            }
+        }
+    }
+
+    input {
+        width: 34px;
+        height: 34px;
+        background-color: var(--white);
+        border-radius: 50px;
+        cursor: pointer;
+        appearance: none;
+        border: 2px solid var(--gray-60);
+        position: relative;
+
+        &:checked {
+            border-color: var(--red-100);
+            &:after {
+                content: '';
+                left: 5px;
+                top: 5px;
+                bottom: 0;
+                right: 0;
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: var(--red-100);
+            }
+        }
+
+        + label {
+            cursor: pointer;
+            span {
+                font-family: 'NEXON2_Regular', sans-serif;
+                font-weight: 400;
+                font-size: 17px;
+                line-height: 28px;
+                vertical-align: middle;
+                padding: 0 0 0 10px;
+                color: var(--font-color);
+            }
+        }
+    }
+}

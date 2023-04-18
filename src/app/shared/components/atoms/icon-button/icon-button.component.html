@@ -1,0 +1,17 @@
+<button
+    #l_button
+    type="button"
+    class="icon-button"
+    [style.width]="width"
+    [style.height]="height"
+    [style.background-color]="bgColor"
+    (click)="_onClick()"
+    (mouseenter)="onHover()"
+    (mouseleave)="onHoverOut()"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus()"
+    (focusout)="onFocusOut()"
+>
+    <ng-content></ng-content>
+</button>

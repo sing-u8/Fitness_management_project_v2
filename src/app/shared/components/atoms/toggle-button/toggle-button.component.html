@@ -1,0 +1,15 @@
+<button
+    #l_button
+    class="l-toggle-button user-select-none"
+    [class.without-label]="!label"
+    [class.with-label]="label && !isMouseDown"
+    [disabled]="disable"
+    (click)="_onClick()"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+>
+    <input [disabled]="disable" tabindex="-1" type="checkbox" [checked]="checked" />
+    <label *ngIf="label">
+        <span>{{ label }}</span>
+    </label>
+</button>

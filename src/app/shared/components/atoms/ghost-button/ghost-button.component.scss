@@ -5,7 +5,8 @@
 
 .l-button {
     border-radius: 14px;
-    border: 1.5px solid var(--gray-60);
+    border-width: 1.5px;
+    border-style: solid;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,14 +23,22 @@
         margin-right: 5px;
     }
 
-    &:focus {
-        //border: 2px solid var(--font-color) !important;
-    }
-    &:hover {
-        opacity: 0.9;
+    &.focused {
+        border-color: var(--font-color) !important;
     }
 
-    &.disable {
+    &:focus {
+        border-width: 2px !important;
+        border-style: solid !important;
+    }
+
+    &:active {
+        //border: none !important;
+        border-width: 1.5px !important;
+        border-style: solid !important;
+    }
+
+    &:disabled {
         cursor: not-allowed;
         &:hover {
             opacity: 1;

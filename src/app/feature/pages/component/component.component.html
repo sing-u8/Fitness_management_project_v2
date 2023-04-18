@@ -187,4 +187,151 @@
             </ng-template>
         </rwa-ghost-button>
     </div>
+    <p class="v-padding"></p>
+    <h2>텍스트 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-text-button> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--red-100)'"
+            [showUnderLine]="true"
+            [disable]="true"
+            [disableColor]="'var(--red-10)'"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [fontSize]="'20px'" [lineHeight]="'25px'" [showUnderLine]="true">
+            <span>사용 불가 해제하기</span>
+        </rwa-text-button>
+
+        <div class="h-padding"></div>
+        <rwa-text-button [fontSize]="'22px'" [lineHeight]="'28px'"> 사용 불가 해제하기 </rwa-text-button>
+    </div>
+    <p class="v-padding"></p>
+    <h2>아이콘 고스트 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-icon-ghost-button
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="회원 리스트"
+            borderColor="var(--gray-60)"
+        >
+            <rwa-user-list></rwa-user-list>
+        </rwa-icon-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-icon-ghost-button
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="자세히 보기"
+            [sizeType]="'sm'"
+            borderRadius="12px"
+            borderColor="var(--gray-60)"
+        >
+            <rwa-dots-three></rwa-dots-three>
+        </rwa-icon-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-icon-ghost-button
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="자세히 보기"
+            sizeType="md"
+            borderRadius="14px"
+            borderColor="var(--gray-60)"
+        >
+            <rwa-dots-three></rwa-dots-three>
+        </rwa-icon-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-icon-ghost-button
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="자세히 보기"
+            sizeType="lg"
+            borderColor="var(--gray-60)"
+        >
+            <rwa-dots-three></rwa-dots-three>
+        </rwa-icon-ghost-button>
+        <div class="h-padding"></div>
+        <rwa-icon-ghost-button
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="자세히 보기"
+            sizeType="lg"
+            bgColor="var(--red-100)"
+            hoverBgColor="var(--red-200)"
+            borderColor="var(--black)"
+        >
+            <rwa-dots-three color="var(--white)"></rwa-dots-three>
+        </rwa-icon-ghost-button>
+    </div>
+    <p class="v-padding"></p>
+    <h2>아이콘 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-icon-button><rwa-pencil></rwa-pencil></rwa-icon-button>
+        <div class="h-padding"></div>
+        <rwa-icon-button [sizeType]="'sm'" borderRadius="12px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
+            <rwa-plus color="var(--white)"></rwa-plus>
+        </rwa-icon-button>
+        <div class="h-padding"></div>
+        <rwa-icon-button sizeType="md" borderRadius="14px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
+            <rwa-plus color="var(--white)"></rwa-plus>
+        </rwa-icon-button>
+        <div class="h-padding"></div>
+        <rwa-icon-button sizeType="lg" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
+            <rwa-plus color="var(--white)"></rwa-plus>
+        </rwa-icon-button>
+    </div>
+    <p class="v-padding"></p>
+    <h2>체크박스</h2>
+    <div class="d-flex align-items-center">
+        <rwa-checkbox [checked]="checkbox1" (onClick)="onCheckBox1($event)"></rwa-checkbox>
+        <div class="h-padding"></div>
+        <rwa-checkbox [disable]="true" [checked]="checkbox1" (onClick)="onCheckBox1($event)"></rwa-checkbox>
+        <div class="h-padding"></div>
+        <rwa-checkbox [checked]="checkbox2" (onClick)="onCheckBox2($event)" label="label"></rwa-checkbox>
+        <div class="h-padding"></div>
+        <rwa-checkbox
+            [checked]="checkbox2"
+            (onClick)="onCheckBox2($event)"
+            [disable]="true"
+            label="label"
+        ></rwa-checkbox>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <h2>라디오 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-radio-button [checked]="radio1" (onClick)="onRadio1($event)"></rwa-radio-button>
+        <div class="h-padding"></div>
+        <rwa-radio-button [disable]="true" [checked]="radio1" (onClick)="onRadio1($event)"></rwa-radio-button>
+        <div class="h-padding"></div>
+        <rwa-radio-button [checked]="radio2" (onClick)="onRadio2($event)" label="label"></rwa-radio-button>
+        <div class="h-padding"></div>
+        <rwa-radio-button
+            [checked]="radio2"
+            (onClick)="onRadio2($event)"
+            [disable]="true"
+            label="label"
+        ></rwa-radio-button>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <h2>토글 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-toggle-button [checked]="toggle1" (onClick)="ontoggle1($event)"></rwa-toggle-button>
+        <div class="h-padding"></div>
+        <rwa-toggle-button [disable]="true" [checked]="toggle1" (onClick)="ontoggle1($event)"></rwa-toggle-button>
+        <div class="h-padding"></div>
+        <rwa-toggle-button [checked]="toggle2" (onClick)="ontoggle2($event)" label="label"></rwa-toggle-button>
+        <div class="h-padding"></div>
+        <rwa-toggle-button
+            [checked]="toggle2"
+            (onClick)="ontoggle2($event)"
+            [disable]="true"
+            label="label"
+        ></rwa-toggle-button>
+        <div class="h-padding"></div>
+    </div>
 </div>

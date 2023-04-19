@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 
 import { Loading } from '@schemas/loading'
+import { TabInput } from '@schemas/components/tab'
 
 @Component({
     selector: 'rwp-component',
@@ -92,4 +93,32 @@ export class ComponentComponent {
         this.toggle2 = e
         console.log('on radio 2 click : ', this.radio2)
     }
+
+    tabInputs1: TabInput[] = [
+        { name: '옵션', selected: true },
+        { name: '옵션', selected: false },
+        { name: '옵션', selected: false },
+    ]
+    onItemSelected1(res: TabInput[]) {
+        this.tabInputs1 = res
+        console.log('onItemSelected1 -- ', this.tabInputs1, res)
+    }
+    tabInputs2: TabInput[] = [
+        { name: '옵션', selected: true },
+        { name: '옵션', selected: false },
+    ]
+
+    tabInputs3: TabInput[] = [
+        { name: '메뉴 01', selected: true },
+        { name: '메뉴 02', selected: false },
+        { name: '메뉴 03', selected: false },
+    ]
+    onItemSelected3(res: TabInput[]) {
+        this.tabInputs3 = res
+        console.log('onItemSelected1 -- ', this.tabInputs3, res)
+    }
+    tabInputs4: TabInput[] = [
+        { name: '메뉴 01', selected: true },
+        { name: '메뉴 02', selected: false },
+    ]
 }

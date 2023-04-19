@@ -1,0 +1,77 @@
+<div class="l-page-button" [class.disable]="disable">
+    <button
+        #left_button
+        type="button"
+        [class.focus]="!isMouseDown"
+        [disabled]="disable"
+        class="left"
+        (click)="onLeftArrowClick()"
+        (mousedown)="onMouseDown()"
+        (mouseup)="onMouseUp()"
+    >
+        <div class="left-arrow"></div>
+    </button>
+    <ng-container *ngFor="let item of pageNumberArr; first as isFirst; last as isLast">
+        <div
+            class="l-button"
+            [class.visible]="
+                isFirst ||
+                isLast ||
+                pageConditions[item - 1].selectedNumberDistance <= pageCoverNumber + additionalCoverNumber
+            "
+        >
+            <div
+                class="l-dot left"
+                *ngIf="
+                    !isFirst &&
+                    pageNumber >= pageConditionSetNumber &&
+                    pageConditions[item - 1].showLeftDots &&
+                    !(
+                        pageConditions[selectedPageNumber - 1].edgeIncluded == 'right' &&
+                        pageConditions[selectedPageNumber - 1].edgeDistance <= pageCoverNumber + 1
+                    )
+                "
+            >
+                <div class="three-dots-icon-fill"></div>
+            </div>
+            <button
+                #button
+                type="button"
+                [class.selected]="selectedPageNumber == item"
+                [class.focus]="!isMouseDown"
+                [disabled]="disable"
+                (click)="_onPageNumberClick(item)"
+                (mousedown)="onMouseDown()"
+                (mouseup)="onMouseUp()"
+            >
+                <span class="value">{{ item }}</span>
+            </button>
+            <div
+                class="l-dot right"
+                *ngIf="
+                    !isLast &&
+                    pageNumber >= pageConditionSetNumber &&
+                    pageConditions[item - 1].showRightDots &&
+                    !(
+                        pageConditions[selectedPageNumber - 1].edgeIncluded == 'left' &&
+                        pageConditions[selectedPageNumber - 1].edgeDistance <= pageCoverNumber + 1
+                    )
+                "
+            >
+                <div class="three-dots-icon-fill"></div>
+            </div>
+        </div>
+    </ng-container>
+    <button
+        #right_button
+        type="button"
+        [class.focus]="!isMouseDown"
+        class="right"
+        [disabled]="disable"
+        (click)="onRightArrowClick()"
+        (mousedown)="onMouseDown()"
+        (mouseup)="onMouseUp()"
+    >
+        <div class="right-arrow"></div>
+    </button>
+</div>

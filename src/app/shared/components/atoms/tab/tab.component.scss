@@ -1,0 +1,97 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.red {
+    color: var(--red-100);
+    font-family: 'NEXON2_Bold', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 23px;
+}
+
+div.l-tap {
+    display: flex;
+    flex-direction: column;
+
+    label {
+        font-family: 'NEXON2_Regular', sans-serif;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 23px;
+        color: var(--gray-100);
+        margin-bottom: 3px;
+    }
+
+    .l-button {
+        display: flex;
+        align-items: center;
+        position: relative;
+        button {
+            box-sizing: border-box;
+            outline: none;
+            border-top: 1px solid var(--gray-50);
+            border-bottom: 1px solid var(--gray-50);
+            border-left: none;
+            border-right: none;
+            height: 100%;
+            width: 100%;
+            background-color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            position: relative;
+
+            @include rw-type-r(1.7rem, 28px, var(--gray-100));
+
+            div.divider {
+                position: absolute;
+                left: 0;
+                width: 1px;
+                height: 60%;
+                border-left: 1px solid var(--gray-50);
+            }
+
+            &:hover,
+            &:active {
+                background-color: var(--gray-30);
+            }
+
+            &:first-of-type {
+                border-radius: 10px 0 0 10px;
+                border-left: 1px solid var(--gray-50);
+                div.divider {
+                    display: none;
+                }
+            }
+            &:last-of-type {
+                border-radius: 0 10px 10px 0;
+                border-right: 1px solid var(--gray-50);
+            }
+
+            &.selected {
+                border-color: var(--red-100);
+                @include rw-type-b(1.7rem, 28px, var(--red-100));
+                border: 1px solid var(--red-100);
+                &:hover,
+                &:active {
+                    background-color: var(--red-5);
+                }
+                &:first-of-type {
+                    border-left: 1px solid var(--red-100);
+                }
+                &:last-of-type {
+                    border-right: 1px solid var(--red-100);
+                }
+            }
+
+            &.focus {
+                &:focus {
+                    border: 2px solid var(--font-color) !important;
+                }
+            }
+        }
+    }
+}

@@ -33,6 +33,9 @@ import { GearComponent } from './svg/gear/gear.component'
 import { DotsThreeComponent } from './svg/dots-three/dots-three.component'
 import { RadioButtonComponent } from './radio-button/radio-button.component'
 import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
+import { TabComponent } from './tab/tab.component'
+import { TabSmComponent } from './tab-sm/tab-sm.component'
+import { PageButtonComponent } from './page-button/page-button.component'
 
 @NgModule({
     declarations: [
@@ -48,6 +51,11 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
         TextButtonComponent,
         IconButtonComponent,
         IconGhostButtonComponent,
+        RadioButtonComponent,
+        ToggleButtonComponent,
+        TabComponent,
+        TabSmComponent,
+        PageButtonComponent,
         // svg
         BallClipRotateComponent,
         CheckComponent,
@@ -57,8 +65,8 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
         GearComponent,
         DotsThreeComponent,
         CheckboxComponent,
-        RadioButtonComponent,
-        ToggleButtonComponent,
+
+        // etc
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule],
     exports: [
@@ -77,6 +85,9 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
         CheckboxComponent,
         RadioButtonComponent,
         ToggleButtonComponent,
+        TabComponent,
+        TabSmComponent,
+        PageButtonComponent,
         //
         BallClipRotateComponent,
         CheckComponent,

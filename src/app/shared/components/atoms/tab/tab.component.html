@@ -1,0 +1,16 @@
+<div class="l-tap user-select-none" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
+    <label>{{ label }} <span class="red">*</span></label>
+    <div class="l-button" [style.width]="width + 'px'" [style.height]="height + 'px'">
+        <button
+            *ngFor="let item of tabs; let idx = index"
+            #button
+            type="button"
+            [class.selected]="item.selected"
+            [class.focus]="!isMouseDown"
+            (click)="onItemSelected(idx)"
+        >
+            {{ item.name }}
+            <div [style.top]="height * 0.2 + 'px'" class="divider"></div>
+        </button>
+    </div>
+</div>

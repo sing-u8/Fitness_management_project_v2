@@ -334,4 +334,39 @@
         ></rwa-toggle-button>
         <div class="h-padding"></div>
     </div>
+    <p class="v-padding"></p>
+    <h2>탭</h2>
+    <div class="d-flex align-items-center">
+        <rwa-tab [tabs]="tabInputs1" [label]="'레이블'" (onTabItemSelected)="onItemSelected1($event)"></rwa-tab>
+        <div class="h-padding"></div>
+        <rwa-tab [tabs]="tabInputs2" [label]="'레이블'" (onTabItemSelected)="tabInputs2 = $event"></rwa-tab>
+    </div>
+    <p class="v-padding"></p>
+    <h2>탭 small</h2>
+    <div class="d-flex align-items-center">
+        <rwa-tab-sm [tabs]="tabInputs3" (onTabItemSelected)="onItemSelected3($event)"></rwa-tab-sm>
+        <div class="h-padding"></div>
+        <rwa-tab-sm [tabs]="tabInputs4" (onTabItemSelected)="tabInputs4 = $event"></rwa-tab-sm>
+    </div>
+    <p class="v-padding"></p>
+    <h2>페이지 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-page-button [pageNumber]="6"></rwa-page-button>
+        <div class="h-padding"></div>
+        <rwa-page-button [pageNumber]="7"></rwa-page-button>
+        <div class="h-padding"></div>
+        <rwa-page-button [pageNumber]="10"></rwa-page-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-page-button [pageNumber]="12" [disable]="true"></rwa-page-button>
+        <div class="h-padding"></div>
+        <rwa-page-button [pageNumber]="999" [disable]="false"></rwa-page-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-page-button [pageNumber]="6" [disable]="true"></rwa-page-button>
+        <div class="h-padding"></div>
+        <rwa-page-button [pageNumber]="10" [disable]="true"></rwa-page-button>
+    </div>
 </div>

@@ -17,7 +17,8 @@
             [class.visible]="
                 isFirst ||
                 isLast ||
-                pageConditions[item - 1].selectedNumberDistance <= pageCoverNumber + additionalCoverNumber
+                pageConditions[item - 1].absSelectedNumberDistance <= pageCoverNumber + additionalCoverNumber ||
+                pageConditions[item - 1]?.mustShow
             "
         >
             <div
@@ -28,7 +29,7 @@
                     pageConditions[item - 1].showLeftDots &&
                     !(
                         pageConditions[selectedPageNumber - 1].edgeIncluded == 'right' &&
-                        pageConditions[selectedPageNumber - 1].edgeDistance <= pageCoverNumber + 1
+                        pageConditions[selectedPageNumber - 1].absSelectedNumberDistance <= pageCoverNumber + 1
                     )
                 "
             >
@@ -54,7 +55,7 @@
                     pageConditions[item - 1].showRightDots &&
                     !(
                         pageConditions[selectedPageNumber - 1].edgeIncluded == 'left' &&
-                        pageConditions[selectedPageNumber - 1].edgeDistance <= pageCoverNumber + 1
+                        pageConditions[selectedPageNumber - 1].absSelectedNumberDistance <= pageCoverNumber + 1
                     )
                 "
             >

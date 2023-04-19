@@ -17,9 +17,10 @@ import _ from 'lodash'
 type PageNumberCondition = {
     edgeIncluded: 'left' | 'right' | 'none' // for selected number
     edgeDistance: number // for selected number
-    selectedNumberDistance: number
+    absSelectedNumberDistance: number
     showLeftDots: boolean
     showRightDots: boolean
+    mustShow?: boolean
 }
 
 @Component({
@@ -31,31 +32,25 @@ export class PageButtonComponent implements AfterViewInit {
     @Input() disable = false
     @Input() pageUnit = 10
     @Input() pageNumber!: number
-    @Input() pageConditionSetNumber = 7
-    @Input() pageCoverNumber = 2
+    public pageConditionSetNumber = 7
+    public pageCoverNumber = 2
     public additionalCoverNumber = 0
     public pageNumberArr: number[] = []
     public pageConditions: PageNumberCondition[] = []
     public selectedPageNumber = 1
     updatePageConditions() {
-        // if (!_.isEmpty(this.pageConditions[this.selectedPageNumber - 1])) {
-        //     this.additionalCoverNumber =
-        //         this.pageConditions[this.selectedPageNumber - 1].edgeDistance <= 2
-        //             ? _.ceil((2 - this.pageConditions[this.selectedPageNumber - 1].edgeDistance) / 2, 1)
-        //             : 0
-        // }
         this.pageConditions = _.map(this.pageNumberArr, (v, i) => {
             const condition: PageNumberCondition = {
                 edgeIncluded: 'none',
                 edgeDistance: -1,
                 showLeftDots: false,
                 showRightDots: false,
-                selectedNumberDistance: 0,
+                absSelectedNumberDistance: 0,
             }
             if (this.pageNumberArr.length < this.pageConditionSetNumber) {
                 return condition
             }
-            condition.selectedNumberDistance = Math.abs(v - this.selectedPageNumber)
+            condition.absSelectedNumberDistance = Math.abs(v - this.selectedPageNumber)
             if (this.selectedPageNumber == v) {
                 condition.showLeftDots = false
                 condition.showRightDots = false
@@ -71,23 +66,46 @@ export class PageButtonComponent implements AfterViewInit {
                         : condition.edgeIncluded == 'right'
                         ? this.pageNumberArr.length - v
                         : -1
-            } else if (v < this.selectedPageNumber) {
-                condition.showLeftDots =
-                    v == 1 ? false : this.selectedPageNumber - (this.pageCoverNumber + this.additionalCoverNumber) > v
-                condition.showRightDots =
-                    this.selectedPageNumber - (this.pageCoverNumber + this.additionalCoverNumber) > v
+                return condition
+            }
+            if (v < this.selectedPageNumber) {
+                condition.showLeftDots = v == 1 ? false : this.selectedPageNumber - this.pageCoverNumber > v
+                condition.showRightDots = this.selectedPageNumber - this.pageCoverNumber > v
             } else if (v > this.selectedPageNumber) {
-                condition.showLeftDots =
-                    this.selectedPageNumber + (this.pageCoverNumber + this.additionalCoverNumber) < v
+                condition.showLeftDots = this.selectedPageNumber + this.pageCoverNumber < v
                 condition.showRightDots =
-                    v == this.pageNumberArr.length
-                        ? false
-                        : this.selectedPageNumber + (this.pageCoverNumber + this.additionalCoverNumber) < v
+                    v == this.pageNumberArr.length ? false : this.selectedPageNumber + this.pageCoverNumber < v
             }
             return condition
         })
-
-        console.log('page button this.pageConditions -- ', this.pageConditions)
+        if (!_.isEmpty(this.pageConditions[this.selectedPageNumber - 1])) {
+            this.additionalCoverNumber =
+                this.pageConditions[this.selectedPageNumber - 1].edgeDistance <= 2 &&
+                this.pageConditions[this.selectedPageNumber - 1].edgeDistance >= 0
+                    ? 2 - this.pageConditions[this.selectedPageNumber - 1].edgeDistance
+                    : 0
+            if (this.pageConditions[this.selectedPageNumber - 1].edgeIncluded == 'right') {
+                for (let n = this.pageCoverNumber; n > 0; n--) {
+                    const ed = this.pageConditions[this.selectedPageNumber - 1].edgeDistance
+                    this.pageConditions[this.selectedPageNumber - 1 - (n + this.pageCoverNumber - ed)].showRightDots =
+                        this.selectedPageNumber - 1 - n == 0
+                    this.pageConditions[this.selectedPageNumber - 1 - (n + this.pageCoverNumber - ed)].showLeftDots =
+                        false
+                }
+            } else if (this.pageConditions[this.selectedPageNumber - 1].edgeIncluded == 'left') {
+                for (let n = this.pageCoverNumber; n > 0; n--) {
+                    const ed = this.pageConditions[this.selectedPageNumber - 1].edgeDistance
+                    this.pageConditions[this.selectedPageNumber - 1 + (n + this.pageCoverNumber - ed)].showRightDots =
+                        false
+                    this.pageConditions[this.selectedPageNumber - 1 + (n + this.pageCoverNumber - ed)].showLeftDots =
+                        false
+                }
+                if (this.selectedPageNumber == 4) {
+                    this.pageConditions[1].mustShow = true
+                    this.additionalCoverNumber = this.additionalCoverNumber - 1
+                }
+            }
+        }
     }
 
     @Output() onPageNumberClick = new EventEmitter<{
@@ -138,7 +156,6 @@ export class PageButtonComponent implements AfterViewInit {
         this.button_els['_results'][pn - 1].nativeElement.blur()
         if (this.selectedPageNumber == pn || this.disable) return
         this.selectedPageNumber = pn
-        console.log('_onPageNumberClick -- ', pn, [pn * this.pageUnit - this.pageUnit, pn * this.pageUnit - 1])
         this.updatePageConditions()
         this.onPageNumberClick.emit({
             selectedPageNumber: pn,

@@ -92,6 +92,10 @@ export class PageButtonComponent implements AfterViewInit {
                     this.pageConditions[this.selectedPageNumber - 1 - (n + this.pageCoverNumber - ed)].showLeftDots =
                         false
                 }
+                if (this.selectedPageNumber == this.pageNumberArr.length - 3) {
+                    this.pageConditions[this.pageNumberArr.length - 2].mustShow = true
+                    this.additionalCoverNumber = this.additionalCoverNumber - 1
+                }
             } else if (this.pageConditions[this.selectedPageNumber - 1].edgeIncluded == 'left') {
                 for (let n = this.pageCoverNumber; n > 0; n--) {
                     const ed = this.pageConditions[this.selectedPageNumber - 1].edgeDistance

@@ -1,0 +1,80 @@
+<div class="l-text-field">
+    <div class="label" *ngIf="labelVisible">
+        {{ label }} <span class="red">*</span>
+        <div
+            *ngIf="advice"
+            class="info-icon"
+            rwTooltip
+            rwTooltipPlacement="top"
+            [showTail]="true"
+            [rwTooltipTitle]="advice"
+        ></div>
+    </div>
+    <div class="l-input">
+        <input
+            #input
+            type="text"
+            [maxLength]=""
+            [maxlength]="inputLimit"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+            [class.type-word-limit]="type == 'wordLimit'"
+            [class.type-time-limit]="type == 'timeLimit'"
+            [placeholder]="placeholder"
+            [formControl]="textField"
+        />
+        <div class="l-input-tag">
+            <div *ngIf="type == 'normal'" class="input-tag-normal">
+                <rwa-close-fill
+                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    (click)="resetTextField()"
+                ></rwa-close-fill>
+                <rwa-warning
+                    *ngIf="status == 'error' || status == 'warning'"
+                    [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
+                ></rwa-warning>
+                <rwa-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-check>
+            </div>
+            <div
+                *ngIf="type == 'wordLimit'"
+                class="input-tag-word"
+                [class.bold]="status == 'warning' || status == 'error'"
+            >
+                <span *ngIf="status != 'success'"
+                    >{{ textField.value.length | padStart : 2 : '0' }} / {{ inputLimit | padStart : 2 : '0' }}</span
+                >
+                <rwa-close-fill
+                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    (click)="resetTextField()"
+                ></rwa-close-fill>
+                <rwa-warning
+                    *ngIf="status == 'error' || status == 'warning'"
+                    [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
+                ></rwa-warning>
+                <rwa-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-check>
+            </div>
+            <div *ngIf="type == 'timeLimit'" class="input-tag-time">
+                <span *ngIf="status != 'success'">{{ timeLimit | minuteSeconds }}</span>
+                <rwa-close-fill
+                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    (click)="resetTextField()"
+                ></rwa-close-fill>
+                <rwa-warning
+                    *ngIf="status == 'error' || status == 'warning'"
+                    [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
+                ></rwa-warning>
+                <rwa-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-check>
+            </div>
+        </div>
+
+        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div
+            *ngIf="status == 'warning' || status == 'error'"
+            class="status"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        >
+            {{ statusText }}
+        </div>
+    </div>
+</div>

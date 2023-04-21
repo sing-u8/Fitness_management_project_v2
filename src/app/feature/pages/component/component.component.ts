@@ -2,6 +2,8 @@ import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 
+import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
+
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
 
@@ -13,7 +15,7 @@ import { TabInput } from '@schemas/components/tab'
     styleUrls: ['./component.component.scss'],
 })
 export class ComponentComponent {
-    constructor() {
+    constructor(private fb: FormBuilder) {
         setTimeout(() => {
             this.button1.width = '140px'
             this.button1.status = 'done'
@@ -121,4 +123,39 @@ export class ComponentComponent {
         { name: '메뉴 01', selected: true },
         { name: '메뉴 02', selected: false },
     ]
+
+    //
+    public text1 = ''
+    onText1Change(text: string) {
+        this.text1 = text
+        console.log('onText1Change -- ', this.text1)
+        if (this.text1 != text) {
+        }
+    }
+
+    public text2 = ''
+    onText2Change(text: string) {
+        this.text2 = text
+        console.log('onText2Change -- ', this.text2)
+        if (this.text2 != text) {
+        }
+    }
+
+    public textInput = this.fb.control('')
+    public numberText1 = ''
+    onNumberText1Change(text: string) {
+        this.numberText1 = text
+        console.log('onText2Change -- ', this.numberText1)
+    }
+    public numberText2 = ''
+    onNumberText2Change(text: string) {
+        this.numberText2 = text
+        console.log('onText2Change -- ', this.numberText2)
+    }
+
+    public verificationNumber = ''
+    onVerificationNumberChange(text: string) {
+        this.verificationNumber = text
+        console.log('onVerificationNumberChange -- ', this.verificationNumber)
+    }
 }

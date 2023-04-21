@@ -1,0 +1,76 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-verification-field {
+    display: flex;
+    flex-direction: column;
+
+    .label {
+        display: flex;
+        align-items: center;
+        @include rw-type-r(1.5rem, 23px, var(--gray-100));
+        margin-bottom: 3px;
+        .info-icon {
+            margin-left: 3px;
+        }
+        .red {
+            @include rw-type-b(1.5rem, 23px, var(--red-100));
+            margin-left: 3px;
+        }
+    }
+
+    .l-input {
+        display: flex;
+        align-items: center;
+        position: relative;
+        input {
+            width: 92px;
+            height: 100px;
+            box-sizing: border-box;
+            background-color: var(--gray-30);
+            border: 1px solid var(--gray-50);
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            vertical-align: middle;
+
+            &:not(:first-of-type) {
+                margin-left: 11px;
+            }
+
+            @include rw-type-b(2rem, 31px, var(--font-color));
+            &:focus {
+                @include card-shadow();
+                border: 1px solid var(--gray-100);
+            }
+
+            &.warning {
+                background-color: var(--state-warning-5);
+                border: 1px solid var(--state-warning-100);
+            }
+            &.error {
+                background-color: var(--state-error-5);
+                border: 1px solid var(--state-error-100);
+            }
+        }
+
+        .status {
+            position: absolute;
+            bottom: -26px;
+            left: 1px;
+            margin-top: 3px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            @include rw-type-r(1.5rem, 23px, var(--font-color));
+            &.warning {
+                color: var(--state-warning-100);
+            }
+            &.error {
+                color: var(--state-error-100);
+            }
+        }
+    }
+}

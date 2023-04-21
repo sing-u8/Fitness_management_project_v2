@@ -1,0 +1,54 @@
+<div class="l-verification-field">
+    <div class="label" *ngIf="labelVisible">{{ label }} <span class="red">*</span></div>
+    <form [formGroup]="form" class="l-input">
+        <input
+            #one
+            formControlName="one"
+            maxlength="1"
+            (keydown)="restrictToNumber($event)"
+            (keyup.backspace)="whenKeyDelete('one')"
+            (keyup)="whenKeyUp($event, 'one')"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        />
+        <input
+            #two
+            formControlName="two"
+            maxlength="1"
+            (keydown)="restrictToNumber($event)"
+            (keyup.backspace)="whenKeyDelete('two')"
+            (keyup)="whenKeyUp($event, 'two')"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        />
+        <input
+            #three
+            formControlName="three"
+            maxlength="1"
+            (keydown)="restrictToNumber($event)"
+            (keyup.backspace)="whenKeyDelete('three')"
+            (keyup)="whenKeyUp($event, 'three')"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        />
+        <input
+            #four
+            formControlName="four"
+            maxlength="1"
+            (keydown)="restrictToNumber($event)"
+            (keyup.backspace)="whenKeyDelete('four')"
+            (keyup)="whenKeyUp($event, 'four')"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        />
+
+        <div
+            *ngIf="status == 'warning' || status == 'error'"
+            class="status"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        >
+            {{ statusText }}
+        </div>
+    </form>
+</div>

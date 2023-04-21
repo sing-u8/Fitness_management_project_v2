@@ -1,6 +1,10 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
+// modules
+import { DirectivesModule } from '@shared/directives/directives.module'
+import { PipesModule } from '@shared/pipes/pipes.module'
 
 // components
 
@@ -36,6 +40,12 @@ import { ToggleButtonComponent } from './toggle-button/toggle-button.component'
 import { TabComponent } from './tab/tab.component'
 import { TabSmComponent } from './tab-sm/tab-sm.component'
 import { PageButtonComponent } from './page-button/page-button.component'
+import { TextFieldComponent } from './text-field/text-field.component'
+import { WarningComponent } from './svg/warning/warning.component'
+import { CloseFillComponent } from './svg/close-fill/close-fill.component'
+import { NumberTextFieldComponent } from './number-text-field/number-text-field.component'
+import { TextInputComponent } from './text-input/text-input.component'
+import { VerificationFieldComponent } from './verification-field/verification-field.component'
 
 @NgModule({
     declarations: [
@@ -56,6 +66,10 @@ import { PageButtonComponent } from './page-button/page-button.component'
         TabComponent,
         TabSmComponent,
         PageButtonComponent,
+        TextFieldComponent,
+        NumberTextFieldComponent,
+        TextInputComponent,
+        VerificationFieldComponent,
         // svg
         BallClipRotateComponent,
         CheckComponent,
@@ -65,10 +79,12 @@ import { PageButtonComponent } from './page-button/page-button.component'
         GearComponent,
         DotsThreeComponent,
         CheckboxComponent,
+        WarningComponent,
+        CloseFillComponent,
 
         // etc
     ],
-    imports: [NgxSpinnerModule, FormsModule, CommonModule],
+    imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
         // button
         ButtonComponent,
@@ -88,7 +104,11 @@ import { PageButtonComponent } from './page-button/page-button.component'
         TabComponent,
         TabSmComponent,
         PageButtonComponent,
-        //
+        TextFieldComponent,
+        NumberTextFieldComponent,
+        TextInputComponent,
+        VerificationFieldComponent,
+        // svg
         BallClipRotateComponent,
         CheckComponent,
         PlusComponent,
@@ -96,6 +116,8 @@ import { PageButtonComponent } from './page-button/page-button.component'
         PencilComponent,
         GearComponent,
         DotsThreeComponent,
+        WarningComponent,
+        CloseFillComponent,
     ],
     schemas: [],
 })

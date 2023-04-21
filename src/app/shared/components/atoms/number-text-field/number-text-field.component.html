@@ -1,0 +1,47 @@
+<div class="l-text-field">
+    <div class="label" *ngIf="labelVisible">
+        {{ label }} <span class="red">*</span>
+        <div
+            *ngIf="advice"
+            class="info-icon"
+            rwTooltip
+            rwTooltipPlacement="top"
+            [showTail]="true"
+            [rwTooltipTitle]="advice"
+        ></div>
+    </div>
+    <div class="l-input">
+        <input
+            #input
+            type="text"
+            (keydown)="restrictToNumber($event)"
+            [class.in-type]="(textField.value.length > 0 || status != 'none') && !disable"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+            [placeholder]="placeholder"
+            [formControl]="textField"
+        />
+        <div class="l-input-tag">
+            <span class="currency">원</span>
+            <div class="input-tag-normal">
+                <rwa-close-fill
+                    *ngIf="!disable && status != 'error' && status != 'warning' && textField.value.length > 0"
+                    (click)="resetTextField()"
+                ></rwa-close-fill>
+                <rwa-warning
+                    *ngIf="status == 'error' || status == 'warning'"
+                    [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
+                ></rwa-warning>
+            </div>
+        </div>
+        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div
+            *ngIf="status == 'warning' || status == 'error'"
+            class="status"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        >
+            {{ statusText }}
+        </div>
+    </div>
+</div>

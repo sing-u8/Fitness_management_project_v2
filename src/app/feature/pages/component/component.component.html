@@ -371,4 +371,198 @@
         <div class="h-padding"></div>
         <rwa-page-button [pageNumber]="10" [disable]="true"></rwa-page-button>
     </div>
+    <p class="v-padding"></p>
+    <h1>- buttons</h1>
+    <h2 (click)="text1 = '일반 텍스트 다른 곳에서 변경 테스트'">일반</h2>
+    <div class="d-flex align-items-center">
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text2"
+            (onValueChange)="onText2Change($event)"
+            [type]="'wordLimit'"
+            [inputLimit]="10"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [placeholder]="'플레이스 홀더'"
+            [type]="'timeLimit'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-field
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [type]="'wordLimit'"
+            [inputLimit]="50"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [type]="'timeLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-field
+            [status]="'success'"
+            [statusText]="'에러 메시지'"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [type]="'wordLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'success'"
+            [statusText]="'경고 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [type]="'timeLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'success'"
+            [statusText]="'에러 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-field [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <h3>일반 (ControlValueAccessor)</h3>
+    <div class="d-flex align-items-center">
+        <rwa-text-input [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-input>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>숫자</h2>
+    <div class="d-flex align-items-center">
+        <rwa-number-text-field
+            [labelVisible]="false"
+            [value]="numberText1"
+            (onValueChange)="onNumberText1Change($event)"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field
+            [value]="numberText2"
+            (onValueChange)="onNumberText2Change($event)"
+            [hint]="'힌트 메시지'"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field [advice]="'도움말'"></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field
+            [value]="numberText1"
+            (onValueChange)="onNumberText1Change($event)"
+            [disable]="true"
+        ></rwa-number-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-number-text-field
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            [value]="numberText1"
+            (onValueChange)="onNumberText1Change($event)"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+            [value]="numberText2"
+            (onValueChange)="onNumberText2Change($event)"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field [advice]="'도움말'"></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field [disable]="true"></rwa-number-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-number-text-field
+            [value]="numberText1"
+            (onValueChange)="onNumberText1Change($event)"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field
+            [value]="numberText2"
+            (onValueChange)="onNumberText2Change($event)"
+        ></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field [advice]="'도움말'"></rwa-number-text-field>
+        <div class="h-padding"></div>
+        <rwa-number-text-field [disable]="true"></rwa-number-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <h2>인증번호</h2>
+    <div class="d-flex align-items-center">
+        <rwa-verification-field
+            [labelVisible]="false"
+            [value]="verificationNumber"
+            (onValueChange)="onVerificationNumberChange($event)"
+        ></rwa-verification-field>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <rwa-verification-field
+            [value]="verificationNumber"
+            (onValueChange)="onVerificationNumberChange($event)"
+            [hint]="'힌트 메시지'"
+        ></rwa-verification-field>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-verification-field
+            [labelVisible]="false"
+            [value]="verificationNumber"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+            (onValueChange)="onVerificationNumberChange($event)"
+        ></rwa-verification-field>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <rwa-verification-field
+            [value]="verificationNumber"
+            (onValueChange)="onVerificationNumberChange($event)"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            [hint]="'힌트 메시지'"
+        ></rwa-verification-field>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
 </div>

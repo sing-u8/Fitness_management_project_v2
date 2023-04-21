@@ -10,6 +10,7 @@ export class TooltipDirective implements OnDestroy {
     @Input() rwTooltipDisabled: boolean
     @Input() offset = '5'
     @Input() detailAdj = 0
+    @Input() showTail = false
 
     private tooltip: HTMLElement
 
@@ -58,7 +59,7 @@ export class TooltipDirective implements OnDestroy {
         this.renderer.appendChild(document.body, this.tooltip)
 
         this.renderer.addClass(this.tooltip, 'rw-tooltip')
-        // this.renderer.addClass(this.tooltip, `rw-tooltip-${this.rwTooltipPlacement}`)
+        if (this.showTail) this.renderer.addClass(this.tooltip, `rw-tooltip-${this.rwTooltipPlacement}`)
         this.renderer.setStyle(this.tooltip, '-webkit-transition', `opacity ${this.rwTooltipDelay}ms`)
         this.renderer.setStyle(this.tooltip, '-moz-transition', `opacity ${this.rwTooltipDelay}ms`)
         this.renderer.setStyle(this.tooltip, '-o-transition', `opacity ${this.rwTooltipDelay}ms`)

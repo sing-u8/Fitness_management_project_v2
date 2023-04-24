@@ -1,16 +1,25 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
+import { Observe } from '@shared/helper/decorator/Observe'
 
-import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
+import {
+    AsyncValidatorFn,
+    ValidatorFn,
+    FormBuilder,
+    FormControl,
+    Validators,
+    ReactiveFormsModule,
+} from '@angular/forms'
 
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
+import { Observable } from 'rxjs'
 
 @Component({
     selector: 'rwp-component',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, ReactiveFormsModule],
     templateUrl: './component.component.html',
     styleUrls: ['./component.component.scss'],
 })
@@ -23,6 +32,20 @@ export class ComponentComponent {
             this.button2.status = 'pending'
             this.button2.progress = 80
         }, 2000)
+
+        this.memo1.valueChanges.subscribe((v) => {
+            console.log('memo 1 -- text : ', v)
+        })
+        this.memo2.valueChanges.subscribe((v) => {
+            console.log('memo 2 -- text : ', v)
+        })
+        this.memo3.valueChanges.subscribe((v) => {
+            console.log('memo 3 -- text : ', v)
+        })
+        this.memo2.disable()
+        this.memo4$.subscribe((v) => {
+            console.log('memo 4 -- text : ', v)
+        })
     }
 
     // button
@@ -158,4 +181,16 @@ export class ComponentComponent {
         this.verificationNumber = text
         console.log('onVerificationNumberChange -- ', this.verificationNumber)
     }
+
+    public memo1 = this.fb.control('')
+    onMemo1ButtonClick() {
+        console.log('onMemo1ButtonClick')
+    }
+    public memo2 = this.fb.control('')
+    onMemo2ButtonClick() {
+        console.log('onMemo2ButtonClick')
+    }
+    public memo3 = this.fb.control('')
+    public memo4 = ''
+    @Observe('memo4') memo4$: Observable<string>
 }

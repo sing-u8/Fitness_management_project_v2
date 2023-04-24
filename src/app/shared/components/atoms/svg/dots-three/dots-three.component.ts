@@ -10,5 +10,5 @@ export class DotsThreeComponent {
     @Input() color = 'var(--gray-90)'
     @Input() width = '17px'
     @Input() height = '17px'
-    @Input() margin = '2.5px 0 0 0'
+    @Input() margin = '0 0 0 0'
 }

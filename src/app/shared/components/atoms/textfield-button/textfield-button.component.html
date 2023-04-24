@@ -1,0 +1,41 @@
+<div class="l-text-button-field">
+    <div class="label" *ngIf="labelVisible">
+        {{ label }} <span class="red">*</span>
+        <div
+            *ngIf="advice"
+            class="info-icon"
+            rwTooltip
+            rwTooltipPlacement="top"
+            [showTail]="true"
+            [rwTooltipTitle]="advice"
+        ></div>
+    </div>
+    <div class="l-button">
+        <button
+            #button
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+            [style.width]="width"
+            [style.height]="height"
+            [disabled]="disable"
+            (mousedown)="onMouseDown()"
+            (mouseup)="onMouseUp()"
+            (focusin)="onFocus()"
+            (focusout)="onFocusOut()"
+            (click)="onClick.emit()"
+        >
+            <span class="value ellipsis" [class.disable-value]="disable">{{ value }}</span>
+            <span #tag_text class="tag-text">{{ tagText }}</span>
+        </button>
+
+        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div
+            *ngIf="status == 'warning' || status == 'error'"
+            class="status"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        >
+            {{ statusText }}
+        </div>
+    </div>
+</div>

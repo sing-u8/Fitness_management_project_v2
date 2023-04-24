@@ -13,6 +13,7 @@ export class TextFieldComponent implements AfterViewInit {
     @Input() value = ''
     @Output() onValueChange = new EventEmitter<string>()
 
+    @Input() textFieldType: 'normal' | 'password' | 'search' = 'normal'
     @Input() type: 'normal' | 'timeLimit' | 'wordLimit' = 'normal'
     @Input() labelVisible = true
     @Input() label = '필드 레이블'
@@ -29,6 +30,8 @@ export class TextFieldComponent implements AfterViewInit {
 
     @Input() width = '400px'
     @Input() height = '48px'
+
+    @Input() passwordVisible = false
 
     @ViewChild('input') input_el: ElementRef
 

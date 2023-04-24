@@ -10,5 +10,5 @@ export class CheckComponent {
     @Input() color = 'var(--white)'
     @Input() width = '18px'
     @Input() height = '18px'
-    @Input() margin = '2.5px 0 0 0'
+    @Input() margin = '0 0 0 0'
 }

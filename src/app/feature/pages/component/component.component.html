@@ -372,7 +372,7 @@
         <rwa-page-button [pageNumber]="10" [disable]="true"></rwa-page-button>
     </div>
     <p class="v-padding"></p>
-    <h1>- buttons</h1>
+    <h1>- 텍스트 필드</h1>
     <h2 (click)="text1 = '일반 텍스트 다른 곳에서 변경 테스트'">일반</h2>
     <div class="d-flex align-items-center">
         <rwa-text-field
@@ -466,6 +466,90 @@
         <rwa-text-input [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-input>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>패스워드</h2>
+    <div class="d-flex align-items-center">
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [label]="'비밀번호'"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text2"
+            [label]="'비밀번호'"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            (onValueChange)="onText2Change($event)"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            [label]="'비밀번호'"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text2"
+            [label]="'비밀번호'"
+            [status]="'success'"
+            (onValueChange)="onText2Change($event)"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field [textFieldType]="'password'" [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-field>
+    </div>
+    <p class="v-padding"></p>
+    <h2>검색</h2>
+    <div class="d-flex align-items-center">
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'search'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text2"
+            (onValueChange)="onText2Change($event)"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            [textFieldType]="'search'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+            [placeholder]="'플레이스 홀더'"
+            [textFieldType]="'search'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [status]="'success'"
+            [placeholder]="'플레이스 홀더'"
+            [textFieldType]="'search'"
+            [advice]="'도움말'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field [textFieldType]="'search'" [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-field>
+    </div>
+
     <p class="v-padding"></p>
     <h2>숫자</h2>
     <div class="d-flex align-items-center">
@@ -565,4 +649,50 @@
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>텍스트 필드 - 버튼</h2>
+    <div class="d-flex align-items-center">
+        <rwa-textfield-button [value]="'입력한 정보'"></rwa-textfield-button>
+        <div class="h-padding"></div>
+        <rwa-textfield-button
+            [tagText]="'자세히 보기'"
+            [advice]="'도움말'"
+            [value]="'입력한 정보'"
+        ></rwa-textfield-button>
+        <div class="h-padding"></div>
+        <rwa-textfield-button [hint]="'힌트 메시지'" [value]="'입력한 정보'"></rwa-textfield-button>
+        <div class="h-padding"></div>
+        <rwa-textfield-button [disable]="true" [value]="'입력한 정보'"></rwa-textfield-button>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-textfield-button [value]="'입력한 정보'"></rwa-textfield-button>
+        <div class="h-padding"></div>
+        <rwa-textfield-button
+            [value]="'입력한 정보'"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+        ></rwa-textfield-button>
+        <div class="h-padding"></div>
+        <rwa-textfield-button
+            [value]="'입력한 정보'"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+        ></rwa-textfield-button>
+        <div class="h-padding"></div>
+    </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>텍스트 필드 - 메모</h2>
+    <div class="d-flex align-items-center">
+        <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo [formControl]="memo2" [showButton]="true" (onButtonClick)="onMemo2ButtonClick()"></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo [formControl]="memo3" [showButton]="true"></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo [(ngModel)]="memo4"></rwa-memo>
+        <div class="h-padding"></div>
+    </div>
 </div>

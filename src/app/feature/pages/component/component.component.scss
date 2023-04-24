@@ -3,11 +3,11 @@
 }
 
 .h-padding {
-    height: 20px;
-    width: 40px;
+    min-height: 20px;
+    min-width: 40px;
 }
 
 .v-padding {
-    width: 20px;
-    height: 25px;
+    min-width: 20px;
+    min-height: 25px;
 }

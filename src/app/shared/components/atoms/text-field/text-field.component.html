@@ -11,11 +11,13 @@
         ></div>
     </div>
     <div class="l-input">
+        <div *ngIf="textFieldType == 'search'" class="search-icon"></div>
         <input
             #input
-            type="text"
-            [maxLength]=""
+            [type]="textFieldType == 'password' && passwordVisible == false ? 'password' : 'text'"
             [maxlength]="inputLimit"
+            [class.password]="textFieldType == 'password'"
+            [class.search]="textFieldType == 'search'"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"
             [class.type-word-limit]="type == 'wordLimit'"
@@ -26,7 +28,8 @@
         <div class="l-input-tag">
             <div *ngIf="type == 'normal'" class="input-tag-normal">
                 <rwa-close-fill
-                    *ngIf="!disable && status != 'error' && status != 'warning' && textField.value.length > 0"
+                    [margin]="'1.5px 0 0 0'"
+                    *ngIf="!disable && status == 'none' && textField.value.length > 0"
                     (click)="resetTextField()"
                 ></rwa-close-fill>
                 <rwa-warning
@@ -34,6 +37,16 @@
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
                 ></rwa-warning>
                 <rwa-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-check>
+                <div
+                    class="pw-visible-icon"
+                    *ngIf="textFieldType == 'password' && passwordVisible"
+                    (click)="passwordVisible = false"
+                ></div>
+                <div
+                    class="pw-invisible-icon"
+                    *ngIf="textFieldType == 'password' && !passwordVisible"
+                    (click)="passwordVisible = true"
+                ></div>
             </div>
             <div
                 *ngIf="type == 'wordLimit'"
@@ -44,7 +57,8 @@
                     >{{ textField.value.length | padStart : 2 : '0' }} / {{ inputLimit | padStart : 2 : '0' }}</span
                 >
                 <rwa-close-fill
-                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    [margin]="'1.5px 0 0 0'"
+                    *ngIf="!disable && status == 'none' && textField.value.length > 0"
                     (click)="resetTextField()"
                 ></rwa-close-fill>
                 <rwa-warning

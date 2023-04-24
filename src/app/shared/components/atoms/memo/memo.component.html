@@ -1,0 +1,35 @@
+<div
+    class="l-textarea"
+    [style.width]="width"
+    [style.height]="height"
+    [class.with-button]="showButton"
+    [class.textarea-focus]="textAreaFocused"
+    [tabIndex]="1"
+    (focus)="onTextAreaLayoutFocus()"
+>
+    <textarea
+        #textarea
+        name="rwa-textarea"
+        cols="30"
+        rows="10"
+        class="scroll-y"
+        [placeholder]="placeholder"
+        [formControl]="value"
+        (focus)="textAreaFocused = true"
+        (focusout)="textAreaFocused = false"
+    >
+    </textarea>
+    <rwa-button
+        *ngIf="showButton"
+        [height]="buttonHeight"
+        [width]="buttonWidth"
+        [disable]="buttonDisable || value.disabled"
+        [padding]="'0'"
+    >
+        <ng-template btIdleContent>
+            <span class="button-text" (click)="!(buttonDisable || value.disabled) && onButtonClick.emit()">
+                {{ buttonText }}
+            </span>
+        </ng-template>
+    </rwa-button>
+</div>

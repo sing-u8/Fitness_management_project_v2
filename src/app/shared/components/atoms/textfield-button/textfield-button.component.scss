@@ -12,7 +12,7 @@
     @include icon2('/assets/icons/etc/info.svg', 20px, 20px);
 }
 
-.l-text-field {
+.l-text-button-field {
     display: flex;
     flex-direction: column;
 
@@ -26,44 +26,29 @@
         }
     }
 
-    .l-input {
+    .l-button {
         position: relative;
         border-radius: 10px;
-        input {
+
+        button {
             box-sizing: border-box;
             background-color: var(--gray-30);
             border: 1px solid var(--gray-50);
             border-radius: 10px;
             outline: none;
-            padding: 10px 32px 9px 14px;
-            text-align: right;
-
-            &.in-type {
-                padding: 10px 60px 9px 14px;
-            }
+            padding: 10px 18px 9px 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             @include rw-type-r(1.7rem, 28px, var(--font-color));
-            &:focus {
-                @include card-shadow();
-                border: 1px solid var(--gray-90);
-                @include rw-type-b(1.7rem, 28px, var(--font-color));
-            }
-            &::placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
-            }
-            &::-webkit-input-placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
-            }
-            &:-ms-input-placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
-            }
-            &:focus::placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
-            }
-            &:focus::-webkit-input-placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
-            }
-            &:focus:-ms-input-placeholder {
-                @include rw-type-r(1.7rem, 28px, var(--gray-80));
+
+            &.focused {
+                &:focus {
+                    @include card-shadow();
+                    border: 1px solid var(--gray-90);
+                    @include rw-type-b(1.7rem, 28px, var(--font-color));
+                }
             }
 
             &:hover {
@@ -86,31 +71,16 @@
                 background-color: var(--state-error-5);
                 border: 1px solid var(--state-error-100);
             }
-        }
-        .l-input-tag {
-            display: flex;
-            align-items: center;
-            position: absolute;
-            top: calc(calc(100% - 22px) / 2);
-            right: 13px;
-            .currency {
+
+            .value {
                 @include rw-type-r(1.7rem, 28px, var(--font-color));
+                &.disable-value {
+                    color: var(--gray-80);
+                }
             }
-            rwa-close-fill {
-                margin-left: 12.5px;
-                cursor: pointer;
-                height: 18px;
-            }
-            rwa-warning,
-            rwa-check {
-                margin-left: 10px;
-                margin-top: 0.5px;
-                height: 18px;
-            }
-            .input-tag-normal {
-                display: flex;
-                align-items: center;
-                margin-bottom: 3.5px;
+            .tag-text {
+                @include rw-type-b(1.7rem, 28px, var(--red-100));
+                text-align: right;
             }
         }
 

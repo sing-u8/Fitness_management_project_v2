@@ -46,6 +46,9 @@ import { CloseFillComponent } from './svg/close-fill/close-fill.component'
 import { NumberTextFieldComponent } from './number-text-field/number-text-field.component'
 import { TextInputComponent } from './text-input/text-input.component'
 import { VerificationFieldComponent } from './verification-field/verification-field.component'
+import { TextfieldButtonComponent } from './textfield-button/textfield-button.component';
+import { TextfieldDropdownComponent } from './textfield-dropdown/textfield-dropdown.component';
+import { MemoComponent } from './memo/memo.component'
 
 @NgModule({
     declarations: [
@@ -70,6 +73,7 @@ import { VerificationFieldComponent } from './verification-field/verification-fi
         NumberTextFieldComponent,
         TextInputComponent,
         VerificationFieldComponent,
+        TextfieldButtonComponent,
         // svg
         BallClipRotateComponent,
         CheckComponent,
@@ -81,6 +85,8 @@ import { VerificationFieldComponent } from './verification-field/verification-fi
         CheckboxComponent,
         WarningComponent,
         CloseFillComponent,
+        TextfieldDropdownComponent,
+        MemoComponent,
 
         // etc
     ],
@@ -108,6 +114,7 @@ import { VerificationFieldComponent } from './verification-field/verification-fi
         NumberTextFieldComponent,
         TextInputComponent,
         VerificationFieldComponent,
+        TextfieldButtonComponent,
         // svg
         BallClipRotateComponent,
         CheckComponent,
@@ -118,6 +125,7 @@ import { VerificationFieldComponent } from './verification-field/verification-fi
         DotsThreeComponent,
         WarningComponent,
         CloseFillComponent,
+        MemoComponent
     ],
     schemas: [],
 })

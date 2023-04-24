@@ -10,22 +10,7 @@ import { PipesModule } from '@shared/pipes/pipes.module'
 
 // libraries
 import { NgxSpinnerModule } from 'ngx-spinner'
-// comp
-import {
-    ButtonComponent,
-    ButtonDoneContentDirective,
-    ButtonIdleContentDirective,
-    ButtonPendingContentDirective,
-} from './button/button.component'
-import {
-    GhostButtonComponent,
-    GhostButtonDoneContentDirective,
-    GhostButtonPendingContentDirective,
-    GhostButtonIdleContentDirective,
-} from './ghost-button/ghost-button.component'
-import { IconButtonComponent } from './icon-button/icon-button.component'
-import { IconGhostButtonComponent } from './icon-ghost-button/icon-ghost-button.component'
-import { CheckboxComponent } from './checkbox/checkbox.component'
+
 // svg
 import { BallClipRotateComponent } from './svg/ball-clip-rotate/ball-clip-rotate.component'
 import { CheckComponent } from './svg/check/check.component'
@@ -43,15 +28,46 @@ import { PageButtonComponent } from './page-button/page-button.component'
 import { TextFieldComponent } from './text-field/text-field.component'
 import { WarningComponent } from './svg/warning/warning.component'
 import { CloseFillComponent } from './svg/close-fill/close-fill.component'
+
+// comp
+import {
+    ButtonComponent,
+    ButtonDoneContentDirective,
+    ButtonIdleContentDirective,
+    ButtonPendingContentDirective,
+} from './button/button.component'
+import {
+    GhostButtonComponent,
+    GhostButtonDoneContentDirective,
+    GhostButtonPendingContentDirective,
+    GhostButtonIdleContentDirective,
+} from './ghost-button/ghost-button.component'
+import { IconButtonComponent } from './icon-button/icon-button.component'
+import { IconGhostButtonComponent } from './icon-ghost-button/icon-ghost-button.component'
+import { CheckboxComponent } from './checkbox/checkbox.component'
 import { NumberTextFieldComponent } from './number-text-field/number-text-field.component'
 import { TextInputComponent } from './text-input/text-input.component'
 import { VerificationFieldComponent } from './verification-field/verification-field.component'
-import { TextfieldButtonComponent } from './textfield-button/textfield-button.component';
-import { TextfieldDropdownComponent } from './textfield-dropdown/textfield-dropdown.component';
+import { TextfieldButtonComponent } from './textfield-button/textfield-button.component'
+import { TextfieldDropdownComponent } from './textfield-dropdown/textfield-dropdown.component'
 import { MemoComponent } from './memo/memo.component'
+import { ModalComponent } from '@shared/components/atoms/modal/modal.component'
 
 @NgModule({
     declarations: [
+        // svg
+        BallClipRotateComponent,
+        CheckComponent,
+        PlusComponent,
+        UserListComponent,
+        PencilComponent,
+        GearComponent,
+        DotsThreeComponent,
+        CheckboxComponent,
+        WarningComponent,
+        CloseFillComponent,
+
+        // etc
         // button
         ButtonComponent,
         ButtonIdleContentDirective,
@@ -74,24 +90,22 @@ import { MemoComponent } from './memo/memo.component'
         TextInputComponent,
         VerificationFieldComponent,
         TextfieldButtonComponent,
-        // svg
-        BallClipRotateComponent,
-        CheckComponent,
-        PlusComponent,
-        UserListComponent,
-        PencilComponent,
-        GearComponent,
-        DotsThreeComponent,
-        CheckboxComponent,
-        WarningComponent,
-        CloseFillComponent,
         TextfieldDropdownComponent,
         MemoComponent,
-
-        // etc
+        ModalComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
+        // svg
+        BallClipRotateComponent,
+        CheckComponent,
+        PlusComponent,
+        UserListComponent,
+        PencilComponent,
+        GearComponent,
+        DotsThreeComponent,
+        WarningComponent,
+        CloseFillComponent,
         // button
         ButtonComponent,
         ButtonIdleContentDirective,
@@ -115,18 +129,9 @@ import { MemoComponent } from './memo/memo.component'
         TextInputComponent,
         VerificationFieldComponent,
         TextfieldButtonComponent,
-        // svg
-        BallClipRotateComponent,
-        CheckComponent,
-        PlusComponent,
-        UserListComponent,
-        PencilComponent,
-        GearComponent,
-        DotsThreeComponent,
-        WarningComponent,
-        CloseFillComponent,
+        TextfieldDropdownComponent,
         MemoComponent,
-        TextfieldDropdownComponent
+        ModalComponent,
     ],
     schemas: [],
 })

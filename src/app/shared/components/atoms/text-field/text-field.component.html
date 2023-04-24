@@ -81,7 +81,9 @@
             </div>
         </div>
 
-        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div *ngIf="(status == 'none' || status == 'success') && hint" class="hint">
+            <span class="info-icon"></span>{{ hint }}
+        </div>
         <div
             *ngIf="status == 'warning' || status == 'error'"
             class="status"

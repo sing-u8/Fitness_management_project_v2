@@ -193,4 +193,23 @@ export class ComponentComponent {
     public memo3 = this.fb.control('')
     public memo4 = ''
     @Observe('memo4') memo4$: Observable<string>
+
+    public dropdown1 = [
+        { name: '옵션1', value: { name: '옵션1', id: '1' } },
+        { name: '옵션2', value: { name: '옵션2', id: '2' } },
+        { name: '옵션3', value: { name: '옵션3', id: '3' } },
+        { name: '옵션4', value: { name: '옵션4', id: '4' } },
+        { name: '옵션5', value: { name: '옵션5', id: '5' } },
+        { name: '옵션6', value: { name: '옵션6', id: '6' } },
+        { name: '옵션7', value: { name: '옵션7', id: '7' } },
+    ]
+    public ddV1 = { name: '옵션1', id: '1' }
+
+    public dropdown2 = [
+        { name: '옵션1', value: { name: '옵션1', id: '1' } },
+        { name: '옵션2', value: { name: '옵션2', id: '2' } },
+        { name: '옵션3', value: { name: '옵션3', id: '3' } },
+        { name: '옵션4', value: { name: '옵션4', id: '4' } },
+    ]
+    public ddV2 = { name: '옵션1', id: '1' }
 }

@@ -125,7 +125,8 @@ import { MemoComponent } from './memo/memo.component'
         DotsThreeComponent,
         WarningComponent,
         CloseFillComponent,
-        MemoComponent
+        MemoComponent,
+        TextfieldDropdownComponent
     ],
     schemas: [],
 })

@@ -1,1 +1,64 @@
-<p>textfield-dropdown works!</p>
+<div class="l-text-field-dropdown user-select-none">
+    <div class="label" *ngIf="labelVisible">
+        {{ label }} <span class="red">*</span>
+        <div
+            *ngIf="advice"
+            class="info-icon"
+            rwTooltip
+            rwTooltipPlacement="top"
+            [showTail]="true"
+            [rwTooltipTitle]="advice"
+        ></div>
+    </div>
+
+    <div class="l-dropdown">
+        <div
+            class="dropdown"
+            [tabIndex]="1"
+            [style.width]="width"
+            [style.height]="height"
+            [class.warning]="status == 'warning' && !isOpen"
+            [class.error]="status == 'error' && !isOpen"
+            [class.disabled]="disable"
+            [class.is-open]="isOpen"
+            (click)="toggleIsOpen()"
+            (blur)="this.closeDropdown()"
+        >
+            <div class="value" [class.placeholder]="!value">{{ value ? value.name : placeholder }}</div>
+            <div class="l-icon">
+                <rwa-warning
+                    *ngIf="(status == 'error' || status == 'warning') && !isOpen"
+                    [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
+                ></rwa-warning>
+                <div class="caret-arrow"></div>
+            </div>
+
+            <div
+                #l_dropdown_items
+                class="l-dropdown-items scroll-y-overlay"
+                [class.items-open]="isOpen"
+                (click)="$event.stopPropagation()"
+            >
+                <ng-container *ngFor="let item of items">
+                    <div class="item" (click)="_onSelectValue(item)">
+                        <div class="item-value ellipsis" [class.selected]="item.value[bindValue] == value[bindValue]">
+                            {{ item.name }}
+                        </div>
+                        <div *ngIf="item.value[bindValue] == value[bindValue]" class="check-icon"></div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div *ngIf="(status == 'none' || status == 'success') && hint" class="hint">
+            <span class="info-icon"></span>{{ hint }}
+        </div>
+        <div
+            *ngIf="status == 'warning' || status == 'error'"
+            class="status"
+            [class.warning]="status == 'warning'"
+            [class.error]="status == 'error'"
+        >
+            {{ statusText }}
+        </div>
+    </div>
+</div>

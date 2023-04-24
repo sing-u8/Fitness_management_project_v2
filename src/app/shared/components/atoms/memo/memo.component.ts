@@ -43,7 +43,7 @@ export class MemoComponent implements OnDestroy {
     @Input() width = '340px'
     @Input() height = '254px'
 
-    @ViewChild('textarea') textarea_el : ElementRef
+    @ViewChild('textarea') textarea_el: ElementRef
     onTextAreaLayoutFocus() {
         this.textarea_el.nativeElement.focus()
     }

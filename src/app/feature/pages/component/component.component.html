@@ -684,6 +684,83 @@
 
     <p class="v-padding"></p>
     <p class="v-padding"></p>
+    <h2>텍스트 필드 - 드롭다운</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-textfield-dropdown
+            [label]="'label'"
+            [items]="dropdown1"
+            [value]="ddV1"
+            (onSelectValue)="ddV1 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            advice="도움말"
+            label="레이블"
+            [items]="dropdown1"
+            [value]="ddV1"
+            (onSelectValue)="ddV1 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [items]="dropdown2"
+            [value]="ddV2"
+            (onSelectValue)="ddV2 = $event"
+            label="레이블"
+            hint="힌트 메시지"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [items]="dropdown2"
+            [value]="ddV2"
+            (onSelectValue)="ddV2 = $event"
+            [labelVisible]="false"
+            [disable]="true"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <rwa-textfield-dropdown
+                [items]="dropdown1"
+                [value]="ddV1"
+                (onSelectValue)="ddV1 = $event"
+                [label]="'label'"
+            ></rwa-textfield-dropdown>
+            <div class="h-padding"></div>
+            <rwa-textfield-dropdown
+                [items]="dropdown1"
+                [value]="ddV1"
+                (onSelectValue)="ddV1 = $event"
+                advice="도움말"
+                label="레이블"
+                status="warning"
+                statusText="경고 메시지"
+            ></rwa-textfield-dropdown>
+            <div class="h-padding"></div>
+            <rwa-textfield-dropdown
+                [items]="dropdown2"
+                [value]="ddV2"
+                (onSelectValue)="ddV2 = $event"
+                label="레이블"
+                hint="힌트 메시지"
+                status="error"
+                statusText="에러 메시지"
+            ></rwa-textfield-dropdown>
+            <div class="h-padding"></div>
+            <rwa-textfield-dropdown
+                [items]="dropdown2"
+                [value]="ddV2"
+                (onSelectValue)="ddV2 = $event"
+                [labelVisible]="false"
+            ></rwa-textfield-dropdown>
+            <div class="h-padding"></div>
+        </div>
+    </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <h2>텍스트 필드 - 메모</h2>
     <div class="d-flex align-items-center">
         <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>

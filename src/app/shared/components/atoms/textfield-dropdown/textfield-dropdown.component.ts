@@ -12,7 +12,6 @@ import {
     TemplateRef,
     ViewChild,
 } from '@angular/core'
-import { NgxSpinnerService, Size } from 'ngx-spinner'
 import { Observe } from '@shared/helper/decorator/Observe'
 import { Observable } from 'rxjs'
 
@@ -29,7 +28,6 @@ export type ValueType = any
 export class TextfieldDropdownComponent {
     @Input() items: Array<ItemsType> = []
     @Input() value: ValueType = undefined
-    @Observe('value') value$: Observable<ValueType>
     @Output() onSelectValue = new EventEmitter<ValueType>()
     _onSelectValue(v: ItemsType) {
         this.closeDropdown()
@@ -66,9 +64,6 @@ export class TextfieldDropdownComponent {
                 const h = Number(_.trimEnd(this.height, 'px')) + 5
                 this.renderer.setStyle(this.l_dropdown_items_el.nativeElement, 'top', `${h}px`)
             }
-        })
-        this.value$.subscribe((v) => {
-            console.log('value$ : ', v, this.value, this.bindValue, this.items)
         })
     }
 }

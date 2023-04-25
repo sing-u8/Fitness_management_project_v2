@@ -15,7 +15,7 @@ import {
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
 import { Observable } from 'rxjs'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
 
 @Component({
     selector: 'rwp-component',
@@ -241,6 +241,36 @@ export class ComponentComponent {
         setTimeout(() => {
             res.hideLoading()
             this.modalBasic2 = false
-        }, 5000)
+        }, 2000)
+    }
+
+    public modalTa1 = false
+    public modalTa2 = false
+    public modalTa2Text = ''
+    onModalTa2Confirm(res: TextAreaModalOutPut) {
+        this.modalTa2Text = res.textValue
+        this.modalTa2 = false
+        console.log('onModalTa2Confirm -- ', res)
+    }
+    onModalTa2Cancel() {
+        // this.modalTa2Text = ''
+        this.modalTa2 = false
+        console.log('onModalTa2Confirm -- ', this.modalTa2Text)
+    }
+    public modalTa3 = false
+    public modalTa3Text = ''
+    onModalTa3Cancel() {
+        // this.modalTa3Text = ''
+        this.modalTa3 = false
+        console.log('onModalTa3Confirm -- ', this.modalTa3Text)
+    }
+    onModalTa3Confirm(res: TextAreaModalOutPut) {
+        res.loading.showLoading()
+        setTimeout(() => {
+            res.loading.hideLoading()
+            this.modalTa3Text = res.textValue
+            this.modalTa3 = false
+            console.log('onModalTa3Confirm -- ', res)
+        }, 2000)
     }
 }

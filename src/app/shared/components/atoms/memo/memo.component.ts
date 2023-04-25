@@ -32,6 +32,7 @@ export class MemoComponent implements OnDestroy {
     // @Input()
     public value = this.fb.control('')
     @Input() placeholder = '메모를 입력해 주세요.'
+    @Input() bgColor = 'var(--gray-30)'
 
     @Input() showButton = false
     @Input() buttonDisable = false

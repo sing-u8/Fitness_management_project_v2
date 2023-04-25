@@ -5,7 +5,11 @@
     (mousedown)="resetMouseModalDown()"
     #modalWrapperElement
 >
-    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+    <div
+        class="rw-modal user-select-none"
+        [style.width]="width"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
         <div class="text d-flex">{{ data?.title }}</div>
         <div class="sub-text d-flex">{{ data?.desc }}</div>
         <div class="button-group d-flex align-items-center justify-content-end">

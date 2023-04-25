@@ -52,6 +52,8 @@ import { TextfieldButtonComponent } from './textfield-button/textfield-button.co
 import { TextfieldDropdownComponent } from './textfield-dropdown/textfield-dropdown.component'
 import { MemoComponent } from './memo/memo.component'
 import { ModalComponent } from '@shared/components/atoms/modal/modal.component'
+import { TextareaModalComponent } from './textarea-modal/textarea-modal.component'
+import { CloseComponent } from './svg/close/close.component'
 
 @NgModule({
     declarations: [
@@ -93,6 +95,8 @@ import { ModalComponent } from '@shared/components/atoms/modal/modal.component'
         TextfieldDropdownComponent,
         MemoComponent,
         ModalComponent,
+        TextareaModalComponent,
+        CloseComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -132,6 +136,7 @@ import { ModalComponent } from '@shared/components/atoms/modal/modal.component'
         TextfieldDropdownComponent,
         MemoComponent,
         ModalComponent,
+        TextareaModalComponent,
     ],
     schemas: [],
 })

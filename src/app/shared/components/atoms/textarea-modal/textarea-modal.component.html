@@ -1,0 +1,56 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onCancel()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">{{ title }}</div>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="닫기"
+                sizeType="md"
+                borderRadius="14px"
+                borderColor="var(--gray-60)"
+                (onClick)="onCancel()"
+            >
+                <rwa-close></rwa-close>
+            </rwa-icon-ghost-button>
+        </div>
+        <div class="body">
+            <textarea cols="30" rows="10" class="scroll-y" [(ngModel)]="textValue" [placeholder]="placeholder"></textarea>
+            <div class="button-group d-flex align-items-center justify-content-end">
+                <rwa-button
+                    *ngIf="type == 'twoButton'"
+                    class="cancel-button"
+                    [width]="'95px'"
+                    [height]="'45px'"
+                    [bgColor]="'var(--white)'"
+                    [hoverBgColor]="'var(--gray-30)'"
+                    (onClick)="onReset()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="cancel-text">{{ resetText }}</span>
+                    </ng-template>
+                    <ng-template btPendingContent></ng-template>
+                </rwa-button>
+
+                <rwa-button
+                    [width]="'110px'"
+                    [height]="'45px'"
+                    [status]="confirmButtonLoading"
+                    [loadingMargin]="'0'"
+                    (onClick)="onConfirm()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="confirm-text">{{ confirmText }}</span>
+                    </ng-template>
+                    <ng-template btPendingContent><span class="confirm-text"></span></ng-template>
+                </rwa-button>
+            </div>
+        </div>
+    </div>
+</div>

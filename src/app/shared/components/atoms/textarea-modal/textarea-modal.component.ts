@@ -16,23 +16,22 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { Observe } from '@shared/helper/decorator/Observe'
 import { Loading } from '@schemas/loading'
 import { Observable } from 'rxjs'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
 
 @Component({
-    selector: 'rwa-modal',
-    templateUrl: './modal.component.html',
-    styleUrls: ['./modal.component.scss'],
+    selector: 'rwa-textarea-modal',
+    templateUrl: './textarea-modal.component.html',
+    styleUrls: ['./textarea-modal.component.scss'],
 })
-export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewInit {
+export class TextareaModalComponent {
     @Input() visible: boolean
     @Observe('visible') visible$: Observable<boolean>
     @Output() visibleChange = new EventEmitter<boolean>()
 
-    @Input() data: ModalInput
+    @Input() resetText = '초기화'
+    @Input() confirmText = '저장하기'
     @Input() type: 'oneButton' | 'twoButton' = 'twoButton'
-    @Input() loadingName = 'modal-loading'
-
-    @Input() width = '335px'
+    @Input() loadingName = 'textarea-loading'
 
     @Input() blockClickOutside = false
 
@@ -40,7 +39,14 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
     @ViewChild('modalWrapperElement') modalWrapperElement
 
     @Output() cancel = new EventEmitter<any>()
-    @Output() confirm = new EventEmitter<ModalOutPut>()
+    @Output() confirm = new EventEmitter<TextAreaModalOutPut>()
+
+    @Input() title = '타이틀'
+    @Input() text = ''
+    @Observe('text') text$: Observable<string>
+    public textValue = ''
+
+    @Input() placeholder = '내용을 입력해주세요.'
 
     public changed: boolean
 
@@ -54,7 +60,11 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
         this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
+    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {
+        this.text$.subscribe((v) => {
+            this.textValue = v
+        })
+    }
 
     ngOnChanges(changes: SimpleChanges) {}
     ngAfterViewChecked() {}
@@ -74,18 +84,25 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this.textValue = this.text
             }
         })
     }
 
+    onReset(): void {
+        this.textValue = ''
+    }
     onCancel(): void {
         this.cancel.emit({})
     }
 
     onConfirm(): void {
         this.confirm.emit({
-            showLoading: this.showLoading.bind(this),
-            hideLoading: this.hideLoading.bind(this),
+            loading: {
+                showLoading: this.showLoading.bind(this),
+                hideLoading: this.hideLoading.bind(this),
+            },
+            textValue: this.textValue,
         })
     }
 

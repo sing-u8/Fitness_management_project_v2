@@ -15,6 +15,7 @@ import {
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
 import { Observable } from 'rxjs'
+import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 
 @Component({
     selector: 'rwp-component',
@@ -212,4 +213,34 @@ export class ComponentComponent {
         { name: '옵션4', value: { name: '옵션4', id: '4' } },
     ]
     public ddV2 = { name: '옵션1', id: '1' }
+
+    public modalBasic1 = false
+    public modalBasic1Data: ModalInput = {
+        title: '타이틀 문구를 입력해 주세요.',
+        desc: '서브 문구를 입력해 주세요.',
+        cancel: '취소',
+        confirm: '확인',
+    }
+    public modalBasic1_5 = false
+    public modalBasic1_5Data: ModalInput = {
+        title: '타이틀 문구를 입력해 주세요.',
+        desc: '서브 문구를 입력해 주세요.',
+        cancel: '취소',
+        confirm: '확인',
+    }
+
+    public modalBasic2 = false
+    public modalBasic2Data: ModalInput = {
+        title: '타이틀 문구문구문구문구를 입력해 주세요.',
+        desc: '서브 문구문구문구문구를 입력해 주세요.',
+        cancel: '취소',
+        confirm: '확인',
+    }
+    onModal2Confirm(res: ModalOutPut) {
+        res.showLoading()
+        setTimeout(() => {
+            res.hideLoading()
+            this.modalBasic2 = false
+        }, 5000)
+    }
 }

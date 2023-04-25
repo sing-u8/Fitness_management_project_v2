@@ -772,4 +772,36 @@
         <rwa-memo [(ngModel)]="memo4"></rwa-memo>
         <div class="h-padding"></div>
     </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>모달 - 기본</h2>
+    <div class="d-flex align-items-center">
+        <div [style.cursor]="'pointer'" (click)="modalBasic1 = true">modal basic1</div>
+        <rwa-modal
+            [(visible)]="modalBasic1"
+            [data]="modalBasic1Data"
+            (cancel)="modalBasic1 = false"
+            (confirm)="modalBasic1 = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalBasic1_5 = true">modal basic1.5</div>
+        <rwa-modal
+            [(visible)]="modalBasic1_5"
+            [data]="modalBasic1_5Data"
+            [type]="'oneButton'"
+            [blockClickOutside]="true"
+            (cancel)="modalBasic1_5 = false"
+            (confirm)="modalBasic1_5 = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalBasic2 = true">modal basic2</div>
+        <rwa-modal
+            [(visible)]="modalBasic2"
+            [data]="modalBasic2Data"
+            (cancel)="modalBasic2 = false"
+            (confirm)="onModal2Confirm($event)"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+    </div>
 </div>

@@ -72,6 +72,7 @@ export class ButtonComponent implements AfterViewInit {
     @Input() loadingSize: Size = 'small'
     @Input() loadingColor = 'var(--white)'
     @Input() loadingName = 'button-loading'
+    @Input() loadingMargin = '0 5px 0 0'
 
     @Input() borderRadius: string = '14px'
     @Input() status: Loading = 'idle'

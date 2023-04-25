@@ -81,7 +81,6 @@ export class VerificationFieldComponent {
         }
     }
     whenKeyUp(event, position: 'one' | 'two' | 'three' | 'four') {
-        console.log('when key up', event)
         if (event.key == 'Tab') return
         if (position == 'one') {
             this.one.setValue(event.key)

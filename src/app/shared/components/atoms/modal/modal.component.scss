@@ -10,7 +10,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--font-color);
+    background-color: var(--gray-90);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
@@ -20,7 +20,7 @@
 }
 
 .rw-modal-background-show {
-    opacity: 0.3;
+    opacity: 0.5;
 }
 
 .rw-modal-wrapper {
@@ -33,12 +33,12 @@
     z-index: 10000;
 
     .rw-modal {
-        width: 334px;
-        padding: 0 10px;
+        width: 335px;
+        padding: 30px 25px;
         border: 1px solid var(--border-color);
-        border-radius: 6px;
+        border-radius: 20px;
         background-color: var(--white);
-        box-shadow: 0 0 10px #b5b5b545;
+        @include modal-shadow();
         opacity: 0;
         transition: opacity 0s;
         -moz-transition: opacity 0s;
@@ -46,32 +46,31 @@
         -o-transition: opacity 0s;
 
         .text {
-            margin-top: 45px;
             white-space: pre-line;
-            text-align: center;
+            text-align: left;
+            @include rw-type-b(2rem, 31px, var(--font-color));
         }
 
         .sub-text {
-            margin-top: 15px;
-            padding: 0 10px;
+            margin-top: 4px;
             white-space: pre-line;
-            text-align: center;
+            text-align: left;
+            @include rw-type-r(1.7rem, 28px, var(--gray-90));
         }
 
         .button-group {
-            height: 50px;
-            margin-top: 35px;
-            padding: 10px 0;
-            border-top: 1px solid var(--border-color);
+            margin-top: 25px;
 
-            .cancel {
-                border-right: 1px solid var(--border-color);
-                color: var(--grey) !important;
-                cursor: pointer;
+            rwa-button {
+                &.cancel-button {
+                    margin-right: 10px;
+                }
             }
-
-            .confirm {
-                cursor: pointer;
+            .cancel-text {
+                @include rw-type-b(1.7rem, 28px, var(--gray-90));
+            }
+            .confirm-text {
+                @include rw-type-b(1.7rem, 28px, var(--white));
             }
         }
     }

@@ -6,31 +6,36 @@
     #modalWrapperElement
 >
     <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
-        <div class="text rw-typo-title1 d-flex justify-content-center">{{ data?.text }}</div>
-        <div class="sub-text rw-typo-subtext2 d-flex justify-content-center">{{ data?.subText }}</div>
-        <div class="button-group d-flex">
-            <div
-                class="cancel col d-flex justify-content-center align-items-center rw-typo-bodytext2"
-                *ngIf="type == 'type1'"
-                (click)="onCancel()"
+        <div class="text d-flex">{{ data?.title }}</div>
+        <div class="sub-text d-flex">{{ data?.desc }}</div>
+        <div class="button-group d-flex align-items-center justify-content-end">
+            <rwa-button
+                *ngIf="type == 'twoButton'"
+                class="cancel-button"
+                [width]="'80px'"
+                [height]="'45px'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                (onClick)="onCancel()"
             >
-                {{ data?.cancelButtonText || '취소' }}
-            </div>
-            <div
-                class="confirm col d-flex justify-content-center align-items-center rw-typo-bodytext2"
-                (click)="onConfirm(); $event.stopPropagation()"
+                <ng-template btIdleContent>
+                    <span class="cancel-text">{{ data?.cancel || '취소' }}</span>
+                </ng-template>
+                <ng-template btPendingContent></ng-template>
+            </rwa-button>
+
+            <rwa-button
+                [width]="'80px'"
+                [height]="'45px'"
+                [status]="confirmButtonLoading"
+                [loadingMargin]="'0'"
+                (onClick)="onConfirm()"
             >
-                <ngx-spinner
-                    bdColor="rgba(0, 0, 0, 0.8)"
-                    type="ball-clip-rotate"
-                    [size]="'small'"
-                    [color]="'var(--font-color)'"
-                    [bdColor]="'var(--white)'"
-                    [fullScreen]="false"
-                    [name]="loadingName"
-                ></ngx-spinner>
-                <span *ngIf="!isLoading">{{ data?.confirmButtonText || '확인' }}</span>
-            </div>
+                <ng-template btIdleContent>
+                    <span class="confirm-text">{{ data?.confirm || '확인' }}</span>
+                </ng-template>
+                <ng-template btPendingContent><span class="confirm-text"></span></ng-template>
+            </rwa-button>
         </div>
     </div>
 </div>

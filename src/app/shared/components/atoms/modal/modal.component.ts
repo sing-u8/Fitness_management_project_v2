@@ -9,19 +9,28 @@ import {
     SimpleChanges,
     AfterViewChecked,
     ViewChild,
+    AfterViewInit,
 } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
 // import { ClickEmitterType } from '@schemas/components/button'
+
+import { Observe } from '@shared/helper/decorator/Observe'
+import { Loading } from '@schemas/loading'
+import { Observable } from 'rxjs'
+import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 
 @Component({
     selector: 'rwa-modal',
     templateUrl: './modal.component.html',
     styleUrls: ['./modal.component.scss'],
 })
-export class ModalComponent implements OnChanges, AfterViewChecked {
+export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewInit {
     @Input() visible: boolean
-    @Input() data: any
-    @Input() type: string
+    @Observe('visible') visible$: Observable<boolean>
+    @Output() visibleChange = new EventEmitter<boolean>()
+
+    @Input() data: ModalInput
+    @Input() type: 'oneButton' | 'twoButton' = 'twoButton'
     @Input() loadingName = 'modal-loading'
 
     @Input() blockClickOutside = false
@@ -29,42 +38,28 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
     @ViewChild('modalBackgroundElement') modalBackgroundElement
     @ViewChild('modalWrapperElement') modalWrapperElement
 
-    @Output() visibleChange = new EventEmitter<boolean>()
     @Output() cancel = new EventEmitter<any>()
-    @Output() confirm = new EventEmitter<any>()
+    @Output() confirm = new EventEmitter<ModalOutPut>()
 
     public changed: boolean
 
-    public isMouseModalDown: boolean
+    public isMouseModalDown = false
 
-    public isLoading: boolean
+    public confirmButtonLoading: Loading = 'idle'
     showLoading() {
-        this.isLoading = true
-        this.spinner.show(this.loadingName)
+        this.confirmButtonLoading = 'pending'
     }
     hideLoading() {
-        this.isLoading = false
-        this.spinner.hide(this.loadingName)
+        this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {
-        this.type = 'type1'
-        this.isMouseModalDown = false
-    }
+    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (!changes['visible'].firstChange) {
-            if (changes['visible'].previousValue != changes['visible'].currentValue) {
-                this.changed = true
-            }
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (this.changed) {
-            this.changed = false
-
-            if (this.visible) {
+    ngOnChanges(changes: SimpleChanges) {}
+    ngAfterViewChecked() {}
+    ngAfterViewInit() {
+        this.visible$.subscribe((v) => {
+            if (v) {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 setTimeout(() => {
@@ -79,7 +74,7 @@ export class ModalComponent implements OnChanges, AfterViewChecked {
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
             }
-        }
+        })
     }
 
     onCancel(): void {

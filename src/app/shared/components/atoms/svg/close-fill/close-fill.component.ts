@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-close-fill',
+    selector: 'rwa-svg-close-fill',
     templateUrl: './close-fill.component.svg',
     styleUrls: ['./close-fill.component.scss'],
 })

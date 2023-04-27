@@ -26,10 +26,10 @@
         >
             <div class="value" [class.placeholder]="!value">{{ value ? value.name : placeholder }}</div>
             <div class="l-icon">
-                <rwa-warning
+                <rwa-svg-warning
                     *ngIf="(status == 'error' || status == 'warning') && !isOpen"
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
-                ></rwa-warning>
+                ></rwa-svg-warning>
                 <div class="caret-arrow"></div>
             </div>
 

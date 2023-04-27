@@ -62,7 +62,7 @@
 
 // Typography
 @mixin rw-type-b($fontSize: 3.2rem, $lineHeight: 44px, $color: var(--font-color)) {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: $fontSize;
@@ -70,7 +70,7 @@
     color: $color;
 }
 @mixin rw-type-r($fontSize: 1.8rem, $lineHeight: 29px, $color: var(--font-color)) {
-    font-family: 'NEXON2_Regular', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 400;
     font-size: $fontSize;
@@ -79,7 +79,7 @@
 }
 
 .rw-type-b32 {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: 3.2rem;
@@ -87,7 +87,7 @@
     color: var(--font-color);
 }
 .rw-type-b27 {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: 2.7rem;
@@ -95,7 +95,7 @@
     color: var(--font-color);
 }
 .rw-type-b22 {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: 2.2rem;
@@ -103,7 +103,7 @@
     color: var(--font-color);
 }
 .rw-type-b18 {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: 1.8rem;
@@ -111,7 +111,7 @@
     color: var(--font-color);
 }
 .rw-type-b16 {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 700;
     font-size: 1.6rem;
@@ -119,7 +119,7 @@
     color: var(--font-color);
 }
 .rw-type-r18 {
-    font-family: 'NEXON2_Regular', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 400;
     font-size: 1.8rem;
@@ -127,7 +127,7 @@
     color: var(--font-color);
 }
 .rw-type-r16 {
-    font-family: 'NEXON2_Regular', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 400;
     font-size: 1.6rem;
@@ -135,7 +135,7 @@
     color: var(--font-color);
 }
 .rw-type-r14 {
-    font-family: 'NEXON2_Regular', sans-serif;
+    font-family: 'Pretendard';
     font-style: normal;
     font-weight: 400;
     font-size: 1.4rem;
@@ -448,7 +448,7 @@ html {
 }
 
 body {
-    font-family: 'NEXON2_Bold', sans-serif;
+    font-family: 'Pretendard';
     font-weight: 500;
     margin: 0;
     font-style: normal;
@@ -995,7 +995,7 @@ body {
     left: 0;
     max-width: 150px;
     padding: 6px 9px 4px !important;
-    font-family: 'NEXON2_Regular', sans-serif;
+    font-family: 'Pretendard';
     font-size: 1.5rem;
     font-weight: 400;
     line-height: 23px;

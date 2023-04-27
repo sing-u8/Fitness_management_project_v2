@@ -8,11 +8,7 @@ div.l-tap {
     flex-direction: column;
 
     label {
-        font-family: 'NEXON2_Regular', sans-serif;
-        font-weight: 400;
-        font-size: 15px;
-        line-height: 23px;
-        color: var(--gray-100);
+        @include rw-type-r(1.5rem, 23px, var(--gray-100));
         margin-bottom: 3px;
     }
 

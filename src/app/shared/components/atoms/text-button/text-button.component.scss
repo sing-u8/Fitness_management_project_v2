@@ -11,7 +11,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 2px;
-    font-family: 'NEXON2_Regular', sans-serif;
+    @include rw-type-r(1.5rem, 23px, var(--gray-100));
     background-color: transparent !important;
     cursor: pointer;
 
@@ -27,7 +27,6 @@
     }
     &:active,
     &:hover {
-        font-family: 'NEXON2_Bold', sans-serif;
         text-decoration: underline;
         text-underline-offset: 7px;
         text-decoration-thickness: 1px;

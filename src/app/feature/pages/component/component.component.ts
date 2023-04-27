@@ -1,6 +1,7 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
+import { DirectivesModule } from '@shared/directives/directives.module'
 import { Observe } from '@shared/helper/decorator/Observe'
 
 import {
@@ -16,6 +17,10 @@ import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
 import { Observable } from 'rxjs'
 import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
+
+import { Data } from '@shared/components/molecules/datepicker/datepicker.component'
+
+import dayjs from 'dayjs'
 
 @Component({
     selector: 'rwp-component',
@@ -46,6 +51,10 @@ export class ComponentComponent {
         this.memo2.disable()
         this.memo4$.subscribe((v) => {
             console.log('memo 4 -- text : ', v)
+        })
+
+        this.datepicker2$.subscribe((v) => {
+            console.log('datepicker2$ -- subscribe : ', v)
         })
     }
 
@@ -272,5 +281,29 @@ export class ComponentComponent {
             this.modalTa3 = false
             console.log('onModalTa3Confirm -- ', res)
         }, 2000)
+    }
+
+    public datepicker1: Data = { date: dayjs().format('YYYY-MM-DD') }
+    public datepicker2: Data = {
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
+    }
+    @Observe('datepicker2') datepicker2$: Observable<any>
+    public datepicker3: Data = {
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
+    }
+
+    public datepicker4: Data = {
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
+    }
+    public datepicker5: Data = {
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
+    }
+    public datepicker6: Data = {
+        startDate: dayjs().format('YYYY-MM-DD'),
+        endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
     }
 }

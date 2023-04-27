@@ -54,6 +54,10 @@ import { MemoComponent } from './memo/memo.component'
 import { ModalComponent } from '@shared/components/atoms/modal/modal.component'
 import { TextareaModalComponent } from './textarea-modal/textarea-modal.component'
 import { CloseComponent } from './svg/close/close.component'
+import { CaretCdlComponent } from './svg/caret-cdl/caret-cdl.component'
+import { CaretCdrComponent } from './svg/caret-cdr/caret-cdr.component'
+import { CaretClComponent } from './svg/caret-cl/caret-cl.component'
+import { CaretCrComponent } from './svg/caret-cr/caret-cr.component'
 
 @NgModule({
     declarations: [
@@ -68,7 +72,11 @@ import { CloseComponent } from './svg/close/close.component'
         CheckboxComponent,
         WarningComponent,
         CloseFillComponent,
-
+        CloseComponent,
+        CaretCdlComponent,
+        CaretCdrComponent,
+        CaretClComponent,
+        CaretCrComponent,
         // etc
         // button
         ButtonComponent,
@@ -96,7 +104,6 @@ import { CloseComponent } from './svg/close/close.component'
         MemoComponent,
         ModalComponent,
         TextareaModalComponent,
-        CloseComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -110,6 +117,11 @@ import { CloseComponent } from './svg/close/close.component'
         DotsThreeComponent,
         WarningComponent,
         CloseFillComponent,
+        CloseComponent,
+        CaretCdlComponent,
+        CaretCdrComponent,
+        CaretClComponent,
+        CaretCrComponent,
         // button
         ButtonComponent,
         ButtonIdleContentDirective,

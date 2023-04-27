@@ -24,15 +24,15 @@
         <div class="l-input-tag">
             <span class="currency">원</span>
             <div class="input-tag-normal">
-                <rwa-close-fill
+                <rwa-svg-close-fill
                     [margin]="'1.5px 0 0 0'"
                     *ngIf="!disable && status != 'error' && status != 'warning' && textField.value.length > 0"
                     (click)="resetTextField()"
-                ></rwa-close-fill>
-                <rwa-warning
+                ></rwa-svg-close-fill>
+                <rwa-svg-warning
                     *ngIf="status == 'error' || status == 'warning'"
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
-                ></rwa-warning>
+                ></rwa-svg-warning>
             </div>
         </div>
         <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>

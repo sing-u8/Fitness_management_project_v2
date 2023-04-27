@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-warning',
+    selector: 'rwa-svg-warning',
     templateUrl: './warning.component.svg',
     styleUrls: ['./warning.component.scss'],
 })

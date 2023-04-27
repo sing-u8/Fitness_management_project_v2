@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-user-list',
+    selector: 'rwa-svg-user-list',
     templateUrl: './user-list.component.svg',
     styleUrls: ['./user-list.component.scss'],
 })

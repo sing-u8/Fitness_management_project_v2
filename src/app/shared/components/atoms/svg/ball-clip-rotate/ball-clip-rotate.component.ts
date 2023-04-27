@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-ball-clip-rotate',
+    selector: 'rwa-svg-ball-clip-rotate',
     templateUrl: './ball-clip-rotate.component.svg',
     styleUrls: ['./ball-clip-rotate.component.scss'],
 })

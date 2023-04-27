@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-pencil',
+    selector: 'rwa-svg-pencil',
     templateUrl: './pencil.component.svg',
     styleUrls: ['./pencil.component.scss'],
 })

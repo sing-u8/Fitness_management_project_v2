@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-dots-three',
+    selector: 'rwa-svg-dots-three',
     templateUrl: './dots-three.component.svg',
     styleUrls: ['./dots-three.component.scss'],
 })

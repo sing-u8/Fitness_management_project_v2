@@ -75,13 +75,10 @@
         + label {
             cursor: pointer;
             span {
-                font-family: 'NEXON2_Regular', sans-serif;
-                font-weight: 400;
-                font-size: 17px;
-                line-height: 28px;
+                @include rw-type-r(1.7rem, 28px, var(--font-color));
+                font-family: 'Pretendard', sans-serif;
                 vertical-align: middle;
                 padding: 0 0 0 10px;
-                color: var(--font-color);
             }
         }
     }

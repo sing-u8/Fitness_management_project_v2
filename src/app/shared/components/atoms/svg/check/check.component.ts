@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 
 @Component({
-    selector: 'rwa-check',
+    selector: 'rwa-svg-check',
     templateUrl: './check.component.svg',
     styleUrls: ['./check.component.scss'],
 })

@@ -28,7 +28,7 @@
         <rwa-button [status]="'done'" [loadingName]="button2.loadingName">
             <ng-template btIdleContent>저장하기</ng-template>
             <ng-template btPendingContent>저장중</ng-template>
-            <ng-template btDoneContent> <rwa-check [margin]="'2.5px 4px 0 0'"></rwa-check> 완료 </ng-template>
+            <ng-template btDoneContent> <rwa-svg-check [margin]="'2.5px 4px 0 0'"></rwa-svg-check> 완료 </ng-template>
         </rwa-button>
     </div>
     <p class="v-padding"></p>
@@ -121,7 +121,9 @@
             [fontColor]="'var(--red-100)'"
             [hoverBgColor]="'var(--red-5)'"
         >
-            <ng-template gbtIdleContent> <rwa-plus [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template>
+            <ng-template gbtIdleContent>
+                <rwa-svg-plus [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
+            >
         </rwa-ghost-button>
         <div class="h-padding"></div>
         <rwa-ghost-button
@@ -138,8 +140,8 @@
             (onClick)="gbt1.disable = !gbt1.disable"
         >
             <ng-template gbtIdleContent>
-                <rwa-plus *ngIf="gbt1.disable" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-plus>
-                <rwa-plus *ngIf="!gbt1.disable" [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template
+                <rwa-svg-plus *ngIf="gbt1.disable" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-svg-plus>
+                <rwa-svg-plus *ngIf="!gbt1.disable" [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
             >
         </rwa-ghost-button>
         <div class="h-padding"></div>
@@ -156,8 +158,8 @@
             [disable]="true"
         >
             <ng-template gbtIdleContent>
-                <rwa-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-plus>
-                <rwa-plus *ngIf="!true" [margin]="'2.5px 5px 0 0'"></rwa-plus> 수업 추가</ng-template
+                <rwa-svg-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-svg-plus>
+                <rwa-svg-plus *ngIf="false" [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
             >
         </rwa-ghost-button>
         <div class="h-padding"></div>
@@ -178,12 +180,12 @@
             (onClick)="gbt2Click()"
         >
             <ng-template gbtIdleContent>
-                <rwa-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-100)'"></rwa-plus>
+                <rwa-svg-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
                 수업 추가 st
             </ng-template>
             <ng-template gbtPendingContent> 처리중 </ng-template>
             <ng-template gbtDoneContent>
-                <rwa-check [margin]="'2.5px 4px 0 0'" [color]="'var(--red-100)'"></rwa-check> 완료
+                <rwa-svg-check [margin]="'2.5px 4px 0 0'" [color]="'var(--red-100)'"></rwa-svg-check> 완료
             </ng-template>
         </rwa-ghost-button>
     </div>
@@ -219,7 +221,7 @@
             rwTooltipTitle="회원 리스트"
             borderColor="var(--gray-60)"
         >
-            <rwa-user-list></rwa-user-list>
+            <rwa-svg-user-list></rwa-svg-user-list>
         </rwa-icon-ghost-button>
         <div class="h-padding"></div>
         <rwa-icon-ghost-button
@@ -230,7 +232,7 @@
             borderRadius="12px"
             borderColor="var(--gray-60)"
         >
-            <rwa-dots-three></rwa-dots-three>
+            <rwa-svg-dots-three></rwa-svg-dots-three>
         </rwa-icon-ghost-button>
         <div class="h-padding"></div>
         <rwa-icon-ghost-button
@@ -241,7 +243,7 @@
             borderRadius="14px"
             borderColor="var(--gray-60)"
         >
-            <rwa-dots-three></rwa-dots-three>
+            <rwa-svg-dots-three></rwa-svg-dots-three>
         </rwa-icon-ghost-button>
         <div class="h-padding"></div>
         <rwa-icon-ghost-button
@@ -251,7 +253,7 @@
             sizeType="lg"
             borderColor="var(--gray-60)"
         >
-            <rwa-dots-three></rwa-dots-three>
+            <rwa-svg-dots-three></rwa-svg-dots-three>
         </rwa-icon-ghost-button>
         <div class="h-padding"></div>
         <rwa-icon-ghost-button
@@ -263,24 +265,24 @@
             hoverBgColor="var(--red-200)"
             borderColor="var(--black)"
         >
-            <rwa-dots-three color="var(--white)"></rwa-dots-three>
+            <rwa-svg-dots-three color="var(--white)"></rwa-svg-dots-three>
         </rwa-icon-ghost-button>
     </div>
     <p class="v-padding"></p>
     <h2>아이콘 버튼</h2>
     <div class="d-flex align-items-center">
-        <rwa-icon-button><rwa-pencil></rwa-pencil></rwa-icon-button>
+        <rwa-icon-button><rwa-svg-pencil></rwa-svg-pencil></rwa-icon-button>
         <div class="h-padding"></div>
         <rwa-icon-button [sizeType]="'sm'" borderRadius="12px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-plus color="var(--white)"></rwa-plus>
+            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
         </rwa-icon-button>
         <div class="h-padding"></div>
         <rwa-icon-button sizeType="md" borderRadius="14px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-plus color="var(--white)"></rwa-plus>
+            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
         </rwa-icon-button>
         <div class="h-padding"></div>
         <rwa-icon-button sizeType="lg" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-plus color="var(--white)"></rwa-plus>
+            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
         </rwa-icon-button>
     </div>
     <p class="v-padding"></p>
@@ -834,4 +836,45 @@
         ></rwa-textarea-modal>
         <div class="h-padding"></div>
     </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>캘린더 - 한 달</h2>
+    <div class="d-flex align-items-center">
+        <rwm-datepicker [mode]="'date'" [(data)]="datepicker1"></rwm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker1 | json }}</span>
+        <div class="h-padding"></div>
+        <rwm-datepicker [mode]="'multiline'" [(data)]="datepicker2"></rwm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker2 | json }}</span>
+        <div class="h-padding"></div>
+        <rwm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker3"></rwm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker3 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>캘린더 - 두 달</h2>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'date'" [(data)]="datepicker4"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker4 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'multiline'" [(data)]="datepicker5"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker5 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker6"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker6 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
 </div>

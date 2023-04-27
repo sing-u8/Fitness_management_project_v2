@@ -119,13 +119,13 @@
             position: absolute;
             top: calc(calc(100% - 22px) / 2);
             right: 13px;
-            rwa-close-fill {
+            rwa-svg-close-fill {
                 margin-left: 12.5px;
                 cursor: pointer;
                 height: 18px;
             }
-            rwa-warning,
-            rwa-check {
+            rwa-svg-warning,
+            rwa-svg-check {
                 margin-left: 10px;
                 margin-top: 0.5px;
                 height: 18px;

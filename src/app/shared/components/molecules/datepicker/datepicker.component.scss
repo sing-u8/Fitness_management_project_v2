@@ -1,0 +1,172 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.caret-cdl {
+    background-image: url('/assets/icons/arrow/caret-circle-double-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    margin-right: 5px;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-double-left-duotone.svg');
+    }
+}
+.caret-cdr {
+    background-image: url('/assets/icons/arrow/caret-circle-double-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    margin-left: 5px;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-double-right-duotone.svg');
+    }
+}
+.caret-cl {
+    background-image: url('/assets/icons/arrow/caret-circle-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-left-duotone.svg');
+    }
+}
+.caret-cr {
+    background-image: url('/assets/icons/arrow/caret-circle-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 26px;
+    height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-right-duotone.svg');
+    }
+}
+
+$daySize: 37px;
+
+.l-one-month-calendar {
+    width: 351px;
+    height: 394px;
+    border-radius: 18px;
+    background-color: var(--white);
+    padding: 25px;
+    &.is-shadow {
+        @include mini-modal-shadow();
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .month-day {
+            @include rw-type-b(1.7rem, 28px, var(--font-color));
+            padding-top: 1px;
+        }
+    }
+    .days-of-week {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 18px;
+        margin-bottom: 3px;
+        .day {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: $daySize;
+            height: $daySize;
+            @include rw-type-r(1.7rem, 22px, var(--gray-90));
+        }
+    }
+    .week-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: $daySize;
+        &:not(:last-of-type) {
+            margin-bottom: 7px;
+        }
+
+        .l-week-col {
+            width: calc($daySize + 7px);
+            &:nth-child(7n) {
+                width: calc($daySize) !important;
+            }
+            .week-col {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                width: $daySize;
+                height: $daySize;
+                box-sizing: border-box;
+                border-radius: 12px;
+                @include rw-type-r(1.5rem, 23px, var(--gray-90));
+
+                &:hover {
+                    border: 1.5px solid var(--gray-100);
+                }
+
+                &.selected {
+                    background-color: var(--gray-100);
+                    color: var(--white) !important;
+                }
+            }
+        }
+    }
+
+    &.multiline {
+        .week-row {
+            .l-week-col {
+                &.start-date {
+                    border-radius: 18px 0 0 18px;
+                    background-color: var(--gray-40);
+                }
+                &.end-date {
+                    background-color: var(--gray-40);
+                    border-radius: 0 18px 18px 0;
+                }
+                &.same-date {
+                }
+                &.between {
+                    background-color: var(--gray-40);
+                }
+            }
+            .week-col {
+                &.unAvailable-date {
+                    position: relative !important;
+                    cursor: not-allowed !important;
+                    color: var(--gray-70) !important;
+                    &:hover {
+                        border: none !important;
+                    }
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        height: 1px;
+                        width: 30px;
+                        left: 3.5px;
+                        top: 18.5px;
+                        border-top: 1px solid var(--gray-60);
+                        transform: matrix(-0.71, 0.71, 0.71, 0.71, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.l-two-month-calendar {
+}

@@ -1,0 +1,186 @@
+<div
+    class="l-one-month-calendar multiline d-flex flex-column user-select-none"
+    [class.is-shadow]="isShadow"
+    *ngIf="mode == 'date'"
+>
+    <div class="header">
+        <div class="header-left">
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="caret-cdl" (click)="previousYear()"></div>
+                <div class="caret-cl" (click)="previousMonth()"></div>
+            </div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth.monthFormat }}</div>
+        </div>
+        <div class="header-right">
+            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth.monthFormat }}</div>
+            <div class="d-flex justify-content-end align-items-center">
+                <div class="caret-cr" (click)="nextMonth()"></div>
+                <div class="caret-cdr" (click)="nextYear()"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="body">
+        <div class="curDays">
+            <div class="days-of-week">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+            </div>
+            <div
+                class="week-row"
+                *ngFor="
+                    let weekRow of weekRows | slice : 0 : nextMonthRow + this.isPastMonthDateIncluded;
+                    let i = index
+                "
+            >
+                <div class="l-week-col" *ngFor="let weekCol of weekRow; let j = index">
+                    <div
+                        class="week-col"
+                        [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
+                        [style.color]="weekCol.color"
+                        [style.font-weight]="weekCol.fontWeight"
+                        [class.selected]="weekCol.selected"
+                        (click)="selectDate(i, j)"
+                    >
+                        {{ weekCol.day }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="postDays">
+            <div class="days-of-week">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+            </div>
+            <div class="week-row" *ngFor="let weekRow of weekRows | slice : nextMonthRow; let i = index">
+                <div class="l-week-col" *ngFor="let weekCol of weekRow; let j = index">
+                    <div
+                        class="week-col"
+                        [style.visibility]="isVisibleDate(postMonth.date, weekCol) ? 'visible' : 'hidden'"
+                        [style.color]="weekCol.color"
+                        [style.font-weight]="weekCol.fontWeight"
+                        [class.selected]="weekCol.selected"
+                        (click)="selectDate(i + nextMonthRow, j)"
+                    >
+                        {{ weekCol.day }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div
+    class="l-one-month-calendar multiline d-flex flex-column user-select-none"
+    [class.is-shadow]="isShadow"
+    *ngIf="mode == 'multiline'"
+>
+    <div class="header">
+        <div class="header-left">
+            <div class="d-flex justify-content-start align-items-center">
+                <div class="caret-cdl" (click)="previousYear()"></div>
+                <div class="caret-cl" (click)="previousMonth()"></div>
+            </div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth.monthFormat }}</div>
+        </div>
+        <div class="header-right">
+            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth.monthFormat }}</div>
+            <div class="d-flex justify-content-end align-items-center">
+                <div class="caret-cr" (click)="nextMonth()"></div>
+                <div class="caret-cdr" (click)="nextYear()"></div>
+            </div>
+        </div>
+    </div>
+    <div class="body">
+        <div class="curDays">
+            <div class="days-of-week">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+            </div>
+            <div
+                class="week-row"
+                *ngFor="
+                    let weekRow of weekRows | slice : 0 : nextMonthRow + this.isPastMonthDateIncluded;
+                    let i = index
+                "
+            >
+                <div
+                    class="l-week-col"
+                    *ngFor="let weekCol of weekRow; let j = index"
+                    [class.start-date]="isStartDate(weekCol)"
+                    [class.end-date]="isEndDate(weekCol)"
+                    [class.same-date]="isSameDate(weekCol)"
+                    [class.between]="isBetween(weekCol)"
+                    [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
+                >
+                    <div
+                        class="week-col"
+                        [style.color]="weekCol.color"
+                        [style.font-weight]="weekCol.fontWeight"
+                        [class.unAvailable-date]="!isAvailableDate(weekCol)"
+                        [class.selected]="isEdgeDate(weekCol)"
+                        (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
+                        rwTooltip
+                        [rwTooltipDisabled]="pastDisable(weekCol)"
+                        [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
+                        rwTooltipPlacement="bottom"
+                    >
+                        {{ weekCol.day }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="postDays">
+            <div class="days-of-week">
+                <div class="day">일</div>
+                <div class="day">월</div>
+                <div class="day">화</div>
+                <div class="day">수</div>
+                <div class="day">목</div>
+                <div class="day">금</div>
+                <div class="day">토</div>
+            </div>
+            <div class="week-row" *ngFor="let weekRow of weekRows | slice : nextMonthRow; let i = index">
+                <div
+                    class="l-week-col"
+                    *ngFor="let weekCol of weekRow; let j = index"
+                    [class.start-date]="isStartDate(weekCol)"
+                    [class.end-date]="isEndDate(weekCol)"
+                    [class.same-date]="isSameDate(weekCol)"
+                    [class.between]="isBetween(weekCol)"
+                    [style.visibility]="isVisibleDate(postMonth.date, weekCol) ? 'visible' : 'hidden'"
+                >
+                    <div
+                        class="week-col"
+                        [style.color]="weekCol.color"
+                        [style.font-weight]="weekCol.fontWeight"
+                        [class.unAvailable-date]="!isAvailableDate(weekCol)"
+                        [class.selected]="isEdgeDate(weekCol)"
+                        (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
+                        rwTooltip
+                        [rwTooltipDisabled]="pastDisable(weekCol)"
+                        [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
+                        rwTooltipPlacement="bottom"
+                    >
+                        {{ weekCol.day }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

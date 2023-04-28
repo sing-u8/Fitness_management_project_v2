@@ -71,6 +71,7 @@
                 [class.end-date]="isEndDate(weekCol)"
                 [class.same-date]="isSameDate(weekCol)"
                 [class.between]="isBetween(weekCol)"
+                [class.seven-week-col] = "j == 6"
             >
                 <div
                     class="week-col"

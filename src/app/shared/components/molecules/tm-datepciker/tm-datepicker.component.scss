@@ -134,7 +134,7 @@ $additional_width: 7px;
         }
         .l-week-col {
             width: calc($daySize + 7px);
-            &:nth-child(7n) {
+            &.seven-week-col {
                 width: calc($daySize) !important;
             }
             .week-col {

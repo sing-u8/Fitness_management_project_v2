@@ -126,6 +126,7 @@
                         [class.end-date]="isEndDate(weekCol)"
                         [class.same-date]="isSameDate(weekCol)"
                         [class.between]="isBetween(weekCol)"
+                        [class.seven-week-col]="j == 6"
                         [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
                     >
                         <div
@@ -165,6 +166,7 @@
                         [class.end-date]="isEndDate(weekCol)"
                         [class.same-date]="isSameDate(weekCol)"
                         [class.between]="isBetween(weekCol)"
+                        [class.seven-week-col]="j == 6"
                         [style.visibility]="isVisibleDate(postMonth.date, weekCol) ? 'visible' : 'hidden'"
                     >
                         <div

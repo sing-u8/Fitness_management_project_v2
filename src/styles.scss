@@ -4,6 +4,25 @@
 //----------------------------------*/
 @import 'assets/fonts/fonts.scss';
 
+//* {
+//    font-family: 'Pretendard', sans-serif;
+//}
+
+* {
+    font-family: 'Pretendard', sans-serif;
+}
+html {
+    font-size: 62.5%;
+}
+body {
+    font-family: 'Pretendard', sans-serif;
+    font-weight: 500;
+    margin: 0;
+    font-style: normal;
+    font-size: 1.3rem;
+    color: var(--font-color);
+}
+
 // Colors
 :root {
     --white: #ffffff;
@@ -442,19 +461,6 @@
 }
 
 // REDWHALE
-
-html {
-    font-size: 62.5%;
-}
-
-body {
-    font-family: 'Pretendard';
-    font-weight: 500;
-    margin: 0;
-    font-style: normal;
-    font-size: 1.3rem;
-    color: var(--font-color);
-}
 
 .full-fixed {
     position: fixed;

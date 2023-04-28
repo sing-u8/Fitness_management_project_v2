@@ -101,7 +101,6 @@
             cursor: pointer;
             span {
                 @include rw-type-r(1.7rem, 28px, var(--font-color));
-                font-family: 'NEXON2_Regular', sans-serif;
                 vertical-align: middle;
                 padding: 0 0 0 10px;
             }

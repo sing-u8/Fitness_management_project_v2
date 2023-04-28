@@ -21,6 +21,7 @@ import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/component
 import { Data } from '@shared/components/molecules/datepicker/datepicker.component'
 
 import dayjs from 'dayjs'
+import * as timers from 'timers'
 
 @Component({
     selector: 'rwp-component',
@@ -31,13 +32,9 @@ import dayjs from 'dayjs'
 })
 export class ComponentComponent {
     constructor(private fb: FormBuilder) {
-        setTimeout(() => {
-            this.button1.width = '140px'
-            this.button1.status = 'done'
-            this.button1.progress = 0
-            this.button2.status = 'pending'
-            this.button2.progress = 80
-        }, 2000)
+        setInterval(() => {
+            this.button2.progress = (this.button2.progress + 5) % 100
+        }, 200)
 
         this.memo1.valueChanges.subscribe((v) => {
             console.log('memo 1 -- text : ', v)
@@ -70,6 +67,16 @@ export class ComponentComponent {
         loadingName: 'button2',
         progress: 0,
     }
+    onClickButton2() {
+        if (this.button2.status == 'idle') {
+            this.button2.status = 'pending'
+        } else if (this.button2.status == 'pending') {
+            this.button2.status = 'done'
+        } else {
+            this.button2.status = 'idle'
+        }
+    }
+
     button1_1 = {
         status: 'idle' as Loading,
         loadingName: 'button2',

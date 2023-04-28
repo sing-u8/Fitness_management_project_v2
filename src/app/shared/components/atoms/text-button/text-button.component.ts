@@ -42,7 +42,8 @@ export class TextButtonComponent implements AfterViewInit {
 
     @Input() fontSize = '15px'
     @Input() lineHeight = '23px'
-    @Input() color = 'var(--font-color)'
+    @Input() fontWeight = '500'
+    @Input() color = 'var(--gray-90)'
     @Input() showUnderLine = false
 
     @Input() disable = false

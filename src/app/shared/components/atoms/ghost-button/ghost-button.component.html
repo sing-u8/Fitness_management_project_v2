@@ -37,6 +37,12 @@
     </div>
 
     <div *ngIf="status == 'done'" class="done d-flex align-items-center justify-content-center">
+        <rwa-svg-check
+            [color]="loadingColor"
+            [width]="'22px'"
+            [height]="'22px'"
+            [margin]="'0 10px 0 0'"
+        ></rwa-svg-check>
         <ng-container [ngTemplateOutlet]="doneRef.templateRef"></ng-container>
     </div>
 

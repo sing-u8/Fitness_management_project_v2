@@ -1,3 +1,8 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
 #l-rwp-component {
     padding: 20px;
 }
@@ -10,4 +15,24 @@
 .v-padding {
     min-width: 20px;
     min-height: 25px;
+}
+
+span.default {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 28px;
+}
+span.small {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 28px;
+}
+
+rwa-svg-arrow-left-bold {
+    margin-right: 10px;
+    margin-bottom: 1px;
+}
+rwa-svg-arrow-right-bold {
+    margin-left: 10px;
+    margin-bottom: 1px;
 }

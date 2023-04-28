@@ -63,7 +63,7 @@ export class ButtonComponent implements AfterViewInit {
     @Input() progressPercent = 0 // 0 ~ 100
     @Input() progressBgColor = 'var(--red-200)'
     @Input() fontColor = 'var(--white)'
-    @Input() sizeType: 'lg' | 'md' = 'lg'
+    @Input() sizeType: 'lg' | 'md' | null = null
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--white)'
@@ -74,12 +74,14 @@ export class ButtonComponent implements AfterViewInit {
     @Input() loadingName = 'button-loading'
     @Input() loadingMargin = '0 5px 0 0'
 
-    @Input() borderRadius: string = '14px'
+    @Input() borderRadius = '14px'
     @Input() status: Loading = 'idle'
     @Input() padding = '7.5px 16px 5.5px 16px' // padding prop
-    @Input() width = '110px' // ex) 20px, 2rem
+    @Input() width // ex) 20px, 2rem
     @Input() height = '45px' // ex) 40px 4rem
 
+    @Observe('width') width$: Observable<Loading>
+    @Observe('height') height$: Observable<Loading>
     @Observe('status') status$: Observable<Loading>
     @Observe('disable') disable$: Observable<boolean>
     @Observe('bgColor') bgColor$: Observable<string>
@@ -95,6 +97,16 @@ export class ButtonComponent implements AfterViewInit {
 
     constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
     ngAfterViewInit() {
+        this.width$.subscribe((w) => {
+            if (w) {
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', `${w}`)
+            }
+        })
+        this.height$.subscribe((h) => {
+            if (h) {
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', `${h}`)
+            }
+        })
         this.status$.subscribe((status) => {
             if (status == 'pending') {
                 this.spinner.show(this.loadingName)
@@ -106,6 +118,9 @@ export class ButtonComponent implements AfterViewInit {
 
         this.fontColor$.subscribe((fontColor) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'color', fontColor)
+        })
+        this.progressBgColor$.subscribe((pbg) => {
+            this.renderer.setStyle(this.progress_el.nativeElement, 'backgroundColor', `${pbg}`)
         })
         this.bgColor$.subscribe((bgColor) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)

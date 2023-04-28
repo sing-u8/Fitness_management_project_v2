@@ -117,17 +117,22 @@
             display: flex;
             align-items: center;
             position: absolute;
-            top: calc(calc(100% - 22px) / 2);
+            top: calc(calc(100% - 20px) / 2);
             right: 13px;
             rwa-svg-close-fill {
                 margin-left: 12.5px;
+                margin-bottom: 1.5px;
                 cursor: pointer;
                 height: 18px;
             }
-            rwa-svg-warning,
+            rwa-svg-warning {
+                margin-left: 10px;
+                margin-bottom: 1px;
+                height: 18px;
+            }
             rwa-svg-check {
                 margin-left: 10px;
-                margin-top: 0.5px;
+                margin-top: 2px;
                 height: 18px;
             }
             .input-tag-normal {

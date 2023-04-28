@@ -1,4 +1,5 @@
 <svg
+    class="d-flex align-items-center justify-content-center"
     [style.width]="width"
     [style.height]="width"
     [style.margin]="margin"

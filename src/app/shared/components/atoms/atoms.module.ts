@@ -58,6 +58,8 @@ import { CaretCdlComponent } from './svg/caret-cdl/caret-cdl.component'
 import { CaretCdrComponent } from './svg/caret-cdr/caret-cdr.component'
 import { CaretClComponent } from './svg/caret-cl/caret-cl.component'
 import { CaretCrComponent } from './svg/caret-cr/caret-cr.component'
+import { ArrowLeftBoldComponent } from './svg/arrow-left-bold/arrow-left-bold.component'
+import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold.component'
 
 @NgModule({
     declarations: [
@@ -77,6 +79,8 @@ import { CaretCrComponent } from './svg/caret-cr/caret-cr.component'
         CaretCdrComponent,
         CaretClComponent,
         CaretCrComponent,
+        ArrowLeftBoldComponent,
+        ArrowRightBoldComponent,
         // etc
         // button
         ButtonComponent,
@@ -122,6 +126,8 @@ import { CaretCrComponent } from './svg/caret-cr/caret-cr.component'
         CaretCdrComponent,
         CaretClComponent,
         CaretCrComponent,
+        ArrowLeftBoldComponent,
+        ArrowRightBoldComponent,
         // button
         ButtonComponent,
         ButtonIdleContentDirective,

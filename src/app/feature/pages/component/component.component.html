@@ -1,296 +1,720 @@
 <div id="l-rwp-component" class="d-flex flex-column">
+    <p class="v-padding"></p>
     <h1>- buttons</h1>
-    <h2>기본</h2>
-    <div class="d-flex align-items-center">
-        <rwa-button [status]="button1.status" [loadingName]="button1.loadingName" [width]="button1.width">
-            <ng-template btIdleContent>저장하기</ng-template>
-            <ng-template btPendingContent>저장중</ng-template>
-            <ng-template btDoneContent>완료</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button [status]="button2.status" [loadingName]="button2.loadingName" [progressPercent]="10">
-            <ng-template btIdleContent>저장하기</ng-template>
-            <ng-template btPendingContent>저장중</ng-template>
-            <ng-template btDoneContent>완료</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button
-            [status]="button2.status"
-            [loadingName]="button2.loadingName"
-            [progressBgColor]="'var(--red-200)'"
-            [progressPercent]="button2.progress"
-        >
-            <ng-template btIdleContent>저장하기</ng-template>
-            <ng-template btPendingContent>저장중</ng-template>
-            <ng-template btDoneContent>완료</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button [status]="'done'" [loadingName]="button2.loadingName">
-            <ng-template btIdleContent>저장하기</ng-template>
-            <ng-template btPendingContent>저장중</ng-template>
-            <ng-template btDoneContent> <rwa-svg-check [margin]="'2.5px 4px 0 0'"></rwa-svg-check> 완료 </ng-template>
-        </rwa-button>
+    <div>
+        <p class="v-padding"></p>
+        <h2>기본 L</h2>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:red</span>
+            <div class="h-padding"></div>
+            <rwa-button [width]="'109px'" [status]="button1.status" [loadingName]="button1.loadingName">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [status]="button2.status"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button [width]="'109px'" [disableBgColor]="'#EEEEEE'" [disable]="true">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:gray</span>
+            <div class="h-padding"></div>
+            <rwa-button [width]="'109px'" [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [status]="button2.status"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [progressBgColor]="'#141517'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#EEEEEE'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:white</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [status]="button1_2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함 (클릭 시 확인 가능)</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [status]="button2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [progressBgColor]="'var(--gray-30)'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'109px'"
+                [bgColor]="'#2F2D2D'"
+                [fontColor]="'var(--gray-90)'"
+                disableFontColor="var(--gray-60)"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#FFFFFF'"
+                [loadingColor]="'var(--font-color)'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <h2>기본 M</h2>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:red</span>
+            <div class="h-padding"></div>
+            <rwa-button [status]="button1.status" [loadingName]="button1.loadingName">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [status]="button2.status"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button [disableBgColor]="'#EEEEEE'" [disable]="true">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:gray</span>
+            <div class="h-padding"></div>
+            <rwa-button [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [status]="button2.status"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [progressBgColor]="'#141517'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'" [disableBgColor]="'#EEEEEE'" [disable]="true">
+                <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:white</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [status]="button1_2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함 (클릭 시 확인 가능)</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [status]="button2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [progressBgColor]="'var(--gray-30)'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [bgColor]="'#2F2D2D'"
+                [fontColor]="'var(--gray-90)'"
+                disableFontColor="var(--gray-60)"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#FFFFFF'"
+                [loadingColor]="'var(--font-color)'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <p class="v-padding"></p>
+        <h2>기본 + 아이콘 L</h2>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - case 1</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'134px'"
+                [bgColor]="'var(--red-5)'"
+                [hoverBgColor]="'var(--red-10)'"
+                [fontColor]="'var(--red-100)'"
+                [progressBgColor]="'var(--red-10)'"
+                [loadingColor]="'var(--red-100)'"
+                [status]="button1.status"
+                [loadingName]="button1.loadingName"
+            >
+                <ng-template btIdleContent>
+                    <rwa-svg-arrow-left-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--red-100)'"
+                    ></rwa-svg-arrow-left-bold>
+                    <span class="default">저장하기</span>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'134px'"
+                [bgColor]="'var(--red-5)'"
+                [hoverBgColor]="'var(--red-10)'"
+                [fontColor]="'var(--red-100)'"
+                [progressBgColor]="'var(--red-10)'"
+                [loadingColor]="'var(--red-100)'"
+                [status]="button2.status"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent>
+                    <rwa-svg-arrow-left-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--red-100)'"
+                    ></rwa-svg-arrow-left-bold
+                    ><span class="default">저장하기</span>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'134px'"
+                [bgColor]="'var(--red-5)'"
+                [hoverBgColor]="'var(--red-10)'"
+                [fontColor]="'var(--red-100)'"
+                [progressBgColor]="'var(--red-10)'"
+                [disableBgColor]="'#EEEEEE'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent>
+                    <rwa-svg-arrow-left-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--white)'"
+                    ></rwa-svg-arrow-left-bold>
+                    <span class="default">저장하기</span>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - case 2</span>
+            <div class="h-padding"></div>
+            <rwa-button [width]="'134px'" [status]="button1_2.status">
+                <ng-template btIdleContent>
+                    <span class="default">저장하기</span>
+                    <rwa-svg-arrow-right-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--white)'"
+                    ></rwa-svg-arrow-right-bold>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [width]="'134px'"
+                [status]="button2.status"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent>
+                    <span class="default">저장하기</span>
+                    <rwa-svg-arrow-right-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--white)'"
+                    ></rwa-svg-arrow-right-bold>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button [width]="'134px'" [disable]="true">
+                <ng-template btIdleContent>
+                    <span class="default">저장하기</span>
+                    <rwa-svg-arrow-right-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--white)'"
+                    ></rwa-svg-arrow-right-bold>
+                </ng-template>
+                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
     </div>
-    <p class="v-padding"></p>
-    <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_1.status" [loadingName]="button1_1.loadingName">
-            <ng-template btIdleContent>button1_1</ng-template>
-        </rwa-button>
-    </div>
-    <p class="v-padding"></p>
-    <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_2.status" [bgColor]="'#E34A5E'" [hoverBgColor]="'#D3243B'">
-            <ng-template btIdleContent>bt red</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button
-            [status]="button1_2.status"
-            [bgColor]="'#E34A5E'"
-            [hoverBgColor]="'#D3243B'"
-            [disable]="button1_2Disable"
-            [disableBgColor]="'#EEEEEE'"
-            (onClick)="button1_2Disable = !button1_2Disable"
-        >
-            <ng-template btIdleContent>bt red disable</ng-template>
-        </rwa-button>
-    </div>
-    <p class="v-padding"></p>
-    <div class="d-flex align-items-center">
-        <rwa-button [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
-            <ng-template btIdleContent>bt gray</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button
-            [status]="button1_2.status"
-            [bgColor]="'#2F2D2D'"
-            [hoverBgColor]="'#141517'"
-            [disable]="true"
-            [disableBgColor]="'#EEEEEE'"
-        >
-            <ng-template btIdleContent>bt gray disable</ng-template>
-        </rwa-button>
-    </div>
-    <p class="v-padding"></p>
-    <div class="d-flex align-items-center">
-        <rwa-button
-            [status]="button1_2.status"
-            [bgColor]="'var(--white)'"
-            [fontColor]="'#575555'"
-            [hoverBgColor]="'#FAF9F9'"
-        >
-            <ng-template btIdleContent>bt white</ng-template>
-        </rwa-button>
-        <div class="h-padding"></div>
-        <rwa-button
-            [status]="button1_2.status"
-            [bgColor]="'white'"
-            [disable]="true"
-            [disableBgColor]="'#FFFFFF'"
-            [disableFontColor]="'#D8D8D8'"
-        >
-            <ng-template btIdleContent>bt white disable</ng-template>
-        </rwa-button>
-    </div>
+
+    <!----------------------------------------------------- 고스트 버튼 ------------------------------------------------------------->
 
     <p class="v-padding"></p>
     <h2>고스트</h2>
-    <div class="d-flex align-items-center">
-        <rwa-ghost-button>
-            <ng-template gbtIdleContent>문의하기</ng-template>
-        </rwa-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-ghost-button [disable]="true">
-            <ng-template gbtIdleContent>문의하기</ng-template>
-        </rwa-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-ghost-button
-            [disable]="true"
-            [disableFontColor]="'var(--label-green)'"
-            [disableBgColor]="'var(--state-etc-5)'"
-        >
-            <ng-template gbtIdleContent>문의하기</ng-template>
-        </rwa-ghost-button>
+    <p class="v-padding"></p>
+    <div>
+        <h3>고스트 L</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button>
+                <ng-template gbtIdleContent><span class="default">문의하기</span></ng-template>
+            </rwa-ghost-button>
+            <div class="h-padding"></div>
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button [disable]="true">
+                <ng-template gbtIdleContent><span class="default">문의하기</span></ng-template>
+            </rwa-ghost-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>고스트 M</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button height="42px" width="93px">
+                <ng-template gbtIdleContent><span class="default">전체 보기</span></ng-template>
+            </rwa-ghost-button>
+            <div class="h-padding"></div>
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button height="42px" width="93px" [disable]="true">
+                <ng-template gbtIdleContent><span class="default">전체 보기</span></ng-template>
+            </rwa-ghost-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>고스트 S</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button height="37px" width="86px">
+                <ng-template gbtIdleContent><span class="small">전체 보기</span></ng-template>
+            </rwa-ghost-button>
+            <div class="h-padding"></div>
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button height="37px" width="86px" [disable]="true">
+                <ng-template gbtIdleContent><span class="small">전체 보기</span></ng-template>
+            </rwa-ghost-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>고스트 M + 아이콘</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button
+                [width]="'116px'"
+                [height]="'42px'"
+                [borderColor]="'var(--red-100)'"
+                [hoverBorderColor]="'var(--red-100)'"
+                [fontColor]="'var(--red-100)'"
+                [hoverBgColor]="'var(--red-5)'"
+                (onClick)="gbt1.disable = !gbt1.disable"
+            >
+                <ng-template gbtIdleContent>
+                    <rwa-svg-plus [margin]="'0 5px 2.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
+                    <span class="default">수업 추가</span></ng-template
+                >
+            </rwa-ghost-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함 (클릭 시 확인 가능)</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button
+                [width]="'116px'"
+                [height]="'42px'"
+                padding="9px 0 7px"
+                [borderColor]="'var(--red-100)'"
+                [hoverBorderColor]="'var(--red-100)'"
+                [fontColor]="'var(--red-100)'"
+                [hoverBgColor]="'var(--red-5)'"
+                [disableBgColor]="'var(--white)'"
+                [disableFontColor]="'var(--red-20)'"
+                [disableBorderColor]="'var(--red-20)'"
+                [loadingColor]="'var(--red-100)'"
+                [status]="gbt2.progress"
+                [progressPercent]="75"
+                [progressBgColor]="'var(--red-5)'"
+                (onClick)="gbt2Click()"
+            >
+                <ng-template gbtIdleContent>
+                    <rwa-svg-plus [margin]="'0 5px 2.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
+                    <span class="default">수업 추가</span>
+                </ng-template>
+                <ng-template gbtPendingContent> <span class="default">처리중</span> </ng-template>
+                <ng-template gbtDoneContent>
+                    <span class="default">완료</span>
+                </ng-template>
+            </rwa-ghost-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-ghost-button
+                [width]="'116px'"
+                [height]="'42px'"
+                [borderColor]="'var(--red-100)'"
+                [hoverBorderColor]="'var(--red-100)'"
+                [fontColor]="'var(--red-100)'"
+                [hoverBgColor]="'var(--red-5)'"
+                [disableBgColor]="'var(--white)'"
+                [disableFontColor]="'var(--red-20)'"
+                [disableBorderColor]="'var(--red-20)'"
+                [disable]="true"
+            >
+                <ng-template gbtIdleContent>
+                    <rwa-svg-plus *ngIf="true" [margin]="'0 5px 0 0'" [color]="'var(--red-20)'"></rwa-svg-plus>
+                    <rwa-svg-plus *ngIf="false" [margin]="'0 5px 0 0'"></rwa-svg-plus
+                    ><span class="default">수업 추가</span>
+                </ng-template>
+            </rwa-ghost-button>
+        </div>
     </div>
     <p class="v-padding"></p>
-    <div class="d-flex align-items-center">
-        <rwa-ghost-button
-            [width]="'117px'"
-            [height]="'42px'"
-            [borderColor]="'var(--red-100)'"
-            [hoverBorderColor]="'var(--red-100)'"
-            [fontColor]="'var(--red-100)'"
-            [hoverBgColor]="'var(--red-5)'"
-        >
-            <ng-template gbtIdleContent>
-                <rwa-svg-plus [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
-            >
-        </rwa-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-ghost-button
-            [width]="'117px'"
-            [height]="'42px'"
-            [borderColor]="'var(--red-100)'"
-            [hoverBorderColor]="'var(--red-100)'"
-            [fontColor]="'var(--red-100)'"
-            [hoverBgColor]="'var(--red-5)'"
-            [disableBgColor]="'var(--white)'"
-            [disableFontColor]="'var(--red-20)'"
-            [disableBorderColor]="'var(--red-20)'"
-            [disable]="gbt1.disable"
-            (onClick)="gbt1.disable = !gbt1.disable"
-        >
-            <ng-template gbtIdleContent>
-                <rwa-svg-plus *ngIf="gbt1.disable" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-svg-plus>
-                <rwa-svg-plus *ngIf="!gbt1.disable" [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
-            >
-        </rwa-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-ghost-button
-            [width]="'117px'"
-            [height]="'42px'"
-            [borderColor]="'var(--red-100)'"
-            [hoverBorderColor]="'var(--red-100)'"
-            [fontColor]="'var(--red-100)'"
-            [hoverBgColor]="'var(--red-5)'"
-            [disableBgColor]="'var(--white)'"
-            [disableFontColor]="'var(--red-20)'"
-            [disableBorderColor]="'var(--red-20)'"
-            [disable]="true"
-        >
-            <ng-template gbtIdleContent>
-                <rwa-svg-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-20)'"></rwa-svg-plus>
-                <rwa-svg-plus *ngIf="false" [margin]="'2.5px 5px 0 0'"></rwa-svg-plus> 수업 추가</ng-template
-            >
-        </rwa-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-ghost-button
-            [width]="'117px'"
-            [height]="'42px'"
-            [borderColor]="'var(--red-100)'"
-            [hoverBorderColor]="'var(--red-100)'"
-            [fontColor]="'var(--red-100)'"
-            [hoverBgColor]="'var(--red-5)'"
-            [disableBgColor]="'var(--white)'"
-            [disableFontColor]="'var(--red-20)'"
-            [disableBorderColor]="'var(--red-20)'"
-            [loadingColor]="'var(--red-100)'"
-            [status]="gbt2.progress"
-            [progressPercent]="75"
-            [progressBgColor]="'var(--red-5)'"
-            (onClick)="gbt2Click()"
-        >
-            <ng-template gbtIdleContent>
-                <rwa-svg-plus *ngIf="true" [margin]="'2.5px 5px 0 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
-                수업 추가 st
-            </ng-template>
-            <ng-template gbtPendingContent> 처리중 </ng-template>
-            <ng-template gbtDoneContent>
-                <rwa-svg-check [margin]="'2.5px 4px 0 0'" [color]="'var(--red-100)'"></rwa-svg-check> 완료
-            </ng-template>
-        </rwa-ghost-button>
-    </div>
+    <!----------------------------------------------------- 텍스트 버튼 ------------------------------------------------------------->
+    <h2>텍스트 버튼 (이해 안되는 부분이 있어서 나중에 확인 필요)</h2>
     <p class="v-padding"></p>
-    <h2>텍스트 버튼</h2>
     <div class="d-flex align-items-center">
+        <h3>gray</h3>
+        <div class="h-padding"></div>
         <rwa-text-button> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'"> 사용 불가 해제하기 </rwa-text-button>
+        <h3>gray 비활성화</h3>
         <div class="h-padding"></div>
-        <rwa-text-button
-            [color]="'var(--red-100)'"
-            [showUnderLine]="true"
-            [disable]="true"
-            [disableColor]="'var(--red-10)'"
-        >
-            사용 불가 해제하기
-        </rwa-text-button>
+        <rwa-text-button [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [fontSize]="'20px'" [lineHeight]="'25px'" [showUnderLine]="true">
-            <span>사용 불가 해제하기</span>
-        </rwa-text-button>
-
+        <h3>gray - 800</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [fontSize]="'22px'" [lineHeight]="'28px'"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <h3>gray - 800 비활성화</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button fontWeight="800" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
     <h2>아이콘 고스트 버튼</h2>
-    <div class="d-flex align-items-center">
-        <rwa-icon-ghost-button
-            rwTooltip
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="회원 리스트"
-            borderColor="var(--gray-60)"
-        >
-            <rwa-svg-user-list></rwa-svg-user-list>
-        </rwa-icon-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-icon-ghost-button
-            rwTooltip
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="자세히 보기"
-            [sizeType]="'sm'"
-            borderRadius="12px"
-            borderColor="var(--gray-60)"
-        >
-            <rwa-svg-dots-three></rwa-svg-dots-three>
-        </rwa-icon-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-icon-ghost-button
-            rwTooltip
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="자세히 보기"
-            sizeType="md"
-            borderRadius="14px"
-            borderColor="var(--gray-60)"
-        >
-            <rwa-svg-dots-three></rwa-svg-dots-three>
-        </rwa-icon-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-icon-ghost-button
-            rwTooltip
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="자세히 보기"
-            sizeType="lg"
-            borderColor="var(--gray-60)"
-        >
-            <rwa-svg-dots-three></rwa-svg-dots-three>
-        </rwa-icon-ghost-button>
-        <div class="h-padding"></div>
-        <rwa-icon-ghost-button
-            rwTooltip
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="자세히 보기"
-            sizeType="lg"
-            bgColor="var(--red-100)"
-            hoverBgColor="var(--red-200)"
-            borderColor="var(--black)"
-        >
-            <rwa-svg-dots-three color="var(--white)"></rwa-svg-dots-three>
-        </rwa-icon-ghost-button>
+    <p class="v-padding"></p>
+    <div>
+        <h3>아이콘 XL</h3>
+        <div class="v-padding"></div>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 리스트"
+                borderColor="var(--gray-60)"
+            >
+                <rwa-svg-user-list></rwa-svg-user-list>
+            </rwa-icon-ghost-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>아이콘 M</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="자세히 보기"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                borderColor="var(--gray-60)"
+            >
+                <rwa-svg-pencil></rwa-svg-pencil>
+            </rwa-icon-ghost-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>아이콘 S</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="자세히 보기"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                borderColor="var(--gray-60)"
+            >
+                <rwa-svg-dots-three></rwa-svg-dots-three>
+            </rwa-icon-ghost-button>
+        </div>
     </div>
+
     <p class="v-padding"></p>
     <h2>아이콘 버튼</h2>
-    <div class="d-flex align-items-center">
-        <rwa-icon-button><rwa-svg-pencil></rwa-svg-pencil></rwa-icon-button>
-        <div class="h-padding"></div>
-        <rwa-icon-button [sizeType]="'sm'" borderRadius="12px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
-        </rwa-icon-button>
-        <div class="h-padding"></div>
-        <rwa-icon-button sizeType="md" borderRadius="14px" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
-        </rwa-icon-button>
-        <div class="h-padding"></div>
-        <rwa-icon-button sizeType="lg" bgColor="var(--red-100)" hoverBgColor="var(--red-200)">
-            <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
-        </rwa-icon-button>
+    <p class="v-padding"></p>
+    <div>
+        <h3>아이콘 XL</h3>
+        <div class="v-padding"></div>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                sizeType="lg"
+                bgColor="var(--red-100)"
+                hoverBgColor="var(--red-200)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                sizeType="lg"
+                bgColor="var(--gray-90)"
+                hoverBgColor="var(--gray-100)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [sizeType]="'lg'"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <rwa-svg-pencil></rwa-svg-pencil>
+            </rwa-icon-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>아이콘 M</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                bgColor="var(--red-100)"
+                hoverBgColor="var(--red-200)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                bgColor="var(--gray-90)"
+                hoverBgColor="var(--gray-100)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <rwa-svg-pencil></rwa-svg-pencil>
+            </rwa-icon-button>
+        </div>
+        <p class="v-padding"></p>
+        <h3>아이콘 S</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                bgColor="var(--red-100)"
+                hoverBgColor="var(--red-200)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 추가하기"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                bgColor="var(--gray-90)"
+                hoverBgColor="var(--gray-100)"
+            >
+                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <rwa-svg-pencil></rwa-svg-pencil>
+            </rwa-icon-button>
+        </div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <h2>체크박스</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
+        <h3>no label [디폴트 / 비활성화]</h3>
+        <div class="h-padding"></div>
         <rwa-checkbox [checked]="checkbox1" (onClick)="onCheckBox1($event)"></rwa-checkbox>
         <div class="h-padding"></div>
         <rwa-checkbox [disable]="true" [checked]="checkbox1" (onClick)="onCheckBox1($event)"></rwa-checkbox>
+        <div class="h-padding"></div>
+        <h3>with label [디폴트 / 비활성화]</h3>
         <div class="h-padding"></div>
         <rwa-checkbox [checked]="checkbox2" (onClick)="onCheckBox2($event)" label="label"></rwa-checkbox>
         <div class="h-padding"></div>
@@ -304,10 +728,15 @@
     </div>
     <p class="v-padding"></p>
     <h2>라디오 버튼</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
+        <h3>no label [디폴트 / 비활성화]</h3>
+        <div class="h-padding"></div>
         <rwa-radio-button [checked]="radio1" (onClick)="onRadio1($event)"></rwa-radio-button>
         <div class="h-padding"></div>
         <rwa-radio-button [disable]="true" [checked]="radio1" (onClick)="onRadio1($event)"></rwa-radio-button>
+        <div class="h-padding"></div>
+        <h3>with label [디폴트 / 비활성화]</h3>
         <div class="h-padding"></div>
         <rwa-radio-button [checked]="radio2" (onClick)="onRadio2($event)" label="label"></rwa-radio-button>
         <div class="h-padding"></div>
@@ -321,10 +750,15 @@
     </div>
     <p class="v-padding"></p>
     <h2>토글 버튼</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
+        <h3>no label [디폴트 / 비활성화]</h3>
+        <div class="h-padding"></div>
         <rwa-toggle-button [checked]="toggle1" (onClick)="ontoggle1($event)"></rwa-toggle-button>
         <div class="h-padding"></div>
         <rwa-toggle-button [disable]="true" [checked]="toggle1" (onClick)="ontoggle1($event)"></rwa-toggle-button>
+        <div class="h-padding"></div>
+        <h3>with label [디폴트 / 비활성화]</h3>
         <div class="h-padding"></div>
         <rwa-toggle-button [checked]="toggle2" (onClick)="ontoggle2($event)" label="label"></rwa-toggle-button>
         <div class="h-padding"></div>
@@ -337,14 +771,16 @@
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
-    <h2>탭</h2>
+    <h2>탭 M</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-tab [tabs]="tabInputs1" [label]="'레이블'" (onTabItemSelected)="onItemSelected1($event)"></rwa-tab>
         <div class="h-padding"></div>
         <rwa-tab [tabs]="tabInputs2" [label]="'레이블'" (onTabItemSelected)="tabInputs2 = $event"></rwa-tab>
     </div>
     <p class="v-padding"></p>
-    <h2>탭 small</h2>
+    <h2>탭 S</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-tab-sm [tabs]="tabInputs3" (onTabItemSelected)="onItemSelected3($event)"></rwa-tab-sm>
         <div class="h-padding"></div>
@@ -352,6 +788,9 @@
     </div>
     <p class="v-padding"></p>
     <h2>페이지 버튼</h2>
+    <p class="v-padding"></p>
+    <h3>10페이지 이하</h3>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-page-button [pageNumber]="6"></rwa-page-button>
         <div class="h-padding"></div>
@@ -359,6 +798,8 @@
         <div class="h-padding"></div>
         <rwa-page-button [pageNumber]="10"></rwa-page-button>
     </div>
+    <p class="v-padding"></p>
+    <h3>10페이지 초과</h3>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-page-button [pageNumber]="12" [disable]="true"></rwa-page-button>
@@ -368,6 +809,8 @@
         <rwa-page-button [pageNumber]="999" [disable]="false"></rwa-page-button>
     </div>
     <p class="v-padding"></p>
+    <h3>비활성화</h3>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-page-button [pageNumber]="6" [disable]="true"></rwa-page-button>
         <div class="h-padding"></div>
@@ -375,7 +818,9 @@
     </div>
     <p class="v-padding"></p>
     <h1>- 텍스트 필드</h1>
+    <p class="v-padding"></p>
     <h2 (click)="text1 = '일반 텍스트 다른 곳에서 변경 테스트'">일반</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
             [value]="text1"
@@ -402,6 +847,7 @@
         <rwa-text-field [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-field>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
             [status]="'error'"
@@ -427,6 +873,7 @@
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
             [status]="'success'"
@@ -451,6 +898,7 @@
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-field>
         <div class="h-padding"></div>
@@ -459,7 +907,10 @@
         <rwa-text-field [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-field>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <h3>일반 (ControlValueAccessor)</h3>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-input [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-input>
         <div class="h-padding"></div>
@@ -470,6 +921,7 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>패스워드</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
             [value]="text1"
@@ -513,6 +965,7 @@
     </div>
     <p class="v-padding"></p>
     <h2>검색</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
             [value]="text1"
@@ -554,6 +1007,7 @@
 
     <p class="v-padding"></p>
     <h2>숫자</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-number-text-field
             [labelVisible]="false"
@@ -653,6 +1107,7 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>텍스트 필드 - 버튼</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-textfield-button [value]="'입력한 정보'"></rwa-textfield-button>
         <div class="h-padding"></div>
@@ -666,6 +1121,7 @@
         <div class="h-padding"></div>
         <rwa-textfield-button [disable]="true" [value]="'입력한 정보'"></rwa-textfield-button>
     </div>
+    <p class="v-padding"></p>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-textfield-button [value]="'입력한 정보'"></rwa-textfield-button>
@@ -764,6 +1220,7 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>텍스트 필드 - 메모</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>
         <div class="h-padding"></div>
@@ -778,6 +1235,7 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>모달 - 기본</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <div [style.cursor]="'pointer'" (click)="modalBasic1 = true">modal basic1</div>
         <rwa-modal
@@ -808,6 +1266,7 @@
     </div>
     <p class="v-padding"></p>
     <h2>모달 - 단일 정보 입력 L (textarea)</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <div [style.cursor]="'pointer'" (click)="modalTa1 = true">modal textarea1</div>
         <rwa-textarea-modal
@@ -839,23 +1298,31 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>캘린더 - 한 달</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwm-datepicker [mode]="'date'" [(data)]="datepicker1"></rwm-datepicker>
+        <div>
+            <span>{{ datepicker1 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'date'" [(data)]="datepicker1"></rwm-datepicker>
+        </div>
         <div class="h-padding"></div>
-        <span>{{ datepicker1 | json }}</span>
+        <div>
+            <span>{{ datepicker2 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'multiline'" [(data)]="datepicker2"></rwm-datepicker>
+        </div>
         <div class="h-padding"></div>
-        <rwm-datepicker [mode]="'multiline'" [(data)]="datepicker2"></rwm-datepicker>
-        <div class="h-padding"></div>
-        <span>{{ datepicker2 | json }}</span>
-        <div class="h-padding"></div>
-        <rwm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker3"></rwm-datepicker>
-        <div class="h-padding"></div>
-        <span>{{ datepicker3 | json }}</span>
+        <div>
+            <span>{{ datepicker3 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker3"></rwm-datepicker>
+        </div>
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>캘린더 - 두 달</h2>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwm-tm-datepicker [mode]="'date'" [(data)]="datepicker4"></rwm-tm-datepicker>
         <div class="h-padding"></div>

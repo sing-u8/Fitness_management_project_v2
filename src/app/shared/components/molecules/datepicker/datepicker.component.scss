@@ -55,6 +55,7 @@
 }
 
 $daySize: 37px;
+$additional_width: 7px;
 
 .l-one-month-calendar {
     width: 351px;
@@ -95,12 +96,16 @@ $daySize: 37px;
         justify-content: space-between;
         align-items: center;
         height: $daySize;
+        position: relative;
         &:not(:last-of-type) {
             margin-bottom: 7px;
         }
-
+        .week-col-padding {
+            height: $daySize;
+            width: $additional_width;
+        }
         .l-week-col {
-            width: calc($daySize + 7px);
+            width: calc($daySize + $additional_width);
             &:nth-child(7n) {
                 width: calc($daySize) !important;
             }
@@ -135,10 +140,12 @@ $daySize: 37px;
                     background-color: var(--gray-40);
                 }
                 &.end-date {
+                    width: calc($daySize);
                     background-color: var(--gray-40);
                     border-radius: 0 18px 18px 0;
                 }
                 &.same-date {
+                    width: calc($daySize);
                 }
                 &.between {
                     background-color: var(--gray-40);

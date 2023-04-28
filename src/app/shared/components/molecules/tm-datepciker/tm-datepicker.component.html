@@ -1,5 +1,5 @@
 <div
-    class="l-one-month-calendar multiline d-flex flex-column user-select-none"
+    class="l-one-month-calendar d-flex flex-column user-select-none"
     [class.is-shadow]="isShadow"
     *ngIf="mode == 'date'"
 >
@@ -119,29 +119,31 @@
                     let i = index
                 "
             >
-                <div
-                    class="l-week-col"
-                    *ngFor="let weekCol of weekRow; let j = index"
-                    [class.start-date]="isStartDate(weekCol)"
-                    [class.end-date]="isEndDate(weekCol)"
-                    [class.same-date]="isSameDate(weekCol)"
-                    [class.between]="isBetween(weekCol)"
-                    [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
-                >
+                <div class="d-flex align-items-center" *ngFor="let weekCol of weekRow; let j = index">
                     <div
-                        class="week-col"
-                        [style.color]="weekCol.color"
-                        [style.font-weight]="weekCol.fontWeight"
-                        [class.unAvailable-date]="!isAvailableDate(weekCol)"
-                        [class.selected]="isEdgeDate(weekCol)"
-                        (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
-                        rwTooltip
-                        [rwTooltipDisabled]="pastDisable(weekCol)"
-                        [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
-                        rwTooltipPlacement="bottom"
+                        class="l-week-col"
+                        [class.start-date]="isStartDate(weekCol)"
+                        [class.end-date]="isEndDate(weekCol)"
+                        [class.same-date]="isSameDate(weekCol)"
+                        [class.between]="isBetween(weekCol)"
+                        [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
                     >
-                        {{ weekCol.day }}
+                        <div
+                            class="week-col"
+                            [style.color]="weekCol.color"
+                            [style.font-weight]="weekCol.fontWeight"
+                            [class.unAvailable-date]="!isAvailableDate(weekCol)"
+                            [class.selected]="isEdgeDate(weekCol)"
+                            (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
+                            rwTooltip
+                            [rwTooltipDisabled]="pastDisable(weekCol)"
+                            [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
+                            rwTooltipPlacement="bottom"
+                        >
+                            {{ weekCol.day }}
+                        </div>
                     </div>
+                    <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
                 </div>
             </div>
         </div>

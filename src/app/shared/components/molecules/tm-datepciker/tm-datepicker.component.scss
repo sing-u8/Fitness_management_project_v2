@@ -55,6 +55,7 @@
 }
 
 $daySize: 37px;
+$additional_width: 7px;
 
 .l-one-month-calendar {
     width: 682px;
@@ -99,6 +100,10 @@ $daySize: 37px;
         align-items: flex-start;
         justify-content: space-between;
         margin-top: 18px;
+        .curDays,
+        .postDays {
+            max-width: 301px;
+        }
     }
 
     .days-of-week {
@@ -123,7 +128,10 @@ $daySize: 37px;
         &:not(:last-of-type) {
             margin-bottom: 7px;
         }
-
+        .week-col-padding {
+            height: $daySize;
+            width: $additional_width;
+        }
         .l-week-col {
             width: calc($daySize + 7px);
             &:nth-child(7n) {
@@ -160,10 +168,12 @@ $daySize: 37px;
                     background-color: var(--gray-40);
                 }
                 &.end-date {
+                    width: calc($daySize);
                     background-color: var(--gray-40);
                     border-radius: 0 18px 18px 0;
                 }
                 &.same-date {
+                    width: calc($daySize);
                 }
                 &.between {
                     background-color: var(--gray-40);

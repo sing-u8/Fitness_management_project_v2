@@ -3,6 +3,12 @@
     @include css-init;
 }
 
+.l-spinner {
+    position: relative;
+    min-width: 22px;
+    min-height: 22px;
+}
+
 .icon-button {
     display: flex;
     align-items: center;

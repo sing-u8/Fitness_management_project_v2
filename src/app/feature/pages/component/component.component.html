@@ -551,7 +551,9 @@
         <div class="h-padding"></div>
         <h3>red 비활성화 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true" [disable]="true">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button [color]="'var(--red-100)'" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
@@ -560,15 +562,21 @@
     <div class="d-flex align-items-center">
         <h3>red - 800 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [showUnderLine]="true">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button [color]="'var(--red-100)'" fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
         <h3>red - 800 비활성화 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true" [showUnderLine]="true">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
@@ -586,7 +594,9 @@
                 rwTooltipTitle="회원 리스트"
                 borderColor="var(--gray-60)"
             >
-                <rwa-svg-user-list></rwa-svg-user-list>
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-user-list></rwa-svg-user-list>
+                </ng-template>
             </rwa-icon-ghost-button>
         </div>
         <p class="v-padding"></p>
@@ -602,7 +612,9 @@
                 borderRadius="14px"
                 borderColor="var(--gray-60)"
             >
-                <rwa-svg-pencil></rwa-svg-pencil>
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-pencil></rwa-svg-pencil>
+                </ng-template>
             </rwa-icon-ghost-button>
         </div>
         <p class="v-padding"></p>
@@ -618,7 +630,9 @@
                 borderRadius="12px"
                 borderColor="var(--gray-60)"
             >
-                <rwa-svg-dots-three></rwa-svg-dots-three>
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-dots-three></rwa-svg-dots-three>
+                </ng-template>
             </rwa-icon-ghost-button>
         </div>
     </div>
@@ -639,7 +653,9 @@
                 bgColor="var(--red-100)"
                 hoverBgColor="var(--red-200)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -650,7 +666,9 @@
                 bgColor="var(--gray-90)"
                 hoverBgColor="var(--gray-100)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -661,7 +679,9 @@
                 bgColor="var(--white)"
                 hoverBgColor="var(--gray-30)"
             >
-                <rwa-svg-pencil></rwa-svg-pencil>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil></rwa-svg-pencil>
+                </ng-template>
             </rwa-icon-button>
         </div>
         <p class="v-padding"></p>
@@ -678,7 +698,9 @@
                 bgColor="var(--red-100)"
                 hoverBgColor="var(--red-200)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -690,7 +712,9 @@
                 bgColor="var(--gray-90)"
                 hoverBgColor="var(--gray-100)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -702,7 +726,9 @@
                 bgColor="var(--white)"
                 hoverBgColor="var(--gray-30)"
             >
-                <rwa-svg-pencil></rwa-svg-pencil>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil></rwa-svg-pencil>
+                </ng-template>
             </rwa-icon-button>
         </div>
         <p class="v-padding"></p>
@@ -719,7 +745,9 @@
                 bgColor="var(--red-100)"
                 hoverBgColor="var(--red-200)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -731,7 +759,9 @@
                 bgColor="var(--gray-90)"
                 hoverBgColor="var(--gray-100)"
             >
-                <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
             <rwa-icon-button
@@ -743,7 +773,9 @@
                 bgColor="var(--white)"
                 hoverBgColor="var(--gray-30)"
             >
-                <rwa-svg-pencil></rwa-svg-pencil>
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil></rwa-svg-pencil>
+                </ng-template>
             </rwa-icon-button>
         </div>
     </div>

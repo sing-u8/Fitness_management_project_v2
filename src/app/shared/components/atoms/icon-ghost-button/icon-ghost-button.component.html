@@ -15,5 +15,33 @@
     (focusin)="onFocus()"
     (focusout)="onFocusOut()"
 >
-    <ng-content></ng-content>
+    <div *ngIf="status == 'idle'" class="idle d-flex align-items-center justify-content-center">
+        <ng-template [ngTemplateOutlet]="idleRef.templateRef"></ng-template>
+    </div>
+
+    <div *ngIf="status == 'pending'" class="pending d-flex align-items-center justify-content-center">
+        <div class="l-spinner" [style.margin]="loadingMargin">
+            <ngx-spinner
+                bdColor="rgba(0, 0, 0, 0.8)"
+                type="ball-clip-rotate"
+                [size]="loadingSize"
+                [color]="loadingColor"
+                [bdColor]="'transparent'"
+                [fullScreen]="false"
+                [name]="loadingName"
+            >
+            </ngx-spinner>
+        </div>
+        <ng-container [ngTemplateOutlet]="pendingRef.templateRef"></ng-container>
+    </div>
+
+    <div *ngIf="status == 'done'" class="done d-flex align-items-center justify-content-center">
+        <rwa-svg-check
+            [color]="loadingColor"
+            [width]="'22px'"
+            [height]="'22px'"
+            [margin]="'0 10px 0 0'"
+        ></rwa-svg-check>
+        <ng-container [ngTemplateOutlet]="doneRef.templateRef"></ng-container>
+    </div>
 </button>

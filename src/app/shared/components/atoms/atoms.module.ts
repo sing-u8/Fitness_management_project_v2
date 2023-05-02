@@ -42,8 +42,18 @@ import {
     GhostButtonPendingContentDirective,
     GhostButtonIdleContentDirective,
 } from './ghost-button/ghost-button.component'
-import { IconButtonComponent } from './icon-button/icon-button.component'
-import { IconGhostButtonComponent } from './icon-ghost-button/icon-ghost-button.component'
+import {
+    IconButtonComponent,
+    IconButtonPendingContentDirective,
+    IconButtonDoneContentDirective,
+    IconButtonIdleContentDirective,
+} from './icon-button/icon-button.component'
+import {
+    IconGhostButtonComponent,
+    IconGhostButtonPendingContentDirective,
+    IconGhostButtonIdleContentDirective,
+    IconGhostButtonDoneContentDirective,
+} from './icon-ghost-button/icon-ghost-button.component'
 import { CheckboxComponent } from './checkbox/checkbox.component'
 import { NumberTextFieldComponent } from './number-text-field/number-text-field.component'
 import { TextInputComponent } from './text-input/text-input.component'
@@ -93,7 +103,13 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         GhostButtonIdleContentDirective,
         TextButtonComponent,
         IconButtonComponent,
+        IconButtonPendingContentDirective,
+        IconButtonDoneContentDirective,
+        IconButtonIdleContentDirective,
         IconGhostButtonComponent,
+        IconGhostButtonPendingContentDirective,
+        IconGhostButtonIdleContentDirective,
+        IconGhostButtonDoneContentDirective,
         RadioButtonComponent,
         ToggleButtonComponent,
         TabComponent,
@@ -139,7 +155,13 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         GhostButtonIdleContentDirective,
         TextButtonComponent,
         IconButtonComponent,
+        IconButtonPendingContentDirective,
+        IconButtonDoneContentDirective,
+        IconButtonIdleContentDirective,
         IconGhostButtonComponent,
+        IconGhostButtonPendingContentDirective,
+        IconGhostButtonIdleContentDirective,
+        IconGhostButtonDoneContentDirective,
         CheckboxComponent,
         RadioButtonComponent,
         ToggleButtonComponent,

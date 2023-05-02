@@ -1,17 +1,41 @@
 import {
     AfterViewInit,
     Component,
+    ContentChild,
+    Directive,
     ElementRef,
     EventEmitter,
     Input,
     Output,
     Renderer2,
     RendererStyleFlags2,
+    TemplateRef,
     ViewChild,
 } from '@angular/core'
 import { Observe } from '@shared/helper/decorator/Observe'
 import { Observable } from 'rxjs'
 import _ from 'lodash'
+import { NgxSpinnerService, Size } from 'ngx-spinner'
+import { Loading } from '@schemas/loading'
+
+@Directive({
+    selector: '[iconGhostBtIdleContent]',
+})
+export class IconGhostButtonIdleContentDirective {
+    constructor(public templateRef: TemplateRef<unknown>) {}
+}
+@Directive({
+    selector: '[iconGhostBtPendingContent]',
+})
+export class IconGhostButtonPendingContentDirective {
+    constructor(public templateRef: TemplateRef<unknown>) {}
+}
+@Directive({
+    selector: '[iconGhostBtDoneContent]',
+})
+export class IconGhostButtonDoneContentDirective {
+    constructor(public templateRef: TemplateRef<unknown>) {}
+}
 
 @Component({
     selector: 'rwa-icon-ghost-button',
@@ -54,13 +78,26 @@ export class IconGhostButtonComponent implements AfterViewInit {
     @Input() borderRadius = '15px'
     @Input() borderColor = 'var(--gray-60)'
 
+    @Input() loadingSize: Size = 'small'
+    @Input() loadingColor = 'var(--white)'
+    @Input() loadingName = 'icon-ghost-button-loading'
+    @Input() loadingMargin = '0 5px 0 0'
+
+    @Input() status: Loading = 'idle'
+
     @Observe('sizeType') sizeType$: Observable<'lg' | 'md' | 'sm'>
     @Observe('bgColor') bgColor$: Observable<string>
     @Observe('border') border$: Observable<string>
     @Observe('borderRadius') borderRadius$: Observable<string>
+    @Observe('status') status$: Observable<Loading>
 
     @ViewChild('l_button') l_button_el: ElementRef
-    constructor(private renderer: Renderer2) {}
+
+    @ContentChild(IconGhostButtonIdleContentDirective) idleRef!: IconGhostButtonIdleContentDirective
+    @ContentChild(IconGhostButtonPendingContentDirective) pendingRef!: IconGhostButtonPendingContentDirective
+    @ContentChild(IconGhostButtonDoneContentDirective) doneRef!: IconGhostButtonDoneContentDirective
+
+    constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
     ngAfterViewInit() {
         this.borderRadius$.subscribe((bdr) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'borderRadius', bdr)
@@ -118,6 +155,14 @@ export class IconGhostButtonComponent implements AfterViewInit {
         })
         this.bgColor$.subscribe((bg) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+        })
+        this.status$.subscribe((status) => {
+            if (status == 'pending') {
+                this.spinner.show(this.loadingName)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+            } else {
+                this.spinner.hide(this.loadingName)
+            }
         })
     }
 }

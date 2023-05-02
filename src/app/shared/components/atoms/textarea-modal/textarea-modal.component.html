@@ -17,11 +17,19 @@
                 borderColor="var(--gray-60)"
                 (onClick)="onCancel()"
             >
-                <rwa-svg-close></rwa-svg-close>
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close></rwa-svg-close>
+                </ng-template>
             </rwa-icon-ghost-button>
         </div>
         <div class="body">
-            <textarea cols="30" rows="10" class="scroll-y" [(ngModel)]="textValue" [placeholder]="placeholder"></textarea>
+            <textarea
+                cols="30"
+                rows="10"
+                class="scroll-y"
+                [(ngModel)]="textValue"
+                [placeholder]="placeholder"
+            ></textarea>
             <div class="button-group d-flex align-items-center justify-content-end">
                 <rwa-button
                     *ngIf="type == 'twoButton'"

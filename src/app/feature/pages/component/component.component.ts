@@ -32,9 +32,9 @@ import * as timers from 'timers'
 })
 export class ComponentComponent {
     constructor(private fb: FormBuilder) {
-        setInterval(() => {
-            this.button2.progress = (this.button2.progress + 5) % 100
-        }, 200)
+        // setInterval(() => {
+        //     this.button2.progress = (this.button2.progress + 5) % 100
+        // }, 200)
 
         this.memo1.valueChanges.subscribe((v) => {
             console.log('memo 1 -- text : ', v)

@@ -3,7 +3,6 @@ import {
     Input,
     Output,
     EventEmitter,
-    RendererStyleFlags2,
     Renderer2,
     ViewChild,
     ElementRef,

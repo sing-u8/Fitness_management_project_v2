@@ -114,6 +114,20 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
     ngAfterViewInit() {}
     ngAfterViewChecked() {}
 
+    public isMouseDown = false
+    onMouseDown() {
+        this.isMouseDown = true
+    }
+    onMouseUp() {
+        this.isMouseDown = false
+    }
+    onFocus(el: any) {
+        if (!this.isMouseDown) this.renderer.addClass(el, 'focused')
+    }
+    onFocusOut(el: any) {
+        this.renderer.removeClass(el, 'focused')
+    }
+
     setDatePick() {
         this.today = dayjs()
         if (this.mode == 'date' && this.data.date) {

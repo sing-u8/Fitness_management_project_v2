@@ -93,37 +93,20 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     ngOnChanges(changes: SimpleChanges) {}
     ngAfterViewInit() {}
     ngAfterViewChecked() {
-        // console.log('ngAfterViewChecked -- ', this.mode, this.afterViewCheckedDate, this.data)
-        // if (this.mode == 'date' && this.afterViewCheckedDate != this.data.date) {
-        //     this.afterViewCheckedDate = this.data.date
-        //     if (this.changed) {
-        //         this.changed = false
-        //     } else {
-        //         this.changed = false
-        //         this.selectedDate = ''
-        //         this.zone.runOutsideAngular(() => {
-        //             setTimeout(() => {
-        //                 this.currentDate = dayjs(this.data.date)
-        //                 this.month = this.currentDate.clone().format('YYYY년 MM월')
-        //                 this.getDays(this.currentDate)
-        //             }, 1)
-        //         })
-        //     }
-        // } else if (this.mode == 'week' && this.afterViewCheckedStartDate != this.data.startDate) {
-        //     this.afterViewCheckedStartDate = this.data.startDate
-        //     if (this.changed) {
-        //         this.changed = false
-        //     } else {
-        //         this.changed = false
-        //         this.zone.runOutsideAngular(() => {
-        //             setTimeout(() => {
-        //                 this.currentDate = dayjs(this.data.startDate)
-        //                 this.month = this.currentDate.clone().format('YYYY년 MM월')
-        //                 this.getDays(this.currentDate)
-        //             }, 1)
-        //         })
-        //     }
-        // }
+    }
+
+    public isMouseDown = false
+    onMouseDown() {
+        this.isMouseDown = true
+    }
+    onMouseUp() {
+        this.isMouseDown = false
+    }
+    onFocus(el: any) {
+        if (!this.isMouseDown) this.renderer.addClass(el, 'focused')
+    }
+    onFocusOut(el: any) {
+        this.renderer.removeClass(el, 'focused')
     }
 
     setDatePick() {

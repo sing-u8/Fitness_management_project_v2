@@ -1,0 +1,47 @@
+<section class="l-login">
+    <div class="login">
+        <div class="redwhale-logo"></div>
+        <span class="title">이메일 로그인</span>
+        <rwa-text-field class="email" label="이메일 주소" placeholder="이메일 주소"></rwa-text-field>
+        <rwa-text-field
+            class="password"
+            label="비밀번호"
+            placeholder="영어, 숫자, 특수문자 조합 8~15자 이내"
+        ></rwa-text-field>
+        <div class="l-login-button">
+            <rwa-checkbox [label]="'이메일 기억하기'"></rwa-checkbox>
+            <rwa-button [width]="'95px'" [height]="'45px'" [loadingName]="'login-button'" [disable]="true">
+                <ng-template btIdleContent><span class="login-text">로그인</span></ng-template>
+                <ng-template btPendingContent></ng-template>
+            </rwa-button>
+        </div>
+        <div class="l-text-button">
+            <rwa-text-button [fontSize]="'1.5rem'" [lineHeight]="'23px'" [fontWeight]="'400'"
+                >비밀번호 찾기</rwa-text-button
+            >
+            <div class="tb-divider"></div>
+            <rwa-text-button [fontSize]="'1.5rem'" [lineHeight]="'23px'" [fontWeight]="'400'">회원가입</rwa-text-button>
+        </div>
+        <div class="vertical-divider"></div>
+        <div class="l-social-button">
+            <rwa-icon-button [bgColor]="'#FEE500'">
+                <ng-template iconBtIdleContent>
+                    <img src="assets/icons/social/kakao.svg" alt="kakao.svg" />
+                </ng-template>
+                <ng-template iconBtPendingContent></ng-template>
+            </rwa-icon-button>
+            <rwa-icon-ghost-button>
+                <ng-template iconGhostBtIdleContent>
+                    <img src="assets/icons/social/google.svg" alt="google.svg" />
+                </ng-template>
+                <ng-template iconGhostBtPendingContent></ng-template>
+            </rwa-icon-ghost-button>
+            <rwa-icon-button [bgColor]="'var(--font-color)'">
+                <ng-template iconBtIdleContent>
+                    <img src="assets/icons/social/apple.svg" alt="apple.svg" />
+                </ng-template>
+                <ng-template iconBtPendingContent></ng-template>
+            </rwa-icon-button>
+        </div>
+    </div>
+</section>

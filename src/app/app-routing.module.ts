@@ -8,6 +8,10 @@ import { ComponentComponent } from '@pages/component/component.component'
 
 const routes: Routes = [
     {
+        path: 'auth',
+        loadChildren: () => import('./feature/pages/auth/auth.routes'),
+    },
+    {
         path: 'main',
         loadChildren: () => import('./feature/pages/main/main.routes'),
     },

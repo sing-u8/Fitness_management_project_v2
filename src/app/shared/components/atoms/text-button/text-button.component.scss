@@ -32,14 +32,19 @@
         text-decoration-thickness: 1px;
         text-decoration-color: var(--font-color);
     }
-
     &:disabled {
         cursor: not-allowed;
+        text-decoration: none;
     }
 
     &.underline {
         text-decoration: underline;
         text-underline-offset: 7px;
         text-decoration-thickness: 1px;
+        &:disabled {
+            text-decoration: underline;
+            text-underline-offset: 7px;
+            text-decoration-thickness: 1px;
+        }
     }
 }

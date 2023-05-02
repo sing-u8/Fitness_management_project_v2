@@ -507,27 +507,71 @@
         </div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <!----------------------------------------------------- 텍스트 버튼 ------------------------------------------------------------->
-    <h2>텍스트 버튼 (이해 안되는 부분이 있어서 나중에 확인 필요)</h2>
+    <h2>텍스트 버튼</h2>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <h3>gray</h3>
+        <h3>gray w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <h3>gray 비활성화</h3>
+        <h3>gray 비활성화 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [showUnderLine]="true" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <h3>gray - 800</h3>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <h3>gray - 800 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button fontWeight="800" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <h3>gray - 800 비활성화</h3>
+        <h3>gray - 800 비활성화 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button fontWeight="800" [disable]="true" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
         <rwa-text-button fontWeight="800" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
     </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <h3>red w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <h3>red 비활성화 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <h3>red - 800 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <h3>red - 800 비활성화 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>아이콘 고스트 버튼</h2>
     <p class="v-padding"></p>
@@ -908,18 +952,18 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
-<!--    <h3>일반 (ControlValueAccessor)</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-input>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-input>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwa-text-input [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-input>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
+    <!--    <h3>일반 (ControlValueAccessor)</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-input>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-input>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwa-text-input [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-input>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
     <h2>패스워드</h2>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">

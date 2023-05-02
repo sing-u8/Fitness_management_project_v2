@@ -16,13 +16,13 @@
     @include icon2('/assets/images/visible.png', 20px, 20px);
     cursor: pointer;
     margin-left: 10px;
-    margin-bottom: 2.5px;
+    margin-bottom: 4.5px;
 }
 .pw-invisible-icon {
     @include icon2('/assets/images/invisible.png', 20px, 20px);
     cursor: pointer;
     margin-left: 10px;
-    margin-bottom: 2.5px;
+    margin-bottom: 4.5px;
 }
 
 .l-text-field {
@@ -132,16 +132,18 @@
             }
             rwa-svg-check {
                 margin-left: 10px;
-                margin-top: 2px;
+                margin-bottom: 2px;
                 height: 18px;
             }
             .input-tag-normal {
                 display: flex;
                 align-items: center;
+                height: 23px;
             }
             .input-tag-word {
                 display: flex;
                 align-items: center;
+                height: 23px;
                 @include rw-type-r(1.5rem, 23px, var(--gray-90));
                 &.bold {
                     @include rw-type-b(1.5rem, 23px, var(--gray-90));

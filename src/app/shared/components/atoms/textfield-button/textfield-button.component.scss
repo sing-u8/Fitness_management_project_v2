@@ -79,7 +79,7 @@
                 }
             }
             .tag-text {
-                @include rw-type-b(1.7rem, 28px, var(--red-100));
+                @include rw-type-r(1.7rem, 28px, var(--red-100));
                 text-align: right;
             }
         }

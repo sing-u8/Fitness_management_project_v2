@@ -83,7 +83,7 @@ export class GhostButtonComponent implements AfterViewInit {
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--gray-60)'
-    @Input() disableBgColor = 'var(--gray-50)'
+    @Input() disableBgColor = 'var(--white)'
     @Input() disableBorderColor = 'var(--gray-60)'
 
     @Input() loadingSize: Size = 'small'

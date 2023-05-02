@@ -91,7 +91,7 @@
             display: flex;
             align-items: center;
             position: absolute;
-            top: calc(calc(100% - 22px) / 2);
+            top: 11px;
             right: 13px;
             .currency {
                 @include rw-type-r(1.7rem, 28px, var(--font-color));
@@ -104,13 +104,13 @@
             rwa-svg-warning,
             rwa-svg-check {
                 margin-left: 10px;
-                margin-top: 0.5px;
+                margin-bottom: 1px;
                 height: 18px;
             }
             .input-tag-normal {
                 display: flex;
                 align-items: center;
-                margin-bottom: 3.5px;
+                height: 23px;
             }
         }
 

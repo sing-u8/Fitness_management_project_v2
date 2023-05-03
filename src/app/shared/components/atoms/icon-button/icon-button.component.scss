@@ -18,6 +18,7 @@
     position: relative;
     outline: none;
     border: none;
+    overflow: hidden;
 
     &.focused {
         border-color: var(--font-color) !important;

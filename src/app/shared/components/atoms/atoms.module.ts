@@ -70,6 +70,7 @@ import { CaretClComponent } from './svg/caret-cl/caret-cl.component'
 import { CaretCrComponent } from './svg/caret-cr/caret-cr.component'
 import { ArrowLeftBoldComponent } from './svg/arrow-left-bold/arrow-left-bold.component'
 import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold.component'
+import { ToastComponent } from '@shared/components/atoms/toast/toast.component'
 
 @NgModule({
     declarations: [
@@ -92,7 +93,7 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         ArrowLeftBoldComponent,
         ArrowRightBoldComponent,
         // etc
-        // button
+        // components
         ButtonComponent,
         ButtonIdleContentDirective,
         ButtonPendingContentDirective,
@@ -124,6 +125,7 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         MemoComponent,
         ModalComponent,
         TextareaModalComponent,
+        ToastComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -144,7 +146,7 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         CaretCrComponent,
         ArrowLeftBoldComponent,
         ArrowRightBoldComponent,
-        // button
+        // components
         ButtonComponent,
         ButtonIdleContentDirective,
         ButtonPendingContentDirective,
@@ -177,6 +179,7 @@ import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold
         MemoComponent,
         ModalComponent,
         TextareaModalComponent,
+        ToastComponent,
     ],
     schemas: [],
 })

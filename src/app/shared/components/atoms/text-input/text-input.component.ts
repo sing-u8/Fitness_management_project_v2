@@ -28,6 +28,7 @@ export class TextInputComponent implements AfterViewInit {
     @Input() hint = ''
     @Input() status: 'warning' | 'error' | 'success' | 'none' = 'none'
     @Input() statusText = ''
+    @Input() isImportant = true
 
     @Input() inputLimit = 500
 

@@ -88,6 +88,13 @@ body {
     line-height: $lineHeight;
     color: $color;
 }
+@mixin rw-type-b-woc($fontSize: 3.2rem, $lineHeight: 44px) {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 700;
+    font-size: $fontSize;
+    line-height: $lineHeight;
+}
 @mixin rw-type-r($fontSize: 1.8rem, $lineHeight: 29px, $color: var(--font-color)) {
     font-family: 'Pretendard';
     font-style: normal;
@@ -95,6 +102,13 @@ body {
     font-size: $fontSize;
     line-height: $lineHeight;
     color: $color;
+}
+@mixin rw-type-r-woc($fontSize: 1.8rem, $lineHeight: 29px) {
+    font-family: 'Pretendard';
+    font-style: normal;
+    font-weight: 400;
+    font-size: $fontSize;
+    line-height: $lineHeight;
 }
 
 .rw-type-b32 {
@@ -999,7 +1013,7 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    max-width: 150px;
+    max-width: 200px;
     padding: 6px 9px 4px !important;
     font-family: 'Pretendard';
     font-size: 1.5rem;

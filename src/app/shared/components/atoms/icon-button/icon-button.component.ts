@@ -79,7 +79,7 @@ export class IconButtonComponent implements AfterViewInit {
     @Input() loadingSize: Size = 'small'
     @Input() loadingColor = 'var(--white)'
     @Input() loadingName = 'icon-button-loading'
-    @Input() loadingMargin = '0 5px 0 0'
+    @Input() loadingMargin = '0 0 0 0'
 
     @Input() status: Loading = 'idle'
 

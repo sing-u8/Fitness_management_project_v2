@@ -19,6 +19,7 @@
     cursor: pointer;
     position: relative;
     outline: none;
+    overflow: hidden;
 
     &.focused {
         border-color: var(--font-color) !important;

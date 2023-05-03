@@ -79,14 +79,17 @@ section.l-login {
                     width: 30px;
                     height: 30px;
                 }
-                width: 100%;
-                height: 100%;
             }
 
             #google {
                 img {
                     width: 32px;
                     height: 32px;
+                }
+            }
+            #apple {
+                img {
+                    margin-bottom: 2px;
                 }
             }
         }

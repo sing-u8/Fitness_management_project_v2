@@ -23,6 +23,7 @@ export class TextFieldComponent implements AfterViewInit {
     @Input() hint = ''
     @Input() status: 'warning' | 'error' | 'success' | 'none' = 'none'
     @Input() statusText = ''
+    @Input() isImportant = false
 
     @Input() inputLimit = 500
 

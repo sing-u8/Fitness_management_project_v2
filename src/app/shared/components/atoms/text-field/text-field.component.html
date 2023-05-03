@@ -1,6 +1,6 @@
 <div class="l-text-field">
     <div class="label" *ngIf="labelVisible">
-        {{ label }} <span class="red">*</span>
+        {{ label }} <span class="red" *ngIf="isImportant">*</span>
         <div
             *ngIf="advice"
             class="info-icon"

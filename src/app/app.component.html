@@ -1,1 +1,3 @@
 <router-outlet></router-outlet>
+
+<rwa-toast [(visible)]="toastState.visible" [text]="toastState.text" [timeOutCount]="3" (cancel)="hideToast()"></rwa-toast>

@@ -11,6 +11,9 @@ export class TooltipDirective implements OnDestroy {
     @Input() offset = '5'
     @Input() detailAdj = 0
     @Input() showTail = false
+    @Input() parent: any = document.body
+
+    @Input() keepTooltipWhenOut = false
 
     private tooltip: HTMLElement
 
@@ -29,7 +32,7 @@ export class TooltipDirective implements OnDestroy {
 
     removeTooltip() {
         if (this.tooltip) {
-            this.renderer.removeChild(document.body, this.tooltip)
+            this.renderer.removeChild(this.parent, this.tooltip)
             this.tooltip = null
         }
     }
@@ -50,13 +53,14 @@ export class TooltipDirective implements OnDestroy {
 
     @HostListener('mouseleave')
     onMouseLeave() {
+        if (this.keepTooltipWhenOut) return
         this.removeTooltip()
     }
 
     create() {
         this.tooltip = this.renderer.createElement('div')
         this.renderer.appendChild(this.tooltip, this.renderer.createText(this.rwTooltipTitle))
-        this.renderer.appendChild(document.body, this.tooltip)
+        this.renderer.appendChild(this.parent, this.tooltip)
 
         this.renderer.addClass(this.tooltip, 'rw-tooltip')
         if (this.showTail) this.renderer.addClass(this.tooltip, `rw-tooltip-${this.rwTooltipPlacement}`)

@@ -184,7 +184,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
                     weekCol['fontWeight'] = 400
                 } else {
                     weekCol['color'] = 'var(--font-color)'
-                    weekCol['fontWeight'] = 500
+                    weekCol['fontWeight'] = 400
                 }
 
                 if (this.mode == 'date') {

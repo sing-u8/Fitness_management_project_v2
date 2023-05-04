@@ -1,6 +1,113 @@
 <div id="l-rwp-component" class="d-flex flex-column">
     <p class="v-padding"></p>
+    <h1>- Typograph</h1>
+    <p class="v-padding"></p>
+    <div class="d-flex flex-column">
+        <h2 class="rw-type-b32">B32 Pretendard Bold / 32</h2>
+        <p class="rw-type-b32">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-b27">B27 Pretendard Bold / 27</h2>
+        <p class="rw-type-b27">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-b22">B22 Pretendard Bold / 22</h2>
+        <p class="rw-type-b22">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-b18">B18 Pretendard Bold / 18</h2>
+        <p class="rw-type-b18">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-b16">B16 Pretendard Bold / 16</h2>
+        <p class="rw-type-b16">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-r18">R18 Pretendard Regular / 18</h2>
+        <p class="rw-type-r18">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-r16">R16 Pretendard Regular / R16</h2>
+        <p class="rw-type-r16">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+        <h2 class="rw-type-r14">R14 Pretendard Regular / 14</h2>
+        <p class="rw-type-r14">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <p class="v-padding"></p>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h1>- tooltip</h1>
+    <div class="d-flex align-items-center">
+        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="bottom" rwTooltipTitle="수정하기 / 채팅">
+            툴팁 bottom
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="top" rwTooltipTitle="수정하기 / 채팅">
+            툴팁 top
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="left" rwTooltipTitle="수정하기 / 채팅">
+            툴팁 left
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="right" rwTooltipTitle="수정하기 / 채팅">
+            툴팁 right
+        </div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <div
+            [keepTooltipWhenOut]="true"
+            rwTooltip
+            [showTail]="true"
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="수정하기 / 채팅"
+        >
+            툴팁 bottom
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div
+            [keepTooltipWhenOut]="true"
+            rwTooltip
+            [showTail]="true"
+            rwTooltipPlacement="top"
+            rwTooltipTitle="수정하기 / 채팅"
+        >
+            툴팁 top
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div
+            [keepTooltipWhenOut]="true"
+            rwTooltip
+            [offset]="'7'"
+            [showTail]="true"
+            rwTooltipPlacement="left"
+            rwTooltipTitle="수정하기 / 채팅"
+        >
+            툴팁 left
+        </div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div
+            [keepTooltipWhenOut]="true"
+            rwTooltip
+            [offset]="'7'"
+            [showTail]="true"
+            rwTooltipPlacement="right"
+            rwTooltipTitle="수정하기 / 채팅"
+        >
+            툴팁 right
+        </div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <h1>- buttons</h1>
+    <p class="v-padding"></p>
     <div>
         <p class="v-padding"></p>
         <h2>기본 L</h2>
@@ -527,17 +634,17 @@
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <h3>gray - 800 w.underline / wo.underline</h3>
+        <h3>gray - b w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button fontWeight="800" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button fontWeight="700" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button fontWeight="700"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <h3>gray - 800 비활성화 w.underline / wo.underline</h3>
+        <h3>gray - b 비활성화 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button fontWeight="800" [disable]="true" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button fontWeight="700" [disable]="true" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button fontWeight="800" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button fontWeight="700" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
@@ -560,21 +667,21 @@
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <h3>red - 800 w.underline / wo.underline</h3>
+        <h3>red - b w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [showUnderLine]="true">
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [showUnderLine]="true">
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700"> 사용 불가 해제하기 </rwa-text-button>
         <div class="h-padding"></div>
-        <h3>red - 800 비활성화 w.underline / wo.underline</h3>
+        <h3>red - b 비활성화 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true" [showUnderLine]="true">
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [disable]="true" [showUnderLine]="true">
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="800" [disable]="true">
+        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [disable]="true">
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
@@ -589,6 +696,7 @@
         <div class="d-flex align-items-center">
             <p class="h-padding"></p>
             <rwa-icon-ghost-button
+                #igb1
                 rwTooltip
                 rwTooltipPlacement="bottom"
                 rwTooltipTitle="회원 리스트"

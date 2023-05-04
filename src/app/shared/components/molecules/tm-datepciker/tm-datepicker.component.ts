@@ -229,7 +229,7 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
                     weekCol['color'] = 'var(--red-100)'
                 } else {
                     weekCol['color'] = 'var(--font-color)'
-                    weekCol['fontWeight'] = 500
+                    weekCol['fontWeight'] = 400
                 }
 
                 if (this.mode == 'date') {

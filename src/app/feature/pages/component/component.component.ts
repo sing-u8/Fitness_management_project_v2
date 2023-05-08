@@ -21,7 +21,7 @@ import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/component
 import { Data } from '@shared/components/molecules/datepicker/datepicker.component'
 
 import dayjs from 'dayjs'
-import * as timers from 'timers'
+import _ from 'lodash'
 
 @Component({
     selector: 'rwp-component',
@@ -32,9 +32,9 @@ import * as timers from 'timers'
 })
 export class ComponentComponent {
     constructor(private fb: FormBuilder) {
-        // setInterval(() => {
-        //     this.button2.progress = (this.button2.progress + 5) % 100
-        // }, 200)
+        setInterval(() => {
+            this.button2.progress = (this.button2.progress + 5) % 100
+        }, 200)
 
         this.memo1.valueChanges.subscribe((v) => {
             console.log('memo 1 -- text : ', v)
@@ -52,6 +52,12 @@ export class ComponentComponent {
 
         this.datepicker2$.subscribe((v) => {
             console.log('datepicker2$ -- subscribe : ', v)
+        })
+
+        this.textInput3.valueChanges.subscribe((v) => {
+            const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
+            this.textInput3.setValue(value, { emitEvent: false })
+            console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
         })
     }
 
@@ -71,8 +77,6 @@ export class ComponentComponent {
         if (this.button2.status == 'idle') {
             this.button2.status = 'pending'
         } else if (this.button2.status == 'pending') {
-            this.button2.status = 'done'
-        } else {
             this.button2.status = 'idle'
         }
     }
@@ -163,6 +167,11 @@ export class ComponentComponent {
         { name: '메뉴 01', selected: true },
         { name: '메뉴 02', selected: false },
     ]
+    //
+
+    onPb1Click(e) {
+        console.log('onPageNumberClick -- ', e)
+    }
 
     //
     public text1 = ''
@@ -180,6 +189,15 @@ export class ComponentComponent {
         if (this.text2 != text) {
         }
     }
+
+    public textInput1 = ''
+    onTextInput1Change(v: string) {
+        this.textInput1 = v
+        console.log('onTextInput1Change : ', this.textInput1, ' - ', v)
+    }
+    public textInput2 = ''
+
+    public textInput3 = this.fb.control('')
 
     public textInput = this.fb.control('')
     public numberText1 = ''
@@ -220,6 +238,7 @@ export class ComponentComponent {
         { name: '옵션6', value: { name: '옵션6', id: '6' } },
         { name: '옵션7', value: { name: '옵션7', id: '7' } },
     ]
+    public ddV01 = undefined
     public ddV1 = { name: '옵션1', id: '1' }
 
     public dropdown2 = [

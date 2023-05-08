@@ -1,13 +1,36 @@
 import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
 import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
+import _ from 'lodash'
 
-import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
+import {
+    NG_VALUE_ACCESSOR,
+    FormBuilder,
+    FormControl,
+    AbstractControl,
+    ValidationErrors,
+    NG_VALIDATORS,
+} from '@angular/forms'
+import { takeUntil } from 'rxjs/operators'
+
+import { Status } from '@schemas/components/status'
 
 @Component({
     selector: 'rwa-text-field',
     templateUrl: './text-field.component.html',
     styleUrls: ['./text-field.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: TextFieldComponent,
+        },
+        {
+            provide: NG_VALIDATORS,
+            multi: true,
+            useExisting: TextFieldComponent,
+        },
+    ],
 })
 export class TextFieldComponent implements AfterViewInit {
     @Input() value = ''
@@ -21,7 +44,7 @@ export class TextFieldComponent implements AfterViewInit {
     @Input() disable = false
     @Input() advice = ''
     @Input() hint = ''
-    @Input() status: 'warning' | 'error' | 'success' | 'none' = 'none'
+    @Input() status: Status = 'none'
     @Input() statusText = ''
     @Input() isImportant = false
 
@@ -42,9 +65,22 @@ export class TextFieldComponent implements AfterViewInit {
     @Observe('height') height$: Observable<string>
     @Observe('disable') disable$: Observable<boolean>
 
+    public unSubscriber$ = new Subject<boolean>()
+
     public textField: FormControl = this.fb.control('')
     resetTextField() {
         this.textField.setValue('')
+        this.input_el.nativeElement.focus()
+    }
+
+    public isMouseOn = false
+    public isMouseDown = false
+    public isFocused = false
+    onFocus() {
+        this.isFocused = true
+    }
+    onFocusOut() {
+        if (!this.isMouseDown) this.isFocused = false
     }
 
     constructor(private fb: FormBuilder, private renderer: Renderer2) {
@@ -52,7 +88,7 @@ export class TextFieldComponent implements AfterViewInit {
             this.textField.setValue(v, { emitEvent: false })
         })
         this.textField.valueChanges.subscribe((v) => {
-            if (this.textField.value.length > this.inputLimit) {
+            if (!_.isEmpty(this.textField.value) && this.textField.value.length > this.inputLimit) {
                 this.textField.setValue(String(this.textField.value).slice(0, this.inputLimit), { emitEvent: false })
                 return
             }
@@ -74,5 +110,46 @@ export class TextFieldComponent implements AfterViewInit {
         this.height$.subscribe((h) => {
             this.renderer.setStyle(this.input_el.nativeElement, 'height', h)
         })
+    }
+    ngOnDestroy() {
+        this.unSubscriber$.next(true)
+        this.unSubscriber$.complete()
+    }
+
+    touched = false
+
+    // onChange = (_) => {}
+    onTouched = () => {}
+
+    writeValue(text: string) {
+        this.textField.setValue(text, { emitEvent: false })
+    }
+
+    registerOnChange(onChange: any) {
+        this.textField.valueChanges.pipe(takeUntil(this.unSubscriber$)).subscribe(onChange)
+    }
+
+    registerOnTouched(onTouched: any) {
+        this.onTouched = onTouched
+    }
+
+    markAsTouched() {
+        if (!this.touched) {
+            this.onTouched()
+            this.touched = true
+        }
+    }
+
+    setDisabledState(disabled: boolean) {
+        if (disabled) {
+            this.textField.disable()
+        } else {
+            this.textField.enable()
+        }
+    }
+
+    // for NG_VALIDATORS
+    validate(control: AbstractControl): ValidationErrors | null {
+        return null
     }
 }

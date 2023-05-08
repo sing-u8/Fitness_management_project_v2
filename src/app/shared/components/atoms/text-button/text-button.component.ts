@@ -49,10 +49,22 @@ export class TextButtonComponent implements AfterViewInit {
     @Input() disable = false
     @Input() disableColor = 'var(--gray-60)'
 
+    @Input() hoverColor = 'var(--font-color)'
+
     @Observe('color') color$: Observable<string>
     @Observe('disable') disable$: Observable<boolean>
 
     @ViewChild('l_button') l_button_el: ElementRef
+
+    public isHover = false
+    onHover() {
+        this.isHover = true
+        this.renderer.setStyle(this.l_button_el.nativeElement, 'color', this.hoverColor)
+    }
+    onHoverOut() {
+        this.isHover = false
+        this.renderer.setStyle(this.l_button_el.nativeElement, 'color', this.color)
+    }
 
     constructor(private renderer: Renderer2) {}
     ngAfterViewInit() {

@@ -16,13 +16,13 @@
     @include icon2('/assets/images/visible.png', 20px, 20px);
     cursor: pointer;
     margin-left: 10px;
-    margin-bottom: 4.5px;
+    margin-bottom: 5.5px;
 }
 .pw-invisible-icon {
     @include icon2('/assets/images/invisible.png', 20px, 20px);
     cursor: pointer;
     margin-left: 10px;
-    margin-bottom: 4.5px;
+    margin-bottom: 5.5px;
 }
 
 .l-text-field {
@@ -52,7 +52,7 @@
             @include rw-type-r(1.7rem, 28px, var(--font-color));
 
             &.password {
-                padding: 10px 60px 9px 14px;
+                padding: 10px 70px 9px 14px;
             }
             &.search {
                 padding: 10px 40px 9px 40px;
@@ -96,12 +96,25 @@
             &.type-word-limit {
                 display: flex;
                 align-items: center;
-                padding: 10px 100px 9px 14px;
+                padding: 10px 70px 9px 14px;
+                &:focus {
+                    padding: 10px 100px 9px 14px;
+                }
+                &.warning, &.error {
+                    padding: 10px 100px 9px 14px;
+                }
+
             }
             &.type-time-limit {
                 display: flex;
                 align-items: center;
-                padding: 10px 100px 9px 14px;
+                padding: 10px 70px 9px 14px;
+                &:focus {
+                    padding: 10px 100px 9px 14px;
+                }
+                &.warning, &.error {
+                    padding: 10px 100px 9px 14px;
+                }
             }
 
             &.warning {
@@ -117,33 +130,28 @@
             display: flex;
             align-items: center;
             position: absolute;
-            top: calc(calc(100% - 20px) / 2);
+            top: 13px;
             right: 13px;
             rwa-svg-close-fill {
                 margin-left: 12.5px;
                 margin-bottom: 1.5px;
                 cursor: pointer;
-                height: 18px;
             }
             rwa-svg-warning {
                 margin-left: 10px;
                 margin-bottom: 1px;
-                height: 18px;
             }
             rwa-svg-check {
                 margin-left: 10px;
                 margin-bottom: 2px;
-                height: 18px;
             }
             .input-tag-normal {
                 display: flex;
                 align-items: center;
-                height: 23px;
             }
             .input-tag-word {
                 display: flex;
                 align-items: center;
-                height: 23px;
                 @include rw-type-r(1.5rem, 23px, var(--gray-90));
                 &.bold {
                     @include rw-type-b(1.5rem, 23px, var(--gray-90));
@@ -152,7 +160,7 @@
             .input-tag-time {
                 display: flex;
                 align-items: center;
-                @include rw-type-b(1.5rem, 23px, var(--gray-90));
+                @include rw-type-b(1.5rem, 23px, var(--gray-100));
             }
         }
 

@@ -1,7 +1,7 @@
 import { Route } from '@angular/router'
-import { MainComponent } from './main.component'
+import { MainComponent } from '../pages/main/main.component'
 
-export default [
+export const MainRoutes = [
     {
         path: '',
         component: MainComponent,

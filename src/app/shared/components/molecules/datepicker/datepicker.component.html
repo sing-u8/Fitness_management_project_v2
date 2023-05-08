@@ -64,21 +64,24 @@
         <div class="day">토</div>
     </div>
     <div class="week-row" *ngFor="let weekRow of weekRows; let i = index">
-        <div class="l-week-col" *ngFor="let weekCol of weekRow; let j = index">
-            <button
-                #bt
-                class="week-col"
-                [style.color]="weekCol.color"
-                [style.font-weight]="weekCol.fontWeight"
-                [class.selected]="weekCol.selected"
-                (mousedown)="onMouseDown()"
-                (mouseup)="onMouseUp()"
-                (focusin)="onFocus(bt)"
-                (focusout)="onFocusOut(bt)"
-                (click)="selectDate(i, j)"
-            >
-                {{ weekCol.day }}
-            </button>
+        <div class="d-flex align-items-center" *ngFor="let weekCol of weekRow; let j = index">
+            <div class="l-week-col" [class.seven-week-col]="j == 6">
+                <button
+                    #bt
+                    class="week-col"
+                    [style.color]="weekCol.color"
+                    [style.font-weight]="weekCol.fontWeight"
+                    [class.selected]="weekCol.selected"
+                    (mousedown)="onMouseDown()"
+                    (mouseup)="onMouseUp()"
+                    (focusin)="onFocus(bt)"
+                    (focusout)="onFocusOut(bt)"
+                    (click)="selectDate(i, j)"
+                >
+                    {{ weekCol.day }}
+                </button>
+            </div>
+            <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
         </div>
     </div>
 </div>
@@ -149,7 +152,7 @@
         <div class="day">토</div>
     </div>
     <div class="week-row" *ngFor="let weekRow of weekRows; let i = index">
-        <div class="d-flex align-items-center" *ngFor="let weekCol of weekRow; let j = index">
+        <div class="d-flex align-items-center pos-rel" *ngFor="let weekCol of weekRow; let j = index">
             <div
                 class="l-week-col"
                 [class.start-date]="isStartDate(weekCol)"
@@ -164,11 +167,14 @@
                     [style.color]="weekCol.color"
                     [style.font-weight]="weekCol.fontWeight"
                     [class.unAvailable-date]="!isAvailableDate(weekCol)"
+                    [disabled]="!isAvailableDate(weekCol)"
                     [class.selected]="isEdgeDate(weekCol)"
                     (mousedown)="onMouseDown()"
                     (mouseup)="onMouseUp()"
                     (focusin)="onFocus(bt)"
                     (focusout)="onFocusOut(bt)"
+                    (mouseover)="onWeekColHover(weekCol)"
+                    (mouseleave)="onWeekColOut()"
                     (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
                     rwTooltip
                     [rwTooltipDisabled]="pastDisable(weekCol)"
@@ -179,6 +185,8 @@
                 </button>
             </div>
             <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
+            <div class="between-hover" [class.show]="isHoverBetween(weekCol)"></div>
+            <div class="between-selected" [class.show]="isHoverSelect(weekCol)"></div>
         </div>
     </div>
 </div>

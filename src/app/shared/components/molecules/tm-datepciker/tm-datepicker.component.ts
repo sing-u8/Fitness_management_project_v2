@@ -97,6 +97,25 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
 
     // multi
     public selectedMultiDateObj: CalMultiDate = { startDate: '', endDate: '' }
+    public hoveredEndDate = ''
+    onWeekColHover(weekCol: any) {
+        this.hoveredEndDate = weekCol.date
+    }
+    onWeekColOut() {
+        this.hoveredEndDate = ''
+    }
+    isHoverBetween(weekCol) {
+        return (
+            dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate) &&
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
+        )
+    }
+    isHoverSelect(weekCol) {
+        return (
+            weekCol.date == this.hoveredEndDate &&
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
+        )
+    }
 
     public changed = false
     public afterViewCheckedDate

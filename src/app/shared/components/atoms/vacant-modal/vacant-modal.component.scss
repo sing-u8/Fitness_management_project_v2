@@ -1,0 +1,82 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.rw-modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gray-90);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    z-index: 9999;
+}
+
+.rw-modal-background-show {
+    opacity: 0.5;
+}
+
+.rw-modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10000;
+
+    .rw-modal {
+        padding: 30px 25px;
+        border-radius: 20px;
+        background-color: var(--white);
+        position: relative;
+        @include modal-shadow();
+        opacity: 0;
+        transition: opacity 0s;
+        -moz-transition: opacity 0s;
+        -webkit-transition: opacity 0s;
+        -o-transition: opacity 0s;
+
+        .text {
+            white-space: pre-line;
+            text-align: left;
+            @include rw-type-b(2rem, 31px, var(--font-color));
+        }
+
+        .sub-text {
+            margin-top: 4px;
+            white-space: pre-line;
+            text-align: left;
+            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+        }
+
+        .button-group {
+            margin-top: 25px;
+
+            rwa-button {
+                &.cancel-button {
+                    margin-right: 10px;
+                }
+            }
+            .cancel-text {
+                @include rw-type-b(1.7rem, 28px, var(--gray-90));
+            }
+            .confirm-text {
+                @include rw-type-b(1.7rem, 28px, var(--white));
+            }
+        }
+    }
+}
+
+.rw-modal-wrapper-show {
+    .rw-modal {
+        opacity: 1;
+    }
+}

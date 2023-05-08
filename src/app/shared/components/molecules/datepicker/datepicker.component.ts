@@ -77,6 +77,25 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
 
     // multi
     public selectedMultiDateObj: CalMultiDate = { startDate: '', endDate: '' }
+    public hoveredEndDate = ''
+    onWeekColHover(weekCol: any) {
+        this.hoveredEndDate = weekCol.date
+    }
+    onWeekColOut() {
+        this.hoveredEndDate = ''
+    }
+    isHoverBetween(weekCol) {
+        return (
+            dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate) &&
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
+        )
+    }
+    isHoverSelect(weekCol) {
+        return (
+            weekCol.date == this.hoveredEndDate &&
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
+        )
+    }
 
     public changed = false
     public afterViewCheckedDate
@@ -92,8 +111,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     }
     ngOnChanges(changes: SimpleChanges) {}
     ngAfterViewInit() {}
-    ngAfterViewChecked() {
-    }
+    ngAfterViewChecked() {}
 
     public isMouseDown = false
     onMouseDown() {
@@ -425,6 +443,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     }
     isBetween(weekCol) {
         return dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.selectedMultiDateObj.endDate)
+        // ||  dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate)
     }
     getDayFromStartDate(weekCol) {
         if (this.selectedMultiDateObj.startDate) {

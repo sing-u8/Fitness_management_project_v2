@@ -62,7 +62,7 @@ export class ButtonComponent implements AfterViewInit {
     @Input() progressPercent = 0 // 0 ~ 100
     @Input() progressBgColor = 'var(--red-200)'
     @Input() fontColor = 'var(--white)'
-    @Input() sizeType: 'lg' | 'md' | null = null
+    @Input() sizeType: 'lg' | 'md' = 'lg'
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--white)'
@@ -86,6 +86,7 @@ export class ButtonComponent implements AfterViewInit {
     @Observe('bgColor') bgColor$: Observable<string>
     @Observe('fontColor') fontColor$: Observable<string>
     @Observe('progressBgColor') progressBgColor$: Observable<string>
+    @Observe('sizeType') sizeType$: Observable<'lg' | 'md'>
 
     @ViewChild('l_button') l_button_el: ElementRef
     @ViewChild('progress') progress_el: ElementRef
@@ -123,6 +124,13 @@ export class ButtonComponent implements AfterViewInit {
         })
         this.bgColor$.subscribe((bgColor) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
+        })
+        this.sizeType$.subscribe((v) => {
+            if (v == 'lg') {
+                this.height = '45px'
+            } else if (v == 'md') {
+                this.height = '42px'
+            }
         })
 
         this.disable$.subscribe((disable) => {

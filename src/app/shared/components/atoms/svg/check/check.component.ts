@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core'
 export class CheckComponent {
     @Input() bgColor = 'none'
     @Input() color = 'var(--white)'
-    @Input() width = '18px'
-    @Input() height = '18px'
+    @Input() width = '24px'
+    @Input() height = '24px'
     @Input() margin = '0 0 0 0'
 }

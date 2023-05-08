@@ -41,10 +41,10 @@
             >
                 <ng-container *ngFor="let item of items">
                     <div class="item" (click)="_onSelectValue(item)">
-                        <div class="item-value ellipsis" [class.selected]="item.value[bindValue] == value[bindValue]">
+                        <div class="item-value ellipsis" [class.selected]="value && item.value[bindValue] == value[bindValue]">
                             {{ item.name }}
                         </div>
-                        <div *ngIf="item.value[bindValue] == value[bindValue]" class="check-icon"></div>
+                        <div *ngIf="value && item.value[bindValue] == value[bindValue]" class="check-icon"></div>
                     </div>
                 </ng-container>
             </div>

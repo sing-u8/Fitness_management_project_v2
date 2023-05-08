@@ -9,20 +9,20 @@
         <h2 class="rw-type-b27">B27 Pretendard Bold / 27</h2>
         <p class="rw-type-b27">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
-        <h2 class="rw-type-b22">B22 Pretendard Bold / 22</h2>
-        <p class="rw-type-b22">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <h2 class="rw-type-b20">B20 Pretendard Bold / 20</h2>
+        <p class="rw-type-b20">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
-        <h2 class="rw-type-b18">B18 Pretendard Bold / 18</h2>
-        <p class="rw-type-b18">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <h2 class="rw-type-b17">B17 Pretendard Bold / 17</h2>
+        <p class="rw-type-b17">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
-        <h2 class="rw-type-b16">B16 Pretendard Bold / 16</h2>
-        <p class="rw-type-b16">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <h2 class="rw-type-b15">B15 Pretendard Bold / 15</h2>
+        <p class="rw-type-b15">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
-        <h2 class="rw-type-r18">R18 Pretendard Regular / 18</h2>
-        <p class="rw-type-r18">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <h2 class="rw-type-r17">R17 Pretendard Regular / 17</h2>
+        <p class="rw-type-r17">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
-        <h2 class="rw-type-r16">R16 Pretendard Regular / R16</h2>
-        <p class="rw-type-r16">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
+        <h2 class="rw-type-r15">R15 Pretendard Regular / R15</h2>
+        <p class="rw-type-r15">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
         <p class="v-padding"></p>
         <h2 class="rw-type-r14">R14 Pretendard Regular / 14</h2>
         <p class="rw-type-r14">장문 문구 테스트 입력 문구 입력 장문 문구 테스트 입력 문구 입력 문구 입력</p>
@@ -115,7 +115,7 @@
         <div class="d-flex align-items-center">
             <span>기본 - bg:red</span>
             <div class="h-padding"></div>
-            <rwa-button [width]="'109px'" [status]="button1.status" [loadingName]="button1.loadingName">
+            <rwa-button [padding]="'9px 25px 7px'" [status]="button1.status" [loadingName]="button1.loadingName">
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
                 <ng-template btPendingContent><span class="default">저장중</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
@@ -124,20 +124,20 @@
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [status]="button2.status"
                 [loadingName]="button2.loadingName"
                 [progressPercent]="button2.progress"
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-button [width]="'109px'" [disableBgColor]="'#EEEEEE'" [disable]="true">
+            <rwa-button [padding]="'9px 25px 7px'" [disableBgColor]="'#EEEEEE'" [disable]="true">
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
                 <ng-template btPendingContent><span class="default">저장중</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
@@ -147,7 +147,12 @@
         <div class="d-flex align-items-center">
             <span>기본 - bg:gray</span>
             <div class="h-padding"></div>
-            <rwa-button [width]="'109px'" [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [status]="button1_2.status"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+            >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
                 <ng-template btPendingContent><span class="default">저장중</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
@@ -156,7 +161,7 @@
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [status]="button2.status"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
@@ -166,14 +171,14 @@
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
                 [disableBgColor]="'#EEEEEE'"
@@ -189,7 +194,7 @@
             <span>기본 - bg:white</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [status]="button1_2.status"
                 [fontColor]="'var(--gray-90)'"
                 [bgColor]="'var(--white)'"
@@ -204,7 +209,7 @@
             <span>처리중 포함 (클릭 시 확인 가능)</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [status]="button2.status"
                 [fontColor]="'var(--gray-90)'"
                 [bgColor]="'var(--white)'"
@@ -216,14 +221,14 @@
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
-                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btPendingContent><span class="default">초기화</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'109px'"
+                [padding]="'9px 25px 7px'"
                 [bgColor]="'#2F2D2D'"
                 [fontColor]="'var(--gray-90)'"
                 disableFontColor="var(--gray-60)"
@@ -243,7 +248,12 @@
         <div class="d-flex align-items-center">
             <span>기본 - bg:red</span>
             <div class="h-padding"></div>
-            <rwa-button [status]="button1.status" [loadingName]="button1.loadingName">
+            <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
+                [status]="button1.status"
+                [loadingName]="button1.loadingName"
+            >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
                 <ng-template btPendingContent><span class="default">저장중</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
@@ -252,21 +262,23 @@
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
                 [status]="button2.status"
                 [loadingName]="button2.loadingName"
                 [progressPercent]="button2.progress"
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-button [disableBgColor]="'#EEEEEE'" [disable]="true">
+            <rwa-button [padding]="'7.5px 16px 5.5px'" [sizeType]="'md'" [disableBgColor]="'#EEEEEE'" [disable]="true">
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
         </div>
@@ -274,15 +286,23 @@
         <div class="d-flex align-items-center">
             <span>기본 - bg:gray</span>
             <div class="h-padding"></div>
-            <rwa-button [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
+            <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
+                [status]="button1_2.status"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+            >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
                 [status]="button2.status"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
@@ -292,15 +312,22 @@
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-button [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'" [disableBgColor]="'#EEEEEE'" [disable]="true">
+            <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#EEEEEE'"
+                [disable]="true"
+            >
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
         </div>
@@ -309,6 +336,8 @@
             <span>기본 - bg:white</span>
             <div class="h-padding"></div>
             <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
                 [status]="button1_2.status"
                 [fontColor]="'var(--gray-90)'"
                 [bgColor]="'var(--white)'"
@@ -316,13 +345,15 @@
                 [loadingColor]="'var(--font-color)'"
             >
                 <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
-                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btPendingContent><span class="default">초기화</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>처리중 포함 (클릭 시 확인 가능)</span>
             <div class="h-padding"></div>
             <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
                 [status]="button2.status"
                 [fontColor]="'var(--gray-90)'"
                 [bgColor]="'var(--white)'"
@@ -334,13 +365,15 @@
                 (onClick)="onClickButton2()"
             >
                 <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
-                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btPendingContent><span class="default">초기화</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
             <rwa-button
+                [padding]="'7.5px 16px 5.5px'"
+                [sizeType]="'md'"
                 [bgColor]="'#2F2D2D'"
                 [fontColor]="'var(--gray-90)'"
                 disableFontColor="var(--gray-60)"
@@ -350,7 +383,7 @@
                 [disable]="true"
             >
                 <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
-                <ng-template btPendingContent><span class="default">처리중</span></ng-template>
+                <ng-template btPendingContent><span class="default">초기화</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
         </div>
@@ -362,7 +395,7 @@
             <span>기본 - case 1</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'134px'"
+                [padding]="'9px 20px 7px 25px'"
                 [bgColor]="'var(--red-5)'"
                 [hoverBgColor]="'var(--red-10)'"
                 [fontColor]="'var(--red-100)'"
@@ -379,14 +412,14 @@
                     ></rwa-svg-arrow-left-bold>
                     <span class="default">저장하기</span>
                 </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'134px'"
+                [padding]="'9px 20px 7px 25px'"
                 [bgColor]="'var(--red-5)'"
                 [hoverBgColor]="'var(--red-10)'"
                 [fontColor]="'var(--red-100)'"
@@ -405,14 +438,14 @@
                     ></rwa-svg-arrow-left-bold
                     ><span class="default">저장하기</span>
                 </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'134px'"
+                [padding]="'9px 20px 7px 25px'"
                 [bgColor]="'var(--red-5)'"
                 [hoverBgColor]="'var(--red-10)'"
                 [fontColor]="'var(--red-100)'"
@@ -436,7 +469,7 @@
         <div class="d-flex align-items-center">
             <span>기본 - case 2</span>
             <div class="h-padding"></div>
-            <rwa-button [width]="'134px'" [status]="button1_2.status">
+            <rwa-button [padding]="'9px 20px 7px 25px'" [status]="button1_2.status">
                 <ng-template btIdleContent>
                     <span class="default">저장하기</span>
                     <rwa-svg-arrow-right-bold
@@ -452,7 +485,7 @@
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
-                [width]="'134px'"
+                [padding]="'9px 20px 7px 25px'"
                 [status]="button2.status"
                 [loadingName]="button2.loadingName"
                 [progressPercent]="button2.progress"
@@ -466,13 +499,13 @@
                         [color]="'var(--white)'"
                     ></rwa-svg-arrow-right-bold>
                 </ng-template>
-                <ng-template btPendingContent><span class="default">저장중</span></ng-template>
+                <ng-template btPendingContent><span class="default">저장하기</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
             </rwa-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-button [width]="'134px'" [disable]="true">
+            <rwa-button [padding]="'9px 20px 7px 25px'" [disable]="true">
                 <ng-template btIdleContent>
                     <span class="default">저장하기</span>
                     <rwa-svg-arrow-right-bold
@@ -499,14 +532,14 @@
         <div class="d-flex align-items-center">
             <span>기본</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button>
-                <ng-template gbtIdleContent><span class="default">문의하기</span></ng-template>
+            <rwa-ghost-button [borderWidth]="'1.5px'">
+                <ng-template gbtIdleContent><span class="small">문의하기</span></ng-template>
             </rwa-ghost-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button [disable]="true">
-                <ng-template gbtIdleContent><span class="default">문의하기</span></ng-template>
+            <rwa-ghost-button [borderWidth]="'1.5px'" [disable]="true">
+                <ng-template gbtIdleContent><span class="small">문의하기</span></ng-template>
             </rwa-ghost-button>
         </div>
         <p class="v-padding"></p>
@@ -515,13 +548,13 @@
         <div class="d-flex align-items-center">
             <span>기본</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button height="42px" width="93px">
+            <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px">
                 <ng-template gbtIdleContent><span class="default">전체 보기</span></ng-template>
             </rwa-ghost-button>
             <div class="h-padding"></div>
             <span>비활성화</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button height="42px" width="93px" [disable]="true">
+            <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px" [disable]="true">
                 <ng-template gbtIdleContent><span class="default">전체 보기</span></ng-template>
             </rwa-ghost-button>
         </div>
@@ -531,13 +564,13 @@
         <div class="d-flex align-items-center">
             <span>기본</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button height="37px" width="86px">
+            <rwa-ghost-button height="37px" padding="5px 11px 3px">
                 <ng-template gbtIdleContent><span class="small">전체 보기</span></ng-template>
             </rwa-ghost-button>
             <div class="h-padding"></div>
             <span>기본</span>
             <div class="h-padding"></div>
-            <rwa-ghost-button height="37px" width="86px" [disable]="true">
+            <rwa-ghost-button height="37px" padding="5px 11px 3px" [disable]="true">
                 <ng-template gbtIdleContent><span class="small">전체 보기</span></ng-template>
             </rwa-ghost-button>
         </div>
@@ -548,7 +581,7 @@
             <span>기본</span>
             <div class="h-padding"></div>
             <rwa-ghost-button
-                [width]="'116px'"
+                padding="7.5px 15px 5.5px 11px"
                 [height]="'42px'"
                 [borderColor]="'var(--red-100)'"
                 [hoverBorderColor]="'var(--red-100)'"
@@ -565,9 +598,8 @@
             <span>처리중 포함 (클릭 시 확인 가능)</span>
             <div class="h-padding"></div>
             <rwa-ghost-button
-                [width]="'116px'"
+                padding="7.5px 15px 5.5px 11px"
                 [height]="'42px'"
-                padding="9px 0 7px"
                 [borderColor]="'var(--red-100)'"
                 [hoverBorderColor]="'var(--red-100)'"
                 [fontColor]="'var(--red-100)'"
@@ -594,7 +626,7 @@
             <span>비활성화</span>
             <div class="h-padding"></div>
             <rwa-ghost-button
-                [width]="'116px'"
+                padding="7.5px 15px 5.5px 11px"
                 [height]="'42px'"
                 [borderColor]="'var(--red-100)'"
                 [hoverBorderColor]="'var(--red-100)'"
@@ -652,36 +684,60 @@
     <div class="d-flex align-items-center">
         <h3>red w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true"> 사용 불가 해제하기 </rwa-text-button>
-        <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'"> 사용 불가 해제하기 </rwa-text-button>
-        <div class="h-padding"></div>
-        <h3>red 비활성화 w.underline / wo.underline</h3>
-        <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" [showUnderLine]="true" [disable]="true">
+        <rwa-text-button [color]="'var(--red-100)'" [hoverColor]="'var(--red-200)'" [showUnderLine]="true">
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" [disable]="true"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" [hoverColor]="'var(--red-200)'">
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <h3>red 비활성화 w.underline / wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--red-100)'"
+            [hoverColor]="'var(--red-200)'"
+            [showUnderLine]="true"
+            [disable]="true"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button [color]="'var(--red-100)'" [hoverColor]="'var(--red-200)'" [disable]="true">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <h3>red - b w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [showUnderLine]="true">
+        <rwa-text-button
+            [color]="'var(--red-100)'"
+            [hoverColor]="'var(--red-200)'"
+            fontWeight="700"
+            [showUnderLine]="true"
+        >
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700"> 사용 불가 해제하기 </rwa-text-button>
+        <rwa-text-button [color]="'var(--red-100)'" [hoverColor]="'var(--red-200)'" fontWeight="700">
+            사용 불가 해제하기
+        </rwa-text-button>
         <div class="h-padding"></div>
         <h3>red - b 비활성화 w.underline / wo.underline</h3>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [disable]="true" [showUnderLine]="true">
+        <rwa-text-button
+            [color]="'var(--red-100)'"
+            [hoverColor]="'var(--red-200)'"
+            fontWeight="700"
+            [disable]="true"
+            [showUnderLine]="true"
+        >
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
-        <rwa-text-button [color]="'var(--red-100)'" fontWeight="700" [disable]="true">
+        <rwa-text-button [color]="'var(--red-100)'" [hoverColor]="'var(--red-200)'" fontWeight="700" [disable]="true">
             사용 불가 해제하기
         </rwa-text-button>
         <div class="h-padding"></div>
@@ -703,7 +759,7 @@
                 borderColor="var(--gray-60)"
             >
                 <ng-template iconGhostBtIdleContent>
-                    <rwa-svg-user-list></rwa-svg-user-list>
+                    <rwa-svg-user-list [width]="'24px'" [height]="'24px'"></rwa-svg-user-list>
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
@@ -721,7 +777,7 @@
                 borderColor="var(--gray-60)"
             >
                 <ng-template iconGhostBtIdleContent>
-                    <rwa-svg-pencil></rwa-svg-pencil>
+                    <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
@@ -739,7 +795,7 @@
                 borderColor="var(--gray-60)"
             >
                 <ng-template iconGhostBtIdleContent>
-                    <rwa-svg-dots-three></rwa-svg-dots-three>
+                    <rwa-svg-dots-three [width]="'19px'" [height]="'19px'"></rwa-svg-dots-three>
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
@@ -762,7 +818,7 @@
                 hoverBgColor="var(--red-200)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'24px'" [height]="'24px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -775,7 +831,7 @@
                 hoverBgColor="var(--gray-100)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'24px'" [height]="'24px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -788,7 +844,7 @@
                 hoverBgColor="var(--gray-30)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-pencil></rwa-svg-pencil>
+                    <rwa-svg-pencil [width]="'24px'" [height]="'24px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
         </div>
@@ -807,7 +863,7 @@
                 hoverBgColor="var(--red-200)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -821,7 +877,7 @@
                 hoverBgColor="var(--gray-100)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -835,7 +891,7 @@
                 hoverBgColor="var(--gray-30)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-pencil></rwa-svg-pencil>
+                    <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
         </div>
@@ -854,7 +910,7 @@
                 hoverBgColor="var(--red-200)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -868,7 +924,7 @@
                 hoverBgColor="var(--gray-100)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-plus color="var(--white)"></rwa-svg-plus>
+                    <rwa-svg-plus color="var(--white)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
                 </ng-template>
             </rwa-icon-button>
             <p class="h-padding"></p>
@@ -882,7 +938,7 @@
                 hoverBgColor="var(--gray-30)"
             >
                 <ng-template iconBtIdleContent>
-                    <rwa-svg-pencil></rwa-svg-pencil>
+                    <rwa-svg-pencil [width]="'19px'" [height]="'19px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
         </div>
@@ -976,11 +1032,13 @@
     <h3>10페이지 이하</h3>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwa-page-button [pageNumber]="6"></rwa-page-button>
+        <rwa-page-button [pageNumber]="1" (onPageNumberClick)="onPb1Click($event)"></rwa-page-button>
         <div class="h-padding"></div>
-        <rwa-page-button [pageNumber]="7"></rwa-page-button>
+        <rwa-page-button [pageNumber]="6" (onPageNumberClick)="onPb1Click($event)"></rwa-page-button>
         <div class="h-padding"></div>
-        <rwa-page-button [pageNumber]="10"></rwa-page-button>
+        <rwa-page-button [pageNumber]="7" (onPageNumberClick)="onPb1Click($event)"></rwa-page-button>
+        <div class="h-padding"></div>
+        <rwa-page-button [pageNumber]="10" (onPageNumberClick)="onPb1Click($event)"></rwa-page-button>
     </div>
     <p class="v-padding"></p>
     <h3>10페이지 초과</h3>
@@ -988,7 +1046,11 @@
     <div class="d-flex align-items-center">
         <rwa-page-button [pageNumber]="12" [disable]="true"></rwa-page-button>
         <div class="h-padding"></div>
-        <rwa-page-button [pageNumber]="999" [disable]="false"></rwa-page-button>
+        <rwa-page-button
+            [pageNumber]="999"
+            [disable]="false"
+            (onPageNumberClick)="onPb1Click($event)"
+        ></rwa-page-button>
         <div class="h-padding"></div>
         <rwa-page-button [pageNumber]="999" [disable]="false"></rwa-page-button>
     </div>
@@ -1093,18 +1155,112 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
-    <!--    <h3>일반 (ControlValueAccessor)</h3>-->
-    <!--    <p class="v-padding"></p>-->
-    <!--    <p class="v-padding"></p>-->
-    <!--    <div class="d-flex align-items-center">-->
-    <!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [hint]="'힌트 메시지'"></rwa-text-input>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwa-text-input [placeholder]="'플레이스 홀더'" [disable]="true"></rwa-text-input>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwa-text-input [labelVisible]="false" [placeholder]="'플레이스 홀더'" [advice]="'도움말'"></rwa-text-input>-->
-    <!--    </div>-->
-    <!--    <p class="v-padding"></p>-->
-    <!--    <p class="v-padding"></p>-->
+
+    <p class="v-padding"></p>
+    <h2>일반 -- value accessor version (기능 구현 방식의 차이만 있는 테스트 용이므로 위에 있는 "일반" 컴포넌트만 확인하시면 됩니다.)</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-input
+            [isImportant]="true"
+            [ngModel]="textInput1"
+            [maxlength]="5"
+            pattern="^\d{4}$"
+            (ngModelChange)="onTextInput1Change($event)"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [(ngModel)]="textInput2"
+            [type]="'wordLimit'"
+            [maxLength]="10"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [formControl]="textInput3"
+            [placeholder]="'플레이스 홀더'"
+            [type]="'timeLimit'"
+            [advice]="'도움말'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input [placeholder]="'플레이스 홀더'" [(ngModel)]="textInput2" [disabled]="true"></rwa-text-input>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-input
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [type]="'wordLimit'"
+            [maxLength]="50"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'warning'"
+            [statusText]="'경고 메시지'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [type]="'timeLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'error'"
+            [statusText]="'에러 메시지'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-input
+            [status]="'success'"
+            [statusText]="'에러 메시지'"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+            [(ngModel)]="textInput1"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [type]="'wordLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'success'"
+            [statusText]="'경고 메시지'"
+            [(ngModel)]="textInput1"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [type]="'timeLimit'"
+            [placeholder]="'플레이스 홀더'"
+            [status]="'success'"
+            [statusText]="'에러 메시지'"
+            [(ngModel)]="textInput2"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-text-input
+            [placeholder]="'플레이스 홀더'"
+            [(ngModel)]="textInput1"
+            [hint]="'힌트 메시지'"
+        ></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input [placeholder]="'플레이스 홀더'" [(ngModel)]="textInput1" [disabled]="true"></rwa-text-input>
+        <div class="h-padding"></div>
+        <rwa-text-input
+            [labelVisible]="false"
+            [(ngModel)]="textInput2"
+            [placeholder]="'플레이스 홀더'"
+            [advice]="'도움말'"
+        ></rwa-text-input>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+
     <h2>패스워드</h2>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
@@ -1114,6 +1270,24 @@
             [label]="'비밀번호'"
             [textFieldType]="'password'"
             [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [labelVisible]="false"
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+            [hint]="'힌트 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [label]="'비밀번호'"
+            [textFieldType]="'password'"
+            [placeholder]="'플레이스 홀더'"
+            [hint]="'힌트 메시지'"
         ></rwa-text-field>
         <div class="h-padding"></div>
         <rwa-text-field
@@ -1153,6 +1327,30 @@
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'search'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            [labelVisible]="false"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'search'"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [value]="text1"
+            (onValueChange)="onText1Change($event)"
+            [textFieldType]="'search'"
+            [placeholder]="'플레이스 홀더'"
+            [hint]="'힌트 메시지'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
+            [labelVisible]="false"
             [value]="text1"
             (onValueChange)="onText1Change($event)"
             [textFieldType]="'search'"
@@ -1215,6 +1413,7 @@
         ></rwa-number-text-field>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-number-text-field
             [status]="'error'"
@@ -1234,6 +1433,7 @@
         <div class="h-padding"></div>
         <rwa-number-text-field [disable]="true"></rwa-number-text-field>
     </div>
+    <p class="v-padding"></p>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-number-text-field
@@ -1333,6 +1533,13 @@
         <rwa-textfield-dropdown
             [label]="'label'"
             [items]="dropdown1"
+            [value]="ddV01"
+            (onSelectValue)="ddV01 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [label]="'label'"
+            [items]="dropdown1"
             [value]="ddV1"
             (onSelectValue)="ddV1 = $event"
         ></rwa-textfield-dropdown>
@@ -1409,11 +1616,16 @@
     <div class="d-flex align-items-center">
         <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>
         <div class="h-padding"></div>
-        <rwa-memo [formControl]="memo2" [showButton]="true" (onButtonClick)="onMemo2ButtonClick()"></rwa-memo>
+        <rwa-memo
+            [bgColor]="'var(--gray-30)'"
+            [formControl]="memo2"
+            [showButton]="true"
+            (onButtonClick)="onMemo2ButtonClick()"
+        ></rwa-memo>
         <div class="h-padding"></div>
-        <rwa-memo [formControl]="memo3" [showButton]="true"></rwa-memo>
+        <rwa-memo [bgColor]="'var(--gray-30)'" [formControl]="memo3" [showButton]="true"></rwa-memo>
         <div class="h-padding"></div>
-        <rwa-memo [(ngModel)]="memo4"></rwa-memo>
+        <rwa-memo [bgColor]="'var(--gray-30)'" [(ngModel)]="memo4"></rwa-memo>
         <div class="h-padding"></div>
     </div>
 

@@ -1,1 +1,74 @@
-<p>terms works!</p>
+<section class="l-terms">
+    <div class="terms">
+        <div class="redwhale-logo"></div>
+        <span class="title">레드웨일에 오신 것을 환영합니다! 👋</span>
+        <div class="desc">서비스 이용을 위해 아래 약관에 동의해주세요.</div>
+
+        <div class="l-checkbox">
+            <div class="agree-all">
+                <rwa-checkbox [label]="'모두 동의해요.'" [checked]="all" (onClick)="onClick('all')"></rwa-checkbox>
+            </div>
+            <div class="checkbox-wrapper">
+                <rwa-checkbox
+                    [label]="'레드웨일 서비스 이용약관 (필수)'"
+                    [checked]="termsEULA"
+                    (onClick)="onClick('termsEULA')"
+                ></rwa-checkbox>
+                <rwa-text-button (click)="showModal('termsEULA')" fontWeight="700" [showUnderLine]="true"
+                    >내용 보기</rwa-text-button
+                >
+            </div>
+            <div class="checkbox-wrapper">
+                <rwa-checkbox
+                    [label]="'개인정보 보호 및 이용 (필수)'"
+                    [checked]="termsPrivacy"
+                    (onClick)="onClick('termsPrivacy')"
+                ></rwa-checkbox>
+                <rwa-text-button (click)="showModal('termsPrivacy')" fontWeight="700" [showUnderLine]="true"
+                    >내용 보기</rwa-text-button
+                >
+            </div>
+            <div class="l-marketing">
+                <div class="checkbox-wrapper">
+                    <rwa-checkbox
+                        [label]="'마케팅 정보 수신 (선택)'"
+                        [checked]="marketing"
+                        (onClick)="onClick('marketing')"
+                    ></rwa-checkbox>
+                </div>
+                <div class="l-marketing-button">
+                    <rwa-checkbox
+                        [label]="'SMS'"
+                        [checked]="marketingSMS"
+                        (onClick)="onClick('marketingSMS')"
+                    ></rwa-checkbox>
+                    <rwa-checkbox
+                        [label]="'이메일'"
+                        [checked]="marketingEmail"
+                        (onClick)="onClick('marketingEmail')"
+                    ></rwa-checkbox>
+                </div>
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [width]="'80px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="cancelWhenSocialUser()"
+            >
+                <ng-template btIdleContent><span class="bt-text-cancel">취소</span> </ng-template>
+            </rwa-button>
+
+            <rwa-button [width]="'80px'" [height]="'45px'" [disable]="!formCheck()" (onClick)="formCheck() && next()">
+                <ng-template btIdleContent><span class="bt-text-next">다음</span> </ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</section>
+
+<rw-terms-eula [(visible)]="termsEULAVisible" (cancel)="hideModal('termsEULA')"></rw-terms-eula>
+<rw-terms-privacy [(visible)]="termsPrivacyVisible" (cancel)="hideModal('termsPrivacy')"></rw-terms-privacy>

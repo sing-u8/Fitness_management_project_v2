@@ -100,14 +100,14 @@ export class LoginComponent {
                 signInWithCustomToken(this.fireAuth, user.custom_token)
                     .then((userCredential) => {
                         this.storageService.setSignInMethod(this.signInMethod)
-                        this.router.navigateByUrl('/redwhale-home')
+                        this.router.navigateByUrl('/main')
                     })
                     .finally(() => {
                         this.loginBtStatus = 'idle'
                     })
             },
             error: (e) => {
-                this.nxStore.dispatch(showToast({ text: '입력하신 정보를 다시 확인해주세요.' }))
+                this.nxStore.dispatch(showToast({ text: '입력한 정보를 다시 확인해 주세요.' }))
                 this.loginBtStatus = 'idle'
             },
         })
@@ -186,7 +186,7 @@ export class LoginComponent {
                         signInWithCustomToken(this.fireAuth, String(user.custom_token)).then(() => {
                             this.storageService.setSignInMethod(this.signInMethod)
                             this.kakaoBtLoadingFns.hideLoading()
-                            this.router.navigateByUrl('/redwhale-home')
+                            this.router.navigateByUrl('/main')
                         })
                     },
                     error: () => {
@@ -207,7 +207,7 @@ export class LoginComponent {
             this.authService.signInWithFirebase({ accessToken }).subscribe({
                 next: (user) => {
                     this.storageService.setSignInMethod(this.signInMethod)
-                    this.router.navigateByUrl('/redwhale-home')
+                    this.router.navigateByUrl('/main')
                     if (!_.isEmpty(cb)) {
                         cb()
                     }

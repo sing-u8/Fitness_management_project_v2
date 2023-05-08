@@ -10,30 +10,55 @@
             [rwTooltipTitle]="advice"
         ></div>
     </div>
-    <div class="l-input">
+    <div
+        class="l-input"
+        (mouseover)="isMouseOn = true"
+        (mouseleave)="isMouseOn = false"
+        (mousedown)="isMouseDown = true"
+        (mouseup)="isMouseDown = false"
+    >
+        <div *ngIf="textFieldType == 'search'" class="search-icon"></div>
         <input
             #input
-            type="text"
-            [maxLength]=""
-            [maxlength]="inputLimit"
+            [type]="textFieldType == 'password' && passwordVisible == false ? 'password' : 'text'"
+            [maxlength]="maxLength"
+            [class.password]="textFieldType == 'password'"
+            [class.search]="textFieldType == 'search'"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"
             [class.type-word-limit]="type == 'wordLimit'"
             [class.type-time-limit]="type == 'timeLimit'"
             [placeholder]="placeholder"
             [formControl]="textField"
+            (focus)="onFocus()"
+            (focusout)="onFocusOut()"
         />
         <div class="l-input-tag">
             <div *ngIf="type == 'normal'" class="input-tag-normal">
                 <rwa-svg-close-fill
-                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    *ngIf="!textField.disabled && status == 'none' && textField.value?.length > 0 && isFocused"
+                    [width]="'24px'"
+                    [height]="'24px'"
+                    [margin]="'0'"
                     (click)="resetTextField()"
                 ></rwa-svg-close-fill>
                 <rwa-svg-warning
                     *ngIf="status == 'error' || status == 'warning'"
+                    [width]="'24px'"
+                    [height]="'24px'"
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
                 ></rwa-svg-warning>
                 <rwa-svg-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-svg-check>
+                <div
+                    class="pw-visible-icon"
+                    *ngIf="textFieldType == 'password' && passwordVisible && textField.value?.length > 0"
+                    (click)="passwordVisible = false; input.focus()"
+                ></div>
+                <div
+                    class="pw-invisible-icon"
+                    *ngIf="textFieldType == 'password' && !passwordVisible && textField.value?.length > 0"
+                    (click)="passwordVisible = true; input.focus()"
+                ></div>
             </div>
             <div
                 *ngIf="type == 'wordLimit'"
@@ -41,14 +66,19 @@
                 [class.bold]="status == 'warning' || status == 'error'"
             >
                 <span *ngIf="status != 'success'"
-                    >{{ textField.value.length | padStart : 2 : '0' }} / {{ inputLimit | padStart : 2 : '0' }}</span
+                    >{{ textField?.value?.length ?? '0' }} / {{ maxLength | padStart : 2 : '0' }}</span
                 >
                 <rwa-svg-close-fill
-                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    *ngIf="!textField.disabled && status == 'none' && textField.value?.length > 0 && isFocused"
+                    [margin]="'0'"
+                    [width]="'24px'"
+                    [height]="'24px'"
                     (click)="resetTextField()"
                 ></rwa-svg-close-fill>
                 <rwa-svg-warning
                     *ngIf="status == 'error' || status == 'warning'"
+                    [width]="'24px'"
+                    [height]="'24px'"
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
                 ></rwa-svg-warning>
                 <rwa-svg-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-svg-check>
@@ -56,18 +86,25 @@
             <div *ngIf="type == 'timeLimit'" class="input-tag-time">
                 <span *ngIf="status != 'success'">{{ timeLimit | minuteSeconds }}</span>
                 <rwa-svg-close-fill
-                    *ngIf="status != 'error' && status != 'warning' && textField.value.length > 0"
+                    *ngIf="status != 'error' && status != 'warning' && textField.value?.length > 0 && isFocused"
+                    [margin]="'0'"
+                    [width]="'24px'"
+                    [height]="'24px'"
                     (click)="resetTextField()"
                 ></rwa-svg-close-fill>
                 <rwa-svg-warning
                     *ngIf="status == 'error' || status == 'warning'"
+                    [width]="'24px'"
+                    [height]="'24px'"
                     [color]="status == 'warning' ? 'var(--state-warning-100)' : 'var(--state-error-100)'"
                 ></rwa-svg-warning>
                 <rwa-svg-check *ngIf="status == 'success'" [color]="'var(--state-success-100)'"></rwa-svg-check>
             </div>
         </div>
 
-        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div *ngIf="(status == 'none' || status == 'success') && hint" class="hint">
+            <span class="info-icon"></span>{{ hint }}
+        </div>
         <div
             *ngIf="status == 'warning' || status == 'error'"
             class="status"

@@ -1,0 +1,24 @@
+<section class="l-reg-completed">
+    <div class="reg-completed">
+        <div class="redwhale-logo"></div>
+        <div class="title">
+            {{ user.name }}님, <br />
+            반갑습니다! 🎉
+        </div>
+        <div class="desc">
+            <span> 이제부터 레드웨일 서비스를 이용하실 수 있어요. </span>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [width]="'172px'"
+                [height]="'45px'"
+                [loadingName]="'info-next-button'"
+                [loadingMargin]="'0'"
+                (onClick)="next()"
+            >
+                <ng-template btIdleContent><span class="next-text">레드웨일 시작하기</span></ng-template>
+                <ng-template btPendingContent></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</section>

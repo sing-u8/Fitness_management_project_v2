@@ -32,7 +32,7 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
     @Input() type: 'oneButton' | 'twoButton' = 'twoButton'
     @Input() loadingName = 'modal-loading'
 
-    @Input() width = '335px'
+    @Input() width = '345px'
 
     @Input() blockClickOutside = false
 

@@ -39,7 +39,7 @@
             text-align: right;
 
             &.in-type {
-                padding: 10px 60px 9px 14px;
+                padding: 10px 67px 9px 14px;
             }
             @include rw-type-r(1.7rem, 28px, var(--font-color));
             &:focus {
@@ -91,7 +91,7 @@
             display: flex;
             align-items: center;
             position: absolute;
-            top: 11px;
+            top: 10.5px;
             right: 13px;
             .currency {
                 @include rw-type-r(1.7rem, 28px, var(--font-color));
@@ -99,18 +99,15 @@
             rwa-svg-close-fill {
                 margin-left: 12.5px;
                 cursor: pointer;
-                height: 18px;
             }
             rwa-svg-warning,
             rwa-svg-check {
                 margin-left: 10px;
                 margin-bottom: 1px;
-                height: 18px;
             }
             .input-tag-normal {
                 display: flex;
                 align-items: center;
-                height: 23px;
             }
         }
 

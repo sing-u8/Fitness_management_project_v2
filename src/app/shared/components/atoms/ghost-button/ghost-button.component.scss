@@ -5,7 +5,7 @@
 
 .l-button {
     border-radius: 14px;
-    border-width: 1.5px;
+    border-width: 1px;
     border-style: solid;
     display: flex;
     align-items: center;
@@ -34,7 +34,7 @@
 
     &:active {
         //border: none !important;
-        border-width: 1.5px !important;
+        border-width: 1px !important;
         border-style: solid !important;
     }
 

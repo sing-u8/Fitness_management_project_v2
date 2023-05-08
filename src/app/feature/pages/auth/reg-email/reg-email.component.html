@@ -1,0 +1,72 @@
+<section class="l-reg-email">
+    <div class="reg-email">
+        <div class="redwhale-logo"></div>
+        <div class="l-step">
+            <div class="step"><div class="check-icon"></div></div>
+            <div class="caret-right"></div>
+            <div class="step active">2</div>
+            <div class="caret-right"></div>
+            <div class="step">3</div>
+        </div>
+        <span class="title">{{ email }}</span>
+        <div class="desc">
+            <span>이메일 주소로 인증번호 메일을 보내드렸어요.</span>
+            <span>
+                <span class="time">{{ timeLeft | minuteSeconds }}</span>
+                안에 인증번호를 입력해 주세요.
+            </span>
+        </div>
+        <rwa-verification-field
+            [labelVisible]="false"
+            [value]="verificationCode"
+            [status]="verificationStatus"
+            [statusText]="error"
+            (onValueChange)="verificationCode = $event"
+        ></rwa-verification-field>
+        <div class="l-button">
+            <rwa-button
+                [width]="'134px'"
+                [height]="'45px'"
+                [bgColor]="'var(--red-5)'"
+                [hoverBgColor]="'var(--red-10)'"
+                [fontColor]="'var(--red-100)'"
+                [progressBgColor]="'var(--red-10)'"
+                [loadingColor]="'var(--red-100)'"
+                (onClick)="back()"
+            >
+                <ng-template btIdleContent>
+                    <rwa-svg-arrow-left-bold
+                        width="20px"
+                        height="20px"
+                        [color]="'var(--red-100)'"
+                    ></rwa-svg-arrow-left-bold>
+                    <span class="back-text">이전으로</span>
+                </ng-template>
+            </rwa-button>
+
+            <rwa-button
+                [width]="'80px'"
+                [height]="'45px'"
+                [loadingName]="'info-next-button'"
+                [loadingMargin]="'0'"
+                [disable]="!formCheck()"
+                (onClick)="formCheck() && next()"
+                [status]=""
+            >
+                <ng-template btIdleContent><span class="next-text">다음</span></ng-template>
+                <ng-template btPendingContent></ng-template>
+            </rwa-button>
+        </div>
+        <div class="divider"></div>
+        <div class="resend">
+            <span>혹시 메일을 받지 못하셨나요?</span>
+            <rwa-text-button
+                (onClick)="sendVerificationCodeMail(true)"
+                fontWeight="700"
+                fontSize="1.5rem"
+                lineHeight="23px"
+                >재전송하기</rwa-text-button
+            >
+        </div>
+    </div>
+</section>

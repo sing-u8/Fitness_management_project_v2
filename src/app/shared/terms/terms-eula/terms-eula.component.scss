@@ -1,3 +1,8 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
 .rw-modal-background {
     display: none;
     position: fixed;
@@ -5,7 +10,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--font-color);
+    background-color: var(--gray-80);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
@@ -15,7 +20,7 @@
 }
 
 .rw-modal-background-show {
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .rw-modal-wrapper {
@@ -29,13 +34,13 @@
 
     .rw-modal {
         position: relative;
-        width: 524px;
-        height: 374px;
-        padding: 15px 0px;
+        width: 540px;
+        height: 540px;
+        padding: 0 0 15px 0;
         border: 1px solid var(--border-color);
         border-radius: 5px;
         background-color: var(--white);
-        box-shadow: 0 0 10px #b5b5b545;
+        @include modal-shadow();
         opacity: 0;
         transition: opacity 0s;
         -moz-transition: opacity 0s;
@@ -43,12 +48,16 @@
         -o-transition: opacity 0s;
 
         .title {
-            height: 35px;
-            border-bottom: 1px solid var(--border-color);
-            margin: 0px 15px;
+            height: 70px;
+            border-bottom: 1px solid var(--gray-50);
+            padding: 0 25px;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
 
             .rw-typo-bodytext1 {
-                font-weight: 700;
+                @include rw-type-b(2rem, 31px, var(--font-color));
             }
 
             img {
@@ -61,9 +70,8 @@
 
         .content {
             width: 100%;
-            height: calc(100% - 35px);
-            padding-top: 18px;
-            padding: 15px 20px 0px;
+            height: calc(100% - 70px);
+            padding: 25px 25px 0;
         }
     }
 }
@@ -76,43 +84,25 @@
 
 .text {
     &__title_large_chap {
-        // font-family: 'Noto Sans KR';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 1.5rem;
-        line-height: 2.3rem;
-        letter-spacing: -0.22px;
-        color: #212121;
+        @include rw-type-b(1.7rem, 28px, var(--font-color));
         margin-bottom: 30px;
     }
     &__title_small_chap {
-        // font-family: 'Noto Sans KR';
-        font-style: normal;
-        font-weight: 700;
-        font-size: 1.3rem;
-        line-height: 2.3rem;
-        letter-spacing: -0.17px;
-        color: #212121;
-        margin-bottom: 10px;
+        @include rw-type-b(1.5rem, 23px, var(--font-color));
+        margin-bottom: 15px;
     }
     &__content {
-        // font-family: 'Noto Sans KR';
-        font-style: normal;
-        font-weight: 400;
-        font-size: 1.3rem;
-        line-height: 2.3rem;
-        letter-spacing: -0.17px;
-        color: #212121;
+        @include rw-type-r(1.5rem, 23px, var(--font-color));
     }
 
     &--paragraph {
         margin-bottom: 30px;
     }
     &--content_margin {
-        margin-bottom: 10px;
+        margin-bottom: 15px;
     }
     &--content_margin_small {
-        margin-bottom: 5px;
+        margin-bottom: 8px;
     }
 }
 .text-top-margin {
@@ -132,40 +122,31 @@ ol {
     &.first {
         padding-left: 14px;
         margin: 0px;
+        @include rw-type-r(1.5rem, 23px, var(--font-color));
     }
     &.second {
         padding-left: 14px;
-        margin: 0px;
-
-        font-weight: 400;
-        font-style: normal;
-        font-size: 1.2rem;
-        line-height: 1.9rem;
-        letter-spacing: -0.14px;
-        color: #606060;
+        margin: 0;
+        @include rw-type-r(1.5rem, 23px var(--gray-90));
+        color: var(--gray-90) !important;
 
         li {
             &:not(:last-of-type) {
-                margin-bottom: 5px;
+                margin-bottom: 8px;
             }
             &::marker {
-                content: counter(list-item) ") ";
+                content: counter(list-item) ') ';
             }
         }
     }
     &.third {
         padding-left: 14px;
-        margin: 0px;
+        margin: 0;
 
-        font-weight: 400;
-        font-style: normal;
-        font-size: 1.2rem;
-        line-height: 1.9rem;
-        letter-spacing: -0.14px;
-        color: #606060;
-
+        @include rw-type-r(1.5rem, 23px var(--gray-90));
+        color: var(--gray-90) !important;
         li {
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
     }
 }
@@ -191,12 +172,7 @@ ol {
                 position: absolute;
                 left: -16px;
                 top: 1px;
-                font-weight: 400;
-                font-style: normal;
-                font-size: 1.2rem;
-                line-height: 1.9rem;
-                letter-spacing: -0.14px;
-                color: #606060;
+                @include rw-type-r(1.2rem, 5px var(--gray-90));
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -208,7 +184,7 @@ ol {
         counter-reset: li;
         list-style-type: none;
 
-        &>li {
+        & > li {
             position: relative;
 
             &:before {
@@ -221,12 +197,7 @@ ol {
                 position: absolute;
                 left: -16px;
                 top: 3.5px;
-                font-weight: 400;
-                font-style: normal;
-                font-size: 1.3rem;
-                line-height: 1.69;
-                letter-spacing: -0.17px;
-                color: #606060;
+                @include rw-type-r(1.2rem, 5px, var(--gray-90));
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -236,5 +207,5 @@ ol {
 }
 
 .li_margin {
-    margin-bottom: 5px;
+    margin-bottom: 8px;
 }

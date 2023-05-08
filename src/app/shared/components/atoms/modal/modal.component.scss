@@ -33,7 +33,7 @@
     z-index: 10000;
 
     .rw-modal {
-        padding: 30px 25px;
+        padding: 30px 25px 25px;
         border-radius: 20px;
         background-color: var(--white);
         @include modal-shadow();
@@ -50,7 +50,7 @@
         }
 
         .sub-text {
-            margin-top: 4px;
+            margin-top: 8px;
             white-space: pre-line;
             text-align: left;
             @include rw-type-r(1.7rem, 28px, var(--gray-90));

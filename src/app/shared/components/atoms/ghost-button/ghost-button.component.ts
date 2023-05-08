@@ -79,7 +79,6 @@ export class GhostButtonComponent implements AfterViewInit {
     @Input() progressPercent = 0 // 0 ~ 100
     @Input() progressBgColor = 'var(--red-200)'
     @Input() fontColor = 'var(--gray-90)'
-    @Input() sizeType: 'lg' | 'md' = 'lg'
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--gray-60)'
@@ -92,10 +91,11 @@ export class GhostButtonComponent implements AfterViewInit {
 
     @Input() borderRadius = '14px'
     @Input() borderColor = 'var(--gray-60)'
+    @Input() borderWidth = '1px'
 
     @Input() status: Loading = 'idle'
     @Input() padding = '9px 10px 7px 10px' // padding prop
-    @Input() width = '230px' // ex) 20px, 2rem
+    @Input() width // ex) 20px, 2rem
     @Input() height = '45px' // ex) 40px 4rem
 
     @Observe('status') status$: Observable<Loading>

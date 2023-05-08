@@ -1,0 +1,17 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onCancel()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div
+        class="rw-modal user-select-none"
+        [style.width]="width"
+        [style.height]="height"
+        [style.padding]="padding"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
+        <ng-content></ng-content>
+    </div>
+</div>

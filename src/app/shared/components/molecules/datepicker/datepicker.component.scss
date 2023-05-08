@@ -101,7 +101,6 @@ $additional_width: 7px;
     .days-of-week {
         display: flex;
         align-items: center;
-        justify-content: space-between;
         margin-top: 18px;
         margin-bottom: 3px;
         .day {
@@ -111,6 +110,9 @@ $additional_width: 7px;
             width: $daySize;
             height: $daySize;
             @include rw-type-r(1.7rem, 22px, var(--gray-90));
+            &:not(:last-of-type) {
+                margin-right: 7px;
+            }
         }
     }
     .week-row {
@@ -127,6 +129,7 @@ $additional_width: 7px;
             width: $additional_width;
         }
         .l-week-col {
+            z-index: 2;
             width: calc($daySize + $additional_width);
             &.seven-week-col {
                 width: calc($daySize) !important;
@@ -149,11 +152,12 @@ $additional_width: 7px;
                 &:hover {
                     border: 1.5px solid var(--gray-100);
                     background-color: var(--gray-30);
+                    color: var(--font-color) !important;
                 }
                 &.focused {
                     &:focus {
                         border: 2px solid var(--font-color);
-                        background-color: var(--white);
+                        background-color: transparent;
                         color: var(--font-color);
                     }
                 }
@@ -191,6 +195,8 @@ $additional_width: 7px;
                     color: var(--gray-70) !important;
                     &:hover {
                         border: none !important;
+                        color: var(--gray-70) !important;
+                        background-color: transparent !important;
                     }
                     &:before {
                         content: '';
@@ -204,6 +210,33 @@ $additional_width: 7px;
                     }
                 }
             }
+        }
+    }
+
+    .between-hover {
+        visibility: hidden;
+        position: absolute;
+        left: 0;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--gray-40) !important;
+        z-index: 1 !important;
+        &.show {
+            visibility: visible;
+        }
+    }
+    .between-selected {
+        visibility: hidden;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 100%;
+        background-color: var(--gray-40) !important;
+        z-index: 1 !important;
+        &.show {
+            visibility: visible;
         }
     }
 }

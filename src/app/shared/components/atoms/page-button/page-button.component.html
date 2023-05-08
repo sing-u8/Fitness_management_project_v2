@@ -3,7 +3,7 @@
         #left_button
         type="button"
         [class.focus]="!isMouseDown"
-        [disabled]="disable"
+        [disabled]="disable || pageNumberArr[0] == selectedPageNumber"
         class="left"
         (click)="onLeftArrowClick()"
         (mousedown)="onMouseDown()"
@@ -68,7 +68,7 @@
         type="button"
         [class.focus]="!isMouseDown"
         class="right"
-        [disabled]="disable"
+        [disabled]="disable || pageNumberArr[pageNumberArr.length - 1] == selectedPageNumber"
         (click)="onRightArrowClick()"
         (mousedown)="onMouseDown()"
         (mouseup)="onMouseUp()"

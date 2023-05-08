@@ -8,7 +8,7 @@ import { Component, Input } from '@angular/core'
 export class PlusComponent {
     @Input() bgColor = 'none'
     @Input() color = 'var(--red-100)'
-    @Input() width = '18px'
-    @Input() height = '18px'
+    @Input() width = '19px'
+    @Input() height = '19px'
     @Input() margin = '0 0 0 0'
 }

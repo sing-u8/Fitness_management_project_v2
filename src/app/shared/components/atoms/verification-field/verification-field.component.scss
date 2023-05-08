@@ -45,14 +45,17 @@
                 @include card-shadow();
                 border: 1px solid var(--gray-100);
             }
+            &:hover {
+                border: 1px solid var(--gray-100);
+            }
 
             &.warning {
                 background-color: var(--state-warning-5);
-                border: 1px solid var(--state-warning-100);
+                border: 1px solid var(--state-warning-100) !important;
             }
             &.error {
                 background-color: var(--state-error-5);
-                border: 1px solid var(--state-error-100);
+                border: 1px solid var(--state-error-100) !important;
             }
         }
 

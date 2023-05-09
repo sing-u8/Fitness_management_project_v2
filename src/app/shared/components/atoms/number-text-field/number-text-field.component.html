@@ -10,7 +10,13 @@
             [rwTooltipTitle]="advice"
         ></div>
     </div>
-    <div class="l-input">
+    <div
+        class="l-input"
+        (mouseover)="isMouseOn = true"
+        (mouseleave)="isMouseOn = false"
+        (mousedown)="isMouseDown = true"
+        (mouseup)="isMouseDown = false"
+    >
         <input
             #input
             type="text"
@@ -18,15 +24,20 @@
             [class.in-type]="(textField.value.length > 0 || status != 'none') && !disable"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"
+            [class.still-focus]="isMouseDown && isMouseOn"
             [placeholder]="placeholder"
             [formControl]="textField"
+            (focus)="onFocus()"
+            (focusout)="onFocusOut()"
         />
-        <div class="l-input-tag">
+        <div class="l-input-tag user-select-none" (click)="input.focus()">
             <span class="currency">원</span>
             <div class="input-tag-normal">
                 <rwa-svg-close-fill
                     [margin]="'0 0 0 0'"
-                    *ngIf="!disable && status != 'error' && status != 'warning' && textField.value.length > 0"
+                    *ngIf="
+                        !disable && status != 'error' && status != 'warning' && textField.value.length > 0 && isFocused
+                    "
                     (click)="resetTextField()"
                 ></rwa-svg-close-fill>
                 <rwa-svg-warning

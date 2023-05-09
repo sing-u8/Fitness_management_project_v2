@@ -28,12 +28,13 @@
             [class.error]="status == 'error'"
             [class.type-word-limit]="type == 'wordLimit'"
             [class.type-time-limit]="type == 'timeLimit'"
+            [class.still-focus]="isMouseDown && isMouseOn"
             [placeholder]="placeholder"
             [formControl]="textField"
             (focus)="onFocus()"
             (focusout)="onFocusOut()"
         />
-        <div class="l-input-tag">
+        <div class="l-input-tag user-select-none" (click)="input.focus()">
             <div *ngIf="type == 'normal'" class="input-tag-normal">
                 <rwa-svg-close-fill
                     *ngIf="!disable && status == 'none' && textField.value?.length > 0 && isFocused"
@@ -52,12 +53,12 @@
                 <div
                     class="pw-visible-icon"
                     *ngIf="textFieldType == 'password' && passwordVisible && textField.value?.length > 0"
-                    (click)="passwordVisible = false; input.focus()"
+                    (click)="passwordVisible = false "
                 ></div>
                 <div
                     class="pw-invisible-icon"
                     *ngIf="textFieldType == 'password' && !passwordVisible && textField.value?.length > 0"
-                    (click)="passwordVisible = true; input.focus()"
+                    (click)="passwordVisible = true"
                 ></div>
             </div>
             <div

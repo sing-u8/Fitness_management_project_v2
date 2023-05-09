@@ -52,7 +52,7 @@
             @include rw-type-r(1.7rem, 28px, var(--font-color));
 
             &.password {
-                padding: 10px 70px 9px 14px;
+                padding: 10px 80px 9px 14px;
             }
             &.search {
                 padding: 10px 40px 9px 40px;
@@ -85,36 +85,50 @@
                 border: 1px solid var(--gray-90);
             }
 
+            &.type-word-limit {
+                display: flex;
+                align-items: center;
+                padding: 10px 80px 9px 14px;
+                &:focus {
+                    padding: 10px 120px 9px 14px;
+                }
+                &.warning,
+                &.error {
+                    padding: 10px 120px 9px 14px;
+                }
+            }
+            &.type-time-limit {
+                display: flex;
+                align-items: center;
+                padding: 10px 80px 9px 14px;
+                &:focus {
+                    padding: 10px 120px 9px 14px;
+                }
+                &.warning,
+                &.error {
+                    padding: 10px 120px 9px 14px;
+                }
+            }
+
+            &.still-focus {
+                @include card-shadow();
+                border: 1px solid var(--gray-90);
+                @include rw-type-b(1.7rem, 28px, var(--font-color));
+                &.type-word-limit {
+                    padding: 10px 120px 9px 14px;
+                }
+                &.type-time-limit {
+                    padding: 10px 120px 9px 14px;
+                }
+            }
+
             &:disabled {
                 background-color: var(--gray-50);
                 border: 1px solid var(--gray-50);
                 border-radius: 10px;
                 color: var(--gray-80);
                 cursor: not-allowed;
-            }
-
-            &.type-word-limit {
-                display: flex;
-                align-items: center;
-                padding: 10px 70px 9px 14px;
-                &:focus {
-                    padding: 10px 100px 9px 14px;
-                }
-                &.warning, &.error {
-                    padding: 10px 100px 9px 14px;
-                }
-
-            }
-            &.type-time-limit {
-                display: flex;
-                align-items: center;
-                padding: 10px 70px 9px 14px;
-                &:focus {
-                    padding: 10px 100px 9px 14px;
-                }
-                &.warning, &.error {
-                    padding: 10px 100px 9px 14px;
-                }
+                box-shadow: none !important;
             }
 
             &.warning {

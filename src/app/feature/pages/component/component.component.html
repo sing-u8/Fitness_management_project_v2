@@ -1084,6 +1084,14 @@
         ></rwa-text-field>
         <div class="h-padding"></div>
         <rwa-text-field
+            [value]="text2"
+            (onValueChange)="onText2Change($event)"
+            [type]="'wordLimit'"
+            [inputLimit]="100"
+            [placeholder]="'플레이스 홀더'"
+        ></rwa-text-field>
+        <div class="h-padding"></div>
+        <rwa-text-field
             [value]="text1"
             (onValueChange)="onText1Change($event)"
             [placeholder]="'플레이스 홀더'"
@@ -1157,7 +1165,10 @@
     <p class="v-padding"></p>
 
     <p class="v-padding"></p>
-    <h2>일반 -- value accessor version (기능 구현 방식의 차이만 있는 테스트 용이므로 위에 있는 "일반" 컴포넌트만 확인하시면 됩니다.)</h2>
+    <h2>
+        일반 -- value accessor version (기능 구현 방식의 차이만 있는 테스트 용이므로 위에 있는 "일반" 컴포넌트만
+        확인하시면 됩니다.)
+    </h2>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
         <rwa-text-input

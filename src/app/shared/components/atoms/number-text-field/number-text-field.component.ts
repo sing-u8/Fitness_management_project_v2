@@ -41,6 +41,17 @@ export class NumberTextFieldComponent {
         this.textField.setValue('')
     }
 
+    public isMouseOn = false
+    public isMouseDown = false
+    public isFocused = false
+    onFocus() {
+        this.isFocused = true
+    }
+    onFocusOut() {
+        if (!this.isMouseDown) this.isFocused = false
+    }
+
+
     constructor(private fb: FormBuilder, private renderer: Renderer2, private inputHelper: InputHelperService) {
         this.value$.subscribe((v) => {
             this.textField.setValue(v, { emitEvent: false })

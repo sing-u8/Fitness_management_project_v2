@@ -39,6 +39,7 @@ export class TooltipDirective implements OnDestroy {
 
     @HostListener('mouseenter')
     onMouseEnter() {
+        console.log('onMouseEnter -- this.el : ', this.el)
         if (!this.rwTooltipDisabled) {
             this.create()
             this.setPosition()

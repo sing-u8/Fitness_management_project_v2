@@ -230,94 +230,6 @@ body {
     box-shadow: 0 -2px 15px #efeeed;
 }
 
-// Tooltip
-.rw-tooltip {
-    position: fixed;
-    top: 0;
-    left: 0;
-    max-width: 150px;
-    padding: 8px 10px !important;
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 16px;
-    letter-spacing: -0.12px;
-    text-align: center;
-    color: var(--white);
-    overflow-wrap: break-word;
-    background-color: var(--gray-100);
-    border-radius: 6px;
-    opacity: 0;
-    z-index: 10;
-}
-
-.rw-tooltip-show {
-    opacity: 1;
-}
-
-.rw-tooltip-top {
-    &:after {
-        content: '';
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: var(--gray-100) transparent transparent transparent;
-    }
-}
-
-//.rw-tooltip-right {
-//    &:after {
-//        content: '';
-//        position: absolute;
-//        top: 50%;
-//        left: -10px;
-//        margin-top: -5px;
-//        border-width: 5px;
-//        border-style: solid;
-//        border-color: transparent var(--gray-100) transparent transparent;
-//    }
-//}
-
-.rw-tooltip-bottom {
-    &:after {
-        content: '';
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        margin-left: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent transparent var(--gray-100) transparent;
-    }
-    &-right {
-        &:after {
-            content: '';
-            position: absolute;
-            bottom: 100%;
-            left: 80%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent var(--gray-100) transparent;
-        }
-    }
-}
-//
-//.rw-tooltip-left {
-//    &:after {
-//        content: '';
-//        position: absolute;
-//        top: 50%;
-//        right: -10px;
-//        margin-top: -5px;
-//        border-width: 5px;
-//        border-style: solid;
-//        border-color: transparent transparent transparent var(--gray-100);
-//    }
-//}
-
 // Input
 .rw-input {
     box-sizing: border-box;
@@ -1029,7 +941,7 @@ body {
     background-color: var(--gray-100);
     border-radius: 10px;
     opacity: 0;
-    z-index: 9999;
+    z-index: 999;
 }
 
 .rw-tooltip-show {
@@ -1037,7 +949,7 @@ body {
 }
 
 .rw-tooltip-top {
-    &:after {
+    &:before {
         content: '';
         position: absolute;
         left: 50%;
@@ -1056,7 +968,7 @@ body {
 }
 
 .rw-tooltip-right {
-    &:after {
+    &:before {
         content: '';
         position: absolute;
         top: calc(50% + 1px);
@@ -1072,7 +984,7 @@ body {
 }
 
 .rw-tooltip-bottom {
-    &:after {
+    &:before {
         content: '';
         position: absolute;
         margin-left: -5px;
@@ -1089,7 +1001,7 @@ body {
         border-radius: 2px;
     }
     &-right {
-        &:after {
+        &:before {
             content: '';
             position: absolute;
             left: 80%;
@@ -1109,7 +1021,7 @@ body {
 }
 
 .rw-tooltip-left {
-    &:after {
+    &:before {
         content: '';
         position: absolute;
         top: calc(50% - 0px);

@@ -20,6 +20,7 @@ import { Store, select } from '@ngrx/store'
 import { registrationSelector } from '@store/app/selectors/selectors'
 import { showModal } from '@store/app/actions/modal.action'
 import { setRegistration } from '@store/app/actions/registration.action'
+import { showToast } from '@store/app/actions/toast.action'
 
 @Component({
     selector: 'rwp-terms',
@@ -65,17 +66,8 @@ export class TermsComponent implements OnInit, OnDestroy {
             this.termsPrivacy = reg.privacy
             this.marketingSMS = reg.sms_marketing
             this.marketingEmail = reg.email_marketing
-            if (this.marketingSMS && this.marketingEmail) {
-                this.marketing = true
-            } else {
-                this.marketing = false
-            }
-
-            if (this.marketing && this.termsEULA && this.termsPrivacy) {
-                this.all = true
-            } else {
-                this.all = false
-            }
+            this.marketing = this.marketingSMS && this.marketingEmail
+            this.all = this.marketing && this.termsEULA && this.termsPrivacy
         })
     }
 
@@ -165,11 +157,8 @@ export class TermsComponent implements OnInit, OnDestroy {
 
             this.usersService.updateUser(this.user.id, requestBody).subscribe({
                 next: (user) => {
-                    if (this.user.phone_number_verified) {
-                        this.router.navigateByUrl('/redwhale-home')
-                    } else {
-                        this.router.navigateByUrl('/auth/registration/phone')
-                    }
+                    this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
+                    this.router.navigateByUrl('/main')
                 },
                 error: (err) => {
                     this.nxStore.dispatch(showModal({ data: { text: this.TAG, subText: err.message } }))

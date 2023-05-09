@@ -1,9 +1,21 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2, OnDestroy } from '@angular/core'
+import {
+    Directive,
+    ElementRef,
+    HostListener,
+    Input,
+    Renderer2,
+    OnDestroy,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
+import { Observe } from '@shared/helper/decorator/Observe'
+import { Observable } from 'rxjs'
 
 @Directive({
     selector: '[rwTooltip]',
 })
-export class TooltipDirective implements OnDestroy {
+export class TooltipDirective implements OnDestroy, AfterViewInit, OnChanges {
     @Input() rwTooltipTitle: string
     @Input() rwTooltipPlacement: 'top' | 'right' | 'bottom' | 'left' | 'bottom-right'
     @Input() rwTooltipDelay: number
@@ -15,8 +27,9 @@ export class TooltipDirective implements OnDestroy {
 
     @Input() keepTooltipWhenOut = false
 
-    private tooltip: HTMLElement
+    @Input() tooltipRemoveFlag = true
 
+    private tooltip: HTMLElement
     private isInit = false
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -25,7 +38,17 @@ export class TooltipDirective implements OnDestroy {
         this.rwTooltipDelay = 200
         this.rwTooltipDisabled = false
     }
-
+    ngAfterViewInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        if (
+            changes['tooltipRemoveFlag'] &&
+            !changes['tooltipRemoveFlag'].firstChange &&
+            changes['tooltipRemoveFlag'].previousValue != changes['tooltipRemoveFlag'].currentValue &&
+            this.tooltipRemoveFlag == false
+        ) {
+            this.removeTooltip()
+        }
+    }
     ngOnDestroy(): void {
         this.removeTooltip()
     }
@@ -39,7 +62,6 @@ export class TooltipDirective implements OnDestroy {
 
     @HostListener('mouseenter')
     onMouseEnter() {
-        console.log('onMouseEnter -- this.el : ', this.el)
         if (!this.rwTooltipDisabled) {
             this.create()
             this.setPosition()

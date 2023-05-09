@@ -42,7 +42,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
     public timeLeft = 0
     public interval: NodeJS.Timeout
 
-    subscription: Subscription
+    public subscription: Subscription
 
     constructor(
         private location: Location,
@@ -171,9 +171,11 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
 
         this.authService.registration(body).subscribe({
             next: (user: User) => {
-                signInWithCustomToken(this.fireAuth, user.custom_token)
-                this.nextButtonStatus = 'idle'
-                this.router.navigateByUrl('/auth/registration/phone')
+                signInWithCustomToken(this.fireAuth, user.custom_token).then(() => {
+                    this.nextButtonStatus = 'idle'
+                    this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
+                    this.router.navigateByUrl('/main')
+                })
             },
             error: (e) => {
                 this.nextButtonStatus = 'idle'

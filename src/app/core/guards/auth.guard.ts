@@ -32,15 +32,16 @@ export class AuthGuard implements CanActivate {
             if (!user.service_terms || !user.privacy) {
                 this.router.navigateByUrl('/auth/terms')
                 return false
-            } else if (!user.phone_number_verified) {
-                this.router.navigateByUrl('/auth/registration/phone')
-                return false
             } else if (url[1] == 'auth') {
-                this.router.navigateByUrl('/redwhale-home')
+                this.router.navigateByUrl('/main')
                 return false
             } else {
                 return true
             }
+            // else if (!user.phone_number_verified) {
+            //     this.router.navigateByUrl('/auth/registration/phone')
+            //     return false
+            // }
         } else {
             if (url[1] == 'auth') {
                 if (url[2] == 'registration' && this.canActivateBy(route.routeConfig.path)) {

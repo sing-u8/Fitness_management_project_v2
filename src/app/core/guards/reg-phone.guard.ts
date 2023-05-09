@@ -17,7 +17,7 @@ export class RegPhoneGuard implements CanActivate {
             this.router.navigateByUrl('/auth/terms')
             return false
         } else if (!_.isEmpty(user) && user.phone_number_verified) {
-            this.router.navigateByUrl('/redwhale-home')
+            this.router.navigateByUrl('/main')
             return false
         } else return user && !user.phone_number_verified
     }

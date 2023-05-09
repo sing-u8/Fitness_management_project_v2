@@ -89,7 +89,7 @@ export class RegPhoneComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit(): void {
         this.user = this.storageService.getUser()
-        this.isSocial = !(this.user == null || (this.user != null && this.user.provider == 'redwhale.xyz'))
+        this.isSocial = !(this.user == null || this.user?.provider == 'redwhale.xyz')
         this.timeLeft = -1
 
         this.nxStore.pipe(select(registrationSelector)).subscribe((reg) => {

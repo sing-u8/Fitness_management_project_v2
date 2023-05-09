@@ -204,7 +204,7 @@ export class ResetPasswordComponent implements OnInit {
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe({
             next: (user: User) => {
                 this.nxStore.dispatch(showToast({ text: '비밀번호가 변경되었습니다.' }))
-                this.router.navigateByUrl('/redwhale-home')
+                this.router.navigateByUrl('/main')
             },
             error: (e) => {
                 if (e.code == 'FUNCTION_AUTH_008') {

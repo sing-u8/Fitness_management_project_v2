@@ -14,5 +14,4 @@ export const RegistrationRoutes = [
     { path: 'info', canActivate: [AuthGuard], component: RegInfoComponent },
     { path: 'email', canActivate: [AuthGuard], component: RegEmailComponent },
     { path: 'phone', canActivate: [RegPhoneGuard], component: RegPhoneComponent },
-    { path: 'completed', canActivate: [RegCompletedGuard], component: RegCompletedComponent },
 ] as Routes

@@ -26,7 +26,7 @@ export class RegCompletedGuard implements CanActivate {
         if (registration && registration.regCompleted) {
             return true
         } else {
-            this.router.navigateByUrl('/redwhale-home')
+            this.router.navigateByUrl('/main')
             return false
         }
     }

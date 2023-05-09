@@ -63,7 +63,7 @@ export class CenterGuard implements CanActivate {
         //         catchError((error: any) => {
         //             this.addrData.addr = ''
         //             this.addrData.isChecked = false
-        //             this.router.navigateByUrl('/redwhale-home')
+        //             this.router.navigateByUrl('/main')
         //             return of(false)
         //         })
         //     )

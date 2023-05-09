@@ -86,6 +86,10 @@ export class LoginComponent {
     public googleBtStatus: Loading = 'idle'
     public appleBtStatus: Loading = 'idle'
 
+    public kakaoTc = false
+    public googleTc = false
+    public appleTc = false
+
     signInWithEmail() {
         this.loginBtStatus = 'pending'
 

@@ -5,8 +5,6 @@
             <div class="step active">1</div>
             <div class="caret-right"></div>
             <div class="step">2</div>
-            <div class="caret-right"></div>
-            <div class="step">3</div>
         </div>
         <span class="title">아래의 정보를 입력해 주세요.</span>
         <rwa-text-field
@@ -63,16 +61,15 @@
             </rwa-button>
 
             <rwa-button
-                [width]="'80px'"
+                [padding]="'9px 25px 7px'"
                 [height]="'45px'"
                 [loadingName]="'info-next-button'"
-                [loadingMargin]="'0'"
                 [status]="nextButtonStatus"
                 [disable]="!formCheck()"
                 (onClick)="formCheck() && next()"
             >
                 <ng-template btIdleContent><span class="next-text">다음</span></ng-template>
-                <ng-template btPendingContent></ng-template>
+                <ng-template btPendingContent><span class="next-text">다음</span></ng-template>
             </rwa-button>
         </div>
     </div>

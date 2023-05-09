@@ -65,12 +65,14 @@
                 rwTooltip
                 rwTooltipPlacement="bottom"
                 rwTooltipTitle="카카오 계정으로 로그인"
+                [tooltipRemoveFlag]="kakaoTc"
                 [sizeType]="'md'"
                 [status]="kakaoBtStatus"
                 [bgColor]="'#FEE500'"
                 [hoverBgColor]="'#FEE500'"
                 [loadingName]="'kakaoBt'"
-                (onClick)="signInWithKakao()"
+                (onClick)="signInWithKakao(); kakaoTc = false"
+                (mouseenter)="kakaoTc = true"
             >
                 <ng-template iconBtIdleContent>
                     <img src="assets/icons/social/kakao.svg" alt="kakao.svg" />
@@ -82,12 +84,14 @@
                 rwTooltip
                 rwTooltipPlacement="bottom"
                 rwTooltipTitle="구글 계정으로 로그인"
+                [tooltipRemoveFlag]="googleTc"
                 [status]="googleBtStatus"
                 [sizeType]="'md'"
                 [hoverBgColor]="'var(--white)'"
                 [loadingName]="'googleBt'"
                 [loadingColor]="'var(--font-color)'"
-                (onClick)="signInWithGoogle()"
+                (onClick)="signInWithGoogle(); googleTc = false"
+                (mouseenter)="googleTc = true"
             >
                 <ng-template iconGhostBtIdleContent>
                     <img src="assets/icons/social/google.svg" alt="google.svg" />
@@ -99,12 +103,14 @@
                 rwTooltip
                 rwTooltipPlacement="bottom"
                 rwTooltipTitle="애플 계정으로 로그인"
+                [tooltipRemoveFlag]="appleTc"
                 [sizeType]="'md'"
                 [status]="appleBtStatus"
                 [bgColor]="'var(--font-color)'"
                 [hoverBgColor]="'var(--font-color)'"
                 [loadingName]="'appleBt'"
-                (onClick)="signInWithApple()"
+                (onClick)="signInWithApple(); appleTc = false"
+                (mouseenter)="appleTc = true"
             >
                 <ng-template iconBtIdleContent>
                     <img src="assets/icons/social/apple.svg" alt="apple.svg" />

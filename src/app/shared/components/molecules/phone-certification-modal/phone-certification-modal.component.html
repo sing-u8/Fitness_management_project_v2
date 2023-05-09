@@ -27,6 +27,7 @@
             <rwa-button
                 width="125px"
                 height="42px"
+                [padding]="'7.5px 12px 5.5px'"
                 [bgColor]="'var(--gray-100)'"
                 [hoverBgColor]="'var(--font-color)'"
                 (onClick)="sendVerificationCodeSMSChange()"
@@ -44,13 +45,13 @@
 
         <rwa-text-field
             class="code-field"
-            [disable]="!phoneNumberValid"
             [type]="verifTextType"
             [timeLimit]="timeLeft"
             [status]="phoneNumberStatus"
             [statusText]="phoneNumberError"
             [width]="'325px'"
             [inputLimit]="4"
+            [value]="verificationCode"
             [ngModel]="verificationCode"
             (ngModelChange)="onVerifCodeChange($event)"
             #verificationCodeRef="ngModel"

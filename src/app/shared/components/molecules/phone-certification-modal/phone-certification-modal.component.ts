@@ -65,7 +65,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     onPhoneNumberChange(v: string) {
         this.phoneNumber = String(v).replace(/[^0-9]/gi, '')
     }
-    public phoneNumberValid: boolean
+    public phoneNumberValid = false
     public phoneNumberError: string
     public phoneNumberStatus: Status = 'none'
     public verificationCode = ''
@@ -97,6 +97,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
         this.nxStore.pipe(select(registrationSelector)).subscribe((reg) => {
             this.registration = reg
         })
+        this.user = this.storageService.getUser()
     }
     ngOnChanges(changes: SimpleChanges) {
         if (
@@ -128,9 +129,6 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
-                setTimeout(() => {
-                    this.reset()
-                })
             }
         }
     }
@@ -180,6 +178,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     reset() {
         this.isTimeOut = false
 
+        this.verificationCode = ''
         this.phoneNumber = ''
         this.phoneNumberValid = false
         this.phoneNumberError = ''
@@ -256,6 +255,9 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
                     this.phoneNumberError = ''
                     this.storageService.setUser(this.user)
                     this.nxStore.dispatch(showToast({ text: '전화번호가 추가되었어요.' }))
+                    setTimeout(() => {
+                        this.reset()
+                    })
                     this.confirm.emit()
                 },
                 error: (e) => {

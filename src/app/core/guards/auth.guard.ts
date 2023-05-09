@@ -32,8 +32,8 @@ export class AuthGuard implements CanActivate {
             if (!user.service_terms || !user.privacy) {
                 this.router.navigateByUrl('/auth/terms')
                 return false
-            } else if (url[1] == 'auth') {
-                // 로그인 되었을 때, 비밀번호 재설정 페이지도 홈 화면으로 넘어감
+            } else if (url[1] == 'auth' && url[2] != 'reset-password') {
+                // 로그인 되었을 때, 비밀번호 재설정 페이지일 경우는 제외
                 this.router.navigateByUrl('/main')
                 return false
             } else {

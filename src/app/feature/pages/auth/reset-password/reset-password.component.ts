@@ -15,6 +15,8 @@ import { SharedModule } from '@shared/shared.module'
 // ngrx
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
+import { ModalInput } from '@schemas/components/modal'
+import { Loading } from '@schemas/loading'
 
 @Component({
     selector: 'rwp-reset-password',
@@ -191,29 +193,33 @@ export class ResetPasswordComponent implements OnInit {
                 this.isTokenValid = false
                 console.log('checkResetPasswordLinkMail -- ', this.isTokenValid)
                 if (e.code == 'FUNCTION_AUTH_008') {
-                    this.nxStore.dispatch(showToast({ text: '만료된 비밀번호 재설정 링크입니다.' }))
+                    this.modalSendLink = true
                 } else if (e.code == 'FUNCTION_AUTH_011') {
                     this.nxStore.dispatch(showToast({ text: '유효하지 않은 토큰입니다.' }))
                 }
-                this.router.navigateByUrl('/auth/forgot-password')
+                // this.router.navigateByUrl('/auth/forgot-password')
             },
         })
     }
 
+    public changePwStatus: Loading = 'idle'
     changePassword() {
+        this.changePwStatus = 'pending'
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe({
             next: (user: User) => {
                 this.nxStore.dispatch(showToast({ text: '비밀번호가 변경되었습니다.' }))
+                this.changePwStatus = 'idle'
                 this.router.navigateByUrl('/main')
             },
             error: (e) => {
+                this.changePwStatus = 'idle'
                 if (e.code == 'FUNCTION_AUTH_008') {
-                    this.nxStore.dispatch(showToast({ text: '만료된 비밀번호 재설정 링크입니다.' }))
+                    this.modalSendLink = true
                 } else if (e.code == 'FUNCTION_AUTH_011') {
                     this.nxStore.dispatch(showToast({ text: '유효하지 않은 토큰입니다.' }))
+                } else {
+                    this.nxStore.dispatch(showToast({ text: e.message }))
                 }
-
-                this.nxStore.dispatch(showToast({ text: e.message }))
             },
         })
     }
@@ -230,5 +236,20 @@ export class ResetPasswordComponent implements OnInit {
                 this.checkConfrimPassword()
             }
         }
+    }
+
+    public modalSendLink = false
+    public modalSendLinkData: ModalInput = {
+        title: '비밀번호 재설정 링크의\n' + '유효 시간이 만료되었어요.',
+        desc:
+            '비밀번호 재설정 링크 전송 후 5분이 지나\n' +
+            '링크가 만료되었어요. 이전 화면으로 돌아가\n' +
+            '비밀번호 재설정 링크를 다시 요청해 주세요.',
+        cancel: '취소',
+        confirm: '링크 재요청하기',
+    }
+    onModalSendLinkConfirm() {
+        this.modalSendLink = false
+        this.router.navigateByUrl('/auth/forgot-password')
     }
 }

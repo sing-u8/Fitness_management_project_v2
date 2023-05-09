@@ -1,0 +1,78 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div class="rw-modal-wrapper justify-content-center align-items-center" #modalWrapperElement>
+    <div class="rw-modal user-select-none">
+        <div class="text d-flex flex-column">
+            <span>본인 인증을 위해</span>
+            <span>전화번호를 추가해 주세요.</span>
+        </div>
+        <div class="sub-text d-flex flex-column">
+            <span>인증번호는 카카오톡으로 전송되며,</span>
+            <span>카카오톡 미설치 또는 알림톡 수신 차단 시에는</span>
+            <span>문자 메시지로 전송됩니다.</span>
+        </div>
+        <div class="l-phone-field">
+            <rwa-text-field
+                #phoneNumberRef
+                [width]="'190px'"
+                class="phone-field"
+                [inputLimit]="11"
+                label="전화번호"
+                placeholder="-없이 숫자만 입력"
+                (keydown)="restrictToNumber($event)"
+                (keyup)="onKeyup($event, 'phoneNumber')"
+                [ngModel]="phoneNumber"
+                (ngModelChange)="onPhoneNumberChange($event)"
+            ></rwa-text-field>
+
+            <rwa-button
+                width="125px"
+                height="42px"
+                [bgColor]="'var(--gray-100)'"
+                [hoverBgColor]="'var(--font-color)'"
+                (onClick)="sendVerificationCodeSMSChange()"
+                [status]="sendVerifCodeStatus"
+                [disable]="!phoneNumberValid"
+            >
+                <ng-template btIdleContent>
+                    <span class="phone-button">인증번호 받기</span>
+                </ng-template>
+                <ng-template btPendingContent>
+                    <span class="phone-button">요청중</span>
+                </ng-template>
+            </rwa-button>
+        </div>
+
+        <rwa-text-field
+            class="code-field"
+            [disable]="!phoneNumberValid"
+            [type]="verifTextType"
+            [timeLimit]="timeLeft"
+            [status]="phoneNumberStatus"
+            [statusText]="phoneNumberError"
+            [width]="'325px'"
+            [inputLimit]="4"
+            [ngModel]="verificationCode"
+            (ngModelChange)="onVerifCodeChange($event)"
+            #verificationCodeRef="ngModel"
+            label="인증번호"
+            placeholder="인증번호"
+            (keydown)="restrictToNumber($event)"
+            (keyup)="onKeyup($event, 'verificationCode')"
+            (keyup.enter)="formCheck() && next()"
+        ></rwa-text-field>
+
+        <div class="l-button">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [loadingName]="'info-next-button'"
+                [disable]="!formCheck()"
+                (onClick)="formCheck() && next()"
+                [status]="finishVerificationStatus"
+            >
+                <ng-template btIdleContent><span class="next-text">인증 완료</span></ng-template>
+                <ng-template btPendingContent><span class="next-text">인증 완료</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</div>

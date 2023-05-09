@@ -12,9 +12,10 @@ import { AtomsModule } from '@shared/components/atoms/atoms.module'
 
 import { DatepickerComponent } from './datepicker/datepicker.component'
 import { TmDatepickerComponent } from './tm-datepciker/tm-datepicker.component'
+import { PhoneCertificationModalComponent } from './phone-certification-modal/phone-certification-modal.component'
 
 @NgModule({
-    declarations: [DatepickerComponent, TmDatepickerComponent],
+    declarations: [DatepickerComponent, TmDatepickerComponent, PhoneCertificationModalComponent],
     imports: [
         NgxSpinnerModule,
         FormsModule,
@@ -24,7 +25,7 @@ import { TmDatepickerComponent } from './tm-datepciker/tm-datepicker.component'
         PipesModule,
         AtomsModule,
     ],
-    exports: [DatepickerComponent, TmDatepickerComponent],
+    exports: [DatepickerComponent, TmDatepickerComponent, PhoneCertificationModalComponent],
     schemas: [],
 })
 export class MoleculesModule {}

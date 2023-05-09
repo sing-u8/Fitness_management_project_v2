@@ -1,0 +1,91 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.rw-modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gray-90);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    z-index: 999;
+}
+
+.rw-modal-background-show {
+    opacity: 0.5;
+}
+
+.rw-modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+
+    .rw-modal {
+        width: 375px;
+        height: 480px;
+        padding: 30px 25px 25px;
+        border-radius: 20px;
+        background-color: var(--white);
+        @include modal-shadow();
+        opacity: 0;
+        transition: opacity 0s;
+        -moz-transition: opacity 0s;
+        -webkit-transition: opacity 0s;
+        -o-transition: opacity 0s;
+
+        .text {
+            white-space: pre-line;
+            text-align: left;
+            @include rw-type-b(2rem, 31px, var(--font-color));
+        }
+
+        .sub-text {
+            margin: 8px 0 25px;
+            white-space: pre-line;
+            text-align: left;
+            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+        }
+
+        .l-phone-field {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 28px;
+
+            .phone-button {
+                @include rw-type-b(1.7rem, 28px, var(--white));
+            }
+            rwa-button {
+                margin-bottom: 3px;
+            }
+        }
+
+        .l-button {
+            margin-top: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            .next-text {
+                @include rw-type-b(1.7rem, 28px, var(--white));
+            }
+        }
+    }
+}
+
+.rw-modal-wrapper-show {
+    .rw-modal {
+        opacity: 1;
+    }
+}

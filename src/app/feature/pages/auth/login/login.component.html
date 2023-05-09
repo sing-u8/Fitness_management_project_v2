@@ -29,15 +29,14 @@
             ></rwa-checkbox>
             <rwa-button
                 [status]="loginBtStatus"
-                [width]="'95px'"
+                [padding]="'9px 25px 7px'"
                 [height]="'45px'"
                 [loadingName]="'login-button'"
-                [loadingMargin]="'0'"
                 [disable]="!formCheck()"
                 (onClick)="formCheck() && signInWithEmail()"
             >
                 <ng-template btIdleContent><span class="login-text">로그인</span></ng-template>
-                <ng-template btPendingContent></ng-template>
+                <ng-template btPendingContent><span class="login-text">로그인</span></ng-template>
             </rwa-button>
         </div>
         <div class="l-text-button">

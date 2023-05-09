@@ -1673,6 +1673,14 @@
             (confirm)="onModal2Confirm($event)"
         ></rwa-modal>
         <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalSendLink = true">비밀번호 링크 재전송 모달</div>
+        <rwa-modal
+            [(visible)]="modalSendLink"
+            [data]="modalSendLinkData"
+            (cancel)="modalSendLink = false"
+            (confirm)="modalSendLink = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
     <h2>모달 - 단일 정보 입력 L (textarea)</h2>

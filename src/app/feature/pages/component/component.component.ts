@@ -61,6 +61,17 @@ export class ComponentComponent {
         })
     }
 
+    public modalSendLink = false
+    public modalSendLinkData: ModalInput = {
+        title: '비밀번호 재설정 링크의\n' + '유효 시간이 만료되었어요.',
+        desc:
+            '비밀번호 재설정 링크 전송 후 5분이 지나\n' +
+            '링크가 만료되었어요. 이전 화면으로 돌아가\n' +
+            '비밀번호 재설정 링크를 다시 요청해 주세요.',
+        cancel: '취소',
+        confirm: '링크 재요청하기',
+    }
+
     // button
     button1 = {
         width: '110px',

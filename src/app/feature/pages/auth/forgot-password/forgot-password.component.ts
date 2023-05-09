@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core'
 import { Location } from '@angular/common'
+import { Router } from '@angular/router'
 
 // services
 import { AuthService } from '@services/auth.service'
@@ -11,6 +12,7 @@ import { SharedModule } from '@shared/shared.module'
 // ngrx
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
+import { ModalInput } from '@schemas/components/modal'
 
 @Component({
     selector: 'rwp-forgot-password',
@@ -24,7 +26,12 @@ export class ForgotPasswordComponent {
 
     email = ''
 
-    constructor(private location: Location, private authService: AuthService, private nxStore: Store) {}
+    constructor(
+        private router: Router,
+        private location: Location,
+        private authService: AuthService,
+        private nxStore: Store
+    ) {}
 
     ngOnInit() {}
 
@@ -51,10 +58,27 @@ export class ForgotPasswordComponent {
             error: (e) => {
                 if (e.code == 'FUNCTION_AUTH_002') {
                     this.nxStore.dispatch(showToast({ text: '가입되어 있지 않은 이메일이에요.' }))
+                } else if (e.code == 'FUNCTION_AUTH_008') {
+                    this.modalSendLink = true
                 } else {
                     this.nxStore.dispatch(showToast({ text: e.message }))
                 }
             },
         })
+    }
+
+    public modalSendLink = false
+    public modalSendLinkData: ModalInput = {
+        title: '비밀번호 재설정 링크의\n' + '유효 시간이 만료되었어요.',
+        desc:
+            '비밀번호 재설정 링크 전송 후 5분이 지나\n' +
+            '링크가 만료되었어요. 이전 화면으로 돌아가\n' +
+            '비밀번호 재설정 링크를 다시 요청해 주세요.',
+        cancel: '취소',
+        confirm: '링크 재요청하기',
+    }
+    onModalSendLinkConfirm() {
+        this.modalSendLink = false
+        this.router.navigateByUrl('/auth/forgot-password')
     }
 }

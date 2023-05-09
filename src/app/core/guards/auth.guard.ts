@@ -33,6 +33,7 @@ export class AuthGuard implements CanActivate {
                 this.router.navigateByUrl('/auth/terms')
                 return false
             } else if (url[1] == 'auth') {
+                // 로그인 되었을 때, 비밀번호 재설정 페이지도 홈 화면으로 넘어감
                 this.router.navigateByUrl('/main')
                 return false
             } else {

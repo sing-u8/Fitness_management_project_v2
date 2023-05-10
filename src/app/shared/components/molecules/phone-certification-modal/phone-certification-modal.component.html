@@ -13,19 +13,17 @@
         <div class="l-phone-field">
             <rwa-text-field
                 #phoneNumberRef
-                [width]="'190px'"
+                [width]="sendVerifCodeStatus != 'pending' ? '245px' : '213px'"
                 class="phone-field"
-                [inputLimit]="11"
+                [inputLimit]="13"
                 label="전화번호"
                 placeholder="-없이 숫자만 입력"
                 (keydown)="restrictToNumber($event)"
                 (keyup)="onKeyup($event, 'phoneNumber')"
-                [ngModel]="phoneNumber"
-                (ngModelChange)="onPhoneNumberChange($event)"
+                [formControl]="phoneNumber"
             ></rwa-text-field>
 
             <rwa-button
-                width="125px"
                 height="42px"
                 [padding]="'7.5px 12px 5.5px'"
                 [bgColor]="'var(--gray-100)'"
@@ -38,7 +36,7 @@
                     <span class="phone-button">인증번호 받기</span>
                 </ng-template>
                 <ng-template btPendingContent>
-                    <span class="phone-button">요청중</span>
+                    <span class="phone-button">인증번호 받기</span>
                 </ng-template>
             </rwa-button>
         </div>
@@ -49,12 +47,10 @@
             [timeLimit]="timeLeft"
             [status]="phoneNumberStatus"
             [statusText]="phoneNumberError"
-            [width]="'325px'"
+            [width]="'380px'"
             [inputLimit]="4"
-            [value]="verificationCode"
-            [ngModel]="verificationCode"
-            (ngModelChange)="onVerifCodeChange($event)"
-            #verificationCodeRef="ngModel"
+            [formControl]="verificationCode"
+            #verificationCodeRef
             label="인증번호"
             placeholder="인증번호"
             (keydown)="restrictToNumber($event)"

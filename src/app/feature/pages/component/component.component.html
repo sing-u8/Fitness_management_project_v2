@@ -1081,15 +1081,7 @@
             [value]="text2"
             (onValueChange)="onText2Change($event)"
             [type]="'wordLimit'"
-            [inputLimit]="10"
-            [placeholder]="'플레이스 홀더'"
-        ></rwa-text-field>
-        <div class="h-padding"></div>
-        <rwa-text-field
-            [value]="text2"
-            (onValueChange)="onText2Change($event)"
-            [type]="'wordLimit'"
-            [inputLimit]="100"
+            [inputLimit]="90"
             [placeholder]="'플레이스 홀더'"
         ></rwa-text-field>
         <div class="h-padding"></div>
@@ -1673,7 +1665,7 @@
             (confirm)="onModal2Confirm($event)"
         ></rwa-modal>
         <div class="h-padding"></div>
-        <div [style.cursor]="'pointer'" (click)="modalSendLink = true">비밀번호 링크 재전송 모달</div>
+        <div [style.cursor]="'pointer'" (click)="modalSendLink = true">비밀번호 링크 재전송 모반</div>
         <rwa-modal
             [(visible)]="modalSendLink"
             [data]="modalSendLinkData"

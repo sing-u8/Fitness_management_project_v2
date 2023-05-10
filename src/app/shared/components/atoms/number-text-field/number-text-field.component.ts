@@ -39,6 +39,7 @@ export class NumberTextFieldComponent {
     public isSetInInputChangeFn = false
     resetTextField() {
         this.textField.setValue('')
+        this.input_el.nativeElement.focus()
     }
 
     public isMouseOn = false

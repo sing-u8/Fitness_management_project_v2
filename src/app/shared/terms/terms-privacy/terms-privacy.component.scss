@@ -10,7 +10,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: var(--border-color);
+    background-color: var(--gray-80);
     opacity: 0;
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
@@ -20,7 +20,7 @@
 }
 
 .rw-modal-background-show {
-    opacity: 0.3;
+    opacity: 0.4;
 }
 
 .rw-modal-wrapper {

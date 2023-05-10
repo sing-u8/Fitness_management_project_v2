@@ -12,7 +12,6 @@ import { SharedModule } from '@shared/shared.module'
 // ngrx
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
-import { ModalInput } from '@schemas/components/modal'
 import { Loading } from '@schemas/loading'
 
 @Component({
@@ -57,12 +56,12 @@ export class ForgotPasswordComponent {
         this.authService.sendResetPasswordLinkMail({ email: this.email }).subscribe({
             next: (v) => {
                 this.sendResetPwLinkStatus = 'idle'
-                this.nxStore.dispatch(showToast({ text: '메일이 발송되었습니다. 메일함을 확인해주세요!' }))
+                this.nxStore.dispatch(showToast({ text: '메일이 전송되었어요. 메일함을 확인해주세요!' }))
             },
             error: (e) => {
                 this.sendResetPwLinkStatus = 'idle'
                 if (e.code == 'FUNCTION_AUTH_002') {
-                    this.nxStore.dispatch(showToast({ text: '가입되어 있지 않은 이메일이에요.' }))
+                    this.nxStore.dispatch(showToast({ text: '가입되지 않은 이메일이에요.' }))
                 } else {
                     this.nxStore.dispatch(showToast({ text: e.message }))
                 }

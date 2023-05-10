@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
 import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
+import { Observable, Subject, map } from 'rxjs'
 import _ from 'lodash'
 
 import {
@@ -88,11 +88,11 @@ export class TextFieldComponent implements AfterViewInit {
             this.textField.setValue(v, { emitEvent: false })
         })
         this.textField.valueChanges.subscribe((v) => {
-            if (!_.isEmpty(this.textField.value) && this.textField.value.length > this.inputLimit) {
-                this.textField.setValue(String(this.textField.value).slice(0, this.inputLimit), { emitEvent: false })
+            if (v?.length > this.inputLimit) {
+                this.textField.setValue(String(v).slice(0, this.inputLimit), { emitEvent: false })
                 return
             }
-            this.onValueChange.emit(this.textField.value)
+            this.onValueChange.emit(v)
         })
 
         this.disable$.subscribe((disable) => {

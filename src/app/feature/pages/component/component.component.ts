@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { DirectivesModule } from '@shared/directives/directives.module'
@@ -15,13 +15,14 @@ import {
 
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
-import { Observable } from 'rxjs'
+import { Observable, Subject } from 'rxjs'
 import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
 
 import { Data } from '@shared/components/molecules/datepicker/datepicker.component'
 
 import dayjs from 'dayjs'
 import _ from 'lodash'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
     selector: 'rwp-component',
@@ -30,34 +31,40 @@ import _ from 'lodash'
     templateUrl: './component.component.html',
     styleUrls: ['./component.component.scss'],
 })
-export class ComponentComponent {
+export class ComponentComponent implements OnDestroy {
+    public subject = new Subject<boolean>()
+    ngOnDestroy() {
+        this.subject.next(true)
+        this.subject.complete()
+    }
+
     constructor(private fb: FormBuilder) {
         setInterval(() => {
             this.button2.progress = (this.button2.progress + 5) % 100
-        }, 200)
+        }, 1000)
 
-        this.memo1.valueChanges.subscribe((v) => {
-            console.log('memo 1 -- text : ', v)
+        this.memo1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+            // console.log('memo 1 -- text : ', v)
         })
-        this.memo2.valueChanges.subscribe((v) => {
-            console.log('memo 2 -- text : ', v)
+        this.memo2.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+            // console.log('memo 2 -- text : ', v)
         })
-        this.memo3.valueChanges.subscribe((v) => {
-            console.log('memo 3 -- text : ', v)
+        this.memo3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+            // console.log('memo 3 -- text : ', v)
         })
         this.memo2.disable()
-        this.memo4$.subscribe((v) => {
-            console.log('memo 4 -- text : ', v)
+        this.memo4$.pipe(takeUntil(this.subject)).subscribe((v) => {
+            // console.log('memo 4 -- text : ', v)
         })
 
-        this.datepicker2$.subscribe((v) => {
-            console.log('datepicker2$ -- subscribe : ', v)
+        this.datepicker2$.pipe(takeUntil(this.subject)).subscribe((v) => {
+            // console.log('datepicker2$ -- subscribe : ', v)
         })
 
-        this.textInput3.valueChanges.subscribe((v) => {
+        this.textInput3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
             const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
             this.textInput3.setValue(value, { emitEvent: false })
-            console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
+            // console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
         })
     }
 
@@ -122,33 +129,33 @@ export class ComponentComponent {
     checkbox2 = false
     onCheckBox1(e) {
         this.checkbox1 = e
-        console.log('on check box 1 click : ', this.checkbox1)
+        // console.log('on check box 1 click : ', this.checkbox1)
     }
     onCheckBox2(e) {
         this.checkbox2 = e
-        console.log('on check box 2 click : ', this.checkbox2)
+        // console.log('on check box 2 click : ', this.checkbox2)
     }
 
     radio1 = false
     radio2 = false
     onRadio1(e) {
         this.radio1 = e
-        console.log('on radio 1 click : ', this.radio1)
+        // console.log('on radio 1 click : ', this.radio1)
     }
     onRadio2(e) {
         this.radio2 = e
-        console.log('on radio 2 click : ', this.radio2)
+        // console.log('on radio 2 click : ', this.radio2)
     }
 
     toggle1 = false
     toggle2 = false
     ontoggle1(e) {
         this.toggle1 = e
-        console.log('on toggle 1 click : ', this.toggle1)
+        // console.log('on toggle 1 click : ', this.toggle1)
     }
     ontoggle2(e) {
         this.toggle2 = e
-        console.log('on radio 2 click : ', this.radio2)
+        // console.log('on radio 2 click : ', this.radio2)
     }
 
     tabInputs1: TabInput[] = [
@@ -158,7 +165,7 @@ export class ComponentComponent {
     ]
     onItemSelected1(res: TabInput[]) {
         this.tabInputs1 = res
-        console.log('onItemSelected1 -- ', this.tabInputs1, res)
+        // console.log('onItemSelected1 -- ', this.tabInputs1, res)
     }
     tabInputs2: TabInput[] = [
         { name: '옵션', selected: true },
@@ -172,7 +179,7 @@ export class ComponentComponent {
     ]
     onItemSelected3(res: TabInput[]) {
         this.tabInputs3 = res
-        console.log('onItemSelected1 -- ', this.tabInputs3, res)
+        // console.log('onItemSelected1 -- ', this.tabInputs3, res)
     }
     tabInputs4: TabInput[] = [
         { name: '메뉴 01', selected: true },
@@ -181,14 +188,14 @@ export class ComponentComponent {
     //
 
     onPb1Click(e) {
-        console.log('onPageNumberClick -- ', e)
+        // console.log('onPageNumberClick -- ', e)
     }
 
     //
     public text1 = ''
     onText1Change(text: string) {
         this.text1 = text
-        console.log('onText1Change -- ', this.text1)
+        // console.log('onText1Change -- ', this.text1)
         if (this.text1 != text) {
         }
     }
@@ -196,7 +203,7 @@ export class ComponentComponent {
     public text2 = ''
     onText2Change(text: string) {
         this.text2 = text
-        console.log('onText2Change -- ', this.text2)
+        // console.log('onText2Change -- ', this.text2)
         if (this.text2 != text) {
         }
     }
@@ -204,7 +211,7 @@ export class ComponentComponent {
     public textInput1 = ''
     onTextInput1Change(v: string) {
         this.textInput1 = v
-        console.log('onTextInput1Change : ', this.textInput1, ' - ', v)
+        // console.log('onTextInput1Change : ', this.textInput1, ' - ', v)
     }
     public textInput2 = ''
 
@@ -214,27 +221,27 @@ export class ComponentComponent {
     public numberText1 = ''
     onNumberText1Change(text: string) {
         this.numberText1 = text
-        console.log('onText2Change -- ', this.numberText1)
+        // console.log('onText2Change -- ', this.numberText1)
     }
     public numberText2 = ''
     onNumberText2Change(text: string) {
         this.numberText2 = text
-        console.log('onText2Change -- ', this.numberText2)
+        // console.log('onText2Change -- ', this.numberText2)
     }
 
     public verificationNumber = ''
     onVerificationNumberChange(text: string) {
         this.verificationNumber = text
-        console.log('onVerificationNumberChange -- ', this.verificationNumber)
+        // console.log('onVerificationNumberChange -- ', this.verificationNumber)
     }
 
     public memo1 = this.fb.control('')
     onMemo1ButtonClick() {
-        console.log('onMemo1ButtonClick')
+        // console.log('onMemo1ButtonClick')
     }
     public memo2 = this.fb.control('')
     onMemo2ButtonClick() {
-        console.log('onMemo2ButtonClick')
+        // console.log('onMemo2ButtonClick')
     }
     public memo3 = this.fb.control('')
     public memo4 = ''
@@ -296,19 +303,19 @@ export class ComponentComponent {
     onModalTa2Confirm(res: TextAreaModalOutPut) {
         this.modalTa2Text = res.textValue
         this.modalTa2 = false
-        console.log('onModalTa2Confirm -- ', res)
+        // console.log('onModalTa2Confirm -- ', res)
     }
     onModalTa2Cancel() {
         // this.modalTa2Text = ''
         this.modalTa2 = false
-        console.log('onModalTa2Confirm -- ', this.modalTa2Text)
+        // console.log('onModalTa2Confirm -- ', this.modalTa2Text)
     }
     public modalTa3 = false
     public modalTa3Text = ''
     onModalTa3Cancel() {
         // this.modalTa3Text = ''
         this.modalTa3 = false
-        console.log('onModalTa3Confirm -- ', this.modalTa3Text)
+        // console.log('onModalTa3Confirm -- ', this.modalTa3Text)
     }
     onModalTa3Confirm(res: TextAreaModalOutPut) {
         res.loading.showLoading()

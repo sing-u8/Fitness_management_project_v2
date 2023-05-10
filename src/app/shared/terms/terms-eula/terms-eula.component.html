@@ -4,9 +4,9 @@
         <div class="rw-modal user-select-none" (click)="$event.stopPropagation()">
             <div class="title">
                 <span class="rw-typo-bodytext1">레드웨일 서비스 이용약관</span>
-                <rwa-icon-ghost-button borderColor="var(--gray-60)" [sizeType]="'md'">
+                <rwa-icon-ghost-button borderColor="var(--gray-60)" [sizeType]="'md'" (click)="onCancel()">
                     <ng-template iconGhostBtIdleContent>
-                        <rwa-svg-close [width]="'22px'" [height]="'22px'" (click)="onCancel()"></rwa-svg-close>
+                        <rwa-svg-close [width]="'22px'" [height]="'22px'" ></rwa-svg-close>
                     </ng-template>
                 </rwa-icon-ghost-button>
             </div>

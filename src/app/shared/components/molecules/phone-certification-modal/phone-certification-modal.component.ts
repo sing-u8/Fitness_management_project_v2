@@ -13,7 +13,14 @@ import {
     AfterViewInit,
     OnDestroy,
 } from '@angular/core'
-import { NgxSpinnerService } from 'ngx-spinner'
+import {
+    AsyncValidatorFn,
+    ValidatorFn,
+    FormBuilder,
+    FormControl,
+    Validators,
+    ReactiveFormsModule,
+} from '@angular/forms'
 
 import { Observe } from '@shared/helper/decorator/Observe'
 
@@ -32,6 +39,8 @@ import { AuthService } from '@services/auth.service'
 import { InputHelperService } from '@services/helper/input-helper.service'
 import { showToast } from '@store/app/actions/toast.action'
 import { AuthErrors } from '@schemas/errors/auth-errors'
+import { takeUntil } from 'rxjs/operators'
+import _ from 'lodash'
 
 @Component({
     selector: 'rwm-phone-certification-modal',
@@ -61,17 +70,13 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     public user: User
     public registration: Registration
 
-    public phoneNumber = ''
-    onPhoneNumberChange(v: string) {
-        this.phoneNumber = String(v).replace(/[^0-9]/gi, '')
-    }
+    public phoneNumber = this.fb.control('')
+
     public phoneNumberValid = false
     public phoneNumberError: string
     public phoneNumberStatus: Status = 'none'
-    public verificationCode = ''
-    onVerifCodeChange(v: string) {
-        this.verificationCode = String(v).replace(/[^0-9]/gi, '')
-    }
+    public verificationCode = this.fb.control('')
+
     public verifTextType: 'normal' | 'timeLimit' | 'wordLimit' = 'normal'
 
     public timeLeft: number
@@ -85,6 +90,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     // ------------------------------------------------------------------------------
 
     constructor(
+        private fb: FormBuilder,
         private el: ElementRef,
         private renderer: Renderer2,
         private nxStore: Store,
@@ -107,6 +113,22 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
         ) {
             this.changed = true
         }
+
+        this.phoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            let value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
+            if (value.length > 0) {
+                if (value.length > 3 && value.length < 8) {
+                    value = value.slice(0, 3) + '-' + value.slice(3)
+                } else if (value.length >= 8) {
+                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7)
+                }
+            }
+            this.phoneNumber.setValue(value, { emitEvent: false })
+        })
+        this.verificationCode.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
+            this.verificationCode.setValue(value, { emitEvent: false })
+        })
     }
     ngAfterViewChecked() {
         if (this.changed) {
@@ -147,7 +169,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
 
     public isTimeOut = false
     startTimer() {
-        this.verificationCode = ''
+        this.verificationCode.setValue('')
         this.phoneNumberError = ''
         this.isTimeOut = false
 
@@ -170,7 +192,6 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
         this.phoneNumberError = '입력 시간이 지났어요. [재전송] 버튼을 눌러주세요!'
         this.phoneNumberStatus = 'error'
         this.isTimeOut = true
-        this.verificationCode = ''
         this.verifTextType = 'timeLimit'
         clearInterval(this.interval)
     }
@@ -178,12 +199,11 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     reset() {
         this.isTimeOut = false
 
-        this.verificationCode = ''
-        this.phoneNumber = ''
+        this.phoneNumber.setValue('')
+        this.verificationCode.setValue('')
         this.phoneNumberValid = false
         this.phoneNumberError = ''
         this.phoneNumberStatus = 'none'
-        this.verificationCode = ''
         this.verifTextType = 'normal'
         this.sendVerifCodeStatus = 'idle'
         this.finishVerificationStatus = 'idle'
@@ -192,21 +212,18 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
 
     checkDigit(event) {
         const code = event.which ? event.which : event.keyCode
-        if (code < 48 || code > 57) {
-            return false
-        }
-        return true
+        return !(code < 48 || code > 57)
     }
 
     checkPhoneNumber() {
-        const phoneNumberRegex = /^\d{10,11}$/
-        this.phoneNumberValid = phoneNumberRegex.test(this.phoneNumber)
+        const phoneNumberRegex = /^\d{3}-\d{4}-\d{4}$/
+        this.phoneNumberValid = phoneNumberRegex.test(this.phoneNumber.value)
     }
 
     formCheck() {
         let isValid = false
 
-        const verificationCode = this.verificationCode + ''
+        const verificationCode = this.verificationCode.value
         if (this.phoneNumberValid && verificationCode && verificationCode.length == 4 && this.timeLeft > 0) {
             isValid = true
         }
@@ -215,41 +232,44 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     }
 
     sendVerificationCodeSMSChange() {
-        if (!this.phoneNumberValid) {
+        if (!this.phoneNumberValid || this.sendVerifCodeStatus == 'pending') {
             return
         }
 
-        this.verificationCode = ''
+        this.verificationCode.setValue('')
         this.phoneNumberError = ''
         this.phoneNumberStatus = 'none'
-        this.verificationCodeRef.valueAccessor.input_el.nativeElement.focus()
+        this.verificationCodeRef.input_el.nativeElement.focus()
         this.sendVerifCodeStatus = 'pending'
-        this.authService.sendVerificationCodeSMSChange({ phone_number: this.phoneNumber }).subscribe({
-            next: (v) => {
-                this.sendVerifCodeStatus = 'idle'
-                this.nxStore.dispatch(showToast({ text: '인증번호가 전송되었어요.' }))
-                if (this.interval) {
-                    this.stopTimer()
-                }
-                this.startTimer()
-            },
-            error: (e) => {
-                this.sendVerifCodeStatus = 'idle'
-                this.nxStore.dispatch(showToast({ text: AuthErrors[e.code].message }))
-            },
-        })
+        this.authService
+            .sendVerificationCodeSMSChange({ phone_number: _.replace(this.phoneNumber.value, /[^0-9]/gi, '') })
+            .subscribe({
+                next: (v) => {
+                    this.sendVerifCodeStatus = 'idle'
+                    this.nxStore.dispatch(showToast({ text: '인증번호가 전송되었어요.' }))
+                    if (this.interval) {
+                        this.stopTimer()
+                    }
+                    this.startTimer()
+                    this.phoneNumberStatus = 'none'
+                },
+                error: (e) => {
+                    this.sendVerifCodeStatus = 'idle'
+                    this.nxStore.dispatch(showToast({ text: AuthErrors[e.code].message }))
+                },
+            })
     }
 
     next() {
         this.finishVerificationStatus = 'pending'
         this.authService
             .checkVerificationCodeSMSChange({
-                verification_code: Number(this.verificationCode),
+                verification_code: Number(this.verificationCode.value),
             })
             .subscribe({
                 next: (v) => {
                     this.finishVerificationStatus = 'idle'
-                    this.user.phone_number = this.phoneNumber
+                    this.user.phone_number = this.phoneNumber.value
                     this.user.phone_number_verified = true
                     this.phoneNumberStatus = 'none'
                     this.phoneNumberError = ''
@@ -265,7 +285,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
                     if (e.code == 'FUNCTION_AUTH_006') {
                         this.phoneNumberError = '인증번호가 일치하지 않아요.'
                     } else if (e.code == 'FUNCTION_AUTH_007') {
-                        this.phoneNumberError = '입력 시간이 지났어요. [재전송] 버튼을 눌러주세요!'
+                        this.phoneNumberError = '입력 시간이 지났어요. [인증번호 받기] 버튼을 눌러주세요!'
                     }
                     this.phoneNumberStatus = 'error'
                 },

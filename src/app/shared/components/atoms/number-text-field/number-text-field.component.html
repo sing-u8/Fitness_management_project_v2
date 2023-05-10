@@ -21,7 +21,7 @@
             #input
             type="text"
             (keydown)="restrictToNumber($event)"
-            [class.in-type]="(textField.value.length > 0 || status != 'none') && !disable"
+            [class.in-type]="textField.value.length > 0 && !disable"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"
             [class.still-focus]="isMouseDown && isMouseOn"
@@ -29,15 +29,14 @@
             [formControl]="textField"
             (focus)="onFocus()"
             (focusout)="onFocusOut()"
+            (rwClickOutside)="isMouseOn = false; isMouseDown = false"
         />
         <div class="l-input-tag user-select-none" (click)="input.focus()">
             <span class="currency">원</span>
             <div class="input-tag-normal">
                 <rwa-svg-close-fill
                     [margin]="'0 0 0 0'"
-                    *ngIf="
-                        !disable && status != 'error' && status != 'warning' && textField.value.length > 0 && isFocused
-                    "
+                    *ngIf="!disable && textField.value.length > 0 && isFocused"
                     (click)="resetTextField()"
                 ></rwa-svg-close-fill>
                 <rwa-svg-warning

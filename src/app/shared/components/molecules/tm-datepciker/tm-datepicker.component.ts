@@ -264,7 +264,6 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
         if (this.mode == 'week') {
             this.checkSelectedWeek()
         }
-        console.log('end -- get days : ', this.weekRows)
     }
     isVisibleDate(monthDate: dayjs.Dayjs, weekCol: any) {
         return monthDate.format('MM') == weekCol['month']
@@ -273,7 +272,6 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
     previousMonth() {
         this.currentDate = this.currentDate.clone().subtract(1, 'month')
         this.getCurAndPostMonth()
-        console.log('prev month : ', this.currentDate.format('YYYY-MM-DD'))
         this.getDays(this.currentDate)
     }
 
@@ -287,7 +285,6 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
             date: this.currentDate.clone().add(1, 'month'),
             monthFormat: this.currentDate.clone().add(1, 'month').format('YY년 MM월'),
         }
-        console.log('next month : ', this.currentDate.format('YYYY-MM-DD'))
         this.getDays(this.currentDate)
     }
 

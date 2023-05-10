@@ -114,7 +114,7 @@ export class ResetPasswordComponent implements OnInit {
         } else if (!pattern1.test(this.password) || !pattern2.test(this.password) || !pattern3.test(this.password)) {
             this.passwordError = '영어, 숫자, 특수문자가 모두 포함되어야 해요.'
             this.passwordValid = false
-            this.passwordStatus = 'error'
+            this.passwordStatus = 'warning'
         } else {
             this.passwordError = ''
             this.passwordValid = true
@@ -207,7 +207,7 @@ export class ResetPasswordComponent implements OnInit {
         this.changePwStatus = 'pending'
         this.authService.changePassword({ token: this.token, new_password: this.password }).subscribe({
             next: (user: User) => {
-                this.nxStore.dispatch(showToast({ text: '비밀번호가 변경되었습니다.' }))
+                this.nxStore.dispatch(showToast({ text: '비밀번호가 변경되었어요.' }))
                 this.changePwStatus = 'idle'
                 this.router.navigateByUrl('/main')
             },

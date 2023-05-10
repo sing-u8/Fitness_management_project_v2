@@ -16,6 +16,7 @@
         (mouseleave)="isMouseOn = false"
         (mousedown)="isMouseDown = true"
         (mouseup)="isMouseDown = false"
+
     >
         <div *ngIf="textFieldType == 'search'" class="search-icon"></div>
         <input
@@ -26,6 +27,7 @@
             [class.search]="textFieldType == 'search'"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"
+            [class.success]="status == 'success'"
             [class.type-word-limit]="type == 'wordLimit'"
             [class.type-time-limit]="type == 'timeLimit'"
             [class.still-focus]="isMouseDown && isMouseOn"
@@ -33,11 +35,12 @@
             [formControl]="textField"
             (focus)="onFocus()"
             (focusout)="onFocusOut()"
+            (rwClickOutside)="isMouseOn = false; isMouseDown = false"
         />
         <div class="l-input-tag user-select-none" (click)="input.focus()">
             <div *ngIf="type == 'normal'" class="input-tag-normal">
                 <rwa-svg-close-fill
-                    *ngIf="!disable && status == 'none' && textField.value?.length > 0 && isFocused"
+                    *ngIf="!disable && textField.value?.length > 0 && isFocused"
                     [width]="'24px'"
                     [height]="'24px'"
                     [margin]="'0'"
@@ -53,7 +56,7 @@
                 <div
                     class="pw-visible-icon"
                     *ngIf="textFieldType == 'password' && passwordVisible && textField.value?.length > 0"
-                    (click)="passwordVisible = false "
+                    (click)="passwordVisible = false"
                 ></div>
                 <div
                     class="pw-invisible-icon"
@@ -70,7 +73,7 @@
                     >{{ textField?.value?.length ?? '0' }} / {{ inputLimit | padStart : 2 : '0' }}</span
                 >
                 <rwa-svg-close-fill
-                    *ngIf="!disable && status == 'none' && textField.value?.length > 0 && isFocused"
+                    *ngIf="!disable && textField.value?.length > 0 && isFocused"
                     [margin]="'0'"
                     [width]="'24px'"
                     [height]="'24px'"
@@ -87,7 +90,7 @@
             <div *ngIf="type == 'timeLimit'" class="input-tag-time">
                 <span *ngIf="status != 'success'">{{ timeLimit | minuteSeconds }}</span>
                 <rwa-svg-close-fill
-                    *ngIf="status != 'error' && status != 'warning' && textField.value?.length > 0 && isFocused"
+                    *ngIf="textField.value?.length > 0 && isFocused"
                     [margin]="'0'"
                     [width]="'24px'"
                     [height]="'24px'"

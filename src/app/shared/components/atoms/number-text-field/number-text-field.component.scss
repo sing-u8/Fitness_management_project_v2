@@ -27,6 +27,8 @@
     }
 
     .l-input {
+        display: flex;
+        flex-direction: column;
         position: relative;
         border-radius: 10px;
         input {
@@ -37,16 +39,32 @@
             outline: none;
             padding: 10px 32px 9px 14px;
             text-align: right;
-
-            &.in-type {
-                padding: 10px 67px 9px 14px;
-            }
             @include rw-type-r(1.7rem, 28px, var(--font-color));
-            &:focus {
+
+            &:focus, &.still-focus  {
                 @include card-shadow();
                 border: 1px solid var(--gray-90);
                 @include rw-type-b(1.7rem, 28px, var(--font-color));
             }
+
+            &.warning,
+            &.error,
+            &.success {
+                padding: 10px 65px 9px 14px;
+            }
+            &.in-type {
+                &:focus, &.still-focus  {
+                    padding: 10px 65px 9px 14px;
+                }
+                &.warning,
+                &.error,
+                &.success {
+                    &:focus, &.still-focus  {
+                        padding: 10px 100px 9px 14px;
+                    }
+                }
+            }
+
             &::placeholder {
                 @include rw-type-r(1.7rem, 28px, var(--gray-80));
             }
@@ -68,18 +86,6 @@
 
             &:hover {
                 border: 1px solid var(--gray-90);
-            }
-
-            &.still-focus {
-                @include card-shadow();
-                border: 1px solid var(--gray-90);
-                @include rw-type-b(1.7rem, 28px, var(--font-color));
-                &.type-word-limit {
-                    padding: 10px 120px 9px 14px;
-                }
-                &.type-time-limit {
-                    padding: 10px 120px 9px 14px;
-                }
             }
 
             &:disabled {
@@ -110,7 +116,7 @@
                 @include rw-type-r(1.7rem, 28px, var(--font-color));
             }
             rwa-svg-close-fill {
-                margin-left: 12.5px;
+                margin-left: 10px;
                 cursor: pointer;
             }
             rwa-svg-warning,
@@ -125,9 +131,6 @@
         }
 
         .hint {
-            position: absolute;
-            bottom: -26px;
-            left: 1px;
             margin-top: 3px;
             width: 100%;
             display: flex;
@@ -138,9 +141,6 @@
             }
         }
         .status {
-            position: absolute;
-            bottom: -26px;
-            left: 1px;
             margin-top: 3px;
             width: 100%;
             display: flex;

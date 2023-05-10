@@ -33,8 +33,7 @@
     z-index: 1000;
 
     .rw-modal {
-        width: 375px;
-        height: 480px;
+        width: 430px;
         padding: 30px 25px 25px;
         border-radius: 20px;
         background-color: var(--white);
@@ -68,7 +67,7 @@
                 @include rw-type-b(1.7rem, 28px, var(--white));
             }
             rwa-button {
-                margin-bottom: 3px;
+                margin-bottom: 2.5px;
             }
         }
 

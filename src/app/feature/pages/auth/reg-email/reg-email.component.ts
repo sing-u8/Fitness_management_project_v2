@@ -9,6 +9,8 @@ import { AuthService } from '@services/auth.service'
 import { User } from '@schemas/user'
 import { Registration } from '@schemas/appStore/registration.interface'
 
+import { VerificationFieldComponent } from '@shared/components/atoms/verification-field/verification-field.component'
+
 // rxjs
 import { Observable, Subscription } from 'rxjs'
 import { distinctUntilChanged, debounceTime, filter } from 'rxjs/operators'
@@ -43,6 +45,8 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
     public interval: NodeJS.Timeout
 
     public subscription: Subscription
+
+    @ViewChild('verif_field') verif_field_el: VerificationFieldComponent
 
     constructor(
         private location: Location,
@@ -87,7 +91,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
                                 this.isNumberValid = true
                             },
                             error: () => {
-                                this.error = '인증번호가 일치하지 않습니다.'
+                                this.error = '인증번호가 일치하지 않아요.'
                                 this.verificationStatus = 'error'
                             },
                         })
@@ -95,7 +99,9 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
             })
     }
 
-    ngAfterViewInit() {}
+    ngAfterViewInit() {
+        this.verif_field_el.one_el.nativeElement.focus()
+    }
     ngOnDestroy(): void {}
 
     startTimer() {

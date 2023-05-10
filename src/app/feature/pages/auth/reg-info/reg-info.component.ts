@@ -157,6 +157,11 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
     setShowEmailExistModal(flag: boolean) {
         this.showEmailExistModal = flag
     }
+    goBackToInfo() {
+        this.showEmailExistModal = false
+        this.email = ''
+        this.emailInput.input_el.nativeElement.focus()
+    }
     goLogin() {
         this.router.navigateByUrl('/auth/login')
     }

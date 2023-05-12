@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Renderer2, AfterViewInit, OnDestroy } from '@angular/core'
+import { Component, Input, Output, OnInit, Renderer2, AfterViewInit, OnDestroy, EventEmitter } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 
@@ -19,15 +19,6 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public productOpen = false
     public smsOpen = false
 
-    btWidth = '235px'
-    toggleBtWidth() {
-        if (this.btWidth == '235px') {
-            this.btWidth = '46px'
-        } else {
-            this.btWidth = '235px'
-        }
-    }
-
     public user: User
     public centerUser: CenterUser
     public center: Center
@@ -37,8 +28,9 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     // vars for html tags
     @Input() mode: 'tablet' | 'pc' = 'pc'
     @Input() showTabletNav = false
+    @Output() onshowTabletClose = new EventEmitter()
 
-    public menuWidth = ''
+    btWidth = '235px'
 
     constructor(private renderer: Renderer2, private storageService: StorageService) {}
     ngOnInit() {
@@ -50,12 +42,12 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.resizeListener = this.renderer.listen(window, 'resize', (e) => {
             if (window.innerWidth < 1920) {
                 if (this.mode == 'tablet') {
-                } else if (this.mode == 'pc' && this.menuWidth != '80px') {
+                } else if (this.mode == 'pc') {
                     // this.menuWidth = '80px'
                 }
             } else if (window.innerWidth >= 1920) {
                 if (this.mode == 'tablet') {
-                } else if (this.mode == 'pc' && this.menuWidth != '275px') {
+                } else if (this.mode == 'pc') {
                     // this.menuWidth = '275px'
                 }
             }

@@ -170,20 +170,6 @@
             justify-content: center;
         }
     }
-    .close-button {
-        position: absolute;
-        top: 13px;
-        right: -54px;
-        width: 44px;
-        height: 44px;
-        background-color: var(--white);
-        border: 1px solid #d8d8d8;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-    }
 
     &.show-drawer {
         left: 0;

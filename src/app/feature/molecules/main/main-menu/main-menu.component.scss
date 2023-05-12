@@ -53,14 +53,28 @@ $nd_width: 275px;
 }
 
 .l-main-menu {
+    max-width: 275px;
     height: 100%;
-    width: var(--main-menu-nav-width, $nd_width);
     background: var(--gray-40);
     border-radius: 30px;
+    position: relative;
+
+    .large-menu,
+    .small-menu {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        justify-content: space-between;
+    }
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
+
+    transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
 
     .top {
         display: flex;
@@ -71,6 +85,11 @@ $nd_width: 275px;
             align-items: center;
             justify-content: space-between;
             position: relative;
+
+            .center-title {
+                padding-right: 35px;
+                min-width: 219px;
+            }
 
             rwa-icon-button {
                 position: absolute;
@@ -85,6 +104,7 @@ $nd_width: 275px;
         }
         .top-bottom {
             @include rw-type-r(1.5rem, 23px, var(--gray-90));
+            min-width: 219px;
         }
     }
 
@@ -92,6 +112,7 @@ $nd_width: 275px;
         max-height: calc(100% - (97px + 168px + 20px)); // 100% - (top h + bottom h + padding(20px))
         width: calc(100% - 8px); // 스크롤 오른쪽 여백을 7px 주기 위해서 함.
         padding: 0 12px 0 20px;
+        overflow-x: hidden;
 
         .l-igb {
             &:not(:last-of-type) {
@@ -104,12 +125,17 @@ $nd_width: 275px;
         .group-navigation-button {
             width: 235px;
             height: 46px;
+            max-height: 46px;
             padding: 8px 12px;
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             cursor: pointer;
+
+            span {
+                max-height: 29px;
+            }
 
             @include rw-type-r(1.8rem, 29px, var(--gray-100));
 
@@ -201,6 +227,7 @@ $nd_width: 275px;
         display: flex;
         flex-direction: column;
         padding: 22px;
+        overflow-x: hidden;
         .l-center-user {
             width: 100%;
             position: relative;
@@ -231,11 +258,15 @@ $nd_width: 275px;
             .l-user-info {
                 display: flex;
                 flex-direction: column;
-                width: calc(100% - 100px);
+                min-width: calc(100% - 100px);
                 .user-name {
+                    max-height: 29px;
+                    min-width: 131px;
                     @include rw-type-r(1.8rem, 29px, var(--font-color));
                 }
                 .user-position {
+                    max-height: 23px;
+                    min-width: 131px;
                     @include rw-type-r(1.6rem, 23px, var(--gray-90));
                 }
             }
@@ -248,19 +279,114 @@ $nd_width: 275px;
         }
     }
 
-    &.tablet {
-        height: 100vh;
+    .close-button {
         position: absolute;
-        left: -(var(--main-menu-nav-width, $nd_width));
-        top: 0;
-        bottom: 0;
-        z-index: 10;
-        &.show-tablet-nav {
-            left: 0;
+        top: 13px;
+        right: -54px;
+        width: 44px;
+        height: 44px;
+        background-color: var(--white);
+        border: 1px solid #d8d8d8;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+}
+
+@include rw-tablet-sm {
+    .l-main-menu {
+        &.tablet {
+            width: 275px;
+            height: 100vh;
+            position: absolute;
+            left: -275px;
+            top: 0;
+            bottom: 0;
+            z-index: 10;
+            border-radius: 0 30px 30px 0;
+
+            transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+            -moz-transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+            -webkit-transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+            -o-transition: left 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+            &.show-tablet-nav {
+                left: 0;
+            }
+
+            .large-menu {
+                display: inherit;
+            }
+            .small-menu {
+                display: none !important;
+            }
+        }
+        &.pc {
+            width: 80px;
+            .large-menu {
+                display: none;
+            }
+            .small-menu {
+                display: inherit;
+                .top {
+                    padding: 30px 18px 15px;
+                    .center-avatar {
+                        width: 44px;
+                        height: 44px;
+                        position: relative;
+                        background-color: var(--white);
+                        border-radius: 18px;
+                        overflow: hidden;
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                        }
+                        .center-name {
+                        }
+                    }
+                }
+                .content {
+                    width: 100%;
+                    padding: 0 17px;
+
+                    .navigation-button {
+                        height: 46px;
+                        width: 46px;
+                    }
+                }
+
+                .bottom {
+                    padding: 0 17px 28px;
+                }
+            }
+            &:hover {
+                width: 275px;
+                .large-menu {
+                    display: inherit;
+                }
+                .small-menu {
+                    display: none;
+                }
+            }
         }
     }
+}
 
-    &.pc {
+@include rw-pc-lg {
+    .l-main-menu {
+        &.tablet {
+        }
+        &.pc {
+            width: 275px;
+            .large-menu {
+                display: inherit;
+            }
+            .small-menu {
+                display: none;
+            }
+        }
     }
 }
 

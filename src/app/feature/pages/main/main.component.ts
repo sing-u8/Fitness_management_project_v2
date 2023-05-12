@@ -10,13 +10,22 @@ import { MainMenuComponent } from '@feature/molecules/main/main-menu/main-menu.c
 import { StorageService } from '@services/storage.service'
 
 import { User } from '@schemas/user'
+import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
+import { MainDrawerComponent } from '@feature/templates/main/main-drawer/main-drawer.component'
 
 @Component({
     standalone: true,
     selector: 'rwp-main',
     templateUrl: './main.component.html',
     styleUrls: ['./main.component.scss'],
-    imports: [RouterOutlet, CommonModule, SharedModule, MainTabletHeaderComponent, MainMenuComponent],
+    imports: [
+        RouterOutlet,
+        CommonModule,
+        SharedModule,
+        MainTabletHeaderComponent,
+        MainMenuComponent,
+        MainDrawerComponent,
+    ],
 })
 export class MainComponent implements OnInit, AfterViewInit {
     public user: User
@@ -36,5 +45,16 @@ export class MainComponent implements OnInit, AfterViewInit {
                 this.showPhoneVerifModal = true
             }
         })
+    }
+
+    public showDrawer = false
+    public viewDrawer: ViewDrawer = undefined
+    onDrawerButtonClick(viewDrawer: ViewDrawer) {
+        this.showDrawer = true
+        this.viewDrawer = viewDrawer
+    }
+    onShowDrawerChange(e: { showDrawer: boolean; viewDrawer: ViewDrawer }) {
+        this.showDrawer = e.showDrawer
+        this.viewDrawer = e.viewDrawer
     }
 }

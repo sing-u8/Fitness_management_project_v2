@@ -1,0 +1,47 @@
+<div class="nav-drawer-background" [class.show-nav-drawer-background]="viewDrawer && showDrawer"></div>
+
+<section class="l-main-drawer" [class.drawer-open]="viewDrawer && showDrawer">
+    <rwa-icon-ghost-button
+        class="close-button"
+        *ngIf="viewDrawer && showDrawer"
+        (click)="onShowDrawerClick(undefined)"
+        borderWidth="1px"
+        [sizeType]="'md'"
+    >
+        <ng-template iconGhostBtIdleContent>
+            <div class="close-icon"></div>
+        </ng-template>
+    </rwa-icon-ghost-button>
+
+    <div class="l-dr-button" [class.open]="viewDrawer && showDrawer">
+        <rwa-icon-ghost-button
+            class="dr-bt"
+            sizeType="lg"
+            borderWidth="1px"
+            [bgColor]="'var(--background-color)'"
+            [hoverBgColor]="'var(--background-color)'"
+            (onClick)="onShowDrawerClick('member-list')"
+        >
+            <ng-template iconGhostBtIdleContent>
+                <rwa-svg-user-list [width]="'24px'" [height]="'24px'"></rwa-svg-user-list>
+            </ng-template>
+        </rwa-icon-ghost-button>
+        <rwa-icon-ghost-button
+            class="dr-bt"
+            sizeType="lg"
+            borderWidth="1px"
+            [bgColor]="'var(--background-color)'"
+            [hoverBgColor]="'var(--background-color)'"
+            (onClick)="onShowDrawerClick('chatting')"
+        >
+            <ng-template iconGhostBtIdleContent>
+                <div class="chat-circle-dots-icon"></div>
+            </ng-template>
+        </rwa-icon-ghost-button>
+    </div>
+
+    <div class="main-drawer">
+        <rwo-chatting-drawer *ngIf="viewDrawer == 'chatting' && showDrawer"></rwo-chatting-drawer>
+        <rwo-member-list-drawer *ngIf="viewDrawer == 'member-list' && showDrawer"></rwo-member-list-drawer>
+    </div>
+</section>

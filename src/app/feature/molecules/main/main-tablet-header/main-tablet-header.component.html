@@ -9,10 +9,10 @@
             {{ 'route-name' }}
         </main>
         <aside class="right">
-            <div class="header-button">
+            <div class="header-button" (click)="onDrawerButtonClick.emit('member-list')">
                 <div class="user-list-icon"></div>
             </div>
-            <div class="header-button">
+            <div class="header-button" (click)="onDrawerButtonClick.emit('chatting')">
                 <div class="chat-circle-dots-icon"></div>
             </div>
         </aside>

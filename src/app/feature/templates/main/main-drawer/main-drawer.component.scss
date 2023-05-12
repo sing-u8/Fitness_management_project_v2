@@ -1,0 +1,107 @@
+@import './src/styles.scss';
+
+* {
+    @include css-init;
+}
+
+.nav-drawer-background {
+    @include opacity-ani-modal;
+    background-color: var(--gray-80);
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 5;
+
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+
+    &.show-nav-drawer-background {
+        display: block;
+        opacity: 0.4;
+    }
+
+    @include rw-pc-sm {
+        display: none !important;
+    }
+}
+
+section.l-main-drawer {
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 300px;
+    position: absolute;
+    top: 0;
+    right: -300px;
+
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+
+    &.drawer-open {
+        height: 100vh;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    .main-drawer {
+        width: 300px;
+        max-width: 300px;
+        height: 100%;
+        background-color: var(--white);
+        border-radius: 20px 0 0 20px;
+        @include modal-shadow();
+    }
+
+    .l-dr-button {
+        height: 100%;
+        display: none;
+        flex-direction: column;
+        justify-content: center;
+
+        @include rw-pc-sm {
+            display: flex;
+        }
+
+        &.open {
+            display: flex;
+            position: absolute;
+            left: -55px;
+            top: 0;
+        }
+
+        .dr-bt {
+            &:not(:last-of-type) {
+                margin-bottom: 20px;
+            }
+        }
+    }
+
+    .close-button {
+        position: absolute;
+        top: 13px;
+        left: -52px;
+        background-color: var(--white);
+        border: 1px solid #d8d8d8;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1;
+    }
+}
+
+.close-icon {
+    width: 22px;
+    height: 22px;
+}

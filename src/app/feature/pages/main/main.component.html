@@ -1,14 +1,45 @@
 <section class="l-section">
     <nav class="tablet-show-status">
-        <rwm-main-tablet-header></rwm-main-tablet-header>
+        <rwm-main-tablet-header (onDrawerButtonClick)="onDrawerButtonClick($event)"></rwm-main-tablet-header>
     </nav>
     <main>
         <rwm-main-menu class="pc-show-status"></rwm-main-menu>
-
         <div class="main-content">
             <router-outlet></router-outlet>
         </div>
+
+        <div class="l-dr-button" [class.open-drawer]="showDrawer && viewDrawer">
+            <rwa-icon-ghost-button
+                class="dr-bt"
+                sizeType="lg"
+                borderWidth="1px"
+                [bgColor]="'var(--background-color)'"
+                [hoverBgColor]="'var(--background-color)'"
+                (onClick)="onShowDrawerChange({ showDrawer: true, viewDrawer: 'member-list' })"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-user-list [width]="'24px'" [height]="'24px'"></rwa-svg-user-list>
+                </ng-template>
+            </rwa-icon-ghost-button>
+            <rwa-icon-ghost-button
+                class="dr-bt"
+                sizeType="lg"
+                borderWidth="1px"
+                [bgColor]="'var(--background-color)'"
+                [hoverBgColor]="'var(--background-color)'"
+                (onClick)="onShowDrawerChange({ showDrawer: true, viewDrawer: 'chatting' })"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="chat-circle-dots-icon"></div>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
     </main>
+    <rwt-main-drawer
+        [viewDrawer]="viewDrawer"
+        [showDrawer]="showDrawer"
+        (onShowDrawerChange)="onShowDrawerChange($event)"
+    ></rwt-main-drawer>
 </section>
 
 <rwm-phone-certification-modal

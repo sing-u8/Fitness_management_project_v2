@@ -26,13 +26,12 @@
     }
 
     &:focus {
-        border-width: 2px !important;
+        border-width: 2px;
         border-style: solid !important;
     }
 
     &:active {
         //border: none !important;
-        border-width: 1.5px !important;
         border-style: solid !important;
     }
     &.border-none {

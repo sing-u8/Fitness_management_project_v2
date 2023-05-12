@@ -57,7 +57,9 @@ section.l-reg-info {
         }
 
         rwa-text-field {
-            margin-bottom: 30px;
+            &:not(&:last-of-type) {
+                margin-bottom: 30px;
+            }
         }
 
         .l-button {

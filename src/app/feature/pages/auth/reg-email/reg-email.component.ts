@@ -63,7 +63,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
         })
         if (this.checkRegistration()) {
             this.email = this.registration.email
-            this.sendVerificationCodeMail(false)
+            this.sendVerificationCodeMail(true)
         } else {
             this.email = ''
         }

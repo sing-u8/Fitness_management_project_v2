@@ -28,6 +28,8 @@ import { PageButtonComponent } from './page-button/page-button.component'
 import { TextFieldComponent } from './text-field/text-field.component'
 import { WarningComponent } from './svg/warning/warning.component'
 import { CloseFillComponent } from './svg/close-fill/close-fill.component'
+import { CaretDownComponent } from './svg/caret-down/caret-down.component'
+import { AvatarSmileyComponent } from './svg/avatar-smiley/avatar-smiley.component'
 
 // comp
 import {
@@ -93,6 +95,8 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         CaretCrComponent,
         ArrowLeftBoldComponent,
         ArrowRightBoldComponent,
+        CaretDownComponent,
+        AvatarSmileyComponent,
         // etc
         // components
         ButtonComponent,
@@ -148,6 +152,8 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         CaretCrComponent,
         ArrowLeftBoldComponent,
         ArrowRightBoldComponent,
+        CaretDownComponent,
+        AvatarSmileyComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,

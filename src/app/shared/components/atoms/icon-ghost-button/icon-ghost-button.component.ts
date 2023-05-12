@@ -77,6 +77,7 @@ export class IconGhostButtonComponent implements AfterViewInit {
     @Input() sizeType: 'lg' | 'md' | 'sm' = undefined
     @Input() borderRadius = '15px'
     @Input() borderColor = 'var(--gray-60)'
+    @Input() borderWidth = '1.5px'
 
     @Input() loadingSize: Size = 'small'
     @Input() loadingColor = 'var(--white)'

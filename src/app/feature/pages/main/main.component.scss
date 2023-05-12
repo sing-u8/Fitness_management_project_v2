@@ -65,6 +65,10 @@ section.l-section {
         .tablet-show-status {
             display: none;
         }
+
+        :host {
+            --main-menu-nav-width: 80px;
+        }
     }
     @include rw-pc-md {
         main {
@@ -74,6 +78,10 @@ section.l-section {
     @include rw-pc-lg {
         main {
             padding: 60px 50px;
+        }
+
+        :host {
+            --main-menu-nav-width: 275px;
         }
     }
 }

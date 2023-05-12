@@ -867,6 +867,7 @@ body {
     width: $width;
     height: $height;
 }
+
 .close-icon {
     background-image: url('/assets/icons/etc/x-bold.svg');
     box-sizing: border-box;
@@ -922,6 +923,14 @@ body {
     background-size: contain;
     width: 24px;
     height: 24px;
+}
+.caret-down-1-icon {
+    background-image: url('/assets/icons/arrow/caret-down-1.svg');
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 20px;
+    height: 20px;
 }
 
 // Tooltip

@@ -1,56 +1,280 @@
-<section class="l-main-menu user-select-none">
+<div class="nav-drawer-background" [class.show-nav-drawer-background]="showTabletNav"></div>
+<section
+    class="l-main-menu user-select-none"
+    [ngClass]="{ 'show-tablet-nav': showTabletNav, tablet: mode == 'tablet', pc: mode == 'pc' }"
+>
     <div class="top">
         <div class="top-upper">
-            <span class="rw-type-b22">센터명</span>
-            <div class="gear-icon"></div>
+            <span class="rw-type-b20">센터명</span>
+            <rwa-icon-button [sizeType]="'md'" borderRadius="14px" bgColor="transparent" hoverBgColor="transparent">
+                <ng-template iconBtIdleContent>
+                    <div class="gear-icon"></div>
+                </ng-template>
+            </rwa-icon-button>
         </div>
         <div class="top-bottom">
             {{ 'redwhale.xyz/centerurl' }}
         </div>
     </div>
-    <div class="content">
-        <div class="navigation-button" [class.selected]="true">
-            <div class="nb-icon user-circle-icon"></div>
-            <span>회원관리</span>
+    <div class="content menu-scroll-y-overlay">
+        <div class="l-igb">
+            <rwa-icon-ghost-button
+                borderColor="transparent"
+                borderWidth="2px"
+                [width]="btWidth"
+                height="''"
+                borderRadius="10px"
+                bgColor="transparent"
+                hoverBgColor="transparent"
+                (onClick)="toggleBtWidth()"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="navigation-button" [class.selected]="true">
+                        <div class="nb-left">
+                            <div class="nb-icon user-circle-icon"></div>
+                            <span>회원 관리</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon sale-icon"></div>
-            <span>매출</span>
+        <div class="l-igb">
+            <rwa-icon-ghost-button
+                borderColor="transparent"
+                borderWidth="2px"
+                width="235px"
+                height="''"
+                borderRadius="10px"
+                bgColor="transparent"
+                hoverBgColor="transparent"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="navigation-button" [class.selected]="false">
+                        <div class="nb-left">
+                            <div class="nb-icon sale-icon"></div>
+                            <span>매출</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon calendar-icon"></div>
-            <span>스케줄</span>
+        <div class="l-igb">
+            <rwa-icon-ghost-button
+                borderColor="transparent"
+                borderWidth="2px"
+                width="235px"
+                height="''"
+                borderRadius="10px"
+                bgColor="transparent"
+                hoverBgColor="transparent"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="navigation-button" [class.selected]="false">
+                        <div class="nb-left">
+                            <div class="nb-icon calendar-icon"></div>
+                            <span>스케줄</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon chatting-icon"></div>
-            <span>채팅</span>
+        <div class="l-igb">
+            <rwa-icon-ghost-button
+                borderColor="transparent"
+                borderWidth="2px"
+                width="235px"
+                height="''"
+                borderRadius="10px"
+                bgColor="transparent"
+                hoverBgColor="transparent"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="navigation-button" [class.selected]="false">
+                        <div class="nb-left">
+                            <div class="nb-icon chatting-icon"></div>
+                            <span>채팅</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon message-icon"></div>
-            <span>문자</span>
+        <div class="l-igb">
+            <div class="l-group-navigation-button">
+                <div class="navigation-button" (click)="smsOpen = !smsOpen">
+                    <div class="nb-left">
+                        <div class="nb-icon message-icon"></div>
+                        <span>문자</span>
+                    </div>
+                    <div class="nb-right">
+                        <rwa-svg-caret-down [class.open]="smsOpen"></rwa-svg-caret-down>
+                    </div>
+                </div>
+                <div class="l-button-item" [class.open]="smsOpen">
+                    <rwa-icon-ghost-button
+                        borderColor="transparent"
+                        borderWidth="2px"
+                        width="235px"
+                        height="''"
+                        borderRadius="10px"
+                        bgColor="transparent"
+                        hoverBgColor="transparent"
+                    >
+                        <ng-template iconGhostBtIdleContent>
+                            <div class="group-navigation-button" [class.selected]="false">
+                                <div class="dot"></div>
+                                <div>일반 전송</div>
+                            </div>
+                        </ng-template>
+                    </rwa-icon-ghost-button>
+                    <rwa-icon-ghost-button
+                        borderColor="transparent"
+                        borderWidth="2px"
+                        width="235px"
+                        height="''"
+                        borderRadius="10px"
+                        bgColor="transparent"
+                        hoverBgColor="transparent"
+                    >
+                        <ng-template iconGhostBtIdleContent>
+                            <div class="group-navigation-button" [class.selected]="false">
+                                <div class="dot"></div>
+                                <div>자동 전송</div>
+                            </div>
+                        </ng-template>
+                    </rwa-icon-ghost-button>
+                    <rwa-icon-ghost-button
+                        borderColor="transparent"
+                        borderWidth="2px"
+                        width="235px"
+                        height="''"
+                        borderRadius="10px"
+                        bgColor="transparent"
+                        hoverBgColor="transparent"
+                    >
+                        <ng-template iconGhostBtIdleContent>
+                            <div class="group-navigation-button" [class.selected]="false">
+                                <div class="dot"></div>
+                                <div>전송 내역</div>
+                            </div>
+                        </ng-template>
+                    </rwa-icon-ghost-button>
+                </div>
+            </div>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon product-icon"></div>
-            <span>상품</span>
+        <div class="l-igb">
+            <div class="l-group-navigation-button">
+                <div class="l-group-navigation-button">
+                    <div class="navigation-button" (click)="productOpen = !productOpen">
+                        <div class="nb-left">
+                            <div class="nb-icon product-icon"></div>
+                            <span>상품</span>
+                        </div>
+                        <div class="nb-right">
+                            <rwa-svg-caret-down [class.open]="productOpen"></rwa-svg-caret-down>
+                        </div>
+                    </div>
+                    <div class="l-button-item" [class.open]="productOpen">
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div class="group-navigation-button" [class.selected]="false">
+                                    <div class="dot"></div>
+                                    <div>회원권</div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div class="group-navigation-button" [class.selected]="false">
+                                    <div class="dot"></div>
+                                    <div>락커</div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div class="group-navigation-button" [class.selected]="false">
+                                    <div class="dot"></div>
+                                    <div>운동복</div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="navigation-button" [class.selected]="false">
-            <div class="nb-icon lesson-icon"></div>
-            <span>수업</span>
+        <div class="l-igb">
+            <rwa-icon-ghost-button
+                borderColor="transparent"
+                borderWidth="2px"
+                width="235px"
+                height="''"
+                borderRadius="10px"
+                bgColor="transparent"
+                hoverBgColor="transparent"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <div class="navigation-button wo-mb" [class.selected]="false">
+                        <div class="nb-left">
+                            <div class="nb-icon lesson-icon"></div>
+                            <span>수업</span>
+                        </div>
+                    </div>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
     </div>
     <div class="bottom">
         <div class="l-center-user">
-            <div class="avatar"></div>
+            <div class="avatar" [class.picture-exist]="user.picture">
+                <img *ngIf="user.picture" [src]="user.picture" alt="'user.picture'" />
+                <rwa-svg-avatar-smiley *ngIf="!user.picture"></rwa-svg-avatar-smiley>
+            </div>
             <div class="l-user-info">
                 <div class="user-name">
-                    {{ '강신호' }}
+                    {{ user.name }}
                 </div>
                 <div class="user-position">
-                    {{ '운영자' }}
+                    {{ centerUser.role_name ?? '운영자' }}
                 </div>
             </div>
-            <div class="three-dots-icon"></div>
+            <rwa-icon-button [sizeType]="'md'" borderRadius="14px" bgColor="transparent" hoverBgColor="transparent">
+                <ng-template iconBtIdleContent>
+                    <div class="three-dots-icon"></div>
+                </ng-template>
+            </rwa-icon-button>
         </div>
-        <div class="l-inquiry-button rw-type-r18">문의하기</div>
+        <rwa-ghost-button
+            [width]="'230px'"
+            [height]="'48px'"
+            borderRadius="14px"
+            [bgColor]="'transparent'"
+            [hoverBgColor]="'transparent'"
+        >
+            <ng-template gbtIdleContent><div class="inquiry-text">문의하기</div></ng-template>
+        </rwa-ghost-button>
     </div>
 </section>

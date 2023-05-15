@@ -13,22 +13,15 @@ import {
     AfterViewInit,
     OnDestroy,
 } from '@angular/core'
-import {
-    AsyncValidatorFn,
-    ValidatorFn,
-    FormBuilder,
-    FormControl,
-    Validators,
-    ReactiveFormsModule,
-} from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 
 import { Observe } from '@shared/helper/decorator/Observe'
 
 import { Loading } from '@schemas/loading'
 import { User } from '@schemas/user'
 
-import { Observable, Subject, Subscription } from 'rxjs'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { Observable, Subject } from 'rxjs'
+import { ModalOutPut } from '@schemas/components/modal'
 import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
 import { Registration } from '@schemas/appStore/registration.interface'
 import { Status } from '@schemas/components/status'
@@ -55,7 +48,6 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     @ViewChild('modalBackgroundElement') modalBackgroundElement
     @ViewChild('modalWrapperElement') modalWrapperElement
 
-    // @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<ModalOutPut>()
 
     public changed: boolean
@@ -70,9 +62,10 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     public user: User
     public registration: Registration
 
-    public phoneNumber = this.fb.control('')
+    public phoneNumber = this.fb.control('', {
+        validators: [Validators.pattern(/^\d{3}-\d{4}-\d{4}$/), Validators.required],
+    })
 
-    public phoneNumberValid = false
     public phoneNumberError: string
     public phoneNumberStatus: Status = 'none'
     public verificationCode = this.fb.control('')
@@ -189,7 +182,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     }
 
     stopTimer() {
-        this.phoneNumberError = '입력 시간이 지났어요. [재전송] 버튼을 눌러주세요!'
+        this.phoneNumberError = '입력 시간이 지났어요. [인증번호 받기] 버튼을 눌러주세요!'
         this.phoneNumberStatus = 'error'
         this.isTimeOut = true
         this.verifTextType = 'timeLimit'
@@ -201,7 +194,6 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
 
         this.phoneNumber.setValue('')
         this.verificationCode.setValue('')
-        this.phoneNumberValid = false
         this.phoneNumberError = ''
         this.phoneNumberStatus = 'none'
         this.verifTextType = 'normal'
@@ -215,16 +207,11 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
         return !(code < 48 || code > 57)
     }
 
-    checkPhoneNumber() {
-        const phoneNumberRegex = /^\d{3}-\d{4}-\d{4}$/
-        this.phoneNumberValid = phoneNumberRegex.test(this.phoneNumber.value)
-    }
-
     formCheck() {
         let isValid = false
 
         const verificationCode = this.verificationCode.value
-        if (this.phoneNumberValid && verificationCode && verificationCode.length == 4 && this.timeLeft > 0) {
+        if (this.phoneNumber.valid && verificationCode && verificationCode.length == 4 && this.timeLeft > 0) {
             isValid = true
         }
 
@@ -232,7 +219,7 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
     }
 
     sendVerificationCodeSMSChange() {
-        if (!this.phoneNumberValid || this.sendVerifCodeStatus == 'pending') {
+        if (!this.phoneNumber.valid || this.sendVerifCodeStatus == 'pending') {
             return
         }
 
@@ -300,11 +287,9 @@ export class PhoneCertificationModalComponent implements OnChanges, OnInit, Afte
 
         if (type == 'phoneNumber') {
             if (event.key == 'Enter') {
-                if (this.phoneNumberValid) {
+                if (this.phoneNumber.valid) {
                     this.sendVerificationCodeSMSChange()
                 }
-            } else {
-                this.checkPhoneNumber()
             }
         } else if (type == 'verificationCode') {
             if (event.key == 'Enter') {

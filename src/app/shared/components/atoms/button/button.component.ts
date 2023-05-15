@@ -126,9 +126,9 @@ export class ButtonComponent implements AfterViewInit {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
         })
         this.sizeType$.subscribe((v) => {
-            if (v == 'lg') {
+            if (v == 'lg' && !this.height) {
                 this.height = '45px'
-            } else if (v == 'md') {
+            } else if (v == 'md' && !this.height) {
                 this.height = '42px'
             }
         })

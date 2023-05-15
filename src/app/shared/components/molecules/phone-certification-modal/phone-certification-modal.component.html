@@ -24,13 +24,13 @@
             ></rwa-text-field>
 
             <rwa-button
-                height="42px"
-                [padding]="'7.5px 12px 5.5px'"
+                [height]="'42px'"
+                [padding]="'7.5px 16px 5.5px'"
                 [bgColor]="'var(--gray-100)'"
                 [hoverBgColor]="'var(--font-color)'"
                 (onClick)="sendVerificationCodeSMSChange()"
                 [status]="sendVerifCodeStatus"
-                [disable]="!phoneNumberValid"
+                [disable]="!phoneNumber.valid"
             >
                 <ng-template btIdleContent>
                     <span class="phone-button">인증번호 받기</span>

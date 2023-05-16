@@ -4,9 +4,9 @@
     <rwa-icon-ghost-button
         class="close-button"
         *ngIf="viewDrawer && showDrawer"
-        (click)="onShowDrawerClick(undefined)"
+        (click)="onShowDrawerClick(undefined, false)"
         borderWidth="1px"
-        [sizeType]="'md'"
+        [sizeType]="'lg'"
     >
         <ng-template iconGhostBtIdleContent>
             <div class="close-icon"></div>

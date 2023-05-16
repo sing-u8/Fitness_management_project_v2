@@ -1,8 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { Component, EventEmitter, Input, Output, OnDestroy } from '@angular/core'
 import { MainMenuComponent } from '@feature/molecules/main/main-menu/main-menu.component'
+import { NavigationEnd, Router } from '@angular/router'
+
+import { CommonModule } from '@angular/common'
 
 import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
+import { matchRoute, MainPath } from '@feature/routes/main.routes'
+import { Subscription } from 'rxjs'
 
 @Component({
     selector: 'rwm-main-tablet-header',
@@ -11,13 +15,26 @@ import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
     templateUrl: './main-tablet-header.component.html',
     styleUrls: ['./main-tablet-header.component.scss'],
 })
-export class MainTabletHeaderComponent {
+export class MainTabletHeaderComponent implements OnDestroy {
     @Output() onDrawerButtonClick = new EventEmitter<ViewDrawer>()
+
+    public routeSub: Subscription = undefined
+    public routeName = ''
 
     public showNavDrawer = false
     toggleShowNavDrawer() {
         this.showNavDrawer = !this.showNavDrawer
     }
 
-    constructor() {}
+    constructor(private route: Router) {
+        this.routeSub = this.route.events.subscribe((event) => {
+            if (event instanceof NavigationEnd) {
+                console.log('navigation end event : ', event)
+                this.routeName = matchRoute(event.url)
+            }
+        })
+    }
+    ngOnDestroy() {
+        this.routeSub.unsubscribe()
+    }
 }

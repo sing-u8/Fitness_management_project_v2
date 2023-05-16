@@ -5,8 +5,8 @@
                 <div class="list-bold-icon"></div>
             </div>
         </aside>
-        <main class="rw-type-b18">
-            {{ 'route-name' }}
+        <main class="rw-type-b20">
+            {{ routeName }}
         </main>
         <aside class="right">
             <div class="header-button" (click)="onDrawerButtonClick.emit('member-list')">
@@ -23,5 +23,5 @@
 <rwm-main-menu
     [mode]="'tablet'"
     [showTabletNav]="showNavDrawer"
-    (onshowTabletClose)="showNavDrawer = false"
+    (onShowTabletClose)="showNavDrawer = false"
 ></rwm-main-menu>

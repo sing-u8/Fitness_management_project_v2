@@ -18,8 +18,8 @@ export class MainDrawerComponent {
     @Input() showDrawer = false
     @Output() onShowDrawerChange = new EventEmitter<{ showDrawer: boolean; viewDrawer: ViewDrawer }>()
 
-    onShowDrawerClick(viewDrawer: ViewDrawer) {
-        this.showDrawer = !this.showDrawer
+    onShowDrawerClick(viewDrawer: ViewDrawer, showDrawer = true) {
+        this.showDrawer = showDrawer
         this.onShowDrawerChange.emit({ showDrawer: this.showDrawer, viewDrawer })
     }
     constructor() {}

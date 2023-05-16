@@ -4,6 +4,28 @@
     @include css-init;
 }
 
+.user-circle-icon {
+    @include icon('/assets/icons/main_menu/user-circle.svg');
+}
+.sale-icon {
+    @include icon('/assets/icons/main_menu/arrow-fat-line-up.svg');
+}
+.calendar-icon {
+    @include icon('/assets/icons/main_menu/calendar-blank.svg');
+}
+.chatting-icon {
+    @include icon('/assets/icons/main_menu/chat-circle-dots.svg');
+}
+.message-icon {
+    @include icon('/assets/icons/main_menu/envelope-simple.svg');
+}
+.product-icon {
+    @include icon('/assets/icons/main_menu/ticket.svg');
+}
+.lesson-icon {
+    @include icon('/assets/icons/main_menu/person.svg');
+}
+
 $nd_width: 275px;
 
 .menu-scroll-y-overlay {
@@ -36,7 +58,7 @@ $nd_width: 275px;
 
 .nav-drawer-background {
     @include opacity-ani-modal;
-    background-color: var(--gray-80);
+    background-color: var(--gray-90);
     display: none;
     position: fixed;
     top: 0;
@@ -53,14 +75,14 @@ $nd_width: 275px;
 
     &.show-nav-drawer-background {
         display: block;
-        opacity: 0.4;
+        opacity: 0.5;
     }
 }
 
 .l-main-menu__outer {
     min-width: 80px;
     height: 100%;
-    position: relative;
+    //position: relative;
 }
 
 .l-main-menu {
@@ -123,7 +145,7 @@ $nd_width: 275px;
     }
 
     .content {
-        max-height: calc(100% - (97px + 168px + 20px)); // 100% - (top h + bottom h + padding(20px))
+        max-height: calc(100% - 270px); //(97px + 168px + 20px)); // 100% - (top h + bottom h + padding(20px))
         width: calc(100% - 8px); // 스크롤 오른쪽 여백을 7px 주기 위해서 함.
         padding: 0 12px 0 20px;
         overflow-x: hidden;
@@ -160,11 +182,35 @@ $nd_width: 275px;
                 box-sizing: border-box;
                 border: 2px solid var(--font-color);
             }
+            &:hover,
+            &:focus {
+                .user-circle-icon {
+                    @include icon('/assets/icons/main_menu/user-circle_selected.svg');
+                }
+                .sale-icon {
+                    @include icon('/assets/icons/main_menu/arrow-fat-line-up_selected.svg');
+                }
+                .calendar-icon {
+                    @include icon('/assets/icons/main_menu/calendar-blank_selected.svg');
+                }
+                .chatting-icon {
+                    @include icon('/assets/icons/main_menu/chat-circle-dots_selected.svg');
+                }
+                .message-icon {
+                    @include icon('/assets/icons/main_menu/envelope-simple_selected.svg');
+                }
+                .product-icon {
+                    @include icon('/assets/icons/main_menu/ticket_selected.svg');
+                }
+                .lesson-icon {
+                    @include icon('/assets/icons/main_menu/person_selected.svg');
+                }
+            }
             .nb-icon {
                 margin-right: 10px;
             }
             span {
-                margin-top: 2px;
+                //margin-top: 2px;
             }
             .nb-left,
             .nb-right {
@@ -222,7 +268,8 @@ $nd_width: 275px;
             }
         }
 
-        .selected {
+        .selected,
+        .category-selected {
             background-color: var(--gray-60);
             @include rw-type-b(1.8rem, 29px, var(--font-color));
 
@@ -234,13 +281,59 @@ $nd_width: 275px;
                 box-sizing: border-box;
                 border: 2px solid var(--font-color);
             }
+
+            .user-circle-icon {
+                @include icon('/assets/icons/main_menu/user-circle_selected.svg');
+            }
+            .sale-icon {
+                @include icon('/assets/icons/main_menu/arrow-fat-line-up_selected.svg');
+            }
+            .calendar-icon {
+                @include icon('/assets/icons/main_menu/calendar-blank_selected.svg');
+            }
+            .chatting-icon {
+                @include icon('/assets/icons/main_menu/chat-circle-dots_selected.svg');
+            }
+            .message-icon {
+                @include icon('/assets/icons/main_menu/envelope-simple_selected.svg');
+            }
+            .product-icon {
+                @include icon('/assets/icons/main_menu/ticket_selected.svg');
+            }
+            .lesson-icon {
+                @include icon('/assets/icons/main_menu/person_selected.svg');
+            }
+        }
+        .category-selected {
+            background-color: transparent;
+        }
+    }
+    .small-menu {
+        .content {
+            max-height: calc(100% - 250px);
+        }
+        @media (max-height: 705px) {
+            .bottom {
+                //@include lower-bar-shadow();
+            }
+        }
+        .nb-icon {
+            margin: 0 !important;
+        }
+    }
+    .large-menu {
+        @media (max-height: 755px) {
+            .bottom {
+                //@include lower-bar-shadow();
+            }
         }
     }
 
     .bottom {
         display: flex;
         flex-direction: column;
-        padding: 22px;
+        padding: 19px 22px 28px;
+        border-radius: 0 0 30px 0;
         overflow-x: hidden;
         .l-center-user {
             width: 100%;
@@ -296,10 +389,7 @@ $nd_width: 275px;
     .close-button {
         position: absolute;
         top: 13px;
-        right: -52px;
-        background-color: var(--white);
-        border: 1px solid #d8d8d8;
-        border-radius: 15px;
+        right: -60px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -360,8 +450,8 @@ $nd_width: 275px;
                     }
                 }
                 .content {
-                    width: 100%;
-                    padding: 0 17px;
+                    width: calc(100% - 5px);
+                    padding: 0 12px 0 17px;
 
                     .navigation-button {
                         height: 46px;
@@ -370,7 +460,7 @@ $nd_width: 275px;
                 }
 
                 .bottom {
-                    padding: 0 17px 28px;
+                    padding: 19px 17px 28px;
                 }
             }
             &:hover {
@@ -383,6 +473,12 @@ $nd_width: 275px;
                 }
             }
         }
+    }
+}
+
+@include rw-pc-sm {
+    .l-main-menu__outer {
+        position: relative;
     }
 }
 
@@ -403,23 +499,4 @@ $nd_width: 275px;
             }
         }
     }
-}
-
-.sale-icon {
-    @include icon('/assets/icons/main_menu/arrow-fat-line-up.svg');
-}
-.calendar-icon {
-    @include icon('/assets/icons/main_menu/calendar-blank.svg');
-}
-.chatting-icon {
-    @include icon('/assets/icons/main_menu/chat-circle-dots.svg');
-}
-.message-icon {
-    @include icon('/assets/icons/main_menu/envelope-simple.svg');
-}
-.product-icon {
-    @include icon('/assets/icons/main_menu/ticket.svg');
-}
-.lesson-icon {
-    @include icon('/assets/icons/main_menu/person.svg');
 }

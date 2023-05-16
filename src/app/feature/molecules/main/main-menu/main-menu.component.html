@@ -36,9 +36,12 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        routerLink="/main/member-management"
+                        tabindex="-1"
+                        (onClick)="onRouteClick()"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="true">
+                            <div class="navigation-button" [class.selected]="isActive('/main/member-management')">
                                 <div class="nb-left">
                                     <div class="nb-icon user-circle-icon"></div>
                                     <span>회원 관리</span>
@@ -56,9 +59,12 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        routerLink="/main/sales"
+                        tabindex="-1"
+                        (onClick)="onRouteClick()"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/sales')">
                                 <div class="nb-left">
                                     <div class="nb-icon sale-icon"></div>
                                     <span>매출</span>
@@ -76,9 +82,12 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        routerLink="/main/schedule"
+                        tabindex="-1"
+                        (onClick)="onRouteClick()"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/schedule')">
                                 <div class="nb-left">
                                     <div class="nb-icon calendar-icon"></div>
                                     <span>스케줄</span>
@@ -96,9 +105,12 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        routerLink="/main/chatting"
+                        tabindex="-1"
+                        (onClick)="onRouteClick()"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">
                                 <div class="nb-left">
                                     <div class="nb-icon chatting-icon"></div>
                                     <span>채팅</span>
@@ -109,7 +121,11 @@
                 </div>
                 <div class="l-igb">
                     <div class="l-group-navigation-button">
-                        <div class="navigation-button" (click)="smsOpen = !smsOpen">
+                        <div
+                            class="navigation-button"
+                            (click)="smsOpen = !smsOpen"
+                            [class.category-selected]="isActive('/main/sms')"
+                        >
                             <div class="nb-left">
                                 <div class="nb-icon message-icon"></div>
                                 <span>문자</span>
@@ -127,9 +143,15 @@
                                 borderRadius="10px"
                                 bgColor="transparent"
                                 hoverBgColor="transparent"
+                                routerLink="/main/sms/general-transmit"
+                                tabindex="-1"
+                                (onClick)="onRouteClick()"
                             >
                                 <ng-template iconGhostBtIdleContent>
-                                    <div class="group-navigation-button" [class.selected]="false">
+                                    <div
+                                        class="group-navigation-button"
+                                        [class.selected]="isActive('/main/sms/general-transmit')"
+                                    >
                                         <div class="dot"></div>
                                         <div>일반 전송</div>
                                     </div>
@@ -143,9 +165,15 @@
                                 borderRadius="10px"
                                 bgColor="transparent"
                                 hoverBgColor="transparent"
+                                routerLink="/main/sms/auto-transmit"
+                                tabindex="-1"
+                                (onClick)="onRouteClick()"
                             >
                                 <ng-template iconGhostBtIdleContent>
-                                    <div class="group-navigation-button" [class.selected]="false">
+                                    <div
+                                        class="group-navigation-button"
+                                        [class.selected]="isActive('/main/sms/auto-transmit')"
+                                    >
                                         <div class="dot"></div>
                                         <div>자동 전송</div>
                                     </div>
@@ -159,9 +187,15 @@
                                 borderRadius="10px"
                                 bgColor="transparent"
                                 hoverBgColor="transparent"
+                                routerLink="/main/sms/transmit-history"
+                                tabindex="-1"
+                                (onClick)="onRouteClick()"
                             >
                                 <ng-template iconGhostBtIdleContent>
-                                    <div class="group-navigation-button" [class.selected]="false">
+                                    <div
+                                        class="group-navigation-button"
+                                        [class.selected]="isActive('/main/sms/transmit-history')"
+                                    >
                                         <div class="dot"></div>
                                         <div>전송 내역</div>
                                     </div>
@@ -173,7 +207,11 @@
                 <div class="l-igb">
                     <div class="l-group-navigation-button">
                         <div class="l-group-navigation-button">
-                            <div class="navigation-button" (click)="productOpen = !productOpen">
+                            <div
+                                class="navigation-button"
+                                (click)="productOpen = !productOpen"
+                                [class.category-selected]="isActive('/main/product')"
+                            >
                                 <div class="nb-left">
                                     <div class="nb-icon product-icon"></div>
                                     <span>상품</span>
@@ -191,9 +229,15 @@
                                     borderRadius="10px"
                                     bgColor="transparent"
                                     hoverBgColor="transparent"
+                                    routerLink="/main/product/membership"
+                                    tabindex="-1"
+                                    (onClick)="onRouteClick()"
                                 >
                                     <ng-template iconGhostBtIdleContent>
-                                        <div class="group-navigation-button" [class.selected]="false">
+                                        <div
+                                            class="group-navigation-button"
+                                            [class.selected]="isActive('/main/product/membership')"
+                                        >
                                             <div class="dot"></div>
                                             <div>회원권</div>
                                         </div>
@@ -207,9 +251,15 @@
                                     borderRadius="10px"
                                     bgColor="transparent"
                                     hoverBgColor="transparent"
+                                    routerLink="/main/product/locker"
+                                    tabindex="-1"
+                                    (onClick)="onRouteClick()"
                                 >
                                     <ng-template iconGhostBtIdleContent>
-                                        <div class="group-navigation-button" [class.selected]="false">
+                                        <div
+                                            class="group-navigation-button"
+                                            [class.selected]="isActive('/main/product/locker')"
+                                        >
                                             <div class="dot"></div>
                                             <div>락커</div>
                                         </div>
@@ -223,9 +273,15 @@
                                     borderRadius="10px"
                                     bgColor="transparent"
                                     hoverBgColor="transparent"
+                                    routerLink="/main/product/sportswear"
+                                    tabindex="-1"
+                                    (onClick)="onRouteClick()"
                                 >
                                     <ng-template iconGhostBtIdleContent>
-                                        <div class="group-navigation-button" [class.selected]="false">
+                                        <div
+                                            class="group-navigation-button"
+                                            [class.selected]="isActive('/main/product/sportswear')"
+                                        >
                                             <div class="dot"></div>
                                             <div>운동복</div>
                                         </div>
@@ -244,9 +300,12 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        routerLink="/main/lesson"
+                        tabindex="-1"
+                        (onClick)="onRouteClick()"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button wo-mb" [class.selected]="false">
+                            <div class="navigation-button wo-mb" [class.selected]="isActive('/main/lesson')">
                                 <div class="nb-left">
                                     <div class="nb-icon lesson-icon"></div>
                                     <span>수업</span>
@@ -300,7 +359,7 @@
                     <div *ngIf="!center?.picture" class="center-name">{{ center?.name ? center?.name[0] : '' }}</div>
                 </div>
             </div>
-            <div class="content">
+            <div class="content menu-scroll-y-overlay">
                 <div class="l-igb">
                     <rwa-icon-ghost-button
                         borderColor="transparent"
@@ -312,7 +371,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="true">
+                            <div class="navigation-button" [class.selected]="isActive('/main/member-management')">
                                 <div class="nb-left">
                                     <div class="nb-icon user-circle-icon"></div>
                                 </div>
@@ -331,7 +390,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/sales')">
                                 <div class="nb-left">
                                     <div class="nb-icon sale-icon"></div>
                                 </div>
@@ -350,7 +409,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/schedule')">
                                 <div class="nb-left">
                                     <div class="nb-icon calendar-icon"></div>
                                 </div>
@@ -369,7 +428,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">
                                 <div class="nb-left">
                                     <div class="nb-icon chatting-icon"></div>
                                 </div>
@@ -388,7 +447,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/sms')">
                                 <div class="nb-left">
                                     <div class="nb-icon message-icon"></div>
                                 </div>
@@ -407,7 +466,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="false">
+                            <div class="navigation-button" [class.selected]="isActive('/main/product')">
                                 <div class="nb-left">
                                     <div class="nb-icon product-icon"></div>
                                 </div>
@@ -426,7 +485,7 @@
                         hoverBgColor="transparent"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button wo-mb" [class.selected]="false">
+                            <div class="navigation-button wo-mb" [class.selected]="isActive('/main/lesson')">
                                 <div class="nb-left">
                                     <div class="nb-icon lesson-icon"></div>
                                 </div>
@@ -457,9 +516,9 @@
         <rwa-icon-ghost-button
             class="close-button"
             *ngIf="showTabletNav"
-            (click)="onshowTabletClose.emit()"
+            (click)="onShowTabletClose.emit()"
             borderWidth="1px"
-            [sizeType]="'md'"
+            [sizeType]="'lg'"
         >
             <ng-template iconGhostBtIdleContent>
                 <div class="close-icon"></div>

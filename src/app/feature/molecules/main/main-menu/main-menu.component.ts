@@ -7,11 +7,12 @@ import { StorageService } from '@services/storage.service'
 import { User } from '@schemas/user'
 import { CenterUser } from '@schemas/center-user'
 import { Center } from '@schemas/center'
+import { Router, RouterLink } from '@angular/router'
 
 @Component({
     selector: 'rwm-main-menu',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, RouterLink],
     templateUrl: './main-menu.component.html',
     styleUrls: ['./main-menu.component.scss'],
 })
@@ -28,11 +29,16 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     // vars for html tags
     @Input() mode: 'tablet' | 'pc' = 'pc'
     @Input() showTabletNav = false
-    @Output() onshowTabletClose = new EventEmitter()
+    @Output() onShowTabletClose = new EventEmitter()
+    onRouteClick() {
+        if (this.mode == 'tablet') {
+            this.onShowTabletClose.emit()
+        }
+    }
 
     btWidth = '235px'
 
-    constructor(private renderer: Renderer2, private storageService: StorageService) {}
+    constructor(private renderer: Renderer2, private storageService: StorageService, public route: Router) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
         this.centerUser = this.storageService.getCenterUser()
@@ -55,5 +61,14 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     ngOnDestroy() {
         this.resizeListener()
+    }
+
+    isActive(url: string) {
+        return this.route.isActive(url, {
+            paths: 'subset',
+            queryParams: 'subset',
+            fragment: 'ignored',
+            matrixParams: 'ignored',
+        })
     }
 }

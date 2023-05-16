@@ -1,0 +1,134 @@
+@import '../../../../../styles';
+
+* {
+    @include css-init;
+}
+
+.tablet-show-status {
+    display: initial;
+}
+.pc-show-status {
+    display: none;
+}
+
+section.l-section {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    width: 100vw;
+    height: 100vh;
+
+    .l-nav {
+        position: sticky;
+        top: 0;
+    }
+    nav {
+        width: 100%;
+    }
+
+    .l-main {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+
+        main {
+            width: 100%;
+            height: 100%;
+            max-height: calc(100vh - 70px);
+            position: relative;
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            padding: 30px;
+
+            @include transition(width, 0.3s, cubic-bezier(0.25, 0.8, 0.25, 0.8));
+
+            .main-content {
+                @include layout-shadow;
+                background-color: var(--white);
+                height: 100%;
+                width: 100%;
+                border-radius: 20px;
+            }
+
+            .dummy {
+                width: 0;
+                height: 100%;
+                display: none;
+            }
+        }
+    }
+
+    @include rw-tablet-lg {
+        .l-main {
+            main {
+                .main-content {
+                    width: 1220px;
+                }
+            }
+        }
+    }
+
+    @include rw-pc-sm {
+        .l-main {
+            main {
+                padding: 40px 0 40px 22px;
+                justify-content: space-between;
+                max-height: 100vh;
+                width: calc(100% - 72px);
+                .dummy {
+                    display: block;
+                }
+                &.scroll-y-overlay {
+                    &::-webkit-scrollbar {
+                        width: 10px;
+                    }
+                }
+            }
+            .l-drawer {
+                position: relative;
+                display: flex;
+                align-items: center;
+                width: 72px; // width:50px + padding:22px
+            }
+        }
+        .pc-show-status {
+            display: initial !important;
+        }
+        .tablet-show-status {
+            display: none;
+        }
+    }
+    @include rw-pc-md {
+        .l-main {
+            main {
+                padding: 40px 0 40px 50px;
+                width: calc(100% - 100px);
+            }
+            .l-drawer {
+                width: 100px; // width:50px + padding:50px
+            }
+        }
+    }
+    @include rw-pc-lg {
+        .l-main {
+            main {
+                padding: 60px 0 60px 50px;
+            }
+        }
+    }
+    @media (min-width: 2000px) {
+        main {
+            &.open-drawer {
+                width: calc(100% - 360px) !important;
+            }
+        }
+        .l-drawer {
+            &.open-drawer {
+                width: 360px !important;
+            }
+        }
+    }
+}

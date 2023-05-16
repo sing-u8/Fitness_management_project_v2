@@ -18,8 +18,8 @@
             class="dr-bt"
             sizeType="lg"
             borderWidth="1px"
-            [bgColor]="'var(--background-color)'"
-            [hoverBgColor]="'var(--background-color)'"
+            [bgColor]="viewDrawer == 'member-list' ? 'var(--gray-60)' : 'var(--background-color)'"
+            [hoverBgColor]="viewDrawer == 'member-list' ? 'var(--gray-60)' : 'var(--gray-30)'"
             (onClick)="onShowDrawerClick('member-list')"
         >
             <ng-template iconGhostBtIdleContent>
@@ -30,8 +30,8 @@
             class="dr-bt"
             sizeType="lg"
             borderWidth="1px"
-            [bgColor]="'var(--background-color)'"
-            [hoverBgColor]="'var(--background-color)'"
+            [bgColor]="viewDrawer == 'chatting' ? 'var(--gray-60)' : 'var(--background-color)'"
+            [hoverBgColor]="viewDrawer == 'chatting' ? 'var(--gray-60)' : 'var(--gray-30)'"
             (onClick)="onShowDrawerClick('chatting')"
         >
             <ng-template iconGhostBtIdleContent>

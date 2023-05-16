@@ -18,7 +18,19 @@ import { Router, RouterLink } from '@angular/router'
 })
 export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public productOpen = false
+    onProductCategClick() {
+        if (!this.productOpen) {
+            this.route.navigateByUrl('/main/product/membership')
+        }
+        this.productOpen = !this.productOpen
+    }
     public smsOpen = false
+    onSmsCategClick() {
+        if (!this.smsOpen) {
+            this.route.navigateByUrl('/main/sms/general-transmit')
+        }
+        this.smsOpen = !this.smsOpen
+    }
 
     public user: User
     public centerUser: CenterUser

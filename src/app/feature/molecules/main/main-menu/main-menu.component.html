@@ -123,7 +123,7 @@
                     <div class="l-group-navigation-button">
                         <div
                             class="navigation-button"
-                            (click)="smsOpen = !smsOpen"
+                            (click)="onSmsCategClick()"
                             [class.category-selected]="isActive('/main/sms')"
                         >
                             <div class="nb-left">
@@ -209,7 +209,7 @@
                         <div class="l-group-navigation-button">
                             <div
                                 class="navigation-button"
-                                (click)="productOpen = !productOpen"
+                                (click)="onProductCategClick()"
                                 [class.category-selected]="isActive('/main/product')"
                             >
                                 <div class="nb-left">

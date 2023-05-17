@@ -59,6 +59,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.user = this.storageService.getUser()
         this.centerUser = this.storageService.getCenterUser()
         this.center = this.storageService.getCenter()
+        console.log('in main menu : ', this.user, this.centerUser, this.center)
     }
     ngAfterViewInit() {
         this.resizeListener = this.renderer.listen(window, 'resize', (e) => {

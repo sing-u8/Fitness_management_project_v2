@@ -2,16 +2,17 @@ import { Component, OnInit, AfterViewInit } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { CommonModule } from '@angular/common'
 
-import { SharedModule } from '../../../../shared/shared.module'
+import { SharedModule } from '@shared/shared.module'
 
-import { MainTabletHeaderComponent } from '../../../molecules/main/main-tablet-header/main-tablet-header.component'
-import { MainMenuComponent } from '../../../molecules/main/main-menu/main-menu.component'
+import { MainTabletHeaderComponent } from '@feature/molecules/main/main-tablet-header/main-tablet-header.component'
+import { MainMenuComponent } from '@feature/molecules/main/main-menu/main-menu.component'
 
-import { StorageService } from '../../../../core/services/storage.service'
+import { StorageService } from '@services/storage.service'
+import { UsersCenterService } from '@services/users-center.service'
 
-import { User } from '../../../../core/schemas/user'
-import { ViewDrawer } from '../../../../core/schemas/components/main/ViewDrawer'
-import { MainDrawerComponent } from '../../../templates/main/main-drawer/main-drawer.component'
+import { User } from '@schemas/user'
+import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
+import { MainDrawerComponent } from '@feature/templates/main/main-drawer/main-drawer.component'
 
 @Component({
     standalone: true,
@@ -35,9 +36,10 @@ export class MainComponent implements OnInit, AfterViewInit {
         this.showPhoneVerifModal = false
     }
 
-    constructor(private storageService: StorageService) {}
+    constructor(private storageService: StorageService, private usersCenterService: UsersCenterService) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
+        this.getCenterForTest()
     }
     ngAfterViewInit() {
         Promise.resolve().then(() => {
@@ -56,5 +58,13 @@ export class MainComponent implements OnInit, AfterViewInit {
     onShowDrawerChange(e: { showDrawer: boolean; viewDrawer: ViewDrawer }) {
         this.showDrawer = e.showDrawer
         this.viewDrawer = e.viewDrawer
+    }
+
+    // temporary for dev
+    getCenterForTest() {
+        this.usersCenterService.getCenterList(this.user.id).subscribe((centers) => {
+            console.log('get center list : ', centers)
+            this.storageService.setCenter(centers[0])
+        })
     }
 }

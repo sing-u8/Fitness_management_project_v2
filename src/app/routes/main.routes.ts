@@ -7,13 +7,23 @@ import _ from 'lodash'
 import { StoreModule } from '@ngrx/store'
 import { EffectsModule } from '@ngrx/effects'
 
+import { salesReducer } from '@store/main/reducers/sales.reducer'
+
+import { SalesEffect } from '@store/main/effects/sales.effect'
+
+import { FeatureKey as SalesFeatureKey } from '@store/main/selectors/sales.selector'
+
 export const MainRoutes = [
     {
         path: '',
         component: MainComponent,
         providers: [
-            importProvidersFrom(StoreModule.forFeature('main', {})),
-            importProvidersFrom(EffectsModule.forFeature([])),
+            importProvidersFrom(
+                StoreModule.forFeature('main', {
+                    [SalesFeatureKey]: salesReducer,
+                })
+            ),
+            importProvidersFrom(EffectsModule.forFeature([SalesEffect])),
         ],
         children: [
             {

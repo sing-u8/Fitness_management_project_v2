@@ -20,16 +20,20 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public productOpen = false
     onProductCategClick() {
         if (!this.productOpen) {
-            this.route.navigateByUrl('/main/product/membership')
+            this.smsOpen = false
         }
         this.productOpen = !this.productOpen
     }
     public smsOpen = false
     onSmsCategClick() {
         if (!this.smsOpen) {
-            this.route.navigateByUrl('/main/sms/general-transmit')
+            this.productOpen = false
         }
         this.smsOpen = !this.smsOpen
+    }
+    closeCategs() {
+        this.smsOpen = false
+        this.productOpen = false
     }
 
     public user: User

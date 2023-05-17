@@ -38,7 +38,7 @@
                         hoverBgColor="transparent"
                         routerLink="/main/member-management"
                         tabindex="-1"
-                        (onClick)="onRouteClick()"
+                        (onClick)="onRouteClick(); closeCategs()"
                     >
                         <ng-template iconGhostBtIdleContent>
                             <div class="navigation-button" [class.selected]="isActive('/main/member-management')">
@@ -61,7 +61,7 @@
                         hoverBgColor="transparent"
                         routerLink="/main/sales"
                         tabindex="-1"
-                        (onClick)="onRouteClick()"
+                        (onClick)="onRouteClick(); closeCategs()"
                     >
                         <ng-template iconGhostBtIdleContent>
                             <div class="navigation-button" [class.selected]="isActive('/main/sales')">
@@ -84,7 +84,7 @@
                         hoverBgColor="transparent"
                         routerLink="/main/schedule"
                         tabindex="-1"
-                        (onClick)="onRouteClick()"
+                        (onClick)="onRouteClick(); closeCategs()"
                     >
                         <ng-template iconGhostBtIdleContent>
                             <div class="navigation-button" [class.selected]="isActive('/main/schedule')">
@@ -107,7 +107,7 @@
                         hoverBgColor="transparent"
                         routerLink="/main/chatting"
                         tabindex="-1"
-                        (onClick)="onRouteClick()"
+                        (onClick)="onRouteClick(); closeCategs()"
                     >
                         <ng-template iconGhostBtIdleContent>
                             <div class="navigation-button" [class.selected]="isActive('/main/chatting')">
@@ -302,7 +302,7 @@
                         hoverBgColor="transparent"
                         routerLink="/main/lesson"
                         tabindex="-1"
-                        (onClick)="onRouteClick()"
+                        (onClick)="onRouteClick(); closeCategs()"
                     >
                         <ng-template iconGhostBtIdleContent>
                             <div class="navigation-button wo-mb" [class.selected]="isActive('/main/lesson')">

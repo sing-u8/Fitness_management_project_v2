@@ -30,6 +30,7 @@
             "@environments/*": ["./src/environments/*"],
             "@guards/*": ["./src/app/core/guards/*"],
             "@store/*": ["./src/app/store/*"],
+            "@routes/*": ["./src/app/routes/*"],
             "@feature/*": ["./src/app/feature/*"],
             "@pages/*": ["./src/app/feature/pages/*"]
         }

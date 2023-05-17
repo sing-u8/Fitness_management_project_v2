@@ -10,12 +10,12 @@ const routes: Routes = [
     { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
     {
         path: 'auth',
-        loadChildren: () => import('@feature/routes/auth.routes').then((r) => r.AuthRoutes),
+        loadChildren: () => import('@routes/auth.routes').then((r) => r.AuthRoutes),
     },
     {
         path: 'main',
         canActivate: [AuthGuard],
-        loadChildren: () => import('@feature/routes/main.routes').then((r) => r.MainRoutes),
+        loadChildren: () => import('@routes/main.routes').then((r) => r.MainRoutes),
     },
     {
         path: 'components',

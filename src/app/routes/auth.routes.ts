@@ -1,16 +1,16 @@
 import { Routes } from '@angular/router'
 
 // guards
-import { TermsGuard } from '@guards/terms.guard'
-import { AuthGuard } from '@guards/auth.guard'
-import { RegPhoneGuard } from '@guards/reg-phone.guard'
-import { RegCompletedGuard } from '@guards/reg-completed.guard'
+import { TermsGuard } from '../core/guards/terms.guard'
+import { AuthGuard } from '../core/guards/auth.guard'
+import { RegPhoneGuard } from '../core/guards/reg-phone.guard'
+import { RegCompletedGuard } from '../core/guards/reg-completed.guard'
 
 // components
-import { ForgotPasswordComponent } from '@feature/pages/auth/forgot-password/forgot-password.component'
-import { LoginComponent } from '@feature/pages/auth/login/login.component'
-import { ResetPasswordComponent } from '@feature/pages/auth/reset-password/reset-password.component'
-import { TermsComponent } from '@feature/pages/auth/terms/terms.component'
+import { ForgotPasswordComponent } from '../feature/pages/auth/forgot-password/forgot-password.component'
+import { LoginComponent } from '../feature/pages/auth/login/login.component'
+import { ResetPasswordComponent } from '../feature/pages/auth/reset-password/reset-password.component'
+import { TermsComponent } from '../feature/pages/auth/terms/terms.component'
 
 export const AuthRoutes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },

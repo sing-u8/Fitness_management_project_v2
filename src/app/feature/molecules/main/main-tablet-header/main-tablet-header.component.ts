@@ -5,7 +5,7 @@ import { NavigationEnd, Router } from '@angular/router'
 import { CommonModule } from '@angular/common'
 
 import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
-import { matchRoute, MainPath } from '@feature/routes/main.routes'
+import { matchRoute, MainPath } from '@routes/main.routes'
 import { Subscription } from 'rxjs'
 
 @Component({

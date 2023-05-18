@@ -306,6 +306,9 @@ $nd_width: 275px;
         }
         .category-selected {
             background-color: transparent;
+            &:hover {
+                background-color: transparent;
+            }
         }
     }
     .small-menu {

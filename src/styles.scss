@@ -672,6 +672,11 @@ body {
         @content;
     }
 }
+@mixin rw-pc-lx {
+    @media (min-width: 2560px) {
+        @content;
+    }
+}
 
 // other
 // css init

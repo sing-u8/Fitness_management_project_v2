@@ -116,18 +116,25 @@ section.l-section {
         .l-main {
             main {
                 padding: 60px 0 60px 50px;
+                &.open-drawer {
+                    padding: 60px 0 60px 20px;
+                    width: calc(100% - 360px) !important;
+                }
+            }
+            .l-drawer {
+                &.open-drawer {
+                    width: 360px !important;
+                }
             }
         }
     }
-    @media (min-width: 1920px) {
-        main {
-            &.open-drawer {
-                width: calc(100% - 360px) !important;
-            }
-        }
-        .l-drawer {
-            &.open-drawer {
-                width: 360px !important;
+
+    @media (min-width: 2000px) {
+        .l-main {
+            main {
+                &.open-drawer {
+                    padding: 60px 0 60px 50px;
+                }
             }
         }
     }

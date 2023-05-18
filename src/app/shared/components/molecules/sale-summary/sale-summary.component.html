@@ -1,0 +1,106 @@
+<div class="l-sale-summary">
+    <div class="top">
+        <div class="summary-title">{{ summaryTitle }}</div>
+        <div class="summary-date">
+            <div *ngIf="summaryType == 'currentMonth'" class="month-icon"></div>
+            <div *ngIf="summaryType == 'today'" class="day-icon"></div>
+            {{ summaryDate }}
+        </div>
+    </div>
+    <div class="middle">
+        <div class="l-total">
+            <div class="total-price">{{ curTotal | numberWithCommas }}원</div>
+            <div *ngIf="curTotal > 0" class="total-rate" [ngClass]="curTotal - prevTotal > 0 ? 'plus' : 'minus'">
+                <rwa-svg-caret-up-outline
+                    [class.rotate-180]="curTotal - prevTotal < 0"
+                    [innerColor]="curTotal - prevTotal > 0 ? 'var(--state-success-100)' : 'var(--state-warning-100)'"
+                    [color]="'var(--white)'"
+                    [margin]="curTotal - prevTotal < 0 ? '2px 0 0 0' : '0 0 2px 0'"
+                ></rwa-svg-caret-up-outline>
+                <span>{{ curTotal | rateOfChange : prevTotal }}</span>
+            </div>
+        </div>
+        <div class="l-desc">
+            <div class="total-desc">
+                <div *ngIf="curTotal == 0" class="sale-empty d-flex align-items-center">
+                    <div class="minus-bold" [style.margin-right]="'5px'"></div>
+                    <span>{{
+                        summaryType == 'currentMonth'
+                            ? '아직 이번 달 매출 정보가 없어요.'
+                            : '아직 오늘의 매출 정보가 없어요.'
+                    }}</span>
+                </div>
+                <div *ngIf="curTotal > 0 && curTotal > 0" class="d-flex align-items-center">
+                    <div *ngIf="curTotal - prevTotal > 0" class="up-right-arrow" [style.margin-right]="'5px'"></div>
+                    <div *ngIf="curTotal - prevTotal < 0" class="down-left-arrow" [style.margin-right]="'5px'"></div>
+                    <span> {{ summaryType == 'currentMonth' ? '지난 달보다' : '어제보다' }} </span>&nbsp;
+                    <span [ngClass]="curTotal - prevTotal > 0 ? 'plus-text' : 'minus-text'">
+                        {{ curTotal - prevTotal | absNumber | numberWithCommas }}원
+                        {{ curTotal - prevTotal > 0 ? '증가' : '감소' }}
+                    </span>
+                    <span>했어요.</span>
+                </div>
+            </div>
+            <rwa-icon-ghost-button [sizeType]="'sm'" [borderRadius]="'12px'" (onClick)="showDetail = !showDetail">
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-caret-down
+                        [class.rotate-180]="showDetail"
+                        [width]="'19px'"
+                        [height]="'19px'"
+                    ></rwa-svg-caret-down>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+    </div>
+    <div *ngIf="showDetail" class="bottom">
+        <div class="summary-item" *ngFor="let item of summaryKeys; let idx = index">
+            <div class="item-name">
+                {{ summaryNames[idx] }}
+            </div>
+            <div class="item-value">
+                <div class="rw-type-r17 d-flex align-items-center justify-content-end">
+                    {{ curSummary[summaryKeys[idx]] | numberWithCommas }}원
+                </div>
+                <div class="d-flex align-items-center justify-content-end">
+                    <ng-container *ngIf="curTotal == 0">
+                        <div class="sale-empty d-flex align-items-center justify-content-end">
+                            <div
+                                class="minus-bold"
+                                [style.width]="'16px'"
+                                [style.height]="'16px'"
+                                [style.margin-right]="'2px'"
+                            ></div>
+                            원
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="curTotal > 0">
+                        <div
+                            *ngIf="curSummary[summaryKeys[idx]] - prevSummary[summaryKeys[idx]] > 0"
+                            class="up-right-arrow"
+                            [style.margin-right]="'2px'"
+                        ></div>
+                        <div
+                            *ngIf="curSummary[summaryKeys[idx]] - prevSummary[summaryKeys[idx]] < 0"
+                            class="down-left-arrow"
+                            [style.margin-right]="'2px'"
+                        ></div>
+                        <div
+                            class="rw-type-r15 d-flex align-items-center justify-content-end"
+                            [ngClass]="
+                                curSummary[summaryKeys[idx]] - prevSummary[summaryKeys[idx]] > 0
+                                    ? 'plus-text'
+                                    : 'minus-text'
+                            "
+                        >
+                            {{
+                                curSummary[summaryKeys[idx]] - prevSummary[summaryKeys[idx]]
+                                    | absNumber
+                                    | numberWithCommas
+                            }}원
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

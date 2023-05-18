@@ -13,9 +13,17 @@ import { AtomsModule } from '@shared/components/atoms/atoms.module'
 import { DatepickerComponent } from './datepicker/datepicker.component'
 import { TmDatepickerComponent } from './tm-datepciker/tm-datepicker.component'
 import { PhoneCertificationModalComponent } from './phone-certification-modal/phone-certification-modal.component'
+import { SaleSummaryComponent } from './sale-summary/sale-summary.component'
+import { SaleFilterComponent } from './sale-filter/sale-filter.component'
 
 @NgModule({
-    declarations: [DatepickerComponent, TmDatepickerComponent, PhoneCertificationModalComponent],
+    declarations: [
+        DatepickerComponent,
+        TmDatepickerComponent,
+        PhoneCertificationModalComponent,
+        SaleSummaryComponent,
+        SaleFilterComponent,
+    ],
     imports: [
         NgxSpinnerModule,
         FormsModule,
@@ -25,7 +33,13 @@ import { PhoneCertificationModalComponent } from './phone-certification-modal/ph
         PipesModule,
         AtomsModule,
     ],
-    exports: [DatepickerComponent, TmDatepickerComponent, PhoneCertificationModalComponent],
+    exports: [
+        DatepickerComponent,
+        TmDatepickerComponent,
+        PhoneCertificationModalComponent,
+        SaleSummaryComponent,
+        SaleFilterComponent,
+    ],
     schemas: [],
 })
 export class MoleculesModule {}

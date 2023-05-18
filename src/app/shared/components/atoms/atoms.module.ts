@@ -31,6 +31,7 @@ import { CloseFillComponent } from './svg/close-fill/close-fill.component'
 import { CaretDownComponent } from './svg/caret-down/caret-down.component'
 import { AvatarSmileyComponent } from './svg/avatar-smiley/avatar-smiley.component'
 import { QuestionDuotoneComponent } from './svg/question-duotone/question-duotone.component'
+import { CaretUpComponent } from './svg/caret-up/caret-up.component'
 
 // comp
 import {
@@ -99,6 +100,7 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         CaretDownComponent,
         AvatarSmileyComponent,
         QuestionDuotoneComponent,
+        CaretUpComponent,
         // etc
         // components
         ButtonComponent,
@@ -157,6 +159,7 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         CaretDownComponent,
         AvatarSmileyComponent,
         QuestionDuotoneComponent,
+        CaretUpComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,

@@ -1754,4 +1754,51 @@
         <div class="h-padding"></div>
     </div>
     <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>매출</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h3>매출 요약</h3>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum0.this_month" [prevSummary]="saleSum0.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum0.today"
+            [prevSummary]="saleSum0.yesterday"
+        ></rwm-sale-summary>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum1.this_month" [prevSummary]="saleSum1.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum1.today"
+            [prevSummary]="saleSum1.yesterday"
+        ></rwm-sale-summary>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum2.this_month" [prevSummary]="saleSum2.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum2.today"
+            [prevSummary]="saleSum2.yesterday"
+        ></rwm-sale-summary>
+    </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h3>매출 필터</h3>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-filter></rwm-sale-filter>
+        <div class="h-padding"></div>
+    </div>
 </div>

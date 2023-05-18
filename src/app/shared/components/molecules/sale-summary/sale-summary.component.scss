@@ -1,0 +1,154 @@
+@import './src/styles.scss';
+
+* {
+    @include css-init;
+}
+
+.l-sale-summary {
+    @include layout-shadow();
+    border-radius: 20px;
+    padding: 28px;
+    width: 100%;
+    min-width: 540px; // test
+    background-color: var(--white);
+
+    .top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .summary-title {
+            @include rw-type-b(2rem, 31px, var(--font-color));
+        }
+        .summary-date {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            .month-icon {
+                background-image: url('/assets/icons/etc/calendar.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 22px;
+                height: 22px;
+                margin-right: 6px;
+            }
+            .day-icon {
+                background-image: url('/assets/icons/etc/clock-afternoon.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 22px;
+                height: 22px;
+                margin-right: 6px;
+            }
+        }
+    }
+    .middle {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        .l-total {
+            display: flex;
+            align-items: center;
+            margin: 20px 0 8px;
+        }
+        .l-desc {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .total-price {
+            @include rw-type-b(2.7rem, 39px, var(--font-color));
+        }
+        .total-rate {
+            display: flex;
+            align-items: center;
+            margin-left: 15px;
+            padding: 5px 8px 3px;
+            border-radius: 10px;
+            @include rw-type-r(1.5rem, 23px, var(--white));
+            &.plus {
+                background-color: var(--state-success-100);
+            }
+            &.minus {
+                background-color: var(--state-warning-100);
+            }
+        }
+        .total-desc {
+            display: flex;
+            align-items: center;
+            @include rw-type-r(1.7rem, 28px, var(--font-color));
+
+            .sale-empty {
+                @include rw-type-r(1.7rem, 28px, var(--gray-80));
+            }
+        }
+    }
+    .bottom {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        margin-top: 25px;
+        padding-top: 15px;
+        border-top: 1px solid var(--gray-50);
+        box-sizing: border-box;
+        .summary-item {
+            height: 87px;
+            width: 128px;
+            padding-right: 14px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            &:not(:last-of-type) {
+                border-right: 1px solid var(--gray-50);
+            }
+            &:not(:first-of-type) {
+                padding-left: 14px;
+            }
+            .item-name {
+                @include rw-type-r(1.7rem, 28px, var(--font-color));
+            }
+            .item-value {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+        .sale-empty {
+            @include rw-type-r(1.5rem, 23px, var(--gray-80));
+        }
+    }
+}
+
+.rotate-180 {
+    transform: rotateX(180deg);
+}
+.font-color-text {
+    color: var(--font-color);
+}
+.plus-text {
+    color: var(--state-success-100);
+}
+.minus-text {
+    color: var(--state-warning-100);
+}
+.up-right-arrow {
+    background-image: url('/assets/icons/arrow/arrow-up-right-bold__success.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+.down-left-arrow {
+    background-image: url('/assets/icons/arrow/arrow-down-left-bold__warnning.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}
+.minus-bold {
+    background-image: url('/assets/icons/etc/minus-bold__gray-80.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 20px;
+    height: 20px;
+}

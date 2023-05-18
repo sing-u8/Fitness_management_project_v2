@@ -23,6 +23,7 @@ import { Data } from '@shared/components/molecules/datepicker/datepicker.compone
 import dayjs from 'dayjs'
 import _ from 'lodash'
 import { takeUntil } from 'rxjs/operators'
+import { StatsSalesSummary, StatsSalesSummaryItem } from '@schemas/stats-sales-summary'
 
 @Component({
     selector: 'rwp-component',
@@ -349,5 +350,85 @@ export class ComponentComponent implements OnDestroy {
     public datepicker6: Data = {
         startDate: dayjs().format('YYYY-MM-DD'),
         endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
+    }
+
+    public saleSum0: StatsSalesSummary = {
+        this_month: {
+            card: '0',
+            cash: '0',
+            trans: '0',
+            unpaid: '0',
+        },
+        last_month: {
+            card: '0',
+            cash: '0',
+            trans: '0',
+            unpaid: '0',
+        },
+        today: {
+            card: '0',
+            cash: '0',
+            trans: '0',
+            unpaid: '0',
+        },
+        yesterday: {
+            card: '0',
+            cash: '0',
+            trans: '0',
+            unpaid: '0',
+        },
+    }
+    public saleSum1: StatsSalesSummary = {
+        this_month: {
+            card: '100000',
+            cash: '550000',
+            trans: '200000',
+            unpaid: '10000',
+        },
+        last_month: {
+            card: '60000',
+            cash: '250000',
+            trans: '100000',
+            unpaid: '0',
+        },
+        today: {
+            card: '60000',
+            cash: '50000',
+            trans: '20000',
+            unpaid: '1000',
+        },
+        yesterday: {
+            card: '30000',
+            cash: '10000',
+            trans: '200000',
+            unpaid: '10000',
+        },
+    }
+
+    public saleSum2: StatsSalesSummary = {
+        this_month: {
+            card: '0',
+            cash: '0',
+            trans: '0',
+            unpaid: '0',
+        },
+        last_month: {
+            card: '60000',
+            cash: '250000',
+            trans: '100000',
+            unpaid: '0',
+        },
+        today: {
+            card: '60000',
+            cash: '50000',
+            trans: '20000',
+            unpaid: '1000',
+        },
+        yesterday: {
+            card: '30000',
+            cash: '10000',
+            trans: '200000',
+            unpaid: '10000',
+        },
     }
 }

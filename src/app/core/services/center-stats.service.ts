@@ -111,7 +111,7 @@ export type ExportSalesDataReqBody = {
 }
 
 export type GetStatsSalesTypeCode = 'payment_type_payment' | 'payment_type_refund' | 'payment_type_transfer'
-export type GetStatsProductTypeCode = 'user_membership' | 'user_locker'
+export type GetStatsProductTypeCode = 'user_membership' | 'user_locker' | 'user_sportswear' // user_sportswear는 아직 API에 없음
 export type getStatsSaleOption = {
     type_code?: GetStatsSalesTypeCode
     center_user_name?: string

@@ -1,0 +1,183 @@
+<button
+    #l_button
+    [disabled]="disabled"
+    class="l-sale-filter"
+    [class.open]="openDropdown"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus()"
+    (focusout)="onFocusOut()"
+    (click)="_onClick()"
+    (rwClickOutside)="onClickOutside()"
+>
+    <span class="type-name">{{ typeName }}</span>
+    <ng-container *ngIf="!filterValueExist">
+        <rwa-icon-button
+            [style.margin-left]="'6px'"
+            [disabled]="disabled"
+            [borderRadius]="'2px'"
+            [width]="'18px'"
+            [height]="'18px'"
+        >
+            <ng-template iconBtIdleContent>
+                <rwa-svg-caret-down [width]="'18px'" [height]="'18px'" [margin]="'0'"></rwa-svg-caret-down>
+            </ng-template>
+        </rwa-icon-button>
+    </ng-container>
+    <ng-container *ngIf="filterValueExist">
+        <div *ngIf="filterType == 'paymentType'" class="d-flex align-items-center">
+            <div class="filter-value-divider"></div>
+            <span class="filter-value-text">{{ selectedPaymentType }}</span>
+            <rwa-icon-button
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'24px'"
+                [height]="'24px'"
+                (click)="resetData(); openDropdown = false; $event.stopPropagation()"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-close-fill [width]="'24px'" [height]="'24px'"></rwa-svg-close-fill>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
+        <div *ngIf="filterType == 'member'" class="d-flex align-items-center"></div>
+        <div *ngIf="filterType == 'productType'" class="d-flex align-items-center"></div>
+        <div *ngIf="filterType == 'productName'" class="d-flex align-items-center"></div>
+        <div *ngIf="filterType == 'personInCharge'" class="d-flex align-items-center"></div>
+        <div *ngIf="filterType == 'date'" class="d-flex align-items-center"></div>
+    </ng-container>
+
+    <div
+        class="payment-type-dropdown"
+        [class.open]="openDropdown && filterType == 'paymentType'"
+        (click)="$event.stopPropagation()"
+    >
+        <div class="l-checkbox">
+            <rwa-checkbox
+                [checked]="curPaymentType.payment_type_payment"
+                (onClick)="curPaymentType.payment_type_payment = $event"
+                [label]="'결제'"
+            ></rwa-checkbox>
+            <rwa-checkbox
+                [checked]="curPaymentType.payment_type_refund"
+                (onClick)="curPaymentType.payment_type_refund = $event"
+                [label]="'환불'"
+            ></rwa-checkbox>
+            <rwa-checkbox
+                [checked]="curPaymentType.payment_type_transfer"
+                (onClick)="curPaymentType.payment_type_transfer = $event"
+                [label]="'양도'"
+            ></rwa-checkbox>
+        </div>
+        <div class="d-flex justify-content-end">
+            <rwa-button
+                sizeType="md"
+                [width]="'62px'"
+                (onClick)="onPaymentTypeSave()"
+                [disable]="
+                    !curPaymentType.payment_type_payment &&
+                    !curPaymentType.payment_type_refund &&
+                    !curPaymentType.payment_type_transfer
+                "
+            >
+                <ng-template btIdleContent><span class="save-bt-text">저장</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+    <div
+        class="member-dropdown"
+        [class.open]="openDropdown && filterType == 'member'"
+        (click)="$event.stopPropagation()"
+    >
+        <rwa-text-field
+            [label]="'회원명 또는 전화번호 검색'"
+            [labelVisible]="true"
+            [placeholder]="'회원명'"
+            [width]="'255px'"
+            [textFieldType]="'search'"
+            [(ngModel)]="curMember"
+        ></rwa-text-field>
+        <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onMemberSave()" [disable]="!curMember">
+            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
+        </rwa-button>
+    </div>
+    <div
+        class="product-type-dropdown"
+        [class.open]="openDropdown && filterType == 'productType'"
+        (click)="$event.stopPropagation()"
+    >
+        <div class="l-checkbox">
+            <rwa-checkbox
+                [checked]="curProductType.user_membership"
+                (onClick)="curProductType.user_membership = $event"
+                [label]="'회원권'"
+            ></rwa-checkbox>
+            <rwa-checkbox
+                [checked]="curProductType.user_locker"
+                (onClick)="curProductType.user_locker = $event"
+                [label]="'락커'"
+            ></rwa-checkbox>
+            <rwa-checkbox
+                [checked]="curProductType.user_sportswear"
+                (onClick)="curProductType.user_sportswear = $event"
+                [label]="'운동복'"
+            ></rwa-checkbox>
+        </div>
+        <div class="d-flex justify-content-end" (click)="$event.stopPropagation()">
+            <rwa-button
+                sizeType="md"
+                [width]="'62px'"
+                (onClick)="onProductTypeSave()"
+                [disable]="
+                    !curProductType.user_membership && !curProductType.user_locker && !curProductType.user_sportswear
+                "
+            >
+                <ng-template btIdleContent><span class="save-bt-text">저장</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+    <div
+        class="product-name-dropdown"
+        [class.open]="openDropdown && filterType == 'productName'"
+        (click)="$event.stopPropagation()"
+    >
+        <rwa-text-field
+            [label]="'상품명 검색'"
+            [labelVisible]="true"
+            [placeholder]="'상품명'"
+            [width]="'255px'"
+            [textFieldType]="'search'"
+            [(ngModel)]="curProductName"
+        ></rwa-text-field>
+        <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onProductNameSave()" [disable]="!curProductName">
+            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
+        </rwa-button>
+    </div>
+    <div
+        class="person-in-charge-dropdown"
+        [class.open]="openDropdown && filterType == 'personInCharge'"
+        (click)="$event.stopPropagation()"
+    >
+        <rwa-text-field
+            [label]="'담당자명 또는 전화번호 검색'"
+            [labelVisible]="true"
+            [placeholder]="'담당자명'"
+            [width]="'255px'"
+            [textFieldType]="'search'"
+            [(ngModel)]="curPersonInCharge"
+        ></rwa-text-field>
+        <rwa-button
+            [width]="'62px'"
+            [height]="'42px'"
+            (onClick)="onPersonInChargeSave()"
+            [disable]="!curPersonInCharge"
+        >
+            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
+        </rwa-button>
+    </div>
+    <div
+        class="date-dropdown"
+        [class.open]="openDropdown && filterType == 'date'"
+        (click)="$event.stopPropagation()"
+    ></div>
+</button>

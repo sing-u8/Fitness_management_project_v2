@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core'
 import { StatsSalesSummaryItem } from '@schemas/stats-sales-summary'
 
+import { CommonModule } from '@angular/common'
+import { SharedModule } from '@shared/shared.module'
+
 import { Observe } from '@shared/helper/decorator/Observe'
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
@@ -12,6 +15,8 @@ type SummaryType = 'currentMonth' | 'today'
 
 @Component({
     selector: 'rwm-sale-summary',
+    standalone: true,
+    imports: [CommonModule, SharedModule],
     templateUrl: './sale-summary.component.html',
     styleUrls: ['./sale-summary.component.scss'],
 })

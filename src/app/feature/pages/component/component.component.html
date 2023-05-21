@@ -1798,7 +1798,25 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <rwm-sale-filter></rwm-sale-filter>
+        <rwm-sale-filter [filterType]="'date'" [disabled]="true"></rwm-sale-filter>
         <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'date'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter
+            [filterType]="'paymentType'"
+            [(paymentType)]="saleFilter1"
+            (paymentTypeChange)="onSaleFilter1Change($event)"
+        ></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'member'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'productType'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>
     </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center"></div>
 </div>

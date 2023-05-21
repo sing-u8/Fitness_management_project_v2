@@ -1,6 +1,8 @@
 import { Component, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
+import { SaleSummaryComponent } from '@feature/molecules/main/sale-summary/sale-summary.component'
+import { SaleFilterComponent } from '@feature/molecules/main/sale-filter/sale-filter.component'
 import { DirectivesModule } from '@shared/directives/directives.module'
 import { Observe } from '@shared/helper/decorator/Observe'
 
@@ -24,11 +26,12 @@ import dayjs from 'dayjs'
 import _ from 'lodash'
 import { takeUntil } from 'rxjs/operators'
 import { StatsSalesSummary, StatsSalesSummaryItem } from '@schemas/stats-sales-summary'
+import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 
 @Component({
     selector: 'rwp-component',
     standalone: true,
-    imports: [CommonModule, SharedModule, ReactiveFormsModule],
+    imports: [CommonModule, SharedModule, ReactiveFormsModule, SaleSummaryComponent, SaleFilterComponent],
     templateUrl: './component.component.html',
     styleUrls: ['./component.component.scss'],
 })
@@ -40,33 +43,33 @@ export class ComponentComponent implements OnDestroy {
     }
 
     constructor(private fb: FormBuilder) {
-        setInterval(() => {
-            this.button2.progress = (this.button2.progress + 5) % 100
-        }, 1000)
+        // setInterval(() => {
+        //     this.button2.progress = (this.button2.progress + 5) % 100
+        // }, 1000)
 
-        this.memo1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            // console.log('memo 1 -- text : ', v)
-        })
-        this.memo2.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            // console.log('memo 2 -- text : ', v)
-        })
-        this.memo3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            // console.log('memo 3 -- text : ', v)
-        })
+        // this.memo1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     // console.log('memo 1 -- text : ', v)
+        // })
+        // this.memo2.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     // console.log('memo 2 -- text : ', v)
+        // })
+        // this.memo3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     // console.log('memo 3 -- text : ', v)
+        // })
         this.memo2.disable()
-        this.memo4$.pipe(takeUntil(this.subject)).subscribe((v) => {
-            // console.log('memo 4 -- text : ', v)
-        })
+        // this.memo4$.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     // console.log('memo 4 -- text : ', v)
+        // })
+        //
+        // this.datepicker2$.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     // console.log('datepicker2$ -- subscribe : ', v)
+        // })
 
-        this.datepicker2$.pipe(takeUntil(this.subject)).subscribe((v) => {
-            // console.log('datepicker2$ -- subscribe : ', v)
-        })
-
-        this.textInput3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
-            this.textInput3.setValue(value, { emitEvent: false })
-            // console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
-        })
+        // this.textInput3.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
+        //     this.textInput3.setValue(value, { emitEvent: false })
+        //     // console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
+        // })
     }
 
     public modalSendLink = false
@@ -430,5 +433,14 @@ export class ComponentComponent implements OnDestroy {
             trans: '200000',
             unpaid: '10000',
         },
+    }
+
+    public saleFilter1: FilterMapTypeCode = {
+        payment_type_refund: false,
+        payment_type_payment: false,
+        payment_type_transfer: false,
+    }
+    onSaleFilter1Change(e: FilterMapTypeCode) {
+        console.log('onSaleFilter1Change : ', e, ' - sale Filter 1 : ', this.saleFilter1)
     }
 }

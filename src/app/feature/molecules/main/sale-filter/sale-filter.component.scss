@@ -1,0 +1,116 @@
+@import './src/styles.scss';
+
+* {
+    @include css-init;
+}
+
+.l-sale-filter {
+    position: relative;
+    border: 1px solid var(--gray-60);
+    outline: none;
+    box-sizing: border-box;
+    padding: 5px 12px 5px 14px;
+    border-radius: 15px;
+    background-color: var(--gray-30);
+    cursor: pointer;
+    max-height: 40px;
+    @include rw-type-r(1.7rem, 28px, var(--gray-100));
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    &:hover {
+        border: 1px solid var(--gray-90);
+    }
+    &:active {
+        border: 1px solid var(--gray-90);
+    }
+
+    &.focused {
+        &:focus {
+            border: 2px solid var(--font-color);
+            padding: 4px 11px 4px 13px;
+        }
+    }
+    &.open {
+        border: 1px solid var(--gray-90);
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+        &:hover {
+            border: 1px solid var(--gray-60);
+        }
+        &:active {
+            border: 1px solid var(--gray-60);
+        }
+    }
+
+    .date-dropdown,
+    .payment-type-dropdown,
+    .member-dropdown,
+    .product-type-dropdown,
+    .product-name-dropdown,
+    .person-in-charge-dropdown {
+        display: none;
+        position: absolute;
+        top: 47px;
+        left: 0;
+        padding: 20px;
+        cursor: auto;
+
+        border: 1px solid var(--gray-60);
+        @include card-shadow();
+        border-radius: 14px;
+        background-color: var(--white);
+
+        &.open {
+            display: flex;
+        }
+    }
+
+    .payment-type-dropdown,
+    .product-type-dropdown {
+        flex-direction: column;
+
+        .l-checkbox {
+            min-width: 170px;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+            rwa-checkbox {
+                &:not(:last-of-type) {
+                    margin-bottom: 15px;
+                }
+            }
+        }
+        .save-bt-text {
+            @include rw-type-b(1.7rem, 28px, var(--white));
+        }
+    }
+
+    .member-dropdown,
+    .product-name-dropdown,
+    .person-in-charge-dropdown {
+        min-width: 367px;
+        min-height: 115px;
+        align-items: flex-end;
+        rwa-button {
+            margin: 0 0 3px 10px;
+        }
+    }
+
+    .filter-value-text {
+        @include rw-type-b(1.7rem, 28px, var(--font-color));
+        margin-right: 6px;
+    }
+    .filter-value-divider {
+        width: 1px;
+        height: 15px;
+        border-right: 1px solid var(--gray-60);
+        margin: 0 8px;
+    }
+}

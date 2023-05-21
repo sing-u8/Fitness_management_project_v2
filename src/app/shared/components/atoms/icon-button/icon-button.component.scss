@@ -32,4 +32,10 @@
     &:active {
         border: none !important;
     }
+    &:disabled {
+        cursor: not-allowed;
+        &:hover {
+            opacity: 1;
+        }
+    }
 }

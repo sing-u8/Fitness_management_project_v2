@@ -76,6 +76,9 @@ export class IconButtonComponent implements AfterViewInit {
     @Input() sizeType: 'lg' | 'md' | 'sm' = undefined
     @Input() borderRadius = '15px'
 
+    @Input() disabled = false
+    @Input() disableBgColor = 'var(--white)'
+
     @Input() loadingSize: Size = 'small'
     @Input() loadingColor = 'var(--white)'
     @Input() loadingName = 'icon-button-loading'
@@ -87,6 +90,7 @@ export class IconButtonComponent implements AfterViewInit {
     @Observe('bgColor') bgColor$: Observable<string>
     @Observe('borderRadius') borderRadius$: Observable<string>
     @Observe('status') status$: Observable<Loading>
+    @Observe('disabled') disabled$: Observable<boolean>
 
     @ViewChild('l_button') l_button_el: ElementRef
 
@@ -155,6 +159,14 @@ export class IconButtonComponent implements AfterViewInit {
         })
         this.bgColor$.subscribe((bg) => {
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+        })
+
+        this.disabled$.subscribe((disable) => {
+            if (disable) {
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.disableBgColor}`)
+            } else {
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.bgColor}`)
+            }
         })
     }
 }

@@ -383,6 +383,9 @@ $nd_width: 275px;
         }
         rwa-ghost-button {
             margin-top: 24px;
+            &.lg-bt {
+                margin-top: 21px;
+            }
         }
         .inquiry-text {
             @include rw-type-r(1.7rem, 28px, var(--gray-90));

@@ -157,7 +157,7 @@ $additional_width: 7px;
                 &.focused {
                     &:focus {
                         border: 2px solid var(--font-color);
-                        background-color: transparent;
+                        background-color: var(--white);
                         color: var(--font-color);
                     }
                 }

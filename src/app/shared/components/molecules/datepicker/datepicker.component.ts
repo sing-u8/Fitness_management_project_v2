@@ -19,9 +19,11 @@ import { Observable } from 'rxjs'
 
 import dayjs from 'dayjs'
 import isSameOrBefor from 'dayjs/plugin/isSameOrBefore'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import isBetween from 'dayjs/plugin/isBetween'
 dayjs.extend(isSameOrBefor)
+dayjs.extend(isSameOrAfter)
 dayjs.extend(weekOfYear)
 dayjs.extend(isBetween)
 
@@ -38,7 +40,6 @@ export type Data = CalMultiDate | CalDate | CalWeekDate | any
 export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit {
     @Input() isShadow = true
     @Input() mode: 'date' | 'week' | 'multiline' = 'multiline'
-    @Input() calendarType: 'oneMonth' | 'twoMonth' = 'oneMonth'
     @Input() option:
         | 'normal'
         | 'register'
@@ -87,7 +88,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     isHoverBetween(weekCol) {
         return (
             dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate) &&
-            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
+            dayjs(this.hoveredEndDate).isSameOrAfter(this.selectedMultiDateObj.startDate)
         )
     }
     isHoverSelect(weekCol) {
@@ -97,7 +98,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
         )
     }
 
-    public changed = false
+    public isViewInit = false
     public afterViewCheckedDate
     public afterViewCheckedStartDate
 
@@ -105,12 +106,19 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     ngOnInit() {
         this.setDatePick()
         this.data$.subscribe((v) => {
-            this.changed = true
             this.getDays(this.currentDate)
         })
     }
-    ngOnChanges(changes: SimpleChanges) {}
-    ngAfterViewInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        if (this.checkDifference(changes) && this.isViewInit) {
+            this.resetDateVars()
+            this.setDatePick()
+            this.getDays(this.currentDate)
+        }
+    }
+    ngAfterViewInit() {
+        this.isViewInit = true
+    }
     ngAfterViewChecked() {}
 
     public isMouseDown = false
@@ -151,16 +159,17 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     checkDifference(changes: SimpleChanges) {
         if (
             changes['data']['currentValue']?.date &&
+            changes['data']['previousValue']?.date &&
             changes['data']['currentValue']['date'] != changes['data']['previousValue']['date']
         ) {
             return true
-        } else if (
-            changes['data']['currentValue']?.startDate != changes['data']['previousValue']?.startDate ||
-            changes['data']['currentValue']?.endDate != changes['data']['previousValue']?.endDate
-        ) {
-            return true
         } else {
-            return false
+            return (
+                (changes['data']['currentValue']?.date &&
+                    changes['data']['previousValue']?.date &&
+                    changes['data']['currentValue']?.startDate != changes['data']['previousValue']?.startDate) ||
+                changes['data']['currentValue']?.endDate != changes['data']['previousValue']?.endDate
+            )
         }
     }
 

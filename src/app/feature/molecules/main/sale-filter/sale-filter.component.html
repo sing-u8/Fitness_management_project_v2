@@ -10,7 +10,7 @@
     (click)="_onClick()"
     (rwClickOutside)="onClickOutside()"
 >
-    <span class="type-name">{{ typeName }}</span>
+    <span *ngIf="filterType != 'date'" class="type-name">{{ typeName }}</span>
     <ng-container *ngIf="!filterValueExist">
         <rwa-icon-button
             [style.margin-left]="'6px'"
@@ -40,11 +40,83 @@
                 </ng-template>
             </rwa-icon-button>
         </div>
-        <div *ngIf="filterType == 'member'" class="d-flex align-items-center"></div>
-        <div *ngIf="filterType == 'productType'" class="d-flex align-items-center"></div>
-        <div *ngIf="filterType == 'productName'" class="d-flex align-items-center"></div>
-        <div *ngIf="filterType == 'personInCharge'" class="d-flex align-items-center"></div>
-        <div *ngIf="filterType == 'date'" class="d-flex align-items-center"></div>
+        <div *ngIf="filterType == 'member'" class="d-flex align-items-center">
+            <div class="filter-value-divider"></div>
+            <span class="filter-value-text">{{ curMember }}</span>
+            <rwa-icon-button
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'24px'"
+                [height]="'24px'"
+                (click)="resetData(); openDropdown = false; $event.stopPropagation()"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-close-fill [width]="'24px'" [height]="'24px'"></rwa-svg-close-fill>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
+        <div *ngIf="filterType == 'productType'" class="d-flex align-items-center">
+            <div class="filter-value-divider"></div>
+            <span class="filter-value-text">{{ selectedProductType }}</span>
+            <rwa-icon-button
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'24px'"
+                [height]="'24px'"
+                (click)="resetData(); openDropdown = false; $event.stopPropagation()"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-close-fill [width]="'24px'" [height]="'24px'"></rwa-svg-close-fill>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
+        <div *ngIf="filterType == 'productName'" class="d-flex align-items-center">
+            <div class="filter-value-divider"></div>
+            <span class="filter-value-text">{{ curProductName }}</span>
+            <rwa-icon-button
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'24px'"
+                [height]="'24px'"
+                (click)="resetData(); openDropdown = false; $event.stopPropagation()"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-close-fill [width]="'24px'" [height]="'24px'"></rwa-svg-close-fill>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
+        <div *ngIf="filterType == 'personInCharge'" class="d-flex align-items-center">
+            <div class="filter-value-divider"></div>
+            <span class="filter-value-text">{{ curPersonInCharge }}</span>
+            <rwa-icon-button
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'24px'"
+                [height]="'24px'"
+                (click)="resetData(); openDropdown = false; $event.stopPropagation()"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-close-fill [width]="'24px'" [height]="'24px'"></rwa-svg-close-fill>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
+        <div *ngIf="filterType == 'date'" class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center" [style.margin-right]="'12px'">
+                <div class="calendar-icon" [style.margin-right]="'5px'"></div>
+                <span class="date-text">{{ dateText }}</span>
+            </div>
+            <rwa-icon-button
+                [style.margin-left]="'6px'"
+                [disabled]="disabled"
+                [borderRadius]="'2px'"
+                [width]="'18px'"
+                [height]="'18px'"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-caret-down [width]="'18px'" [height]="'18px'" [margin]="'0'"></rwa-svg-caret-down>
+                </ng-template>
+            </rwa-icon-button>
+        </div>
     </ng-container>
 
     <div
@@ -96,6 +168,7 @@
             [width]="'255px'"
             [textFieldType]="'search'"
             [(ngModel)]="curMember"
+            (click)="$event.stopPropagation()"
         ></rwa-text-field>
         <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onMemberSave()" [disable]="!curMember">
             <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
@@ -175,9 +248,7 @@
             <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
         </rwa-button>
     </div>
-    <div
-        class="date-dropdown"
-        [class.open]="openDropdown && filterType == 'date'"
-        (click)="$event.stopPropagation()"
-    ></div>
+    <div class="date-dropdown" [class.open]="openDropdown && filterType == 'date'" (click)="$event.stopPropagation()">
+        <rwm-dropdown-datepicker [(date)]="curDate" (onDateSave)="onDateSave($event)"></rwm-dropdown-datepicker>
+    </div>
 </button>

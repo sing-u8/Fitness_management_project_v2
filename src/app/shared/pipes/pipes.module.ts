@@ -6,10 +6,18 @@ import { MinuteSecondsPipe } from './minute-seconds.pipe'
 import { NumberWithCommasPipe } from './numberWithCommas.pipe'
 import { AbsNumberPipe } from './abs-number.pipe'
 import { RateOfChangePipe } from './rate-of-change.pipe'
+import { DateFormatPipe } from './date-format.pipe'
 
 @NgModule({
-    declarations: [MinuteSecondsPipe, PadStartPipe, NumberWithCommasPipe, AbsNumberPipe, RateOfChangePipe],
+    declarations: [
+        MinuteSecondsPipe,
+        PadStartPipe,
+        NumberWithCommasPipe,
+        AbsNumberPipe,
+        RateOfChangePipe,
+        DateFormatPipe,
+    ],
     imports: [CommonModule],
-    exports: [MinuteSecondsPipe, PadStartPipe, NumberWithCommasPipe, AbsNumberPipe, RateOfChangePipe],
+    exports: [MinuteSecondsPipe, PadStartPipe, NumberWithCommasPipe, AbsNumberPipe, RateOfChangePipe, DateFormatPipe],
 })
 export class PipesModule {}

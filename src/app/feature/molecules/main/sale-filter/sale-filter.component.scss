@@ -72,6 +72,10 @@
         }
     }
 
+    .date-dropdown {
+        padding: 0;
+    }
+
     .payment-type-dropdown,
     .product-type-dropdown {
         flex-direction: column;
@@ -112,5 +116,9 @@
         height: 15px;
         border-right: 1px solid var(--gray-60);
         margin: 0 8px;
+    }
+
+    .date-text {
+        @include rw-type-b(1.7rem, 28px, var(--gray-100));
     }
 }

@@ -783,6 +783,14 @@ body {
     width: 20px;
     height: 20px;
 }
+.calendar-icon {
+    background-image: url("/assets/icons/etc/calendar.svg");
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+}
 
 // Tooltip
 .rw-tooltip {

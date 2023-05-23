@@ -2,7 +2,7 @@ import { Component, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { SaleSummaryComponent } from '@feature/molecules/main/sale-summary/sale-summary.component'
-import { SaleFilterComponent } from '@feature/molecules/main/sale-filter/sale-filter.component'
+import { DateType, SaleFilterComponent } from "@feature/molecules/main/sale-filter/sale-filter.component";
 import { DirectivesModule } from '@shared/directives/directives.module'
 import { Observe } from '@shared/helper/decorator/Observe'
 
@@ -433,6 +433,15 @@ export class ComponentComponent implements OnDestroy {
             trans: '200000',
             unpaid: '10000',
         },
+    }
+
+    public dateFilter = {
+        startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+        endDate: dayjs().endOf('month').format('YYYY-MM-DD'),
+    }
+    onDateFilterChange(e: DateType) {
+        this.dateFilter = _.cloneDeep(e)
+        console.log('onDateFilterChange : ', e, ' - date filter : ', this.dateFilter)
     }
 
     public saleFilter1: FilterMapTypeCode = {

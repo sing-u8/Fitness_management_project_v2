@@ -1,0 +1,218 @@
+<section class="l-dropdown-datepicker">
+    <div class="l-category">
+        <div class="category">
+            <rwa-tab-sm [tabs]="tabs" (onTabItemSelected)="tabs = $event"></rwa-tab-sm>
+        </div>
+    </div>
+    <div *ngIf="tabs[0].selected" class="l-date-picker">
+        <div class="l-date-tag">
+            <div class="tags">
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'whole' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'whole' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'whole' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'whole' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'whole' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('whole')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'whole'">전체</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'today' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'today' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'today' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'today' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'today' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('today')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'today'">오늘</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'yesterday' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'yesterday' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'yesterday' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'yesterday' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'yesterday' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('yesterday')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'yesterday'">어제</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'thisYear' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'thisYear' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'thisYear' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'thisYear' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'thisYear' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('thisYear')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'thisYear'">올해</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'lastYear' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'lastYear' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'lastYear' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'lastYear' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'lastYear' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('lastYear')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'lastYear'">작년</span></ng-template
+                    ></rwa-ghost-button
+                >
+            </div>
+            <div class="tags">
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'thisWeek' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'thisWeek' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'thisWeek' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'thisWeek' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'thisWeek' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('thisWeek')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'thisWeek'">이번 주</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'lastWeek' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'lastWeek' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'lastWeek' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'lastWeek' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'lastWeek' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('lastWeek')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'lastWeek'">지난 주</span></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'thisMonth' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'thisMonth' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'thisMonth' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'thisMonth' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'thisMonth' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('thisMonth')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'thisMonth'"
+                            >이번 달</span
+                        ></ng-template
+                    ></rwa-ghost-button
+                >
+                <rwa-ghost-button
+                    height="33px"
+                    padding="5px 11px 4px"
+                    [hoverBgColor]="selectedTag == 'lastMonth' ? 'var(--red-5)' : 'var(--gray-30)'"
+                    [hoverBorderColor]="selectedTag == 'lastMonth' ? 'var(--red-100)' : 'var(--gray-60)'"
+                    [bgColor]="selectedTag == 'lastMonth' ? 'var(--red-5)' : 'var(--white)'"
+                    [borderColor]="selectedTag == 'lastMonth' ? 'var(--red-100)' : 'var(--gray-50)'"
+                    [fontColor]="selectedTag == 'lastMonth' ? 'var(--red-100)' : 'var(--gray-100)'"
+                    (onClick)="onClickTag('lastMonth')"
+                    ><ng-template gbtIdleContent
+                        ><span class="tag-text" [class.selected]="selectedTag == 'lastMonth'"
+                            >지난 달</span
+                        ></ng-template
+                    ></rwa-ghost-button
+                >
+            </div>
+        </div>
+        <rwm-datepicker
+            [isShadow]="false"
+            [(data)]="date"
+            (dataChange)="checkDateTag(); updateMonthItemSelected()"
+        ></rwm-datepicker>
+        <div class="l-save-button">
+            <div class="date-range">
+                <ng-container
+                    *ngIf="
+                        (selectedTag != 'whole' && date.startDate) || (date.startDate && date.startDate == date.endDate)
+                    "
+                >
+                    {{ date.startDate | dateFormat : 'YY년 M월 D일' }}
+                </ng-container>
+                <ng-container *ngIf="date.startDate && date.endDate && date.startDate != date.endDate">
+                    &nbsp;~&nbsp;{{ date.endDate | dateFormat : 'YY년 M월 D일' }}
+                </ng-container>
+            </div>
+            <rwa-button
+                [height]="'42px'"
+                [width]="'62px'"
+                (onClick)="onDateSave.emit(date)"
+                [disable]="!date.startDate && !date.endDate"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+    <div *ngIf="tabs[1].selected" class="l-month-picker">
+        <div class="rw-type-b17 month-picker-header">
+            <button
+                #date_prev_y
+                class="icon-button"
+                (mousedown)="onMouseDown()"
+                (mouseup)="onMouseUp()"
+                (focusin)="onFocus(date_prev_y)"
+                (focusout)="onFocusOut(date_prev_y)"
+                (click)="setMonthDateYear('prev'); date_prev_y.blur()"
+            >
+                <div class="caret-cl"></div>
+            </button>
+            <p>{{ monthDate.year }}년</p>
+            <button
+                #date_prev_m
+                class="icon-button"
+                (mousedown)="onMouseDown()"
+                (mouseup)="onMouseUp()"
+                (focusin)="onFocus(date_prev_m)"
+                (focusout)="onFocusOut(date_prev_m)"
+                (click)="setMonthDateYear('next'); date_prev_m.blur()"
+            >
+                <div class="caret-cr"></div>
+            </button>
+        </div>
+        <div class="l-month-item">
+            <rwa-ghost-button
+                *ngFor="let item of monthItems; let i = index"
+                [width]="'60px'"
+                [height]="'60px'"
+                [borderRadius]="'14px'"
+                [hoverBgColor]="item.selected ? 'var(--red-5)' : 'var(--gray-30)'"
+                [hoverBorderColor]="item.selected ? 'var(--red-100)' : 'var(--gray-60)'"
+                [bgColor]="item.selected ? 'var(--red-5)' : 'var(--white)'"
+                [borderColor]="item.selected ? 'var(--red-100)' : 'var(--gray-50)'"
+                [fontColor]="item.selected ? 'var(--red-100)' : 'var(--gray-100)'"
+                (click)="setMonthDateMonth(i)"
+            >
+                <ng-template gbtIdleContent>
+                    <span class="month-text" [class.selected]="item.selected">{{ item.name }}</span>
+                </ng-template>
+            </rwa-ghost-button>
+        </div>
+        <div class="l-save-button">
+            <rwa-button
+                [height]="'42px'"
+                [width]="'62px'"
+                (onClick)="onDateSave.emit(date)"
+                [disable]="!date.startDate && !date.endDate"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</section>

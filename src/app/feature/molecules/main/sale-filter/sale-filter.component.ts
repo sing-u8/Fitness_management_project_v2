@@ -19,6 +19,8 @@ import { takeUntil } from 'rxjs/operators'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
+import { DropdownDatepickerComponent } from '@feature/molecules/main/dropdown-datepicker/dropdown-datepicker.component'
+import dayjs from 'dayjs'
 
 export type FilterType = 'date' | 'paymentType' | 'member' | 'productType' | 'productName' | 'personInCharge'
 export type DateType = { startDate: string; endDate: string }
@@ -41,7 +43,7 @@ const filterMapProductTypeCodeInit: FilterMapProductTypeCode = {
 @Component({
     selector: 'rwm-sale-filter',
     standalone: true,
-    imports: [CommonModule, SharedModule],
+    imports: [CommonModule, SharedModule, DropdownDatepickerComponent],
     templateUrl: './sale-filter.component.html',
     styleUrls: ['./sale-filter.component.scss'],
 })
@@ -91,6 +93,14 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
         this.filterType$.pipe(takeUntil(this.subject)).subscribe(() => {
             this.setTypeName()
         })
+
+        this.date$.pipe(takeUntil(this.subject)).subscribe((v) => {
+            this.curDate = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+
+            console.log('date$ -- ', this.curDate, this.filterValueExist)
+        })
     }
     ngOnDestroy() {
         this.subject.next(true)
@@ -123,8 +133,37 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
 
     // // -- Input() : actually applied value / cur- : current value
     // for date
+    @Observe('date') date$: Observable<DateType>
     @Input() date: DateType = _.cloneDeep(dateInit)
+    @Output() dateChange = new EventEmitter<DateType>()
     public curDate: DateType = _.cloneDeep(dateInit)
+    onDateSave(event) {
+        console.log('before date save : ', event, this.curDate, this.date)
+        this.date = _.cloneDeep(event)
+        this.getDateText()
+        this.openDropdown = false
+        this.checkFilterValueExist()
+    }
+    checkOneMonthDate() {
+        const monthDate = {
+            startDate: dayjs(this.date.startDate).startOf('month').format('YYYY-MM-DD'),
+            endDate: dayjs(this.date.startDate).endOf('month').format('YYYY-MM-DD'),
+        }
+        return monthDate.startDate == this.date.startDate && monthDate.endDate == this.date.endDate
+    }
+    public dateText = ''
+    getDateText() {
+        if (this.checkOneMonthDate()) {
+            this.dateText = dayjs(this.date.startDate).format('YY년 M월')
+        } else {
+            this.dateText =
+                this.date.startDate != '1950-01-01'
+                    ? `${dayjs(this.date.startDate).format('YY년 M월 D일')} ~ ${dayjs(this.date.endDate).format(
+                          'YY년 M월 D일'
+                      )}`
+                    : ` ~ ${dayjs(this.date.endDate).format('YY년 M월 D일')}`
+        }
+    }
     // for payment type
     @Input() paymentType: FilterMapTypeCode = _.cloneDeep(filterMapTypeCodeInit)
     @Output() paymentTypeChange = new EventEmitter<FilterMapTypeCode>()
@@ -241,7 +280,9 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
     checkFilterValueExist() {
         switch (this.filterType) {
             case 'date':
-                this.filterValueExist = !_.isEmpty(this.date.startDate) && !_.isEmpty(this.date.endDate)
+                this.filterValueExist =
+                    !_.isEmpty(this.date.startDate) ||
+                    (!_.isEmpty(this.date.startDate) && !_.isEmpty(this.date.endDate))
                 break
             case 'paymentType':
                 this.filterValueExist =
@@ -263,6 +304,7 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
                 this.filterValueExist = !_.isEmpty(this.personInCharge)
                 break
         }
-        console.log('check filter value exist : ', this.paymentType, this.filterValueExist)
     }
+
+    protected readonly undefined = undefined
 }

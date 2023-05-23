@@ -1,0 +1,150 @@
+@import './src/styles.scss';
+
+* {
+    @include css-init;
+}
+
+.l-dropdown-datepicker {
+    background: var(--white);
+    border: 1px solid var(--gray-60);
+    @include card-shadow();
+    border-radius: 14px;
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    .l-category {
+        box-sizing: border-box;
+        border-bottom: 1px solid var(--gray-50);
+        position: relative;
+        .category {
+            width: 100%;
+            height: 100%;
+            padding: 17px 25px 0;
+        }
+    }
+    .l-date-picker {
+        display: flex;
+        flex-direction: column;
+
+        .l-date-tag {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px 3px;
+            .tags {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                &:not(:last-of-type) {
+                    margin-bottom: 11px;
+                }
+                .tag-text {
+                    @include rw-type-r(1.5rem, 23px, var(--gray-100));
+                    &.selected {
+                        @include rw-type-b(1.5rem, 23px, var(--red-100));
+                    }
+                }
+            }
+        }
+        .l-save-button {
+            width: 100%;
+            height: 63px;
+            @include lower-bar-shadow();
+            padding: 10px 25px 11px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .date-range {
+                @include rw-type-r(1.5rem, 23px, var(--font-color));
+            }
+        }
+    }
+    .l-month-picker {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 25px 25px 25px;
+        .month-picker-header {
+            width: 140px;
+            height: 29px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 0 8px 20px;
+        }
+        .l-month-item {
+            display: grid;
+            gap: 15px;
+            grid-template-rows: repeat(3, 60px);
+            grid-template-columns: repeat(4, 60px);
+            width: 285px;
+            height: 210px;
+            .month-text {
+                @include rw-type-r(1.5rem, 23px, var(--gray-100));
+                &.selected {
+                    @include rw-type-b(1.5rem, 23px, var(--red-100));
+                }
+            }
+        }
+        .l-save-button {
+            width: 100%;
+            margin: 25px 0 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            .date-range {
+                @include rw-type-r(1.5rem, 23px, var(--font-color));
+            }
+        }
+    }
+
+    .save-button-text {
+        @include rw-type-b(1.7rem, 28px, var(--white));
+    }
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    &.focused {
+        &:focus {
+            border: 2px solid var(--font-color);
+            background-color: var(--white);
+        }
+    }
+}
+
+.caret-cl {
+    background-image: url('/assets/icons/arrow/caret-circle-left.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-width: 26px;
+    min-height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-left-duotone.svg');
+    }
+}
+.caret-cr {
+    background-image: url('/assets/icons/arrow/caret-circle-right.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    min-width: 26px;
+    min-height: 26px;
+    cursor: pointer;
+    shape-rendering: geometricPrecision;
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-right-duotone.svg');
+    }
+}

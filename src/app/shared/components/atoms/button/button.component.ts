@@ -14,7 +14,6 @@ import {
     SimpleChanges,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
-import { Observe } from '@shared/helper/decorator/Observe'
 import { Observable } from 'rxjs'
 import { changesOn } from '@shared/helper/component-helper'
 
@@ -81,15 +80,6 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
     @Input() padding = '7.5px 16px 5.5px 16px' // padding prop
     @Input() width // ex) 20px, 2rem
     @Input() height = '45px' // ex) 40px 4rem
-
-    @Observe('width') width$: Observable<string>
-    @Observe('height') height$: Observable<string>
-    @Observe('status') status$: Observable<Loading>
-    @Observe('disable') disable$: Observable<boolean>
-    @Observe('bgColor') bgColor$: Observable<string>
-    @Observe('fontColor') fontColor$: Observable<string>
-    @Observe('progressBgColor') progressBgColor$: Observable<string>
-    @Observe('sizeType') sizeType$: Observable<'lg' | 'md'>
 
     @ViewChild('l_button') l_button_el: ElementRef
     @ViewChild('progress') progress_el: ElementRef

@@ -21,6 +21,9 @@
     align-items: center;
     justify-content: space-between;
 
+    &.value-exist {
+        border: 1px solid var(--gray-90);
+    }
     &:hover {
         border: 1px solid var(--gray-90);
     }
@@ -110,6 +113,7 @@
     .filter-value-text {
         @include rw-type-b(1.7rem, 28px, var(--font-color));
         margin-right: 6px;
+        white-space: nowrap;
     }
     .filter-value-divider {
         width: 1px;
@@ -120,5 +124,10 @@
 
     .date-text {
         @include rw-type-b(1.7rem, 28px, var(--gray-100));
+        white-space: nowrap;
+    }
+    .type-name {
+        @include rw-type-r(1.7rem, 28px, var(--font-color));
+        white-space: nowrap;
     }
 }

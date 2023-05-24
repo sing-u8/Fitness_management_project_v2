@@ -29,7 +29,6 @@ export class MainTabletHeaderComponent implements OnDestroy {
     constructor(private route: Router) {
         this.routeSub = this.route.events.subscribe((event) => {
             if (event instanceof NavigationEnd) {
-                console.log('navigation end event : ', event)
                 this.routeName = matchRoute(event.url)
             }
         })

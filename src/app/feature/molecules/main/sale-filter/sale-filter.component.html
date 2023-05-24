@@ -2,6 +2,7 @@
     #l_button
     [disabled]="disabled"
     class="l-sale-filter"
+    [class.value-exist]="filterValueExist"
     [class.open]="openDropdown"
     (mousedown)="onMouseDown()"
     (mouseup)="onMouseUp()"

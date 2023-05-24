@@ -1,1 +1,74 @@
-<p>sales works!</p>
+<section class="l-sales">
+    <div class="l-summary">
+        <rwm-sale-summary [summaryType]="'currentMonth'"></rwm-sale-summary>
+        <rwm-sale-summary [summaryType]="'today'"></rwm-sale-summary>
+    </div>
+    <div class="l-sale-table">
+        <div class="l-sale-table-header">
+            <div class="sale-table__title">매출</div>
+            <div class="l-sale-table-header-button">
+                <div class="l-file-download-dropdown">
+                    <rwa-ghost-button
+                        [height]="'42px'"
+                        [bgColor]="'var(--red-5)'"
+                        [hoverBgColor]="'var(--red-10)'"
+                        [fontColor]="'var(--red-100)'"
+                        [progressBgColor]="'var(--red-10)'"
+                        [borderColor]="'var(--red-100)'"
+                        [hoverBorderColor]="'var(--red-100)'"
+                        [disableBgColor]="'#EEEEEE'"
+                        [padding]="'7.5px 15px 5.5px 11px'"
+                        (onClick)="showFileDownloadDropdown = !showFileDownloadDropdown"
+                        (rwClickOutside)="showFileDownloadDropdown = false"
+                    >
+                        <ng-template gbtIdleContent>
+                            <div class="sale-header-button__text red">
+                                <div *ngIf="!showFileDownloadDropdown" class="file-download-icon--red"></div>
+                                <div *ngIf="showFileDownloadDropdown" class="caret-up-1-icon--red"></div>
+                                엑셀 파일로 다운로드
+                            </div>
+                        </ng-template>
+                    </rwa-ghost-button>
+                    <div class="file-download-dropdown" [class.fdd-open]="showFileDownloadDropdown">
+                        <rwa-button
+                            [width]="'225px'"
+                            [padding]="'8px 18px'"
+                            [bgColor]="'var(--white)'"
+                            [hoverBgColor]="'var(--gray-30)'"
+                            [borderRadius]="'0'"
+                        >
+                            <ng-template btIdleContent>
+                                <span class="rw-type-r17">필터링한 부분만 다운로드</span>
+                            </ng-template>
+                        </rwa-button>
+                        <rwa-button
+                            [width]="'225px'"
+                            [padding]="'8px 18px'"
+                            [bgColor]="'var(--white)'"
+                            [hoverBgColor]="'var(--gray-30)'"
+                            [borderRadius]="'0'"
+                        >
+                            <ng-template btIdleContent>
+                                <span class="rw-type-r17">필터링 없이 전체 다운로드</span>
+                            </ng-template>
+                        </rwa-button>
+                    </div>
+                </div>
+                <rwa-ghost-button [height]="'42px'" [padding]="'7.5px 15px 5.5px'">
+                    <ng-template gbtIdleContent>
+                        <div class="sale-header-button__text red">필터 초기화</div>
+                    </ng-template>
+                </rwa-ghost-button>
+            </div>
+        </div>
+        <div class="l-sale-filter scroll-x-overlay">
+            <rwm-sale-filter [filterType]="'date'" [(date)]="dateFilter"></rwm-sale-filter>
+            <rwm-sale-filter [filterType]="'paymentType'"></rwm-sale-filter>
+            <rwm-sale-filter [filterType]="'member'"></rwm-sale-filter>
+            <rwm-sale-filter [filterType]="'productType'"></rwm-sale-filter>
+            <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>
+            <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>
+        </div>
+        <div class="sale-table"></div>
+    </div>
+</section>

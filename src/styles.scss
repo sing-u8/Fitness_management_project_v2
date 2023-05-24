@@ -250,6 +250,11 @@ body {
     left: 0;
 }
 
+.b-1 {
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
 .thin-scroll-y-overlay {
     overflow-y: overlay;
 
@@ -790,6 +795,22 @@ body {
     background-size: contain;
     width: 24px;
     height: 24px;
+}
+.file-download-icon--red {
+    background-image: url("/assets/icons/etc/file-arrow-down-red.svg");
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+}
+.caret-up-1-icon--red {
+    background-image: url("/assets/icons/arrow/caret-up-1-red.svg");
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
 }
 
 // Tooltip

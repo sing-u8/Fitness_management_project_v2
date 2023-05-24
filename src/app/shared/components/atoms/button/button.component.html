@@ -28,9 +28,7 @@
             >
             </ngx-spinner>
         </div>
-        <ng-container [ngTemplateOutlet]="pendingRef.templateRef">
-            <span class="save-bt-text">저장</span>
-        </ng-container>
+        <ng-container [ngTemplateOutlet]="pendingRef.templateRef"> </ng-container>
     </div>
 
     <div *ngIf="status == 'done'" class="done d-flex align-items-center justify-content-center">

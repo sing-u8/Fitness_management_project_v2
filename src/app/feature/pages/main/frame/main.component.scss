@@ -47,10 +47,12 @@ section.l-section {
 
             .main-content {
                 @include layout-shadow;
-                background-color: var(--white);
+                //background-color: var(--white);
+                background-color: transparent;
                 height: 100%;
                 width: 100%;
                 border-radius: 20px;
+                position: relative;
             }
 
             .dummy {

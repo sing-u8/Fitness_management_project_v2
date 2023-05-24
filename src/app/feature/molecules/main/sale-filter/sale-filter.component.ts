@@ -98,8 +98,6 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
             this.curDate = _.cloneDeep(v)
             this.checkFilterValueExist()
             this.getDateText()
-
-            console.log('date$ -- ', this.curDate, this.filterValueExist)
         })
     }
     ngOnDestroy() {

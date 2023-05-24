@@ -1,0 +1,103 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+.l-sales {
+    display: flex;
+    flex-direction: column;
+    .l-summary {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 30px;
+
+        width: 100%;
+        rwm-sale-summary {
+            &:first-of-type {
+                margin: 0 0 30px 0;
+            }
+        }
+    }
+    .l-sale-table {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        min-height: 1063px;
+        background-color: var(--white);
+        @include layout-shadow();
+        border-radius: 20px;
+
+        .l-sale-table-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 23px 28px 0;
+            margin-bottom: 18px;
+            .sale-table__title {
+                @include rw-type-b(2rem, 31px, var(--font-color));
+            }
+            .l-sale-table-header-button {
+                width: 317px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .sale-header-button__text {
+                    display: flex;
+                    align-items: center;
+                    @include rw-type-b(1.7rem, 28px, var(--gray-90));
+                    &.red {
+                        color: var(--red) !important;
+                    }
+                }
+                .file-download-icon--red,
+                .caret-up-1-icon--red {
+                    margin-right: 5px;
+                }
+                .l-file-download-dropdown {
+                    position: relative;
+                    .file-download-dropdown {
+                        z-index: 5;
+                        position: absolute;
+                        display: none;
+                        flex-direction: column;
+                        left: 0;
+                        top: 47px;
+                        overflow: hidden;
+
+                        @include card-shadow();
+                        border: 1px solid var(--gray-60);
+                        border-radius: 14px;
+                        background-color: var(--white);
+                        width: 225px;
+                        padding: 10px 0;
+
+                        &.fdd-open {
+                            display: flex;
+                        }
+                    }
+                }
+            }
+        }
+        .l-sale-filter {
+            display: flex;
+            align-items: flex-start;
+            margin: 0 28px 0;
+            width: calc(100% - 56px);
+            height: 62px;
+            rwm-sale-filter {
+                &:not(:first-of-type) {
+                    margin-left: 15px;
+                }
+            }
+        }
+        .sale-table {
+            display: flex;
+            align-items: center;
+            padding: 28px;
+        }
+    }
+
+    @include rw-pc-sm {
+    }
+}

@@ -6,6 +6,8 @@
     [style.padding]="padding"
     [style.width]="width"
     [style.height]="height"
+    [style.color]="disable ? disableFontColor : fontColor"
+    [style.background-color]="disable ? disableBgColor : bgColor"
     [disabled]="disable"
     (click)="_onClick()"
     (mouseenter)="onHover()"
@@ -43,6 +45,7 @@
 
     <div
         #progress
+        [style.background-color]="progressBgColor"
         [style.visibility]="status == 'pending' ? 'visible' : 'hidden'"
         [style.width]="progressPercent + '%'"
         class="progress"

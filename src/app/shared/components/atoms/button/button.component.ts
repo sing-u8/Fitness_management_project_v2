@@ -10,10 +10,13 @@ import {
     Directive,
     TemplateRef,
     ContentChild,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
 import { Observe } from '@shared/helper/decorator/Observe'
 import { Observable } from 'rxjs'
+import { changesOn } from '@shared/helper/component-helper'
 
 import { Loading } from '@schemas/loading'
 
@@ -41,7 +44,7 @@ export class ButtonDoneContentDirective {
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements AfterViewInit {
+export class ButtonComponent implements AfterViewInit, OnChanges {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
         this.l_button_el.nativeElement.blur()
@@ -79,8 +82,8 @@ export class ButtonComponent implements AfterViewInit {
     @Input() width // ex) 20px, 2rem
     @Input() height = '45px' // ex) 40px 4rem
 
-    @Observe('width') width$: Observable<Loading>
-    @Observe('height') height$: Observable<Loading>
+    @Observe('width') width$: Observable<string>
+    @Observe('height') height$: Observable<string>
     @Observe('status') status$: Observable<Loading>
     @Observe('disable') disable$: Observable<boolean>
     @Observe('bgColor') bgColor$: Observable<string>
@@ -96,18 +99,9 @@ export class ButtonComponent implements AfterViewInit {
     @ContentChild(ButtonDoneContentDirective) doneRef!: ButtonDoneContentDirective
 
     constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
-    ngAfterViewInit() {
-        this.width$.subscribe((w) => {
-            if (w) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', `${w}`)
-            }
-        })
-        this.height$.subscribe((h) => {
-            if (h) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', `${h}`)
-            }
-        })
-        this.status$.subscribe((status) => {
+    ngOnChanges(changes: SimpleChanges) {
+        // console.log('ngOnChanges in button -- ', changes)
+        changesOn(changes, 'status', (status) => {
             if (status == 'pending') {
                 this.spinner.show(this.loadingName)
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
@@ -116,31 +110,25 @@ export class ButtonComponent implements AfterViewInit {
             }
         })
 
-        this.fontColor$.subscribe((fontColor) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'color', fontColor)
-        })
-        this.progressBgColor$.subscribe((pbg) => {
-            this.renderer.setStyle(this.progress_el.nativeElement, 'backgroundColor', `${pbg}`)
-        })
-        this.bgColor$.subscribe((bgColor) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
-        })
-        this.sizeType$.subscribe((v) => {
+        changesOn(changes, 'sizeType', (v) => {
             if (v == 'lg' && !this.height) {
                 this.height = '45px'
             } else if (v == 'md' && !this.height) {
                 this.height = '42px'
             }
         })
-
-        this.disable$.subscribe((disable) => {
-            if (disable) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.disableFontColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.disableBgColor}`)
-            } else {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.fontColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.bgColor}`)
-            }
-        })
+    }
+    ngAfterViewInit() {
+        if (this.status == 'pending') {
+            this.spinner.show(this.loadingName)
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+        } else {
+            this.spinner.hide(this.loadingName)
+        }
+        if (this.sizeType == 'lg' && !this.height) {
+            this.height = '45px'
+        } else if (this.sizeType == 'md' && !this.height) {
+            this.height = '42px'
+        }
     }
 }

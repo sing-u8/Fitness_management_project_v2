@@ -1,5 +1,6 @@
 // reference : https://engineering.leanix.net/blog/reactive-angular-components-inputs-observables/
 import { BehaviorSubject, Observable } from 'rxjs'
+import _ from 'lodash'
 
 type WithUndefined<T> = T | undefined
 
@@ -35,7 +36,7 @@ export function Observe<T>(observedKey: string): PropertyDecorator {
                 return getSubject(this)?.getValue()
             },
             set(instanceNewValue: T): void {
-                if (getSubject(this)?.getValue() != instanceNewValue) getSubject(this)?.next(instanceNewValue)
+                if (!_.isEqual(getSubject(this)?.getValue(), instanceNewValue)) getSubject(this)?.next(instanceNewValue)
             },
         })
     }

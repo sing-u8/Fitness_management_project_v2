@@ -9,13 +9,9 @@ import {
     AfterViewChecked,
     AfterViewInit,
     NgZone,
-    ViewChild,
-    ElementRef,
     Renderer2,
 } from '@angular/core'
 import _ from 'lodash'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
 
 import dayjs from 'dayjs'
 import isSameOrBefor from 'dayjs/plugin/isSameOrBefore'
@@ -53,7 +49,6 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
         | 'holdEnd' = 'normal'
 
     @Input() data: Data
-    @Observe('data') data$: Observable<Data>
     @Output() dataChange = new EventEmitter<Data>()
 
     public month: string
@@ -85,10 +80,11 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     onWeekColOut() {
         this.hoveredEndDate = ''
     }
+
     isHoverBetween(weekCol) {
         return (
             dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate) &&
-            dayjs(this.hoveredEndDate).isSameOrAfter(this.selectedMultiDateObj.startDate)
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
         )
     }
     isHoverSelect(weekCol) {
@@ -105,11 +101,11 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     constructor(private zone: NgZone, private renderer: Renderer2) {}
     ngOnInit() {
         this.setDatePick()
-        this.data$.subscribe((v) => {
-            this.getDays(this.currentDate)
-        })
     }
     ngOnChanges(changes: SimpleChanges) {
+        // detectChangesOn(changes, 'data', () => {
+        //     if (!_.isEmpty(this.currentDate)) this.getDays(this.currentDate)
+        // })
         if (this.checkDifference(changes) && this.isViewInit) {
             this.resetDateVars()
             this.setDatePick()
@@ -195,13 +191,48 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
 
             for (let index = 0; index < 7; index++) {
                 const date = currentDate.clone().startOf('year').week(week).startOf('week').add(index, 'day')
+                const date_format = date.format('YYYY-MM-DD')
                 const weekCol = {
                     day: date.format('D'),
                     week: weekNumber,
                     month: date.format('MM'),
                     year: date.format('YYYY'),
-                    date: date.format('YYYY-MM-DD'),
+                    date: date_format,
                     selected: false,
+                    // flag
+                    isEdge:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (this.selectedMultiDateObj.startDate == date_format ||
+                            this.selectedMultiDateObj.endDate == date_format),
+                    isStart:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        !_.isEmpty(this.selectedMultiDateObj.endDate) &&
+                        this.selectedMultiDateObj.startDate == date_format,
+                    isEnd: !_.isEmpty(this.selectedMultiDateObj) && this.selectedMultiDateObj.endDate == date_format,
+                    isSame:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        date_format == this.selectedMultiDateObj.startDate &&
+                        date_format == this.selectedMultiDateObj.endDate,
+                    isBetween:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        dayjs(date_format).isBetween(
+                            this.selectedMultiDateObj.startDate,
+                            this.selectedMultiDateObj.endDate
+                        ),
+                    isAvailable:
+                        this.option == 'register'
+                            ? !dayjs(date_format).isBefore(dayjs().format('YYYY-MM-DD'), 'day')
+                            : this.option == 'extend'
+                            ? !dayjs(date_format).isBefore(dayjs().format(this.selectedMultiDateObj.startDate), 'day')
+                            : true,
+                    // // tooltip flag
+                    tooltipDisabled:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (!this.selectedMultiDateObj.startDate ||
+                            dayjs(date_format).isSameOrBefore(this.selectedMultiDateObj.startDate)),
+                    tooltipTitle: this.selectedMultiDateObj?.startDate
+                        ? dayjs(date_format).diff(dayjs(this.selectedMultiDateObj.startDate), 'days') + 1
+                        : '',
                 }
 
                 if (date.format('YYYYMMDD') == this.today.format('YYYYMMDD')) {
@@ -232,6 +263,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
 
             for (let index = 7; index < 14; index++) {
                 const date = currentDate.clone().startOf('year').week(lastWeek).startOf('week').add(index, 'day')
+                const date_format = date.format('YYYY-MM-DD')
                 const weekCol = {
                     day: date.format('D'),
                     week: weekNumber,
@@ -241,6 +273,40 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
                     color: '#CFCFCF',
                     fontWeight: 400,
                     selected: false,
+                    // flag
+                    isEdge:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (this.selectedMultiDateObj.startDate == date_format ||
+                            this.selectedMultiDateObj.endDate == date_format),
+                    isStart:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        !_.isEmpty(this.selectedMultiDateObj.endDate) &&
+                        this.selectedMultiDateObj.startDate == date_format,
+                    isEnd: !_.isEmpty(this.selectedMultiDateObj) && this.selectedMultiDateObj.endDate == date_format,
+                    isSame:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        date_format == this.selectedMultiDateObj.startDate &&
+                        date_format == this.selectedMultiDateObj.endDate,
+                    isBetween:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        dayjs(date_format).isBetween(
+                            this.selectedMultiDateObj.startDate,
+                            this.selectedMultiDateObj.endDate
+                        ),
+                    isAvailable:
+                        this.option == 'register'
+                            ? !dayjs(date_format).isBefore(dayjs().format('YYYY-MM-DD'), 'day')
+                            : this.option == 'extend'
+                            ? !dayjs(date_format).isBefore(dayjs().format(this.selectedMultiDateObj.startDate), 'day')
+                            : true,
+                    // // tooltip flag
+                    tooltipDisabled:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (!this.selectedMultiDateObj.startDate ||
+                            dayjs(date_format).isSameOrBefore(this.selectedMultiDateObj.startDate)),
+                    tooltipTitle: this.selectedMultiDateObj?.startDate
+                        ? dayjs(date_format).diff(dayjs(this.selectedMultiDateObj.startDate), 'days') + 1
+                        : '',
                 }
 
                 if (this.mode == 'date') {
@@ -340,6 +406,7 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     // ------------------ multi line methods -----------------------------------------------------------------------------------
     multiLineSelectDate(weekCol) {
         this.setInitialLineDate(weekCol)
+        this.getDays(dayjs(weekCol.date))
     }
     // helper
     setInitialLineDate(weekCol) {
@@ -436,51 +503,5 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
         }
         return isToggled
     }
-
-    // deprecated 메세지가 나타났음 - 나중에 수정하기 !
-    isEdgeDate(weekCol) {
-        return this.selectedMultiDateObj.startDate == weekCol.date || this.selectedMultiDateObj.endDate == weekCol.date
-    }
-    isStartDate(weekCol) {
-        return this.selectedMultiDateObj.startDate == weekCol.date && !_.isEmpty(this.selectedMultiDateObj.endDate)
-    }
-    isEndDate(weekCol) {
-        return this.selectedMultiDateObj.endDate == weekCol.date
-    }
-    isSameDate(weekCol) {
-        return weekCol.date == this.selectedMultiDateObj.startDate && weekCol.date == this.selectedMultiDateObj.endDate
-    }
-    isBetween(weekCol) {
-        return dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.selectedMultiDateObj.endDate)
-        // ||  dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate)
-    }
-    getDayFromStartDate(weekCol) {
-        if (this.selectedMultiDateObj.startDate) {
-            const startDate = dayjs(this.selectedMultiDateObj.startDate)
-            const targetDate = dayjs(weekCol.date)
-            // return targetDate.diff(startDate, 'days')
-            return targetDate.diff(startDate, 'days') + 1
-        }
-        return 0
-    }
-    pastDisable(weekCol) {
-        return (
-            !this.selectedMultiDateObj.startDate ||
-            dayjs(weekCol.date).isSameOrBefore(this.selectedMultiDateObj.startDate)
-        )
-    }
-    isAvailableDate(weekCol) {
-        switch (this.option) {
-            case 'normal':
-                return true
-            case 'register':
-                return !dayjs(weekCol.date).isBefore(dayjs().format('YYYY-MM-DD'), 'day')
-            case 'extend':
-                return !dayjs(weekCol.date).isBefore(dayjs().format(this.selectedMultiDateObj.startDate), 'day')
-            default:
-                return false
-        }
-    }
-
     // --------- multiline component with mcPastUnAvailalble method ------------------------------------------------------------------------------------------------
 }

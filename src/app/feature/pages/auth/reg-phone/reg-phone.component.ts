@@ -13,8 +13,6 @@ import { User } from '@schemas/user'
 import { Registration } from '@schemas/appStore/registration.interface'
 import { Status } from '@schemas/components/status'
 
-import { Observe } from '@shared/helper/decorator/Observe'
-
 import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
 
 // rxjs
@@ -81,7 +79,7 @@ export class RegPhoneComponent implements OnInit, AfterViewInit, OnDestroy {
         private storageService: StorageService,
         private authService: AuthService,
         private inputHelper: InputHelperService,
-        private routerService: RouterService,
+        private routerService: RouterService
     ) {
         this.routerSubscription = this.routerService.initUserDataWhenPopstate()
         this.isSocialUser = this.storageService.isSocialUser()

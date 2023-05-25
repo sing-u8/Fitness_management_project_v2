@@ -1531,29 +1531,66 @@
 
     <p class="v-padding"></p>
     <p class="v-padding"></p>
-        <h2>텍스트 필드 - 드롭다운</h2>
-        <p class="v-padding"></p>
+    <h2>텍스트 필드 - 드롭다운</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-textfield-dropdown
+            [label]="'label'"
+            [items]="dropdown1"
+            [value]="ddV01"
+            (onSelectValue)="ddV01 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [label]="'label'"
+            [items]="dropdown1"
+            [value]="ddV1"
+            (onSelectValue)="ddV1 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            advice="도움말"
+            label="레이블"
+            [items]="dropdown1"
+            [value]="ddV1"
+            (onSelectValue)="ddV1 = $event"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [items]="dropdown2"
+            [value]="ddV2"
+            (onSelectValue)="ddV2 = $event"
+            label="레이블"
+            hint="힌트 메시지"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+        <rwa-textfield-dropdown
+            [items]="dropdown2"
+            [value]="ddV2"
+            (onSelectValue)="ddV2 = $event"
+            [labelVisible]="false"
+            [disable]="true"
+        ></rwa-textfield-dropdown>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
         <div class="d-flex align-items-center">
             <rwa-textfield-dropdown
-                [label]="'label'"
-                [items]="dropdown1"
-                [value]="ddV01"
-                (onSelectValue)="ddV01 = $event"
-            ></rwa-textfield-dropdown>
-            <div class="h-padding"></div>
-            <rwa-textfield-dropdown
-                [label]="'label'"
                 [items]="dropdown1"
                 [value]="ddV1"
                 (onSelectValue)="ddV1 = $event"
+                [label]="'label'"
             ></rwa-textfield-dropdown>
             <div class="h-padding"></div>
             <rwa-textfield-dropdown
+                [items]="dropdown1"
+                [value]="ddV1"
+                (onSelectValue)="ddV1 = $event"
                 advice="도움말"
                 label="레이블"
-                [items]="dropdown1"
-                [value]="ddV1"
-                (onSelectValue)="ddV1 = $event"
+                status="warning"
+                statusText="경고 메시지"
             ></rwa-textfield-dropdown>
             <div class="h-padding"></div>
             <rwa-textfield-dropdown
@@ -1562,6 +1599,8 @@
                 (onSelectValue)="ddV2 = $event"
                 label="레이블"
                 hint="힌트 메시지"
+                status="error"
+                statusText="에러 메시지"
             ></rwa-textfield-dropdown>
             <div class="h-padding"></div>
             <rwa-textfield-dropdown
@@ -1569,252 +1608,213 @@
                 [value]="ddV2"
                 (onSelectValue)="ddV2 = $event"
                 [labelVisible]="false"
-                [disable]="true"
             ></rwa-textfield-dropdown>
             <div class="h-padding"></div>
         </div>
-        <p class="v-padding"></p>
-        <div class="d-flex align-items-center">
-            <div class="d-flex align-items-center">
-                <rwa-textfield-dropdown
-                    [items]="dropdown1"
-                    [value]="ddV1"
-                    (onSelectValue)="ddV1 = $event"
-                    [label]="'label'"
-                ></rwa-textfield-dropdown>
-                <div class="h-padding"></div>
-                <rwa-textfield-dropdown
-                    [items]="dropdown1"
-                    [value]="ddV1"
-                    (onSelectValue)="ddV1 = $event"
-                    advice="도움말"
-                    label="레이블"
-                    status="warning"
-                    statusText="경고 메시지"
-                ></rwa-textfield-dropdown>
-                <div class="h-padding"></div>
-                <rwa-textfield-dropdown
-                    [items]="dropdown2"
-                    [value]="ddV2"
-                    (onSelectValue)="ddV2 = $event"
-                    label="레이블"
-                    hint="힌트 메시지"
-                    status="error"
-                    statusText="에러 메시지"
-                ></rwa-textfield-dropdown>
-                <div class="h-padding"></div>
-                <rwa-textfield-dropdown
-                    [items]="dropdown2"
-                    [value]="ddV2"
-                    (onSelectValue)="ddV2 = $event"
-                    [labelVisible]="false"
-                ></rwa-textfield-dropdown>
-                <div class="h-padding"></div>
-            </div>
-        </div>
+    </div>
 
-        <p class="v-padding"></p>
-        <p class="v-padding"></p>
-        <h2>텍스트 필드 - 메모</h2>
-        <p class="v-padding"></p>
-        <div class="d-flex align-items-center">
-            <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>
-            <div class="h-padding"></div>
-            <rwa-memo
-                [bgColor]="'var(--gray-30)'"
-                [formControl]="memo2"
-                [showButton]="true"
-                (onButtonClick)="onMemo2ButtonClick()"
-            ></rwa-memo>
-            <div class="h-padding"></div>
-            <rwa-memo [bgColor]="'var(--gray-30)'" [formControl]="memo3" [showButton]="true"></rwa-memo>
-            <div class="h-padding"></div>
-            <rwa-memo [bgColor]="'var(--gray-30)'" [(ngModel)]="memo4"></rwa-memo>
-            <div class="h-padding"></div>
-        </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>텍스트 필드 - 메모</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-memo [formControl]="memo1" (onButtonClick)="onMemo1ButtonClick()"></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo
+            [bgColor]="'var(--gray-30)'"
+            [formControl]="memo2"
+            [showButton]="true"
+            (onButtonClick)="onMemo2ButtonClick()"
+        ></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo [bgColor]="'var(--gray-30)'" [formControl]="memo3" [showButton]="true"></rwa-memo>
+        <div class="h-padding"></div>
+        <rwa-memo [bgColor]="'var(--gray-30)'" [(ngModel)]="memo4"></rwa-memo>
+        <div class="h-padding"></div>
+    </div>
 
-        <p class="v-padding"></p>
-        <p class="v-padding"></p>
-        <h2>모달 - 기본</h2>
-        <p class="v-padding"></p>
-        <div class="d-flex align-items-center">
-            <div [style.cursor]="'pointer'" (click)="modalBasic1 = true">modal basic1</div>
-            <rwa-modal
-                [(visible)]="modalBasic1"
-                [data]="modalBasic1Data"
-                (cancel)="modalBasic1 = false"
-                (confirm)="modalBasic1 = false"
-            ></rwa-modal>
-            <div class="h-padding"></div>
-            <div [style.cursor]="'pointer'" (click)="modalBasic1_5 = true">modal basic2</div>
-            <rwa-modal
-                [(visible)]="modalBasic1_5"
-                [data]="modalBasic1_5Data"
-                [type]="'oneButton'"
-                [blockClickOutside]="true"
-                (cancel)="modalBasic1_5 = false"
-                (confirm)="modalBasic1_5 = false"
-            ></rwa-modal>
-            <div class="h-padding"></div>
-            <div [style.cursor]="'pointer'" (click)="modalBasic2 = true">modal basic3</div>
-            <rwa-modal
-                [(visible)]="modalBasic2"
-                [data]="modalBasic2Data"
-                (cancel)="modalBasic2 = false"
-                (confirm)="onModal2Confirm($event)"
-            ></rwa-modal>
-            <div class="h-padding"></div>
-            <div [style.cursor]="'pointer'" (click)="modalSendLink = true">비밀번호 링크 재전송 모반</div>
-            <rwa-modal
-                [(visible)]="modalSendLink"
-                [data]="modalSendLinkData"
-                (cancel)="modalSendLink = false"
-                (confirm)="modalSendLink = false"
-            ></rwa-modal>
-            <div class="h-padding"></div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>모달 - 기본</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <div [style.cursor]="'pointer'" (click)="modalBasic1 = true">modal basic1</div>
+        <rwa-modal
+            [(visible)]="modalBasic1"
+            [data]="modalBasic1Data"
+            (cancel)="modalBasic1 = false"
+            (confirm)="modalBasic1 = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalBasic1_5 = true">modal basic2</div>
+        <rwa-modal
+            [(visible)]="modalBasic1_5"
+            [data]="modalBasic1_5Data"
+            [type]="'oneButton'"
+            [blockClickOutside]="true"
+            (cancel)="modalBasic1_5 = false"
+            (confirm)="modalBasic1_5 = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalBasic2 = true">modal basic3</div>
+        <rwa-modal
+            [(visible)]="modalBasic2"
+            [data]="modalBasic2Data"
+            (cancel)="modalBasic2 = false"
+            (confirm)="onModal2Confirm($event)"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalSendLink = true">비밀번호 링크 재전송 모반</div>
+        <rwa-modal
+            [(visible)]="modalSendLink"
+            [data]="modalSendLinkData"
+            (cancel)="modalSendLink = false"
+            (confirm)="modalSendLink = false"
+        ></rwa-modal>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <h2>모달 - 단일 정보 입력 L (textarea)</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <div [style.cursor]="'pointer'" (click)="modalTa1 = true">modal textarea1</div>
+        <rwa-textarea-modal
+            [(visible)]="modalTa1"
+            (cancel)="modalTa1 = false"
+            (confirm)="modalTa1 = false"
+        ></rwa-textarea-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalTa2 = true">modal textarea2</div>
+        <rwa-textarea-modal
+            [(visible)]="modalTa2"
+            [type]="'twoButton'"
+            [text]="modalTa2Text"
+            [blockClickOutside]="true"
+            (cancel)="onModalTa2Cancel()"
+            (confirm)="onModalTa2Confirm($event)"
+        ></rwa-textarea-modal>
+        <div class="h-padding"></div>
+        <div [style.cursor]="'pointer'" (click)="modalTa3 = true">modal textarea3</div>
+        <rwa-textarea-modal
+            [title]="'모달 정보 입력 타이틀'"
+            [(visible)]="modalTa3"
+            [text]="modalTa3Text"
+            (cancel)="onModalTa3Cancel()"
+            (confirm)="onModalTa3Confirm($event)"
+        ></rwa-textarea-modal>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>캘린더 - 한 달</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <div>
+            <span>{{ datepicker1 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'date'" [(data)]="datepicker1"></rwm-datepicker>
         </div>
-        <p class="v-padding"></p>
-        <h2>모달 - 단일 정보 입력 L (textarea)</h2>
-        <p class="v-padding"></p>
-        <div class="d-flex align-items-center">
-            <div [style.cursor]="'pointer'" (click)="modalTa1 = true">modal textarea1</div>
-            <rwa-textarea-modal
-                [(visible)]="modalTa1"
-                (cancel)="modalTa1 = false"
-                (confirm)="modalTa1 = false"
-            ></rwa-textarea-modal>
-            <div class="h-padding"></div>
-            <div [style.cursor]="'pointer'" (click)="modalTa2 = true">modal textarea2</div>
-            <rwa-textarea-modal
-                [(visible)]="modalTa2"
-                [type]="'twoButton'"
-                [text]="modalTa2Text"
-                [blockClickOutside]="true"
-                (cancel)="onModalTa2Cancel()"
-                (confirm)="onModalTa2Confirm($event)"
-            ></rwa-textarea-modal>
-            <div class="h-padding"></div>
-            <div [style.cursor]="'pointer'" (click)="modalTa3 = true">modal textarea3</div>
-            <rwa-textarea-modal
-                [title]="'모달 정보 입력 타이틀'"
-                [(visible)]="modalTa3"
-                [text]="modalTa3Text"
-                (cancel)="onModalTa3Cancel()"
-                (confirm)="onModalTa3Confirm($event)"
-            ></rwa-textarea-modal>
-            <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div>
+            <span>{{ datepicker2 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'multiline'" [(data)]="datepicker2"></rwm-datepicker>
         </div>
-        <p class="v-padding"></p>
-        <p class="v-padding"></p>
-        <h2>캘린더 - 한 달</h2>
-        <p class="v-padding"></p>
-        <div class="d-flex align-items-center">
-            <div>
-                <span>{{ datepicker1 | json }}</span>
-                <div class="v-padding"></div>
-                <rwm-datepicker [mode]="'date'" [(data)]="datepicker1"></rwm-datepicker>
-            </div>
-            <div class="h-padding"></div>
-            <div>
-                <span>{{ datepicker2 | json }}</span>
-                <div class="v-padding"></div>
-                <rwm-datepicker [mode]="'multiline'" [(data)]="datepicker2"></rwm-datepicker>
-            </div>
-            <div class="h-padding"></div>
-            <div>
-                <span>{{ datepicker3 | json }}</span>
-                <div class="v-padding"></div>
-                <rwm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker3"></rwm-datepicker>
-            </div>
-            <div class="h-padding"></div>
+        <div class="h-padding"></div>
+        <div>
+            <span>{{ datepicker3 | json }}</span>
+            <div class="v-padding"></div>
+            <rwm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker3"></rwm-datepicker>
         </div>
-        <p class="v-padding"></p>
-        <p class="v-padding"></p>
-<!--        <h2>캘린더 - 두 달</h2>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-tm-datepicker [mode]="'date'" [(data)]="datepicker4"></rwm-tm-datepicker>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <span>{{ datepicker4 | json }}</span>-->
-<!--            <div class="h-padding"></div>-->
-<!--        </div>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-tm-datepicker [mode]="'multiline'" [(data)]="datepicker5"></rwm-tm-datepicker>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <span>{{ datepicker5 | json }}</span>-->
-<!--            <div class="h-padding"></div>-->
-<!--        </div>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-tm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker6"></rwm-tm-datepicker>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <span>{{ datepicker6 | json }}</span>-->
-<!--            <div class="h-padding"></div>-->
-<!--        </div>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <h2>매출</h2>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <h3>매출 요약</h3>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-sale-summary [curSummary]="saleSum0.this_month" [prevSummary]="saleSum0.last_month"></rwm-sale-summary>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <rwm-sale-summary-->
-<!--                [summaryType]="'today'"-->
-<!--                [curSummary]="saleSum0.today"-->
-<!--                [prevSummary]="saleSum0.yesterday"-->
-<!--            ></rwm-sale-summary>-->
-<!--        </div>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-sale-summary [curSummary]="saleSum1.this_month" [prevSummary]="saleSum1.last_month"></rwm-sale-summary>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <rwm-sale-summary-->
-<!--                [summaryType]="'today'"-->
-<!--                [curSummary]="saleSum1.today"-->
-<!--                [prevSummary]="saleSum1.yesterday"-->
-<!--            ></rwm-sale-summary>-->
-<!--        </div>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <p class="v-padding"></p>-->
-<!--        <div class="d-flex align-items-center">-->
-<!--            <rwm-sale-summary [curSummary]="saleSum2.this_month" [prevSummary]="saleSum2.last_month"></rwm-sale-summary>-->
-<!--            <div class="h-padding"></div>-->
-<!--            <rwm-sale-summary-->
-<!--                [summaryType]="'today'"-->
-<!--                [curSummary]="saleSum2.today"-->
-<!--                [prevSummary]="saleSum2.yesterday"-->
-<!--            ></rwm-sale-summary>-->
-<!--        </div>-->
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>캘린더 - 두 달</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'date'" [(data)]="datepicker4"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker4 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'multiline'" [(data)]="datepicker5"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker5 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-tm-datepicker [mode]="'multiline'" [option]="'register'" [(data)]="datepicker6"></rwm-tm-datepicker>
+        <div class="h-padding"></div>
+        <span>{{ datepicker6 | json }}</span>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>매출</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h3>매출 요약</h3>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum0.this_month" [prevSummary]="saleSum0.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum0.today"
+            [prevSummary]="saleSum0.yesterday"
+        ></rwm-sale-summary>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum1.this_month" [prevSummary]="saleSum1.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum1.today"
+            [prevSummary]="saleSum1.yesterday"
+        ></rwm-sale-summary>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-summary [curSummary]="saleSum2.this_month" [prevSummary]="saleSum2.last_month"></rwm-sale-summary>
+        <div class="h-padding"></div>
+        <rwm-sale-summary
+            [summaryType]="'today'"
+            [curSummary]="saleSum2.today"
+            [prevSummary]="saleSum2.yesterday"
+        ></rwm-sale-summary>
+    </div>
 
-<!--        <p class="v-padding"></p>-->
-<!--        <p class="v-padding"></p>-->
-    <!--    <h3>매출 필터</h3>-->
-    <!--    <p class="v-padding"></p>-->
-    <!--    <p class="v-padding"></p>-->
-    <!--    <div class="d-flex align-items-center">-->
-    <!--        <rwm-sale-filter [filterType]="'date'" [disabled]="true"></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter [filterType]="'date'" [(date)]="dateFilter"></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter-->
-    <!--            [filterType]="'paymentType'"-->
-    <!--            [(paymentType)]="saleFilter1"-->
-    <!--            (paymentTypeChange)="onSaleFilter1Change($event)"-->
-    <!--        ></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter [filterType]="'member'"></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter [filterType]="'productType'"></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>-->
-    <!--        <div class="h-padding"></div>-->
-    <!--        <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>-->
-    <!--    </div>-->
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h3>매출 필터</h3>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-sale-filter [filterType]="'date'" [disabled]="true"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'date'" [(date)]="dateFilter"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter
+            [filterType]="'paymentType'"
+            [(paymentType)]="saleFilter1"
+            (paymentTypeChange)="onSaleFilter1Change($event)"
+        ></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'member'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'productType'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>
+        <div class="h-padding"></div>
+        <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>
+    </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center"></div>

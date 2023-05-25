@@ -16,9 +16,7 @@ import { TabInput } from '@schemas/components/tab'
 
 import _ from 'lodash'
 import dayjs from 'dayjs'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { detectChangesOn } from '@shared/helper/component-helper'
 
 type TagType =
     | 'whole'
@@ -43,28 +41,26 @@ export class DropdownDatepickerComponent implements OnDestroy, OnChanges, AfterV
         endDate: undefined,
     }
     @Output() dateChange = new EventEmitter<{ startDate: string; endDate: string }>()
-    @Observe('date') date$: Observable<{ startDate: string; endDate: string }>
     @Output() onDateSave = new EventEmitter<{ startDate: string; endDate: string }>()
 
-    public subject$ = new Subject<boolean>()
     constructor(private renderer: Renderer2, private cd: ChangeDetectorRef) {}
 
-    ngOnChanges(changes: SimpleChanges) {}
-
-    ngAfterViewInit() {
-        this.date$.pipe(takeUntil(this.subject$)).subscribe(() => {
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'date', () => {
             this.updateMonthItemSelected()
             this.checkDateTag()
         })
+    }
+
+    ngAfterViewInit() {
+        this.updateMonthItemSelected()
+        this.checkDateTag()
 
         this.cd.detectChanges()
         // this.updateMonthItemSelected()
     }
 
-    ngOnDestroy() {
-        this.subject$.next(true)
-        this.subject$.complete()
-    }
+    ngOnDestroy() {}
 
     public tabs: Array<TabInput> = [
         { name: '기간 상세 조회', selected: true },

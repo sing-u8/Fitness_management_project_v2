@@ -1,15 +1,23 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core'
+import {
+    Component,
+    OnInit,
+    OnDestroy,
+    Input,
+    OnChanges,
+    SimpleChanges,
+    AfterViewInit,
+    ChangeDetectorRef,
+} from '@angular/core'
 import { StatsSalesSummaryItem } from '@schemas/stats-sales-summary'
 
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 import dayjs from 'dayjs'
 import _ from 'lodash'
+import { detectChangesOn } from '@shared/helper/component-helper'
 
 type SummaryType = 'currentMonth' | 'today'
 
@@ -20,7 +28,7 @@ type SummaryType = 'currentMonth' | 'today'
     templateUrl: './sale-summary.component.html',
     styleUrls: ['./sale-summary.component.scss'],
 })
-export class SaleSummaryComponent implements OnInit, OnDestroy {
+export class SaleSummaryComponent implements OnInit, OnDestroy, OnChanges, AfterViewInit {
     @Input() summaryType: SummaryType = 'currentMonth'
     @Input() prevSummary: StatsSalesSummaryItem = {
         card: '',
@@ -36,11 +44,6 @@ export class SaleSummaryComponent implements OnInit, OnDestroy {
     }
     public summaryKeys = ['card', 'trans', 'cash', 'unpaid']
     public summaryNames = ['카드', '이체', '현금', '미수금']
-
-    @Observe('summaryType') summaryType$: Observable<SummaryType>
-    @Observe('curSummary') curSummary$: Observable<SummaryType>
-
-    public subject = new Subject<boolean>()
 
     public summaryDate = ''
     getSummaryDate() {
@@ -78,18 +81,25 @@ export class SaleSummaryComponent implements OnInit, OnDestroy {
 
     public showDetail = false
 
-    constructor() {}
-    ngOnInit() {
-        this.summaryType$.pipe(takeUntil(this.subject)).subscribe(() => {
+    constructor(private cd: ChangeDetectorRef) {}
+    ngOnInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'summaryType', () => {
             this.getSummaryDate()
             this.getSummaryTitle()
         })
-        this.curSummary$.pipe(takeUntil(this.subject)).subscribe(() => {
+        detectChangesOn(changes, 'curSummary', () => {
             this.getTotals()
         })
     }
-    ngOnDestroy() {
-        this.subject.next(true)
-        this.subject.complete()
+    ngAfterViewInit() {
+        this.getSummaryDate()
+        this.getSummaryTitle()
+
+        this.getTotals()
+
+        this.cd.detectChanges()
     }
+
+    ngOnDestroy() {}
 }

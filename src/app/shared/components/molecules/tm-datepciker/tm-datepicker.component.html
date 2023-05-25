@@ -29,10 +29,10 @@
                     <div class="caret-cl"></div>
                 </button>
             </div>
-            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth.monthFormat }}</div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth?.monthFormat }}</div>
         </div>
         <div class="header-right">
-            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth.monthFormat }}</div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth?.monthFormat }}</div>
             <div class="d-flex justify-content-end align-items-center">
                 <button
                     #date_next_m
@@ -83,7 +83,7 @@
                         <button
                             #bt
                             class="week-col"
-                            [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
+                            [style.visibility]="weekCol['isCurMonthVisible'] ? 'visible' : 'hidden'"
                             [style.color]="weekCol.color"
                             [style.font-weight]="weekCol.fontWeight"
                             [class.selected]="weekCol.selected"
@@ -96,7 +96,7 @@
                             {{ weekCol.day }}
                         </button>
                     </div>
-                    <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
+                    <div *ngIf="(weekCol['isEnd'] || weekCol['isSame']) && j != 6" class="week-col-padding"></div>
                 </div>
             </div>
         </div>
@@ -116,7 +116,7 @@
                         <button
                             #bt
                             class="week-col"
-                            [style.visibility]="isVisibleDate(postMonth.date, weekCol) ? 'visible' : 'hidden'"
+                            [style.visibility]="weekCol['isPostMonthVisible'] ? 'visible' : 'hidden'"
                             [style.color]="weekCol.color"
                             [style.font-weight]="weekCol.fontWeight"
                             [class.selected]="weekCol.selected"
@@ -129,7 +129,7 @@
                             {{ weekCol.day }}
                         </button>
                     </div>
-                    <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
+                    <div *ngIf="(weekCol['isEnd'] || weekCol['isSame']) && j != 6" class="week-col-padding"></div>
                 </div>
             </div>
         </div>
@@ -167,10 +167,10 @@
                     <div class="caret-cl"></div>
                 </button>
             </div>
-            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth.monthFormat }}</div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ curMonth?.monthFormat }}</div>
         </div>
         <div class="header-right">
-            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth.monthFormat }}</div>
+            <div class="month-day d-flex justify-content-end align-items-center">{{ postMonth?.monthFormat }}</div>
             <div class="d-flex justify-content-end align-items-center">
                 <button
                     #ml_next_m
@@ -218,45 +218,48 @@
                 <div class="d-flex align-items-center pos-rel" *ngFor="let weekCol of weekRow; let j = index">
                     <div
                         class="l-week-col"
-                        [class.start-date]="isStartDate(weekCol)"
-                        [class.end-date]="isEndDate(weekCol)"
-                        [class.same-date]="isSameDate(weekCol)"
-                        [class.between]="isBetween(weekCol)"
+                        [class.start-date]="weekCol['isStart']"
+                        [class.end-date]="weekCol['isEnd']"
+                        [class.same-date]="weekCol['isSame']"
+                        [class.between]="weekCol['isBetween']"
                         [class.seven-week-col]="j == 6"
-                        [style.visibility]="isVisibleDate(curMonth.date, weekCol) ? 'visible' : 'hidden'"
+                        [style.visibility]="weekCol['isCurMonthVisible'] ? 'visible' : 'hidden'"
                     >
                         <button
                             #bt
                             class="week-col"
                             [style.color]="weekCol.color"
                             [style.font-weight]="weekCol.fontWeight"
-                            [class.unAvailable-date]="!isAvailableDate(weekCol)"
-                            [disabled]="!isAvailableDate(weekCol)"
-                            [class.selected]="isEdgeDate(weekCol)"
+                            [class.unAvailable-date]="!weekCol['isAvailable']"
+                            [disabled]="!weekCol['isAvailable']"
+                            [class.selected]="
+                                selectedMultiDateObj.startDate == weekCol.date ||
+                                selectedMultiDateObj.endDate == weekCol.date
+                            "
                             (mousedown)="onMouseDown()"
                             (mouseup)="onMouseUp()"
                             (focusin)="onFocus(bt)"
                             (focusout)="onFocusOut(bt)"
-                            (mouseover)="onWeekColHover(weekCol)"
+                            (mouseenter)="onWeekColHover(weekCol)"
                             (mouseleave)="onWeekColOut()"
                             (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
                             rwTooltip
-                            [rwTooltipDisabled]="pastDisable(weekCol)"
-                            [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
+                            [rwTooltipDisabled]="weekCol['tooltipDisabled']"
+                            [rwTooltipTitle]="weekCol['tooltipTitle'] + '일 간'"
                             rwTooltipPlacement="bottom"
                         >
                             {{ weekCol.day }}
                         </button>
                     </div>
-                    <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
-                    <div
-                        class="between-hover"
-                        [class.show]="isHoverBetween(weekCol) && isVisibleDate(curMonth.date, weekCol)"
-                    ></div>
-                    <div
-                        class="between-selected"
-                        [class.show]="isHoverSelect(weekCol) && isVisibleDate(curMonth.date, weekCol)"
-                    ></div>
+                    <div *ngIf="(weekCol['isEnd'] || weekCol['isSame']) && j != 6" class="week-col-padding"></div>
+                    <!--                    <div-->
+                    <!--                        class="between-hover"-->
+                    <!--                        [class.show]="isHoverBetween(weekCol) && weekCol['isCurMonthVisible']"-->
+                    <!--                    ></div>-->
+                    <!--                    <div-->
+                    <!--                        class="between-selected"-->
+                    <!--                        [class.show]="isHoverSelect(weekCol) && weekCol['isCurMonthVisible']"-->
+                    <!--                    ></div>-->
                 </div>
             </div>
         </div>
@@ -274,45 +277,48 @@
                 <div class="d-flex align-items-center pos-rel" *ngFor="let weekCol of weekRow; let j = index">
                     <div
                         class="l-week-col"
-                        [class.start-date]="isStartDate(weekCol)"
-                        [class.end-date]="isEndDate(weekCol)"
-                        [class.same-date]="isSameDate(weekCol)"
-                        [class.between]="isBetween(weekCol)"
+                        [class.start-date]="weekCol['isStart']"
+                        [class.end-date]="weekCol['isEnd']"
+                        [class.same-date]="weekCol['isSame']"
+                        [class.between]="weekCol['isBetween']"
                         [class.seven-week-col]="j == 6"
-                        [style.visibility]="isVisibleDate(postMonth.date, weekCol) ? 'visible' : 'hidden'"
+                        [style.visibility]="weekCol['isPostMonthVisible'] ? 'visible' : 'hidden'"
                     >
                         <button
                             #bt
                             class="week-col"
                             [style.color]="weekCol.color"
                             [style.font-weight]="weekCol.fontWeight"
-                            [class.unAvailable-date]="!isAvailableDate(weekCol)"
-                            [disabled]="!isAvailableDate(weekCol)"
-                            [class.selected]="isEdgeDate(weekCol)"
+                            [class.unAvailable-date]="!weekCol['isAvailable']"
+                            [disabled]="!weekCol['isAvailable']"
+                            [class.selected]="
+                                selectedMultiDateObj.startDate == weekCol.date ||
+                                selectedMultiDateObj.endDate == weekCol.date
+                            "
                             (mousedown)="onMouseDown()"
                             (mouseup)="onMouseUp()"
                             (focusin)="onFocus(bt)"
                             (focusout)="onFocusOut(bt)"
-                            (mouseover)="onWeekColHover(weekCol)"
+                            (mouseenter)="onWeekColHover(weekCol)"
                             (mouseleave)="onWeekColOut()"
                             (click)="multiLineSelectDate(weekCol); $event.stopPropagation()"
                             rwTooltip
-                            [rwTooltipDisabled]="pastDisable(weekCol)"
-                            [rwTooltipTitle]="getDayFromStartDate(weekCol) + '일 간'"
+                            [rwTooltipDisabled]="weekCol['tooltipDisabled']"
+                            [rwTooltipTitle]="weekCol['tooltipTitle'] + '일 간'"
                             rwTooltipPlacement="bottom"
                         >
                             {{ weekCol.day }}
                         </button>
                     </div>
-                    <div *ngIf="(isEndDate(weekCol) || isSameDate(weekCol)) && j != 6" class="week-col-padding"></div>
-                    <div
-                        class="between-hover"
-                        [class.show]="isHoverBetween(weekCol) && isVisibleDate(postMonth.date, weekCol)"
-                    ></div>
-                    <div
-                        class="between-selected"
-                        [class.show]="isHoverSelect(weekCol) && isVisibleDate(postMonth.date, weekCol)"
-                    ></div>
+                    <div *ngIf="(weekCol['isEnd'] || weekCol['isSame']) && j != 6" class="week-col-padding"></div>
+                    <!--                    <div-->
+                    <!--                        class="between-hover"-->
+                    <!--                        [class.show]="isHoverBetween(weekCol) && weekCol['isPostMonthVisible']"-->
+                    <!--                    ></div>-->
+                    <!--                    <div-->
+                    <!--                        class="between-selected"-->
+                    <!--                        [class.show]="isHoverSelect(weekCol) && weekCol['isPostMonthVisible']"-->
+                    <!--                    ></div>-->
                 </div>
             </div>
         </div>

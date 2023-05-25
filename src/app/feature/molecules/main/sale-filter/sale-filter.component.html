@@ -157,99 +157,115 @@
             </rwa-button>
         </div>
     </div>
-    <div
-        class="member-dropdown"
-        [class.open]="openDropdown && filterType == 'member'"
-        (click)="$event.stopPropagation()"
-    >
-        <rwa-text-field
-            [label]="'회원명 또는 전화번호 검색'"
-            [labelVisible]="true"
-            [placeholder]="'회원명'"
-            [width]="'255px'"
-            [textFieldType]="'search'"
-            [(ngModel)]="curMember"
+    <ng-container *ngIf="filterType == 'member'">
+        <div
+            class="member-dropdown"
+            [class.open]="openDropdown && filterType == 'member'"
             (click)="$event.stopPropagation()"
-        ></rwa-text-field>
-        <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onMemberSave()" [disable]="!curMember">
-            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
-        </rwa-button>
-    </div>
-    <div
-        class="product-type-dropdown"
-        [class.open]="openDropdown && filterType == 'productType'"
-        (click)="$event.stopPropagation()"
-    >
-        <div class="l-checkbox">
-            <rwa-checkbox
-                [checked]="curProductType.user_membership"
-                (onClick)="curProductType.user_membership = $event"
-                [label]="'회원권'"
-            ></rwa-checkbox>
-            <rwa-checkbox
-                [checked]="curProductType.user_locker"
-                (onClick)="curProductType.user_locker = $event"
-                [label]="'락커'"
-            ></rwa-checkbox>
-            <rwa-checkbox
-                [checked]="curProductType.user_sportswear"
-                (onClick)="curProductType.user_sportswear = $event"
-                [label]="'운동복'"
-            ></rwa-checkbox>
-        </div>
-        <div class="d-flex justify-content-end" (click)="$event.stopPropagation()">
-            <rwa-button
-                sizeType="md"
-                [width]="'62px'"
-                (onClick)="onProductTypeSave()"
-                [disable]="
-                    !curProductType.user_membership && !curProductType.user_locker && !curProductType.user_sportswear
-                "
-            >
-                <ng-template btIdleContent><span class="save-bt-text">저장</span></ng-template>
+        >
+            <rwa-text-field
+                [label]="'회원명 또는 전화번호 검색'"
+                [labelVisible]="true"
+                [placeholder]="'회원명'"
+                [width]="'255px'"
+                [textFieldType]="'search'"
+                [(ngModel)]="curMember"
+                (click)="$event.stopPropagation()"
+            ></rwa-text-field>
+            <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onMemberSave()" [disable]="!curMember">
+                <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
             </rwa-button>
         </div>
-    </div>
-    <div
-        class="product-name-dropdown"
-        [class.open]="openDropdown && filterType == 'productName'"
-        (click)="$event.stopPropagation()"
-    >
-        <rwa-text-field
-            [label]="'상품명 검색'"
-            [labelVisible]="true"
-            [placeholder]="'상품명'"
-            [width]="'255px'"
-            [textFieldType]="'search'"
-            [(ngModel)]="curProductName"
-        ></rwa-text-field>
-        <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onProductNameSave()" [disable]="!curProductName">
-            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
-        </rwa-button>
-    </div>
-    <div
-        class="person-in-charge-dropdown"
-        [class.open]="openDropdown && filterType == 'personInCharge'"
-        (click)="$event.stopPropagation()"
-    >
-        <rwa-text-field
-            [label]="'담당자명 또는 전화번호 검색'"
-            [labelVisible]="true"
-            [placeholder]="'담당자명'"
-            [width]="'255px'"
-            [textFieldType]="'search'"
-            [(ngModel)]="curPersonInCharge"
-        ></rwa-text-field>
-        <rwa-button
-            [width]="'62px'"
-            [height]="'42px'"
-            (onClick)="onPersonInChargeSave()"
-            [disable]="!curPersonInCharge"
+    </ng-container>
+    <ng-container *ngIf="filterType == 'productType'">
+        <div
+            class="product-type-dropdown"
+            [class.open]="openDropdown && filterType == 'productType'"
+            (click)="$event.stopPropagation()"
         >
-            <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
-        </rwa-button>
-    </div>
-    <div class="date-dropdown" [class.open]="openDropdown && filterType == 'date'" (click)="$event.stopPropagation()">
-        <rwm-dropdown-datepicker [(date)]="curDate" (onDateSave)="onDateSave($event)"></rwm-dropdown-datepicker>
-    </div>
+            <div class="l-checkbox">
+                <rwa-checkbox
+                    [checked]="curProductType.user_membership"
+                    (onClick)="curProductType.user_membership = $event"
+                    [label]="'회원권'"
+                ></rwa-checkbox>
+                <rwa-checkbox
+                    [checked]="curProductType.user_locker"
+                    (onClick)="curProductType.user_locker = $event"
+                    [label]="'락커'"
+                ></rwa-checkbox>
+                <rwa-checkbox
+                    [checked]="curProductType.user_sportswear"
+                    (onClick)="curProductType.user_sportswear = $event"
+                    [label]="'운동복'"
+                ></rwa-checkbox>
+            </div>
+            <div class="d-flex justify-content-end" (click)="$event.stopPropagation()">
+                <rwa-button
+                    sizeType="md"
+                    [width]="'62px'"
+                    (onClick)="onProductTypeSave()"
+                    [disable]="
+                        !curProductType.user_membership &&
+                        !curProductType.user_locker &&
+                        !curProductType.user_sportswear
+                    "
+                >
+                    <ng-template btIdleContent><span class="save-bt-text">저장</span></ng-template>
+                </rwa-button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="filterType == 'productName'">
+        <div
+            class="product-name-dropdown"
+            [class.open]="openDropdown && filterType == 'productName'"
+            (click)="$event.stopPropagation()"
+        >
+            <rwa-text-field
+                [label]="'상품명 검색'"
+                [labelVisible]="true"
+                [placeholder]="'상품명'"
+                [width]="'255px'"
+                [textFieldType]="'search'"
+                [(ngModel)]="curProductName"
+            ></rwa-text-field>
+            <rwa-button [width]="'62px'" [height]="'42px'" (onClick)="onProductNameSave()" [disable]="!curProductName">
+                <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
+            </rwa-button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="filterType == 'personInCharge'">
+        <div
+            class="person-in-charge-dropdown"
+            [class.open]="openDropdown && filterType == 'personInCharge'"
+            (click)="$event.stopPropagation()"
+        >
+            <rwa-text-field
+                [label]="'담당자명 또는 전화번호 검색'"
+                [labelVisible]="true"
+                [placeholder]="'담당자명'"
+                [width]="'255px'"
+                [textFieldType]="'search'"
+                [(ngModel)]="curPersonInCharge"
+            ></rwa-text-field>
+            <rwa-button
+                [width]="'62px'"
+                [height]="'42px'"
+                (onClick)="onPersonInChargeSave()"
+                [disable]="!curPersonInCharge"
+            >
+                <ng-template btIdleContent><span class="save-bt-text">검색</span></ng-template>
+            </rwa-button>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="filterType == 'date'">
+        <div
+            class="date-dropdown"
+            [class.open]="openDropdown && filterType == 'date'"
+            (click)="$event.stopPropagation()"
+        >
+            <rwm-dropdown-datepicker [(date)]="curDate" (onDateSave)="onDateSave($event)"></rwm-dropdown-datepicker>
+        </div>
+    </ng-container>
 </button>

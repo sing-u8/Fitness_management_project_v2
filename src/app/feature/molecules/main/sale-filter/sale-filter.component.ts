@@ -8,19 +8,20 @@ import {
     OnInit,
     Output,
     ViewChild,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core'
 
 import _ from 'lodash'
 
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 import { DropdownDatepickerComponent } from '@feature/molecules/main/dropdown-datepicker/dropdown-datepicker.component'
 import dayjs from 'dayjs'
+import { detectChangesOn } from '@shared/helper/component-helper'
 
 export type FilterType = 'date' | 'paymentType' | 'member' | 'productType' | 'productName' | 'personInCharge'
 export type DateType = { startDate: string; endDate: string }
@@ -47,10 +48,8 @@ const filterMapProductTypeCodeInit: FilterMapProductTypeCode = {
     templateUrl: './sale-filter.component.html',
     styleUrls: ['./sale-filter.component.scss'],
 })
-export class SaleFilterComponent implements OnInit, OnDestroy {
+export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
     @Input() filterType: FilterType = undefined
-    @Observe('filterType') filterType$: Observable<FilterType>
-
     @Input() disabled = false
 
     @ViewChild('l_button') l_button_el: ElementRef
@@ -89,17 +88,18 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
     public subject = new Subject<boolean>()
 
     constructor(private renderer: Renderer2) {}
-    ngOnInit() {
-        this.filterType$.pipe(takeUntil(this.subject)).subscribe(() => {
+    ngOnInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'filterType', () => {
             this.setTypeName()
         })
-
-        this.date$.pipe(takeUntil(this.subject)).subscribe((v) => {
+        detectChangesOn(changes, 'date', (v) => {
             this.curDate = _.cloneDeep(v)
             this.checkFilterValueExist()
             this.getDateText()
         })
     }
+
     ngOnDestroy() {
         this.subject.next(true)
         this.subject.complete()
@@ -131,7 +131,6 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
 
     // // -- Input() : actually applied value / cur- : current value
     // for date
-    @Observe('date') date$: Observable<DateType>
     @Input() date: DateType = _.cloneDeep(dateInit)
     @Output() dateChange = new EventEmitter<DateType>()
     public curDate: DateType = _.cloneDeep(dateInit)
@@ -303,6 +302,4 @@ export class SaleFilterComponent implements OnInit, OnDestroy {
                 break
         }
     }
-
-    protected readonly undefined = undefined
 }

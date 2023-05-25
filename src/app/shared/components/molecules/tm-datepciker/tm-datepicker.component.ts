@@ -14,14 +14,13 @@ import {
     Renderer2,
 } from '@angular/core'
 import _ from 'lodash'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
 
 import dayjs from 'dayjs'
 import isSameOrBefor from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import isBetween from 'dayjs/plugin/isBetween'
+import { detectChangesOn } from '@shared/helper/component-helper'
 dayjs.extend(isSameOrBefor)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(weekOfYear)
@@ -54,16 +53,21 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
         | 'holdEnd' = 'normal'
 
     @Input() data: Data
-    @Observe('data') data$: Observable<Data>
     @Output() dataChange = new EventEmitter<Data>()
 
     public curMonth: {
         date: dayjs.Dayjs
         monthFormat: string
+    } = {
+        date: dayjs(),
+        monthFormat: dayjs().format('YY년 MM월'),
     }
     public postMonth: {
         date: dayjs.Dayjs
         monthFormat: string
+    } = {
+        date: dayjs().add(1, 'month'),
+        monthFormat: dayjs().add(1, 'month').format('YY년 MM월'),
     }
     getCurAndPostMonth() {
         this.curMonth = {
@@ -76,8 +80,8 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
         }
     }
 
-    public today: dayjs.Dayjs
-    public currentDate: dayjs.Dayjs
+    public today: dayjs.Dayjs = dayjs()
+    public currentDate: dayjs.Dayjs = dayjs()
     public weekRows: Array<Array<any>> = []
     public nextMonthRow = 0
     public isPastMonthDateIncluded = 0
@@ -109,7 +113,7 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
     isHoverBetween(weekCol) {
         return (
             dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.hoveredEndDate) &&
-            dayjs(this.hoveredEndDate).isSameOrAfter(this.selectedMultiDateObj.startDate)
+            dayjs(this.hoveredEndDate).isAfter(this.selectedMultiDateObj.startDate)
         )
     }
     isHoverSelect(weekCol) {
@@ -126,11 +130,11 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
     constructor(private zone: NgZone, private renderer: Renderer2) {}
     ngOnInit() {
         this.setDatePick()
-        this.data$.subscribe((v) => {
-            this.getDays(this.currentDate)
-        })
     }
     ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'data', () => {
+            if (!_.isEmpty(this.currentDate)) this.getDays(this.currentDate)
+        })
         if (this.checkDifference(changes) && this.isViewInit) {
             this.setDatePick()
             this.getDays(this.currentDate)
@@ -244,13 +248,51 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
                         this.isPastMonthDateIncluded = 1
                     }
                 }
+
+                const date_format = date.format('YYYY-MM-DD')
                 const weekCol = {
                     day: date.format('D'),
                     week: weekNumber,
                     month: date.format('MM'),
                     year: date.format('YYYY'),
-                    date: date.format('YYYY-MM-DD'),
+                    date: date_format,
                     selected: false,
+                    // flag
+                    isCurMonthVisible: this.curMonth.date.format('MM') == date.format('MM'),
+                    isPostMonthVisible: this.postMonth.date.format('MM') == date.format('MM'),
+                    isEdge:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (this.selectedMultiDateObj.startDate == date_format ||
+                            this.selectedMultiDateObj.endDate == date_format),
+                    isStart:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        !_.isEmpty(this.selectedMultiDateObj.endDate) &&
+                        this.selectedMultiDateObj.startDate == date_format,
+                    isEnd: !_.isEmpty(this.selectedMultiDateObj) && this.selectedMultiDateObj.endDate == date_format,
+                    isSame:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        date_format == this.selectedMultiDateObj.startDate &&
+                        date_format == this.selectedMultiDateObj.endDate,
+                    isBetween:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        dayjs(date_format).isBetween(
+                            this.selectedMultiDateObj.startDate,
+                            this.selectedMultiDateObj.endDate
+                        ),
+                    isAvailable:
+                        this.option == 'register'
+                            ? !dayjs(date_format).isBefore(dayjs().format('YYYY-MM-DD'), 'day')
+                            : this.option == 'extend'
+                            ? !dayjs(date_format).isBefore(dayjs().format(this.selectedMultiDateObj.startDate), 'day')
+                            : true,
+                    // // tooltip flag
+                    tooltipDisabled:
+                        !_.isEmpty(this.selectedMultiDateObj) &&
+                        (!this.selectedMultiDateObj.startDate ||
+                            dayjs(date_format).isSameOrBefore(this.selectedMultiDateObj.startDate)),
+                    tooltipTitle: this.selectedMultiDateObj?.startDate
+                        ? dayjs(date_format).diff(dayjs(this.selectedMultiDateObj.startDate), 'days') + 1
+                        : '',
                 }
 
                 if (date.format('YYYYMMDD') == this.today.format('YYYYMMDD')) {
@@ -265,7 +307,6 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
                 }
                 weekRow.push(weekCol)
             }
-
             this.weekRows.push(weekRow)
             weekIdx++
         }
@@ -273,9 +314,6 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
         if (this.mode == 'week') {
             this.checkSelectedWeek()
         }
-    }
-    isVisibleDate(monthDate: dayjs.Dayjs, weekCol: any) {
-        return monthDate.format('MM') == weekCol['month']
     }
 
     previousMonth() {
@@ -368,6 +406,7 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
     // ------------------ multi line methods -----------------------------------------------------------------------------------
     multiLineSelectDate(weekCol) {
         this.setInitialLineDate(weekCol)
+        this.getDays(dayjs(this.curMonth.date))
     }
     // helper
     setInitialLineDate(weekCol) {
@@ -464,50 +503,5 @@ export class TmDatepickerComponent implements OnInit, OnChanges, AfterViewChecke
         }
         return isToggled
     }
-
-    // deprecated 메세지가 나타났음 - 나중에 수정하기 !
-    isEdgeDate(weekCol) {
-        return this.selectedMultiDateObj.startDate == weekCol.date || this.selectedMultiDateObj.endDate == weekCol.date
-    }
-    isStartDate(weekCol) {
-        return this.selectedMultiDateObj.startDate == weekCol.date && !_.isEmpty(this.selectedMultiDateObj.endDate)
-    }
-    isEndDate(weekCol) {
-        return this.selectedMultiDateObj.endDate == weekCol.date
-    }
-    isSameDate(weekCol) {
-        return weekCol.date == this.selectedMultiDateObj.startDate && weekCol.date == this.selectedMultiDateObj.endDate
-    }
-    isBetween(weekCol) {
-        return dayjs(weekCol.date).isBetween(this.selectedMultiDateObj.startDate, this.selectedMultiDateObj.endDate)
-    }
-    getDayFromStartDate(weekCol) {
-        if (this.selectedMultiDateObj.startDate) {
-            const startDate = dayjs(this.selectedMultiDateObj.startDate)
-            const targetDate = dayjs(weekCol.date)
-            // return targetDate.diff(startDate, 'days')
-            return targetDate.diff(startDate, 'days') + 1
-        }
-        return 0
-    }
-    pastDisable(weekCol) {
-        return (
-            !this.selectedMultiDateObj.startDate ||
-            dayjs(weekCol.date).isSameOrBefore(this.selectedMultiDateObj.startDate)
-        )
-    }
-    isAvailableDate(weekCol) {
-        switch (this.option) {
-            case 'normal':
-                return true
-            case 'register':
-                return !dayjs(weekCol.date).isBefore(dayjs().format('YYYY-MM-DD'), 'day')
-            case 'extend':
-                return !dayjs(weekCol.date).isBefore(dayjs().format(this.selectedMultiDateObj.startDate), 'day')
-            default:
-                return false
-        }
-    }
-
     // --------- multiline component with mcPastUnAvailalble method ------------------------------------------------------------------------------------------------
 }

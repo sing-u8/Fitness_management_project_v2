@@ -1,5 +1,7 @@
 import {
     AfterViewInit,
+    OnChanges,
+    SimpleChanges,
     Component,
     Directive,
     ElementRef,
@@ -12,8 +14,7 @@ import {
     ViewChild,
     ContentChild,
 } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
+import { changesOn } from '@shared/helper/component-helper'
 import { Loading } from '@schemas/loading'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
 
@@ -41,7 +42,7 @@ export class IconButtonDoneContentDirective {
     templateUrl: './icon-button.component.html',
     styleUrls: ['./icon-button.component.scss'],
 })
-export class IconButtonComponent implements AfterViewInit {
+export class IconButtonComponent implements AfterViewInit, OnChanges {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
         this.l_button_el.nativeElement.blur()
@@ -86,12 +87,6 @@ export class IconButtonComponent implements AfterViewInit {
 
     @Input() status: Loading = 'idle'
 
-    @Observe('sizeType') sizeType$: Observable<'lg' | 'md' | 'sm'>
-    @Observe('bgColor') bgColor$: Observable<string>
-    @Observe('borderRadius') borderRadius$: Observable<string>
-    @Observe('status') status$: Observable<Loading>
-    @Observe('disabled') disabled$: Observable<boolean>
-
     @ViewChild('l_button') l_button_el: ElementRef
 
     @ContentChild(IconButtonIdleContentDirective) idleRef!: IconButtonPendingContentDirective
@@ -99,11 +94,9 @@ export class IconButtonComponent implements AfterViewInit {
     @ContentChild(IconButtonDoneContentDirective) doneRef!: IconButtonDoneContentDirective
 
     constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
-    ngAfterViewInit() {
-        this.borderRadius$.subscribe((bdr) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'borderRadius', bdr)
-        })
-        this.status$.subscribe((status) => {
+
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'status', (status) => {
             if (status == 'pending') {
                 this.spinner.show(this.loadingName)
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
@@ -111,7 +104,7 @@ export class IconButtonComponent implements AfterViewInit {
                 this.spinner.hide(this.loadingName)
             }
         })
-        this.sizeType$.subscribe((type) => {
+        changesOn(changes, 'sizeType', (type) => {
             switch (type) {
                 case 'lg':
                     this.renderer.setStyle(
@@ -157,16 +150,29 @@ export class IconButtonComponent implements AfterViewInit {
                     break
             }
         })
-        this.bgColor$.subscribe((bg) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
-        })
+    }
 
-        this.disabled$.subscribe((disable) => {
-            if (disable) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.disableBgColor}`)
-            } else {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.bgColor}`)
-            }
-        })
+    ngAfterViewInit() {
+        if (this.status == 'pending') {
+            this.spinner.show(this.loadingName)
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+        } else {
+            this.spinner.hide(this.loadingName)
+        }
+
+        switch (this.sizeType) {
+            case 'lg':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '50px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '50px', RendererStyleFlags2.Important)
+                break
+            case 'md':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '42px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '42px', RendererStyleFlags2.Important)
+                break
+            case 'sm':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '37px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '37px', RendererStyleFlags2.Important)
+                break
+        }
     }
 }

@@ -9,8 +9,7 @@ import {
     AfterViewInit,
     OnDestroy,
 } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
+import {  Subject } from 'rxjs'
 import { FormBuilder, NG_VALUE_ACCESSOR, Validators } from '@angular/forms'
 
 import _ from 'lodash'
@@ -29,7 +28,6 @@ import { takeUntil } from 'rxjs/operators'
     ],
 })
 export class MemoComponent implements OnDestroy {
-    // @Input()
     public value = this.fb.control('')
     @Input() placeholder = '메모를 입력해 주세요.'
     @Input() bgColor = 'var(--white)'

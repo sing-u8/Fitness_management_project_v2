@@ -6,15 +6,15 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     Output,
     Renderer2,
     RendererStyleFlags2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
 } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
-import _ from 'lodash'
+import { changesOn } from '@shared/helper/component-helper'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
 import { Loading } from '@schemas/loading'
 
@@ -42,7 +42,7 @@ export class IconGhostButtonDoneContentDirective {
     templateUrl: './icon-ghost-button.component.html',
     styleUrls: ['./icon-ghost-button.component.scss'],
 })
-export class IconGhostButtonComponent implements AfterViewInit {
+export class IconGhostButtonComponent implements AfterViewInit, OnChanges {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
         this.l_button_el.nativeElement.blur()
@@ -86,12 +86,6 @@ export class IconGhostButtonComponent implements AfterViewInit {
 
     @Input() status: Loading = 'idle'
 
-    @Observe('sizeType') sizeType$: Observable<'lg' | 'md' | 'sm'>
-    @Observe('bgColor') bgColor$: Observable<string>
-    @Observe('border') border$: Observable<string>
-    @Observe('borderRadius') borderRadius$: Observable<string>
-    @Observe('status') status$: Observable<Loading>
-
     @ViewChild('l_button') l_button_el: ElementRef
 
     @ContentChild(IconGhostButtonIdleContentDirective) idleRef!: IconGhostButtonIdleContentDirective
@@ -99,11 +93,17 @@ export class IconGhostButtonComponent implements AfterViewInit {
     @ContentChild(IconGhostButtonDoneContentDirective) doneRef!: IconGhostButtonDoneContentDirective
 
     constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
-    ngAfterViewInit() {
-        this.borderRadius$.subscribe((bdr) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'borderRadius', bdr)
+
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'status', (status) => {
+            if (status == 'pending') {
+                this.spinner.show(this.loadingName)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+            } else {
+                this.spinner.hide(this.loadingName)
+            }
         })
-        this.sizeType$.subscribe((type) => {
+        changesOn(changes, 'sizeType', (type: 'lg' | 'md' | 'sm') => {
             switch (type) {
                 case 'lg':
                     this.renderer.setStyle(
@@ -149,21 +149,29 @@ export class IconGhostButtonComponent implements AfterViewInit {
                     break
             }
         })
-        this.border$.subscribe((bd) => {
-            if (!_.isEmpty(bd)) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'border', bd)
-            }
-        })
-        this.bgColor$.subscribe((bg) => {
+    }
+
+    ngAfterViewInit() {
+        switch (this.sizeType) {
+            case 'lg':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '50px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '50px', RendererStyleFlags2.Important)
+                break
+            case 'md':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '42px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '42px', RendererStyleFlags2.Important)
+                break
+            case 'sm':
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'width', '37px', RendererStyleFlags2.Important)
+                this.renderer.setStyle(this.l_button_el.nativeElement, 'height', '37px', RendererStyleFlags2.Important)
+                break
+        }
+
+        if (this.status == 'pending') {
+            this.spinner.show(this.loadingName)
             this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
-        })
-        this.status$.subscribe((status) => {
-            if (status == 'pending') {
-                this.spinner.show(this.loadingName)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
-            } else {
-                this.spinner.hide(this.loadingName)
-            }
-        })
+        } else {
+            this.spinner.hide(this.loadingName)
+        }
     }
 }

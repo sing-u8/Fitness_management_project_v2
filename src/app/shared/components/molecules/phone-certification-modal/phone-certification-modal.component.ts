@@ -15,12 +15,10 @@ import {
 } from '@angular/core'
 import { FormBuilder, Validators } from '@angular/forms'
 
-import { Observe } from '@shared/helper/decorator/Observe'
-
 import { Loading } from '@schemas/loading'
 import { User } from '@schemas/user'
 
-import { Observable, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 import { ModalOutPut } from '@schemas/components/modal'
 import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
 import { Registration } from '@schemas/appStore/registration.interface'
@@ -42,7 +40,6 @@ import _ from 'lodash'
 })
 export class PhoneCertificationModalComponent implements OnChanges, OnInit, AfterViewChecked, AfterViewInit, OnDestroy {
     @Input() visible = false
-    @Observe('visible') visible$: Observable<boolean>
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @ViewChild('modalBackgroundElement') modalBackgroundElement

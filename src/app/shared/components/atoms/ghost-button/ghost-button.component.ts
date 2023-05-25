@@ -6,14 +6,16 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     Output,
     Renderer2,
     RendererStyleFlags2,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
-import { Observe } from '@shared/helper/decorator/Observe'
+import { changesOn } from '@shared/helper/component-helper'
 import { Observable } from 'rxjs'
 
 import { Loading } from '@schemas/loading'
@@ -42,7 +44,7 @@ export class GhostButtonDoneContentDirective {
     templateUrl: './ghost-button.component.html',
     styleUrls: ['./ghost-button.component.scss'],
 })
-export class GhostButtonComponent implements AfterViewInit {
+export class GhostButtonComponent implements AfterViewInit, OnChanges {
     @Output() onClick = new EventEmitter<any>()
     _onClick() {
         this.l_button_el.nativeElement.blur()
@@ -98,11 +100,6 @@ export class GhostButtonComponent implements AfterViewInit {
     @Input() width // ex) 20px, 2rem
     @Input() height = '45px' // ex) 40px 4rem
 
-    @Observe('status') status$: Observable<Loading>
-    @Observe('disable') disable$: Observable<boolean>
-    @Observe('bgColor') bgColor$: Observable<string>
-    @Observe('fontColor') fontColor$: Observable<string>
-
     @ViewChild('l_button') l_button_el: ElementRef
     @ViewChild('progress') progress_el: ElementRef
 
@@ -111,8 +108,8 @@ export class GhostButtonComponent implements AfterViewInit {
     @ContentChild(GhostButtonDoneContentDirective) doneRef!: GhostButtonDoneContentDirective
 
     constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
-    ngAfterViewInit() {
-        this.status$.subscribe((status) => {
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'status', (status) => {
             if (status == 'pending') {
                 this.spinner.show(this.loadingName)
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
@@ -121,24 +118,15 @@ export class GhostButtonComponent implements AfterViewInit {
                 this.spinner.hide(this.loadingName)
             }
         })
+    }
 
-        this.fontColor$.subscribe((fontColor) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'color', fontColor)
-        })
-        this.bgColor$.subscribe((bgColor) => {
-            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', bgColor)
-        })
-
-        this.disable$.subscribe((disable) => {
-            if (disable) {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.disableFontColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.disableBgColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'borderColor', `${this.disableBorderColor}`)
-            } else {
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'color', `${this.fontColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', `${this.bgColor}`)
-                this.renderer.setStyle(this.l_button_el.nativeElement, 'borderColor', `${this.borderColor}`)
-            }
-        })
+    ngAfterViewInit() {
+        if (this.status == 'pending') {
+            this.spinner.show(this.loadingName)
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
+            this.renderer.setStyle(this.l_button_el.nativeElement, 'borderColor', this.borderColor)
+        } else {
+            this.spinner.hide(this.loadingName)
+        }
     }
 }

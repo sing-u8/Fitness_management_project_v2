@@ -1,6 +1,5 @@
-import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject } from 'rxjs'
+import { Component, Input, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
+import { Subject } from 'rxjs'
 
 import {
     AsyncValidatorFn,
@@ -57,10 +56,6 @@ export class TextInputComponent implements AfterViewInit {
 
     @ViewChild('input') input_el: ElementRef
 
-    @Observe('inputLimit') inputLimit$: Observable<number>
-    @Observe('width') width$: Observable<string>
-    @Observe('height') height$: Observable<string>
-
     public unSubscriber$ = new Subject<boolean>()
 
     public textField: FormControl = this.fb.control('')
@@ -80,14 +75,7 @@ export class TextInputComponent implements AfterViewInit {
     }
 
     constructor(private fb: FormBuilder, private renderer: Renderer2) {}
-    ngAfterViewInit() {
-        this.width$.subscribe((w) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'width', w)
-        })
-        this.height$.subscribe((h) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'height', h)
-        })
-    }
+    ngAfterViewInit() {}
     ngOnDestroy() {
         this.unSubscriber$.next(true)
         this.unSubscriber$.complete()

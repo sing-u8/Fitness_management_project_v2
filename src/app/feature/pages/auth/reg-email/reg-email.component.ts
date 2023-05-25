@@ -1,4 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core'
+import {
+    Component,
+    OnInit,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    OnDestroy,
+    OnChanges,
+    SimpleChanges
+} from "@angular/core";
 import { CommonModule, Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Auth, authState, signInWithCustomToken } from '@angular/fire/auth'
@@ -29,7 +38,7 @@ import { Loading } from '@schemas/loading'
     templateUrl: './reg-email.component.html',
     styleUrls: ['./reg-email.component.scss'],
 })
-export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
+export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     TAG = '회원가입'
 
     public registration: Registration
@@ -97,6 +106,10 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy {
                         })
                 },
             })
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+
     }
 
     ngAfterViewInit() {

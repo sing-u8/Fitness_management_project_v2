@@ -1,6 +1,16 @@
-import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 
 import { InputHelperService } from '@services/helper/input-helper.service'
 
@@ -11,7 +21,7 @@ import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } f
     templateUrl: './number-text-field.component.html',
     styleUrls: ['./number-text-field.component.scss'],
 })
-export class NumberTextFieldComponent {
+export class NumberTextFieldComponent implements OnChanges, AfterViewInit {
     @Input() value = ''
     @Output() onValueChange = new EventEmitter<string>()
 
@@ -28,12 +38,6 @@ export class NumberTextFieldComponent {
     @Input() height = '48px'
 
     @ViewChild('input') input_el: ElementRef
-
-    @Observe('value') value$: Observable<string>
-    @Observe('inputLimit') inputLimit$: Observable<number>
-    @Observe('width') width$: Observable<string>
-    @Observe('height') height$: Observable<string>
-    @Observe('disable') disable$: Observable<boolean>
 
     public textField: FormControl = this.fb.control('')
     public isSetInInputChangeFn = false
@@ -52,11 +56,7 @@ export class NumberTextFieldComponent {
         if (!this.isMouseDown) this.isFocused = false
     }
 
-
     constructor(private fb: FormBuilder, private renderer: Renderer2, private inputHelper: InputHelperService) {
-        this.value$.subscribe((v) => {
-            this.textField.setValue(v, { emitEvent: false })
-        })
         this.textField.valueChanges.subscribe((v) => {
             this.textField.setValue(
                 String(v)
@@ -66,21 +66,18 @@ export class NumberTextFieldComponent {
             )
             this.onValueChange.emit(this.textField.value)
         })
-
-        this.disable$.subscribe((disable) => {
+    }
+    ngAfterViewInit() {}
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'disable', (disable) => {
             if (disable) {
                 this.textField.disable()
             } else {
                 this.textField.enable()
             }
         })
-    }
-    ngAfterViewInit() {
-        this.width$.subscribe((w) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'width', w)
-        })
-        this.height$.subscribe((h) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'height', h)
+        detectChangesOn(changes, 'value', (v) => {
+            this.textField.setValue(v, { emitEvent: false })
         })
     }
 

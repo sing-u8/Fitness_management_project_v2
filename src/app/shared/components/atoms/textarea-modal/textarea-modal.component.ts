@@ -13,10 +13,10 @@ import {
 } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
 
-import { Observe } from '@shared/helper/decorator/Observe'
 import { Loading } from '@schemas/loading'
 import { Observable } from 'rxjs'
-import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
+import { TextAreaModalOutPut } from '@schemas/components/modal'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 
 @Component({
     selector: 'rwa-textarea-modal',
@@ -25,7 +25,6 @@ import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/component
 })
 export class TextareaModalComponent {
     @Input() visible: boolean
-    @Observe('visible') visible$: Observable<boolean>
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() resetText = '초기화'
@@ -43,7 +42,6 @@ export class TextareaModalComponent {
 
     @Input() title = '타이틀'
     @Input() text = ''
-    @Observe('text') text$: Observable<string>
     public textValue = ''
 
     @Input() placeholder = '내용을 입력해주세요.'
@@ -60,16 +58,10 @@ export class TextareaModalComponent {
         this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {
-        this.text$.subscribe((v) => {
-            this.textValue = v
-        })
-    }
+    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
 
-    ngOnChanges(changes: SimpleChanges) {}
-    ngAfterViewChecked() {}
-    ngAfterViewInit() {
-        this.visible$.subscribe((v) => {
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'visible', (v) => {
             if (v) {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
@@ -87,7 +79,13 @@ export class TextareaModalComponent {
                 this.textValue = this.text
             }
         })
+
+        detectChangesOn(changes, 'text', (v) => {
+            this.textValue = v
+        })
     }
+    ngAfterViewChecked() {}
+    ngAfterViewInit() {}
 
     onReset(): void {
         this.textValue = ''

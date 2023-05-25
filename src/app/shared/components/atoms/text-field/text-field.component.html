@@ -23,6 +23,8 @@
             #input
             [type]="textFieldType == 'password' && passwordVisible == false ? 'password' : 'text'"
             [maxlength]="inputLimit"
+            [style.width]="width"
+            [style.height]="height"
             [class.password]="textFieldType == 'password'"
             [class.search]="textFieldType == 'search'"
             [class.warning]="status == 'warning'"

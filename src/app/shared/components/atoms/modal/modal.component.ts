@@ -13,10 +13,9 @@ import {
 } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
 
-import { Observe } from '@shared/helper/decorator/Observe'
 import { Loading } from '@schemas/loading'
-import { Observable } from 'rxjs'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { changesOn } from '@shared/helper/component-helper'
 
 @Component({
     selector: 'rwa-modal',
@@ -25,7 +24,6 @@ import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 })
 export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewInit {
     @Input() visible: boolean
-    @Observe('visible') visible$: Observable<boolean>
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() data: ModalInput
@@ -56,10 +54,8 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
 
     constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
 
-    ngOnChanges(changes: SimpleChanges) {}
-    ngAfterViewChecked() {}
-    ngAfterViewInit() {
-        this.visible$.subscribe((v) => {
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'visible', (v) => {
             if (v) {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
@@ -77,6 +73,8 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
             }
         })
     }
+    ngAfterViewChecked() {}
+    ngAfterViewInit() {}
 
     onCancel(): void {
         this.cancel.emit({})

@@ -14,7 +14,6 @@ import {
     SimpleChanges,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
-import { Observable } from 'rxjs'
 import { changesOn } from '@shared/helper/component-helper'
 
 import { Loading } from '@schemas/loading'

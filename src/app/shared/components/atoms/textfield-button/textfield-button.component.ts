@@ -1,16 +1,25 @@
-import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
-import { FormBuilder } from '@angular/forms'
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
 
 import _ from 'lodash'
+import { changesOn } from '@shared/helper/component-helper'
 
 @Component({
     selector: 'rwa-textfield-button',
     templateUrl: './textfield-button.component.html',
     styleUrls: ['./textfield-button.component.scss'],
 })
-export class TextfieldButtonComponent implements AfterViewInit {
+export class TextfieldButtonComponent implements AfterViewInit, OnChanges {
     @Input() value = ''
     @Input() onClick = new EventEmitter<any>()
     @Input() tagText = '변경'
@@ -29,11 +38,14 @@ export class TextfieldButtonComponent implements AfterViewInit {
     @ViewChild('button') button_el: ElementRef
     @ViewChild('tag_text') tag_text_el: ElementRef
 
-    @Observe('tagText') tagText$: Observable<string>
-
     constructor(private renderer: Renderer2) {}
     ngAfterViewInit() {
-        this.tagText$.subscribe((v) => {
+        const spaceLen = _.split(this.tagText, ' ').length - 1
+        const vWidth = (this.tagText.length - spaceLen) * 15 + spaceLen * 8
+        this.renderer.setStyle(this.tag_text_el.nativeElement, 'minWidth', `${vWidth}px`)
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'tagText', (v) => {
             const spaceLen = _.split(v, ' ').length - 1
             const vWidth = (v.length - spaceLen) * 15 + spaceLen * 8
             this.renderer.setStyle(this.tag_text_el.nativeElement, 'minWidth', `${vWidth}px`)

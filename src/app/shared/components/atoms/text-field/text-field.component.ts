@@ -1,7 +1,17 @@
-import { Component, Input, Output, EventEmitter, Renderer2, ViewChild, ElementRef, AfterViewInit } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable, Subject, map } from 'rxjs'
-import _ from 'lodash'
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    Renderer2,
+    ViewChild,
+    ElementRef,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
+import { Subject } from 'rxjs'
 
 import {
     NG_VALUE_ACCESSOR,
@@ -32,7 +42,7 @@ import { Status } from '@schemas/components/status'
         },
     ],
 })
-export class TextFieldComponent implements AfterViewInit {
+export class TextFieldComponent implements AfterViewInit, OnChanges {
     @Input() value = ''
     @Output() onValueChange = new EventEmitter<string>()
 
@@ -49,21 +59,13 @@ export class TextFieldComponent implements AfterViewInit {
     @Input() isImportant = false
 
     @Input() inputLimit = 500
-
     @Input() timeLimit = 0
 
     @Input() width = '400px'
     @Input() height = '48px'
-
     @Input() passwordVisible = false
 
     @ViewChild('input') input_el: ElementRef
-
-    @Observe('value') value$: Observable<string>
-    @Observe('inputLimit') inputLimit$: Observable<number>
-    @Observe('width') width$: Observable<string>
-    @Observe('height') height$: Observable<string>
-    @Observe('disable') disable$: Observable<boolean>
 
     public unSubscriber$ = new Subject<boolean>()
 
@@ -84,9 +86,6 @@ export class TextFieldComponent implements AfterViewInit {
     }
 
     constructor(private fb: FormBuilder, private renderer: Renderer2) {
-        this.value$.subscribe((v) => {
-            this.textField.setValue(v, { emitEvent: false })
-        })
         this.textField.valueChanges.subscribe((v) => {
             if (v?.length > this.inputLimit) {
                 this.textField.setValue(String(v).slice(0, this.inputLimit), { emitEvent: false })
@@ -94,8 +93,13 @@ export class TextFieldComponent implements AfterViewInit {
             }
             this.onValueChange.emit(v)
         })
+    }
 
-        this.disable$.subscribe((disable) => {
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'value', (v) => {
+            this.textField.setValue(v, { emitEvent: false })
+        })
+        detectChangesOn(changes, 'disable', (disable) => {
             if (disable) {
                 this.textField.disable()
             } else {
@@ -103,14 +107,8 @@ export class TextFieldComponent implements AfterViewInit {
             }
         })
     }
-    ngAfterViewInit() {
-        this.width$.subscribe((w) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'width', w)
-        })
-        this.height$.subscribe((h) => {
-            this.renderer.setStyle(this.input_el.nativeElement, 'height', h)
-        })
-    }
+
+    ngAfterViewInit() {}
     ngOnDestroy() {
         this.unSubscriber$.next(true)
         this.unSubscriber$.complete()

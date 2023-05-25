@@ -11,11 +11,12 @@ import {
     RendererStyleFlags2,
     TemplateRef,
     ViewChild,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
 
 import _ from 'lodash'
+import { changesOn } from '@shared/helper/component-helper'
 
 export type ItemsType = { name: string; value: any }
 export type ValueType = any
@@ -25,7 +26,7 @@ export type ValueType = any
     templateUrl: './textfield-dropdown.component.html',
     styleUrls: ['./textfield-dropdown.component.scss'],
 })
-export class TextfieldDropdownComponent {
+export class TextfieldDropdownComponent implements AfterViewInit, OnChanges {
     @Input() items: Array<ItemsType> = []
     @Input() value: ValueType = undefined
     @Output() onSelectValue = new EventEmitter<ValueType>()
@@ -48,7 +49,6 @@ export class TextfieldDropdownComponent {
     @Input() height = '48px'
 
     public isOpen = false
-    @Observe('isOpen') isOpen$: Observable<boolean>
     @ViewChild('l_dropdown_items') l_dropdown_items_el: ElementRef
     toggleIsOpen() {
         if (this.disable || this.items.length == 0) return
@@ -58,12 +58,15 @@ export class TextfieldDropdownComponent {
         this.isOpen = false
     }
 
-    constructor(private renderer: Renderer2) {
-        this.isOpen$.subscribe((v) => {
-            if (v) {
-                const h = Number(_.trimEnd(this.height, 'px')) + 5
-                this.renderer.setStyle(this.l_dropdown_items_el.nativeElement, 'top', `${h}px`)
-            }
+    constructor(private renderer: Renderer2) {}
+    ngAfterViewInit() {
+        const h = Number(_.trimEnd(this.height, 'px')) + 5
+        this.renderer.setStyle(this.l_dropdown_items_el.nativeElement, 'top', `${h}px`)
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'height', (v) => {
+            const h = Number(_.trimEnd(v, 'px')) + 5
+            this.renderer.setStyle(this.l_dropdown_items_el.nativeElement, 'top', `${h}px`)
         })
     }
 }

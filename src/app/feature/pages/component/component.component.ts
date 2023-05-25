@@ -2,30 +2,20 @@ import { Component, OnDestroy } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { SaleSummaryComponent } from '@feature/molecules/main/sale-summary/sale-summary.component'
-import { DateType, SaleFilterComponent } from "@feature/molecules/main/sale-filter/sale-filter.component";
-import { DirectivesModule } from '@shared/directives/directives.module'
-import { Observe } from '@shared/helper/decorator/Observe'
+import { DateType, SaleFilterComponent } from '@feature/molecules/main/sale-filter/sale-filter.component'
 
-import {
-    AsyncValidatorFn,
-    ValidatorFn,
-    FormBuilder,
-    FormControl,
-    Validators,
-    ReactiveFormsModule,
-} from '@angular/forms'
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms'
 
 import { Loading } from '@schemas/loading'
 import { TabInput } from '@schemas/components/tab'
-import { Observable, Subject } from 'rxjs'
+import { Subject } from 'rxjs'
 import { ModalInput, ModalOutPut, TextAreaModalOutPut } from '@schemas/components/modal'
 
 import { Data } from '@shared/components/molecules/datepicker/datepicker.component'
 
 import dayjs from 'dayjs'
 import _ from 'lodash'
-import { takeUntil } from 'rxjs/operators'
-import { StatsSalesSummary, StatsSalesSummaryItem } from '@schemas/stats-sales-summary'
+import { StatsSalesSummary } from '@schemas/stats-sales-summary'
 import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 
 @Component({
@@ -249,7 +239,6 @@ export class ComponentComponent implements OnDestroy {
     }
     public memo3 = this.fb.control('')
     public memo4 = ''
-    @Observe('memo4') memo4$: Observable<string>
 
     public dropdown1 = [
         { name: '옵션1', value: { name: '옵션1', id: '1' } },
@@ -336,7 +325,6 @@ export class ComponentComponent implements OnDestroy {
         startDate: dayjs().format('YYYY-MM-DD'),
         endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),
     }
-    @Observe('datepicker2') datepicker2$: Observable<any>
     public datepicker3: Data = {
         startDate: dayjs().format('YYYY-MM-DD'),
         endDate: dayjs().add(8, 'day').format('YYYY-MM-DD'),

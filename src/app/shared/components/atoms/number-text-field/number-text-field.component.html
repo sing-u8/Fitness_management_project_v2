@@ -21,6 +21,8 @@
             #input
             type="text"
             (keydown)="restrictToNumber($event)"
+            [style.width]="width"
+            [style.height]="height"
             [class.in-type]="textField.value.length > 0 && !disable"
             [class.warning]="status == 'warning'"
             [class.error]="status == 'error'"

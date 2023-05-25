@@ -9,8 +9,6 @@ import {
     OnChanges,
     SimpleChanges,
 } from '@angular/core'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
 
 @Directive({
     selector: '[rwTooltip]',

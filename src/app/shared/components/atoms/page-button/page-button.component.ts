@@ -6,12 +6,13 @@ import {
     QueryList,
     ViewChildren,
     AfterViewInit,
+    OnChanges,
+    SimpleChanges,
     ViewChild,
     ElementRef,
 } from '@angular/core'
 
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
+import { detectChangesOn } from '@shared/helper/component-helper'
 import _ from 'lodash'
 
 type PageNumberCondition = {
@@ -28,7 +29,7 @@ type PageNumberCondition = {
     templateUrl: './page-button.component.html',
     styleUrls: ['./page-button.component.scss'],
 })
-export class PageButtonComponent implements AfterViewInit {
+export class PageButtonComponent implements AfterViewInit, OnChanges {
     @Input() disable = false
     @Input() pageUnit = 10
     @Input() pageNumber!: number
@@ -169,10 +170,9 @@ export class PageButtonComponent implements AfterViewInit {
         })
     }
 
-    @Observe('pageNumber') pageNumber$: Observable<number>
-
-    constructor() {
-        this.pageNumber$.subscribe((pn) => {
+    constructor() {}
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'pageNumber', (pn) => {
             this.pageNumberArr = Array.from(Array.from({ length: pn }, (__, i) => i + 1))
             this.updatePageConditions()
         })

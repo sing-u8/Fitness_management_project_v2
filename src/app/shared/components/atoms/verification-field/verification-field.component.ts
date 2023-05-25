@@ -1,9 +1,18 @@
-import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild } from '@angular/core'
+import {
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    Output,
+    Renderer2,
+    ViewChild,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
 
 import { InputHelperService } from '@services/helper/input-helper.service'
 import { FormBuilder } from '@angular/forms'
-import { Observe } from '@shared/helper/decorator/Observe'
-import { Observable } from 'rxjs'
 
 import _ from 'lodash'
 
@@ -12,7 +21,7 @@ import _ from 'lodash'
     templateUrl: './verification-field.component.html',
     styleUrls: ['./verification-field.component.scss'],
 })
-export class VerificationFieldComponent {
+export class VerificationFieldComponent implements OnChanges {
     @Input() value = ''
     @Output() onValueChange = new EventEmitter<string>()
 
@@ -22,8 +31,6 @@ export class VerificationFieldComponent {
     @Input() hint = ''
     @Input() status: 'warning' | 'error' | 'none' = 'none'
     @Input() statusText = ''
-
-    @Observe('value') value$: Observable<string>
 
     @ViewChild('one') one_el: ElementRef
     @ViewChild('two') two_el: ElementRef
@@ -71,6 +78,8 @@ export class VerificationFieldComponent {
             this.emitNumber()
         })
     }
+    ngOnChanges(changes: SimpleChanges) {}
+
     whenKeyDelete(position: 'one' | 'two' | 'three' | 'four') {
         if (position == 'two') {
             this.one_el.nativeElement.focus()

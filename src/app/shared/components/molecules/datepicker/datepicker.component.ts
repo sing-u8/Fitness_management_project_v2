@@ -34,6 +34,7 @@ export type Data = CalMultiDate | CalDate | CalWeekDate | any
     styleUrls: ['./datepicker.component.scss'],
 })
 export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit {
+    @Input() padding = '25px'
     @Input() isShadow = true
     @Input() mode: 'date' | 'week' | 'multiline' = 'multiline'
     @Input() option:

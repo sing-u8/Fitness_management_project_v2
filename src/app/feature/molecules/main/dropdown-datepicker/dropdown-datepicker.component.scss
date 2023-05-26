@@ -6,33 +6,38 @@
 
 .l-dropdown-datepicker {
     background: var(--white);
-    border: 1px solid var(--gray-60);
-    @include card-shadow();
-    border-radius: 14px;
     overflow: hidden;
 
     display: flex;
     flex-direction: column;
 
+    &.mode-alone {
+        border-radius: 14px;
+        border: 1px solid var(--gray-60);
+        @include card-shadow();
+    }
+    &.mode-child {
+    }
+
     .l-category {
         box-sizing: border-box;
-        border-bottom: 1px solid var(--gray-50);
         position: relative;
         .category {
             width: 100%;
             height: 100%;
-            padding: 17px 25px 0;
+            padding: 25px 25px 0;
         }
     }
     .l-date-picker {
         display: flex;
         flex-direction: column;
+        align-items: center;
 
         .l-date-tag {
             width: 100%;
             display: flex;
             flex-direction: column;
-            padding: 25px 25px 3px;
+            padding: 0 29px 28px;
             .tags {
                 display: flex;
                 align-items: center;
@@ -50,9 +55,9 @@
         }
         .l-save-button {
             width: 100%;
-            height: 63px;
+            height: 64px;
             @include lower-bar-shadow();
-            padding: 10px 25px 11px;
+            padding: 11px 25px 11px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -65,7 +70,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 25px 25px 25px;
+        padding: 25px 0 0;
         .month-picker-header {
             width: 140px;
             height: 29px;
@@ -77,10 +82,8 @@
         .l-month-item {
             display: grid;
             gap: 15px;
-            grid-template-rows: repeat(3, 60px);
-            grid-template-columns: repeat(4, 60px);
-            width: 285px;
-            height: 210px;
+            grid-template-rows: repeat(4, 80px);
+            grid-template-columns: repeat(3, 80px);
             .month-text {
                 @include rw-type-r(1.5rem, 23px, var(--gray-100));
                 &.selected {
@@ -90,9 +93,12 @@
         }
         .l-save-button {
             width: 100%;
-            margin: 25px 0 0;
+            height: 64px;
+            margin: 55px 0 0;
+            @include lower-bar-shadow();
+            padding: 11px 25px 11px;
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
             .date-range {
                 @include rw-type-r(1.5rem, 23px, var(--font-color));

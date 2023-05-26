@@ -80,11 +80,10 @@ $daySize: 37px;
 $additional_width: 7px;
 
 .l-one-month-calendar {
-    width: 351px;
-    height: 394px;
+    min-width: 351px;
+    //height: 394px;
     border-radius: 18px;
     background-color: var(--white);
-    padding: 25px;
     &.is-shadow {
         @include mini-modal-shadow();
     }

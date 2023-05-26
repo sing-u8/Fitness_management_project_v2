@@ -1,5 +1,5 @@
 <div class="l-tap user-select-none" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
-    <label>{{ label }} <span class="red">*</span></label>
+    <label *ngIf="label">{{ label }} <span class="red">*</span></label>
     <div class="l-button" [style.width]="width + 'px'" [style.height]="height + 'px'">
         <button
             *ngFor="let item of tabs; let idx = index"

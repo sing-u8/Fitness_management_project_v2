@@ -10,6 +10,8 @@ import {
     ViewChild,
     OnChanges,
     SimpleChanges,
+    ViewChildren,
+    QueryList,
 } from '@angular/core'
 
 import _ from 'lodash'
@@ -22,6 +24,7 @@ import { FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducer
 import { DropdownDatepickerComponent } from '@feature/molecules/main/dropdown-datepicker/dropdown-datepicker.component'
 import dayjs from 'dayjs'
 import { detectChangesOn } from '@shared/helper/component-helper'
+import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
 
 export type FilterType = 'date' | 'paymentType' | 'member' | 'productType' | 'productName' | 'personInCharge'
 export type DateType = { startDate: string; endDate: string }
@@ -62,13 +65,40 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
             this.checkFilterValueExist()
         }
         this.openDropdown = !this.openDropdown
+        if (this.openDropdown) {
+            this.openModal()
+        } else {
+            this.closeModal()
+        }
     }
-    onClickOutside() {
+    closeDropDown() {
         if (this.openDropdown) {
             this.openDropdown = false
             this.restoreData()
             this.checkFilterValueExist()
         }
+        this.closeModal()
+    }
+
+    @ViewChild('modalBackgroundElement') modalBackgroundElement
+    @ViewChild('modalWrapperElement') modalWrapperElement
+    @ViewChildren('rwa_text_field') rwa_text_field: QueryList<TextFieldComponent>
+    openModal() {
+        this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
+        this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
+        setTimeout(() => {
+            this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
+            this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
+            if (this.rwa_text_field.length > 0) this.rwa_text_field['_results'][0].input_el.nativeElement.focus()
+        }, 0)
+    }
+    closeModal() {
+        this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
+        this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
+        setTimeout(() => {
+            this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
+            this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
+        }, 200)
     }
 
     public isMouseDown = false
@@ -302,4 +332,6 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
                 break
         }
     }
+
+    protected readonly undefined = undefined
 }

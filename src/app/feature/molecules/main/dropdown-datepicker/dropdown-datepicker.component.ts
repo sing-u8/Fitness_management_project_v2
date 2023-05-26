@@ -9,6 +9,7 @@ import {
     SimpleChanges,
     AfterViewInit,
     ChangeDetectorRef,
+    ViewChild,
 } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
@@ -36,6 +37,7 @@ type TagType =
     styleUrls: ['./dropdown-datepicker.component.scss'],
 })
 export class DropdownDatepickerComponent implements OnDestroy, OnChanges, AfterViewInit {
+    @Input() mode: 'alone' | 'child' = 'alone'
     @Input() date: { startDate: string; endDate: string } = {
         startDate: undefined,
         endDate: undefined,

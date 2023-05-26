@@ -1,10 +1,16 @@
-<section class="l-dropdown-datepicker">
+<section class="l-dropdown-datepicker" [ngClass]="{ 'mode-alone': mode == 'alone', 'mode-child': mode == 'child' }">
     <div class="l-category">
         <div class="category">
-            <rwa-tab-sm [tabs]="tabs" (onTabItemSelected)="tabs = $event"></rwa-tab-sm>
+            <rwa-tab [width]="310" [tabs]="tabs" (onTabItemSelected)="tabs = $event"></rwa-tab>
         </div>
     </div>
     <div *ngIf="tabs[0].selected" class="l-date-picker">
+        <rwm-datepicker
+            [padding]="'25px 29px 20px'"
+            [isShadow]="false"
+            [(data)]="date"
+            (dataChange)="checkDateTag(); updateMonthItemSelected()"
+        ></rwm-datepicker>
         <div class="l-date-tag">
             <div class="tags">
                 <rwa-ghost-button
@@ -132,11 +138,6 @@
                 >
             </div>
         </div>
-        <rwm-datepicker
-            [isShadow]="false"
-            [(data)]="date"
-            (dataChange)="checkDateTag(); updateMonthItemSelected()"
-        ></rwm-datepicker>
         <div class="l-save-button">
             <div class="date-range">
                 <ng-container
@@ -189,8 +190,8 @@
         <div class="l-month-item">
             <rwa-ghost-button
                 *ngFor="let item of monthItems; let i = index"
-                [width]="'60px'"
-                [height]="'60px'"
+                [width]="'80px'"
+                [height]="'80px'"
                 [borderRadius]="'14px'"
                 [hoverBgColor]="item.selected ? 'var(--red-10)' : 'var(--gray-30)'"
                 [hoverBorderColor]="item.selected ? 'var(--red-100)' : 'var(--gray-60)'"
@@ -205,6 +206,18 @@
             </rwa-ghost-button>
         </div>
         <div class="l-save-button">
+            <div class="date-range">
+                <ng-container
+                    *ngIf="
+                        (selectedTag != 'whole' && date.startDate) || (date.startDate && date.startDate == date.endDate)
+                    "
+                >
+                    {{ date.startDate | dateFormat : 'YY년 M월 D일' }}
+                </ng-container>
+                <ng-container *ngIf="date.startDate && date.endDate && date.startDate != date.endDate">
+                    &nbsp;~&nbsp;{{ date.endDate | dateFormat : 'YY년 M월 D일' }}
+                </ng-container>
+            </div>
             <rwa-button
                 [height]="'42px'"
                 [width]="'62px'"

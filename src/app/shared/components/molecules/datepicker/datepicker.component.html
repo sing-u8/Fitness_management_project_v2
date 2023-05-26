@@ -1,5 +1,6 @@
 <div
     class="l-one-month-calendar multiline d-flex flex-column user-select-none"
+    [style.padding]="padding"
     [class.is-shadow]="isShadow"
     *ngIf="mode == 'date'"
 >
@@ -88,6 +89,7 @@
 
 <div
     class="l-one-month-calendar multiline d-flex flex-column user-select-none"
+    [style.padding]="padding"
     [class.is-shadow]="isShadow"
     *ngIf="mode == 'multiline'"
 >
@@ -189,8 +191,8 @@
                     </button>
                 </div>
                 <div *ngIf="(weekCol['isEnd'] || weekCol['isSame']) && j != 6" class="week-col-padding"></div>
-<!--                <div class="between-hover" [class.show]="isHoverBetween(weekCol)"></div>-->
-<!--                <div class="between-selected" [class.show]="isHoverSelect(weekCol)"></div>-->
+                <!--                <div class="between-hover" [class.show]="isHoverBetween(weekCol)"></div>-->
+                <!--                <div class="between-selected" [class.show]="isHoverSelect(weekCol)"></div>-->
             </div>
         </ng-container>
     </div>

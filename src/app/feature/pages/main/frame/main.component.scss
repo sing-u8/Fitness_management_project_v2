@@ -1,4 +1,4 @@
-@import '../../../../../styles';
+@import './src/styles.scss';
 
 * {
     @include css-init;
@@ -17,6 +17,9 @@ section.l-section {
     background-color: var(--background-color);
     width: 100vw;
     height: 100vh;
+
+    position: relative;
+    overflow-x: hidden;
 
     .l-nav {
         position: sticky;

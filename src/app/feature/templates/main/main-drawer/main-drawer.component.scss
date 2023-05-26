@@ -37,6 +37,7 @@ section.l-main-drawer {
     align-items: center;
     height: 100vh;
     width: 300px;
+    //width: 0;
     position: absolute;
     top: 0;
     right: -300px;
@@ -47,7 +48,7 @@ section.l-main-drawer {
     -o-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     @include rw-pc-sm {
         //right: -206px;
-        right: -230px
+        right: -230px;
     }
     @include rw-pc-md {
         right: -204px;
@@ -55,6 +56,7 @@ section.l-main-drawer {
 
     &.drawer-open {
         height: 100vh;
+        //width: 300px;
         position: absolute;
         top: 0;
         right: 0;

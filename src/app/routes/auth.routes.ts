@@ -14,15 +14,17 @@ import { TermsComponent } from '../feature/pages/auth/terms/terms.component'
 
 export const AuthRoutes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
-    { path: 'login', component: LoginComponent },
+    { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'terms', canActivate: [TermsGuard], component: TermsComponent },
     {
         path: 'forgot-password',
         component: ForgotPasswordComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'reset-password',
         component: ResetPasswordComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'registration',

@@ -34,5 +34,6 @@ export interface User {
     selected_center?: Center
     selected_center_user?: CenterUser
     sign_in_method?: string
+    sawVerificationPhoneOnce?: boolean
     fcm_token: string
 }

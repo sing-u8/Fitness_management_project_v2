@@ -45,6 +45,10 @@ export class MainComponent implements OnInit, AfterViewInit {
         Promise.resolve().then(() => {
             if (!this.user.phone_number_verified) {
                 this.showPhoneVerifModal = true
+                if (!this.user?.sawVerificationPhoneOnce) {
+                    this.user['sawVerificationPhoneOnce'] = true
+                    this.storageService.setUser(this.user)
+                }
             }
         })
     }

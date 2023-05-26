@@ -36,13 +36,12 @@ export class AuthGuard implements CanActivate {
                 // 로그인 되었을 때, 비밀번호 재설정 페이지일 경우는 제외
                 this.router.navigateByUrl('/main')
                 return false
+            } else if (!user.phone_number_verified && user.sawVerificationPhoneOnce) {
+                this.storageService.logout()
+                return false
             } else {
                 return true
             }
-            // else if (!user.phone_number_verified) {
-            //     this.router.navigateByUrl('/auth/registration/phone')
-            //     return false
-            // }
         } else {
             if (url[1] == 'auth') {
                 if (url[2] == 'registration' && this.canActivateBy(route.routeConfig.path)) {

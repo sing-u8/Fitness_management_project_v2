@@ -1459,16 +1459,12 @@
     <div class="d-flex align-items-center">
         <rwa-verification-field
             [labelVisible]="false"
-            [value]="verificationNumber"
-            (onValueChange)="onVerificationNumberChange($event)"
+            [value]="verifForm.value"
+            (onValueChange)="onVerifFormChange($event)"
         ></rwa-verification-field>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
-        <rwa-verification-field
-            [value]="verificationNumber"
-            (onValueChange)="onVerificationNumberChange($event)"
-            [hint]="'힌트 메시지'"
-        ></rwa-verification-field>
+        <rwa-verification-field [formControl]="verifForm1" [hint]="'힌트 메시지'"></rwa-verification-field>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
     </div>

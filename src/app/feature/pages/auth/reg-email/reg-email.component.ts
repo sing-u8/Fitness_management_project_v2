@@ -6,8 +6,8 @@ import {
     AfterViewInit,
     OnDestroy,
     OnChanges,
-    SimpleChanges
-} from "@angular/core";
+    SimpleChanges,
+} from '@angular/core'
 import { CommonModule, Location } from '@angular/common'
 import { Router } from '@angular/router'
 import { Auth, authState, signInWithCustomToken } from '@angular/fire/auth'
@@ -28,8 +28,8 @@ import { Store, select } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
 import { registrationSelector } from '@store/app/selectors/selectors'
 import { SharedModule } from '@shared/shared.module'
-import { Observe } from '@shared/helper/decorator/Observe'
 import { Loading } from '@schemas/loading'
+import { FormBuilder, FormControl } from '@angular/forms'
 
 @Component({
     selector: 'rwp-reg-email',
@@ -44,8 +44,10 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
     public registration: Registration
 
     public email: string
-    public verificationCode = ''
-    @Observe('verificationCode') verificationCode$: Observable<string>
+    public verificationCodeControl: FormControl
+    onValueChange(v: string) {
+        if (this.verificationCodeControl.value != v) this.verificationCodeControl.setValue(v)
+    }
     public verificationStatus: 'warning' | 'error' | 'none' = 'none'
     public error: string
     public isNumberValid = false
@@ -63,8 +65,34 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
         private nxStore: Store,
         private authService: AuthService,
         private fireAuth: Auth,
-        private storageService: StorageService
-    ) {}
+        private storageService: StorageService,
+        private fb: FormBuilder
+    ) {
+        this.verificationCodeControl = this.fb.control('')
+        this.verificationCodeControl.valueChanges
+            .pipe(
+                distinctUntilChanged(),
+                debounceTime(300),
+                filter((v) => v.length == 4 && this.email.length > 0)
+            )
+            .subscribe((v) => {
+                console.log('verificationCodeControl.valueChanges -- ', v, this.verificationCodeControl.value)
+                this.authService
+                    .checkVerificationCodeMail({
+                        email: this.email,
+                        verification_code: Number(this.verificationCodeControl.value),
+                    })
+                    .subscribe({
+                        next: () => {
+                            this.isNumberValid = true
+                        },
+                        error: () => {
+                            this.error = '인증번호가 일치하지 않아요.'
+                            this.verificationStatus = 'error'
+                        },
+                    })
+            })
+    }
 
     ngOnInit(): void {
         this.nxStore.pipe(select(registrationSelector)).subscribe((reg) => {
@@ -81,36 +109,9 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
                 this.storageService.setSignInMethod('email')
             }
         })
-
-        this.verificationCode$
-            .pipe(
-                distinctUntilChanged(),
-                debounceTime(300),
-                filter((v) => v.length == 4 && this.email.length > 0)
-            )
-            .subscribe({
-                next: (v) => {
-                    this.authService
-                        .checkVerificationCodeMail({
-                            email: this.email,
-                            verification_code: Number(this.verificationCode),
-                        })
-                        .subscribe({
-                            next: () => {
-                                this.isNumberValid = true
-                            },
-                            error: () => {
-                                this.error = '인증번호가 일치하지 않아요.'
-                                this.verificationStatus = 'error'
-                            },
-                        })
-                },
-            })
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-
-    }
+    ngOnChanges(changes: SimpleChanges) {}
 
     ngAfterViewInit() {
         this.verif_field_el.one_el.nativeElement.focus()
@@ -134,7 +135,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
     stopTimer() {
         this.error = '입력 시간이 지났어요. 아래 [재전송하기]를 눌러주세요!'
         this.verificationStatus = 'error'
-        this.verificationCode = ''
+        this.verificationCodeControl.setValue('')
 
         clearInterval(this.interval)
     }
@@ -152,7 +153,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
     }
 
     sendVerificationCodeMail(isShowModal: boolean) {
-        this.verificationCode = ''
+        this.verificationCodeControl.setValue('')
         this.authService.sendVerificationCodeMail({ email: this.email }).subscribe({
             next: (v) => {
                 if (isShowModal) {
@@ -180,7 +181,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
         const body = {
             name: this.registration.name,
             email: this.registration.email,
-            verification_code: Number(this.verificationCode),
+            verification_code: Number(this.verificationCodeControl.value),
             password: this.registration.password,
             privacy: this.registration.privacy,
             service_terms: this.registration.service_terms,

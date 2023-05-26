@@ -9,19 +9,28 @@ import {
     AfterViewInit,
     OnChanges,
     SimpleChanges,
+    OnDestroy,
 } from '@angular/core'
+import { FormBuilder, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 import { InputHelperService } from '@services/helper/input-helper.service'
-import { FormBuilder } from '@angular/forms'
 
 import _ from 'lodash'
+import { Subscription } from 'rxjs'
 
 @Component({
     selector: 'rwa-verification-field',
     templateUrl: './verification-field.component.html',
     styleUrls: ['./verification-field.component.scss'],
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: VerificationFieldComponent,
+        },
+    ],
 })
-export class VerificationFieldComponent implements OnChanges {
+export class VerificationFieldComponent implements OnChanges, OnDestroy {
     @Input() value = ''
     @Output() onValueChange = new EventEmitter<string>()
 
@@ -44,6 +53,8 @@ export class VerificationFieldComponent implements OnChanges {
         four: '',
     })
 
+    public onChangeSubs: Subscription[] = []
+
     get one() {
         return this.form.get('one')
     }
@@ -60,17 +71,14 @@ export class VerificationFieldComponent implements OnChanges {
     constructor(private fb: FormBuilder, private renderer: Renderer2, private inputHelper: InputHelperService) {
         this.one.valueChanges.subscribe((v) => {
             this.one.setValue(String(v).replace(/[^0-9]/gi, ''), { emitEvent: false })
-
             this.emitNumber()
         })
         this.two.valueChanges.subscribe((v) => {
             this.two.setValue(String(v).replace(/[^0-9]/gi, ''), { emitEvent: false })
-
             this.emitNumber()
         })
         this.three.valueChanges.subscribe((v) => {
             this.three.setValue(String(v).replace(/[^0-9]/gi, ''), { emitEvent: false })
-
             this.emitNumber()
         })
         this.four.valueChanges.subscribe((v) => {
@@ -79,6 +87,11 @@ export class VerificationFieldComponent implements OnChanges {
         })
     }
     ngOnChanges(changes: SimpleChanges) {}
+    ngOnDestroy() {
+        for (const sub of this.onChangeSubs) {
+            sub.unsubscribe()
+        }
+    }
 
     whenKeyDelete(position: 'one' | 'two' | 'three' | 'four') {
         if (position == 'two') {
@@ -111,5 +124,30 @@ export class VerificationFieldComponent implements OnChanges {
 
     restrictToNumber(event) {
         return this.inputHelper.restrictToNumber(event)
+    }
+
+    //
+    onTouched: () => void = () => {}
+    registerOnChange(onChange: any) {
+        const sub = this.form.valueChanges.subscribe(onChange)
+        this.onChangeSubs.push(sub)
+    }
+
+    registerOnTouched(onTouched: () => void) {
+        this.onTouched = onTouched
+    }
+
+    setDisabledState(disabled: boolean) {
+        if (disabled) {
+            this.form.disable()
+        } else {
+            this.form.enable()
+        }
+    }
+
+    writeValue(value: any) {
+        if (value) {
+            this.form.setValue(value, { emitEvent: false })
+        }
     }
 }

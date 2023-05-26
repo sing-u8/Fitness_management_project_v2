@@ -17,6 +17,7 @@ import dayjs from 'dayjs'
 import _ from 'lodash'
 import { StatsSalesSummary } from '@schemas/stats-sales-summary'
 import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
     selector: 'rwp-component',
@@ -60,6 +61,12 @@ export class ComponentComponent implements OnDestroy {
         //     this.textInput3.setValue(value, { emitEvent: false })
         //     // console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
         // })
+        this.verifForm.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+            console.log('value change verifForm : ', v)
+        })
+        this.verifForm1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+            console.log('value change verifForm1 : ', v)
+        })
     }
 
     public modalSendLink = false
@@ -227,6 +234,13 @@ export class ComponentComponent implements OnDestroy {
     onVerificationNumberChange(text: string) {
         this.verificationNumber = text
         // console.log('onVerificationNumberChange -- ', this.verificationNumber)
+    }
+
+    public verifForm = this.fb.control('')
+    public verifForm1 = this.fb.control('')
+    onVerifFormChange(text: string) {
+        if (this.verifForm.value != text) this.verifForm.setValue(text)
+        console.log('onVerifFormChange -- ', this.verifForm.value)
     }
 
     public memo1 = this.fb.control('')

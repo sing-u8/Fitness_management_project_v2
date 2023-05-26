@@ -17,10 +17,10 @@
         <rwa-verification-field
             #verif_field
             [labelVisible]="false"
-            [value]="verificationCode"
+            [value]="verificationCodeControl.value"
             [status]="verificationStatus"
             [statusText]="error"
-            (onValueChange)="verificationCode = $event"
+            (onValueChange)="onValueChange($event)"
         ></rwa-verification-field>
         <div class="l-button">
             <rwa-button

@@ -69,6 +69,100 @@
             <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>
             <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>
         </div>
-        <div class="sale-table"></div>
+        <div class="sale-table-summary">
+            <div class="l-payment-type-summary">
+                <div class="sale-table-summary-title">
+                    <span class="title-margin">거래</span>
+                    <span>{{ '0,000' }}건</span>
+                </div>
+                <div class="payment-type-content">
+                    <div class="summary-item">
+                        <div class="type-text">결제</div>
+                        <div class="value-text">0,000건</div>
+                    </div>
+                    <div class="plus-bold-gray70"></div>
+                    <div class="summary-item">
+                        <div class="type-text">환불</div>
+                        <div class="value-text">0,000건</div>
+                    </div>
+                </div>
+            </div>
+            <div class="l-payment-sale-summary">
+                <div class="sale-table-summary-title">
+                    <span class="title-margin">거래</span>
+                    <span>{{ '00,000,000' }}원</span>
+                </div>
+                <div class="payment-sale-content">
+                    <div class="summary-item">
+                        <div class="type-text">카드</div>
+                        <div class="value-text">0,000,000원</div>
+                        <div class="plus-bold-gray70"></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="type-text">이체</div>
+                        <div class="value-text">0,000,000원</div>
+                        <div class="plus-bold-gray70"></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="type-text">현금</div>
+                        <div class="value-text">0,000,000원</div>
+                        <div class="plus-bold-gray70"></div>
+                    </div>
+                    <div class="summary-item">
+                        <div class="type-text">미수금</div>
+                        <div class="value-text">0,000,000원</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="sale-table">
+            <div class="sale-table-content scroll-y-overlay">
+                <div class="sale-table-header">
+                    <div class="sth-row">
+                        <div class="sth-fixed-th header-text">
+                            <div class="sth-col-1">날짜</div>
+                            <div class="sth-col-2">구분</div>
+                            <div class="sth-col-3">회원</div>
+                        </div>
+                        <div class="sth-movable-th header-text">
+                            <div class="sth-col-4">상품 유형</div>
+                            <div class="sth-col-5">상품명</div>
+                            <div class="sth-col-6">결제 담당자</div>
+                            <div class="sth-col-7">결제 / 환불 금액</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sale-table-body">
+                    <div class="stb-row">
+                        <div class="stb-fixed-td body-text">
+                            <div class="sth-col-1">2023.00.00</div>
+                            <div class="sth-col-2">결제</div>
+                            <div class="sth-col-3">
+                                <div class="col-3-name">회원명</div>
+                                <div class="col-3-phone">010-1234-5678</div>
+                            </div>
+                        </div>
+                        <div class="stb-movable-td body-text">
+                            <div class="sth-col-4">회원권</div>
+                            <div class="sth-col-5 line-ellipsis">상품명</div>
+                            <div class="sth-col-6">
+                                <div class="col-6-name">담당자명</div>
+                                <div class="col-6-phone">010-1234-5678</div>
+                            </div>
+                            <div class="sth-col-7 sth-col-7-right">
+                                <div class="l-col-7-value">
+                                    <div class="col-7-price">00,000,000원</div>
+                                    <div class="col-7-unpaid"></div>
+                                </div>
+                                <div class="caret-circle-down-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sale-table-page">
+                <rwa-page-button [pageNumber]="1"></rwa-page-button>
+            </div>
+        </div>
     </div>
 </section>

@@ -11,6 +11,7 @@ import { salesReducer } from '@store/main/reducers/sales.reducer'
 
 import { SalesEffect } from '@store/main/effects/sales.effect'
 
+import { FeatureKey as MainFeatureKey } from '@store/main/selectors/main.selector'
 import { FeatureKey as SalesFeatureKey } from '@store/main/selectors/sales.selector'
 
 export const MainRoutes = [
@@ -19,7 +20,7 @@ export const MainRoutes = [
         component: MainComponent,
         providers: [
             importProvidersFrom(
-                StoreModule.forFeature('main', {
+                StoreModule.forFeature(MainFeatureKey, {
                     [SalesFeatureKey]: salesReducer,
                 })
             ),

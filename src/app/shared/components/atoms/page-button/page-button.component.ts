@@ -33,12 +33,15 @@ export class PageButtonComponent implements AfterViewInit, OnChanges {
     @Input() disable = false
     @Input() pageUnit = 10
     @Input() pageNumber!: number
+    @Input() selectedPageNumber = 1
+    @Output() selectedPageNumberChange = new EventEmitter<number>()
+
     public pageConditionSetNumber = 7
     public pageCoverNumber = 2
     public additionalCoverNumber = 0
     public pageNumberArr: number[] = []
     public pageConditions: PageNumberCondition[] = []
-    public selectedPageNumber = 1
+
     updatePageConditions() {
         this.pageConditions = _.map(this.pageNumberArr, (v, i) => {
             const condition: PageNumberCondition = {

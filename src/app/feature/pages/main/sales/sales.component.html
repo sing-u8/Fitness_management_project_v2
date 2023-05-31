@@ -1,14 +1,27 @@
 <section class="l-sales">
     <div class="l-summary">
-        <rwm-sale-summary [summaryType]="'currentMonth'"></rwm-sale-summary>
-        <rwm-sale-summary [summaryType]="'today'"></rwm-sale-summary>
+        <ng-container *ngrxLet="{ tm: saleSummaryThisMonth$, lm: saleSummaryLastMonth$ } as ms">
+            <rwm-sale-summary
+                [summaryType]="'currentMonth'"
+                [curSummary]="ms.tm"
+                [prevSummary]="ms.lm"
+            ></rwm-sale-summary>
+        </ng-container>
+        <ng-container *ngrxLet="{ today: saleSummaryToday$, yesterday: saleSummaryYesterday$ } as ds">
+            <rwm-sale-summary
+                [summaryType]="'today'"
+                [curSummary]="ds.today"
+                [prevSummary]="ds.yesterday"
+            ></rwm-sale-summary>
+        </ng-container>
     </div>
     <div class="l-sale-table">
         <div class="l-sale-table-header">
             <div class="sale-table__title">매출</div>
             <div class="l-sale-table-header-button">
-                <div class="l-file-download-dropdown">
+                <div class="l-file-download-dropdown d-flex">
                     <rwa-ghost-button
+                        class="download-button"
                         [height]="'42px'"
                         [bgColor]="'var(--red-5)'"
                         [hoverBgColor]="'var(--red-10)'"
@@ -18,10 +31,18 @@
                         [hoverBorderColor]="'var(--red-100)'"
                         [disableBgColor]="'#EEEEEE'"
                         [padding]="'7.5px 15px 5.5px 11px'"
+                        [status]="fileDownLoadStatus"
                         (onClick)="showFileDownloadDropdown = !showFileDownloadDropdown"
                         (rwClickOutside)="showFileDownloadDropdown = false"
                     >
                         <ng-template gbtIdleContent>
+                            <div class="sale-header-button__text red">
+                                <div *ngIf="!showFileDownloadDropdown" class="file-download-icon--red"></div>
+                                <div *ngIf="showFileDownloadDropdown" class="caret-up-1-icon--red"></div>
+                                엑셀 파일로 다운로드
+                            </div>
+                        </ng-template>
+                        <ng-template gbtPendingContent>
                             <div class="sale-header-button__text red">
                                 <div *ngIf="!showFileDownloadDropdown" class="file-download-icon--red"></div>
                                 <div *ngIf="showFileDownloadDropdown" class="caret-up-1-icon--red"></div>
@@ -36,6 +57,7 @@
                             [bgColor]="'var(--white)'"
                             [hoverBgColor]="'var(--gray-30)'"
                             [borderRadius]="'0'"
+                            (onClick)="onFileDownLoad('filtered')"
                         >
                             <ng-template btIdleContent>
                                 <span class="rw-type-r17">필터링한 부분만 다운로드</span>
@@ -47,6 +69,7 @@
                             [bgColor]="'var(--white)'"
                             [hoverBgColor]="'var(--gray-30)'"
                             [borderRadius]="'0'"
+                            (onClick)="onFileDownLoad('all')"
                         >
                             <ng-template btIdleContent>
                                 <span class="rw-type-r17">필터링 없이 전체 다운로드</span>
@@ -54,7 +77,7 @@
                         </rwa-button>
                     </div>
                 </div>
-                <rwa-ghost-button [height]="'42px'" [padding]="'7.5px 15px 5.5px'">
+                <rwa-ghost-button [height]="'42px'" [padding]="'7.5px 15px 5.5px'" (onClick)="resetFilters()">
                     <ng-template gbtIdleContent>
                         <div class="sale-header-button__text red">필터 초기화</div>
                     </ng-template>
@@ -62,18 +85,60 @@
             </div>
         </div>
         <div class="l-sale-filter scroll-x-overlay">
-            <rwm-sale-filter [filterType]="'date'" [(date)]="dateFilter"></rwm-sale-filter>
-            <rwm-sale-filter [filterType]="'paymentType'"></rwm-sale-filter>
-            <rwm-sale-filter [filterType]="'member'"></rwm-sale-filter>
-            <rwm-sale-filter [filterType]="'productType'"></rwm-sale-filter>
-            <rwm-sale-filter [filterType]="'productName'"></rwm-sale-filter>
-            <rwm-sale-filter [filterType]="'personInCharge'"></rwm-sale-filter>
+            <ng-container *ngrxLet="dateFilter$ as df">
+                <rwm-sale-filter
+                    [filterType]="'date'"
+                    [date]="df"
+                    (dateChange)="onDateFilterChange($event)"
+                    (onReset)="onResetFilter('date')"
+                ></rwm-sale-filter>
+            </ng-container>
+            <ng-container *ngrxLet="typeCodeFilter$ as tf">
+                <rwm-sale-filter
+                    [filterType]="'paymentType'"
+                    [paymentType]="tf"
+                    (paymentTypeChange)="onTypeCodeFilterChange($event)"
+                    (onReset)="onResetFilter('paymentType')"
+                ></rwm-sale-filter>
+            </ng-container>
+            <ng-container *ngrxLet="memberFilter$ as mf">
+                <rwm-sale-filter
+                    [filterType]="'member'"
+                    [member]="mf"
+                    (memberChange)="onMemberFilterChange($event)"
+                    (onReset)="onResetFilter('member')"
+                ></rwm-sale-filter>
+            </ng-container>
+            <ng-container *ngrxLet="productTypeCodeFilter$ as ptf">
+                <rwm-sale-filter
+                    [filterType]="'productType'"
+                    [productType]="ptf"
+                    (productTypeChange)="onProductTypeCodeFilterChange($event)"
+                    (onReset)="onResetFilter('productType')"
+                ></rwm-sale-filter>
+            </ng-container>
+            <ng-container *ngrxLet="productNameFilter$ as pnf">
+                <rwm-sale-filter
+                    [filterType]="'productName'"
+                    [productName]="pnf"
+                    (productNameChange)="onProductNameFilterChange($event)"
+                    (onReset)="onResetFilter('productName')"
+                ></rwm-sale-filter>
+            </ng-container>
+            <ng-container *ngrxLet="personInChargeFilter$ as pf">
+                <rwm-sale-filter
+                    [filterType]="'personInCharge'"
+                    [personInCharge]="pf"
+                    (personInChargeChange)="onPersonInChargeFilterChange($event)"
+                    (onReset)="onResetFilter('personInCharge')"
+                ></rwm-sale-filter>
+            </ng-container>
         </div>
         <div class="sale-table-summary">
             <div class="l-payment-type-summary">
                 <div class="sale-table-summary-title">
                     <span class="title-margin">거래</span>
-                    <span>{{ '0,000' }}건</span>
+                    <span *ngrxLet="salesInfoSummary$ as ss">{{ ss.rows }}건</span>
                 </div>
                 <div class="payment-type-content">
                     <div class="summary-item">
@@ -90,27 +155,27 @@
             <div class="l-payment-sale-summary">
                 <div class="sale-table-summary-title">
                     <span class="title-margin">거래</span>
-                    <span>{{ '00,000,000' }}원</span>
+                    <span>{{ salesInfoTotalPrice | numberWithCommas }}원</span>
                 </div>
-                <div class="payment-sale-content">
+                <div class="payment-sale-content" *ngrxLet="salesInfoSummary$ as ss">
                     <div class="summary-item">
                         <div class="type-text">카드</div>
-                        <div class="value-text">0,000,000원</div>
+                        <div class="value-text">{{ ss.sum_card | numberWithCommas }}원</div>
                         <div class="plus-bold-gray70"></div>
                     </div>
                     <div class="summary-item">
                         <div class="type-text">이체</div>
-                        <div class="value-text">0,000,000원</div>
+                        <div class="value-text">{{ ss.sum_trans | numberWithCommas }}원</div>
                         <div class="plus-bold-gray70"></div>
                     </div>
                     <div class="summary-item">
                         <div class="type-text">현금</div>
-                        <div class="value-text">0,000,000원</div>
+                        <div class="value-text">{{ ss.sum_cash | numberWithCommas }}원</div>
                         <div class="plus-bold-gray70"></div>
                     </div>
                     <div class="summary-item">
                         <div class="type-text">미수금</div>
-                        <div class="value-text">0,000,000원</div>
+                        <div class="value-text">{{ ss.sum_unpaid | numberWithCommas }}원</div>
                     </div>
                 </div>
             </div>
@@ -132,37 +197,102 @@
                         </div>
                     </div>
                 </div>
-                <div class="sale-table-body">
-                    <div class="stb-row">
-                        <div class="stb-fixed-td body-text">
-                            <div class="sth-col-1">2023.00.00</div>
-                            <div class="sth-col-2">결제</div>
-                            <div class="sth-col-3">
-                                <div class="col-3-name">회원명</div>
-                                <div class="col-3-phone">010-1234-5678</div>
-                            </div>
-                        </div>
-                        <div class="stb-movable-td body-text">
-                            <div class="sth-col-4">회원권</div>
-                            <div class="sth-col-5 line-ellipsis">상품명</div>
-                            <div class="sth-col-6">
-                                <div class="col-6-name">담당자명</div>
-                                <div class="col-6-phone">010-1234-5678</div>
-                            </div>
-                            <div class="sth-col-7 sth-col-7-right">
-                                <div class="l-col-7-value">
-                                    <div class="col-7-price">00,000,000원</div>
-                                    <div class="col-7-unpaid"></div>
+
+                <ng-container *ngrxLet="{ saleLoading: salesLoading$, saleSummary: salesInfoSummary$ } as saleData">
+                    <div class="sale-table-body" *ngIf="saleData.saleLoading != 'pending' && saleData.saleSummary.rows > 0">
+                        <ng-container *ngrxLet="sales$ as sale">
+                            <div class="stb-row" *ngFor="let item of sale">
+                                <div class="stb-fixed-td body-text">
+                                    <div class="sth-col-1">{{ item.date | dateFormat : 'YYYY.MM.DD' }}</div>
+                                    <div class="sth-col-2">{{ item.type_code_name }}</div>
+                                    <div class="sth-col-3">
+                                        <div class="col-3-name">{{ item.center_user_name }}</div>
+                                        <div class="col-3-phone">{{ item.center_user_phone_number | phoneNumber }}</div>
+                                    </div>
                                 </div>
-                                <div class="caret-circle-down-icon"></div>
+                                <div class="stb-movable-td body-text">
+                                    <div class="sth-col-4">{{ item.product_type_code_name }}</div>
+                                    <div class="sth-col-5 line-ellipsis">{{ item.product_name }}</div>
+                                    <div class="sth-col-6">
+                                        <div class="col-6-name">{{ item.responsibility_center_user_name }}</div>
+                                        <div class="col-6-phone">
+                                            {{ item.responsibility_center_user_phone_number | phoneNumber }}
+                                        </div>
+                                    </div>
+                                    <div class="sth-col-7 sth-col-7-right">
+                                        <div class="l-col-7-value">
+                                            <div class="col-7-price">
+                                                {{
+                                                    item.card + item.cash + item.trans + item.unpaid | numberWithCommas
+                                                }}원
+                                                <div class="col-7-price-dropdown">
+                                                    <div class="col-7-price-dropdown__item">
+                                                        <span class="categ">카드</span>
+                                                        <span class="price">{{ item.card | numberWithCommas }}원</span>
+                                                    </div>
+                                                    <div class="col-7-price-dropdown__item">
+                                                        <span class="categ">이체</span>
+                                                        <span class="price">{{ item.trans | numberWithCommas }}원</span>
+                                                    </div>
+                                                    <div class="col-7-price-dropdown__item">
+                                                        <span class="categ">현금</span>
+                                                        <span class="price">{{ item.cash | numberWithCommas }}원</span>
+                                                    </div>
+                                                    <div class="col-7-price-dropdown__item">
+                                                        <span class="categ">미수금</span>
+                                                        <span class="price"
+                                                            >{{ item.unpaid | numberWithCommas }}원</span
+                                                        >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="item.unpaid && item.unpaid > 0" class="col-7-unpaid">
+                                                {{ item.unpaid | numberWithCommas }}원
+                                            </div>
+                                        </div>
+                                        <div class="caret-circle-down-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                    <div class="sale-table-body justify-content-center" *ngIf="saleData.saleLoading == 'pending'">
+                        <ngx-spinner
+                            type="ball-clip-rotate"
+                            [size]="'small'"
+                            [color]="'var(--gray-80)'"
+                            [bdColor]="'transparent'"
+                            [fullScreen]="false"
+                            [name]="'sale-table-loading'"
+                            [showSpinner]="true"
+                        >
+                        </ngx-spinner>
+                    </div>
+                    <div
+                        class="sale-table-body justify-content-center"
+                        *ngIf="saleData.saleLoading != 'pending' && saleData.saleSummary.rows < 1"
+                    >
+                        <div class="stb-row-empty">
+                            <div class="stb-row-empty__text">💰 매출 정보가 없어요.</div>
+                            <div class="stb-row-empty__text">
+                                회원에게 상품을 판매한 후,<br />
+                                이곳에서 매출을 관리해 보세요.
                             </div>
                         </div>
                     </div>
+                </ng-container>
+            </div>
+
+            <ng-container *ngrxLet="salesInfoSummary$ as sis">
+                <div class="sale-table-page" *ngIf="sis.rows > 0">
+                    <rwa-page-button
+                        [pageNumber]="pageNumber"
+                        [pageUnit]="10"
+                        [selectedPageNumber]="selectedPageNumber"
+                        (onPageNumberClick)="onPageNumberClick($event)"
+                    ></rwa-page-button>
                 </div>
-            </div>
-            <div class="sale-table-page">
-                <rwa-page-button [pageNumber]="1"></rwa-page-button>
-            </div>
+            </ng-container>
         </div>
     </div>
 </section>

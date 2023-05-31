@@ -59,7 +59,7 @@ export class CenterStatsService {
 
         if (!_.isEmpty(option) && _.keys(option).length > 0) {
             _.forIn(option, (v, k) => {
-                url += `&${k}=${encodeURIComponent(v)}`
+                if (!_.isEmpty(v) || _.isNumber(v)) url += `&${k}=${encodeURIComponent(v)}`
             })
         }
 
@@ -113,10 +113,10 @@ export type ExportSalesDataReqBody = {
 export type GetStatsSalesTypeCode = 'payment_type_payment' | 'payment_type_refund' | 'payment_type_transfer'
 export type GetStatsProductTypeCode = 'user_membership' | 'user_locker' | 'user_sportswear' // user_sportswear는 아직 API에 없음
 export type getStatsSaleOption = {
-    type_code?: GetStatsSalesTypeCode
+    type_code?: string //GetStatsSalesTypeCode
     center_user_name?: string
     center_user_phone_number?: string
-    product_type_code?: GetStatsProductTypeCode
+    product_type_code?: string //GetStatsProductTypeCode
     product_name?: string
     responsibility_center_user_name?: string
     responsibility_center_user_phone_number?: string

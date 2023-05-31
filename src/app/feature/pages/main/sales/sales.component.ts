@@ -1,11 +1,15 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, ViewChild, ElementRef } from '@angular/core'
 import { CommonModule } from '@angular/common'
+import { LetModule } from '@ngrx/component'
+import { PushModule } from '@ngrx/component'
 
 import _ from 'lodash'
 import dayjs from 'dayjs'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
+import * as SaleSelector from '@store/main/selectors/sales.selector'
+import * as SalesAction from '@store/main/actions/sales.action'
 import { showToast } from '@store/app/actions/toast.action'
 // rxjs
 import { Observable, Subject } from 'rxjs'
@@ -18,39 +22,178 @@ import * as SalesActions from '@store/main/actions/sales.action'
 import { StorageService } from '@services/storage.service'
 import { SaleSummaryComponent } from '@feature/molecules/main/sale-summary/sale-summary.component'
 import { SharedModule } from '@shared/shared.module'
-import { SaleFilterComponent } from '@feature/molecules/main/sale-filter/sale-filter.component'
+import { FilterType, SaleFilterComponent } from '@feature/molecules/main/sale-filter/sale-filter.component'
+import {
+    saleSummary,
+    saleSummaryLastMonth,
+    saleSummaryThisMonth,
+    saleSummaryToday,
+    saleSummaryYesterday,
+} from '@store/main/selectors/sales.selector'
+import { FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
+import { Center } from '@schemas/center'
+import { Loading } from '@schemas/loading'
+import { asExportSales } from '@store/main/actions/sales.action'
+import { NgxSpinnerService } from 'ngx-spinner'
 
 @Component({
     selector: 'rwp-sales',
     standalone: true,
-    imports: [CommonModule, SaleSummaryComponent, SharedModule, SaleFilterComponent],
+    imports: [CommonModule, SaleSummaryComponent, SharedModule, SaleFilterComponent, LetModule, PushModule],
     templateUrl: './sales.component.html',
     styleUrls: ['./sales.component.scss'],
 })
 export class SalesComponent implements OnDestroy, OnInit {
-    constructor(private renderer: Renderer2, private nxStore: Store, private storageService: StorageService) {}
+    public center: Center
+    public subject$ = new Subject<boolean>()
+    constructor(
+        private renderer: Renderer2,
+        private nxStore: Store,
+        private storageService: StorageService,
+        private spinner: NgxSpinnerService
+    ) {}
     ngOnInit() {
-        const center = this.storageService.getCenter()
-        // setTimeout(() => {
-        //     console.log('dispatch asLoadSales !!')
-        //     this.nxStore.dispatch(
-        //         SalesActions.asLoadSales({
-        //             centerId: center.id,
-        //             startDate: '2023-05-01',
-        //             endDate: '2023-06-01',
-        //         })
-        //     )
-        // }, 3000)
+        this.center = this.storageService.getCenter()
+        setTimeout(() => {
+            console.log('dispatch asLoadSales !!')
+            this.nxStore.dispatch(
+                SalesActions.asLoadSales({
+                    centerId: this.center.id,
+                })
+            )
+        }, 2000)
+
+        this.salesInfoSummary$.pipe(takeUntil(this.subject$)).subscribe((v) => {
+            this.salesInfoTotalPrice =
+                Number(v.sum_card) + Number(v.sum_trans) + Number(v.sum_cash) + Number(v.sum_unpaid)
+            this.pageNumber = _.ceil(v.rows / 10)
+        })
+        this.salesLoading$.pipe(takeUntil(this.subject$)).subscribe((v) => {
+            if (v == 'pending') {
+                this.spinner.show('sale-table-loading')
+            } else {
+                this.spinner.hide('sale-table-loading')
+            }
+        })
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy() {
+        this.subject$.next(true)
+        this.subject$.complete()
+    }
 
     // sale header button vars and funcs
     public showFileDownloadDropdown = false
+    public fileDownLoadStatus: Loading = 'idle'
+    onFileDownLoad(exportType: 'filtered' | 'all') {
+        this.fileDownLoadStatus = 'pending'
+        this.nxStore.dispatch(
+            SalesAction.asExportSales({
+                centerId: this.center.id,
+                exportType,
+                cb: () => {
+                    this.fileDownLoadStatus = 'idle'
+                },
+            })
+        )
+    }
 
     // filter vars and funcs
-    public dateFilter = {
-        startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
-        endDate: dayjs().endOf('month').format('YYYY-MM-DD'),
+    public dateFilter$ = this.nxStore.select(SaleSelector.dateFilter)
+    public typeCodeFilter$ = this.nxStore.select(SaleSelector.typeCodeFilter)
+    public memberFilter$ = this.nxStore.select(SaleSelector.memberFilter)
+    public productTypeCodeFilter$ = this.nxStore.select(SaleSelector.productTypeCodeFilter)
+    public productNameFilter$ = this.nxStore.select(SaleSelector.productNameFilter)
+    public personInChargeFilter$ = this.nxStore.select(SaleSelector.personInChargeFilter)
+    onTypeCodeFilterChange(typeCode: FilterMapTypeCode) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setTypeCodeFilter({ typeCode }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    onMemberFilterChange(member: string) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setMemberFilter({ member }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    onProductTypeCodeFilterChange(productTypeCode: FilterMapProductTypeCode) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setProductTypeCodeFilter({ productTypeCode }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    onProductNameFilterChange(productName: string) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setProductNameFilter({ productName }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    onPersonInChargeFilterChange(personInCharge: string) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setPersonInChargeFilter({ personInCharge }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    onDateFilterChange(date: { startDate: string; endDate: string }) {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.setDateFilter({ date }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+
+    onResetFilter(type: FilterType) {
+        switch (type) {
+            case 'date':
+                break
+            case 'member':
+                this.nxStore.dispatch(SalesAction.setMemberFilter({ member: '' }))
+                break
+            case 'paymentType':
+                this.nxStore.dispatch(
+                    SalesAction.setTypeCodeFilter({
+                        typeCode: {
+                            payment_type_transfer: false,
+                            payment_type_payment: false,
+                            payment_type_refund: false,
+                        },
+                    })
+                )
+                break
+            case 'productType':
+                this.nxStore.dispatch(
+                    SalesAction.setProductTypeCodeFilter({
+                        productTypeCode: {
+                            user_locker: false,
+                            user_membership: false,
+                            user_sportswear: false,
+                        },
+                    })
+                )
+                break
+            case 'productName':
+                this.nxStore.dispatch(SalesAction.setProductNameFilter({ productName: '' }))
+                break
+            case 'personInCharge':
+                this.nxStore.dispatch(SalesAction.setPersonInChargeFilter({ personInCharge: '' }))
+                break
+        }
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+    resetFilters() {
+        this.selectedPageNumber = 1
+        this.nxStore.dispatch(SalesAction.resetFilters())
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+    }
+
+    public saleSummaryThisMonth$ = this.nxStore.select(SaleSelector.saleSummaryThisMonth)
+    public saleSummaryLastMonth$ = this.nxStore.select(SaleSelector.saleSummaryLastMonth)
+    public saleSummaryToday$ = this.nxStore.select(SaleSelector.saleSummaryToday)
+    public saleSummaryYesterday$ = this.nxStore.select(SaleSelector.saleSummaryYesterday)
+
+    public sales$ = this.nxStore.select(SaleSelector.sales)
+    public salesInfoSummary$ = this.nxStore.select(SaleSelector.salesInfoSummary)
+    public salesLoading$ = this.nxStore.select(SaleSelector.statsSalesInfoLoading)
+    public salesInfoTotalPrice = 0
+    public pageNumber = 1
+    public selectedPageNumber = 1
+    onPageNumberClick(e: { selectedPageNumber: number; pageRange: [number, number] }) {
+        this.selectedPageNumber = e.selectedPageNumber
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.selectedPageNumber }))
     }
 }

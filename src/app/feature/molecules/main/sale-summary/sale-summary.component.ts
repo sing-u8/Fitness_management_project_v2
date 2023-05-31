@@ -91,6 +91,9 @@ export class SaleSummaryComponent implements OnInit, OnDestroy, OnChanges, After
         detectChangesOn(changes, 'curSummary', () => {
             this.getTotals()
         })
+        // detectChangesOn(changes, 'prevSummary', () => {
+        //     this.getTotals()
+        // })
     }
     ngAfterViewInit() {
         this.getSummaryDate()

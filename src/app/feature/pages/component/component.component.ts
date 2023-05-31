@@ -359,10 +359,10 @@ export class ComponentComponent implements OnDestroy {
 
     public saleSum0: StatsSalesSummary = {
         this_month: {
-            card: '0',
-            cash: '0',
-            trans: '0',
-            unpaid: '0',
+            card: '100000',
+            cash: '550000',
+            trans: '200000',
+            unpaid: '10000',
         },
         last_month: {
             card: '0',
@@ -371,10 +371,10 @@ export class ComponentComponent implements OnDestroy {
             unpaid: '0',
         },
         today: {
-            card: '0',
-            cash: '0',
-            trans: '0',
-            unpaid: '0',
+            card: '60000',
+            cash: '50000',
+            trans: '20000',
+            unpaid: '1000',
         },
         yesterday: {
             card: '0',

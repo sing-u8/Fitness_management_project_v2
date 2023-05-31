@@ -123,6 +123,31 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
         detectChangesOn(changes, 'filterType', () => {
             this.setTypeName()
         })
+        detectChangesOn(changes, 'paymentType', (v) => {
+            this.curPaymentType = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+        })
+        detectChangesOn(changes, 'member', (v) => {
+            this.curMember = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+        })
+        detectChangesOn(changes, 'productType', (v) => {
+            this.curProductType = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+        })
+        detectChangesOn(changes, 'productName', (v) => {
+            this.curProductName = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+        })
+        detectChangesOn(changes, 'personInCharge', (v) => {
+            this.curPersonInCharge = _.cloneDeep(v)
+            this.checkFilterValueExist()
+            this.getDateText()
+        })
         detectChangesOn(changes, 'date', (v) => {
             this.curDate = _.cloneDeep(v)
             this.checkFilterValueExist()
@@ -170,6 +195,8 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
         this.getDateText()
         this.openDropdown = false
         this.checkFilterValueExist()
+
+        this.dateChange.emit(this.date)
     }
     checkOneMonthDate() {
         const monthDate = {
@@ -199,6 +226,8 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
         this.openDropdown = false
         this.getSelectedPaymentType()
         this.checkFilterValueExist()
+
+        this.paymentTypeChange.emit(this.paymentType)
     }
     public curPaymentType: FilterMapTypeCode = _.cloneDeep(filterMapTypeCodeInit)
     public selectedPaymentType = ''
@@ -217,11 +246,14 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
     }
     // for member
     @Input() member = ''
+    @Output() memberChange = new EventEmitter<string>()
     public curMember = ''
     onMemberSave() {
         this.member = this.curMember
         this.openDropdown = false
         this.checkFilterValueExist()
+
+        this.memberChange.emit(this.member)
     }
     // for product type
     @Input() productType: FilterMapProductTypeCode = _.cloneDeep(filterMapProductTypeCodeInit)
@@ -231,6 +263,8 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
         this.openDropdown = false
         this.getSelectedProductType()
         this.checkFilterValueExist()
+
+        this.productTypeChange.emit(this.productType)
     }
     public curProductType: FilterMapProductTypeCode = _.cloneDeep(filterMapProductTypeCodeInit)
     public selectedProductType = ''
@@ -249,22 +283,29 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
     }
     // for product name
     @Input() productName = ''
+    @Output() productNameChange = new EventEmitter<string>()
     public curProductName = ''
     onProductNameSave() {
         this.productName = this.curProductName
         this.openDropdown = false
         this.checkFilterValueExist()
+
+        this.productNameChange.emit(this.productName)
     }
     // for person in charge
     @Input() personInCharge = ''
+    @Output() personInChargeChange = new EventEmitter<string>()
     public curPersonInCharge
     onPersonInChargeSave() {
         this.personInCharge = this.curPersonInCharge
         this.openDropdown = false
         this.checkFilterValueExist()
+
+        this.personInChargeChange.emit(this.personInCharge)
     }
 
     //
+
     restoreData() {
         switch (this.filterType) {
             case 'date':
@@ -287,7 +328,9 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
                 break
         }
     }
-    resetData() {
+
+    @Output() onReset = new EventEmitter<FilterType>()
+    resetData(filterType: FilterType) {
         this.curDate = _.cloneDeep(dateInit)
         this.date = _.cloneDeep(dateInit)
         this.curPaymentType = _.cloneDeep(filterMapTypeCodeInit)
@@ -301,6 +344,8 @@ export class SaleFilterComponent implements OnInit, OnDestroy, OnChanges {
         this.curPersonInCharge = ''
         this.personInCharge = ''
         this.checkFilterValueExist()
+
+        this.onReset.emit(filterType)
     }
 
     public filterValueExist = false

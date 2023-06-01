@@ -48,7 +48,7 @@ export class SalesEffect {
         this.actions$.pipe(
             ofType(SalesActions.asGetSales),
             concatLatestFrom(() => [this.nxStore.select(SalesSelector.filters)]),
-            switchMap(([{ centerId, pageNumber }, filters]) => {
+            switchMap(([{ centerId, pageNumber, cb }, filters]) => {
                 const reqBody = {
                     type_code: _.join(
                         _.reduce(
@@ -93,6 +93,7 @@ export class SalesEffect {
                     .getStatsSales(centerId, filters.date.startDate, filters.date.endDate, reqBody)
                     .pipe(
                         switchMap((sales) => {
+                            cb ? cb() : null
                             return [SalesActions.adGetSales({ sales })]
                         }),
                         catchError((error: any) => of(SalesActions.error({ error })))

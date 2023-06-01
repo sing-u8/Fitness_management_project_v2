@@ -232,7 +232,7 @@ body {
     box-shadow: 0 -2px 15px #efeeed;
 }
 @mixin table-width-scroll-shadow {
-    box-shadow: 2px -5px 15px #e1e1e1;
+    box-shadow: 5px 0 5px -2px #e1e1e1;
 }
 
 // REDWHALE
@@ -552,28 +552,13 @@ body {
 .display-none {
     display: none !important;
 }
-
-.line-ellipsis-one {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 1;
-    word-wrap: break-word;
-}
-.line-ellipsis {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-    word-wrap: break-word;
-    // line-break: anywhere;
-}
-
 // Material Design Icon
 .mdi {
     display: flex;
+}
+
+.cursor-pointer {
+    cursor: pointer;
 }
 
 .ellipsis {
@@ -617,18 +602,13 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 13px;
-    background: #ffffff;
+    padding: 5px 9px 4px;
+    background-color: var(--gray-100);
     border: 1px solid #f1f1f1;
-    box-shadow: 0 0 10px rgba(181, 181, 181, 0.109804);
-    border-radius: 5px;
+    @include locker-and-card-shadow();
+    border-radius: 10px;
     line-break: anywhere;
-
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 17px;
-    letter-spacing: -0.144px;
-    color: #212121;
+    @include rw-type-r(1.5rem, 23px, var(--white));
 
     position: absolute;
     width: 100%;

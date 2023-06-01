@@ -199,7 +199,10 @@
                 </div>
 
                 <ng-container *ngrxLet="{ saleLoading: salesLoading$, saleSummary: salesInfoSummary$ } as saleData">
-                    <div class="sale-table-body" *ngIf="saleData.saleLoading != 'pending' && saleData.saleSummary.rows > 0">
+                    <div
+                        class="sale-table-body"
+                        *ngIf="saleData.saleLoading != 'pending' && saleData.saleSummary.rows > 0"
+                    >
                         <ng-container *ngrxLet="sales$ as sale">
                             <div class="stb-row" *ngFor="let item of sale">
                                 <div class="stb-fixed-td body-text">
@@ -212,7 +215,11 @@
                                 </div>
                                 <div class="stb-movable-td body-text">
                                     <div class="sth-col-4">{{ item.product_type_code_name }}</div>
-                                    <div class="sth-col-5 line-ellipsis">{{ item.product_name }}</div>
+                                    <div class="sth-col-5">
+                                        <span rwEllipsisDropdown [lineClamp]="2">
+                                            {{ item.product_name }}
+                                        </span>
+                                    </div>
                                     <div class="sth-col-6">
                                         <div class="col-6-name">{{ item.responsibility_center_user_name }}</div>
                                         <div class="col-6-phone">
@@ -247,7 +254,7 @@
                                                 </div>
                                             </div>
                                             <div *ngIf="item.unpaid && item.unpaid > 0" class="col-7-unpaid">
-                                                {{ item.unpaid | numberWithCommas }}원
+                                                미수금 {{ item.unpaid | numberWithCommas }}원
                                             </div>
                                         </div>
                                         <div class="caret-circle-down-icon"></div>
@@ -258,6 +265,7 @@
                     </div>
                     <div class="sale-table-body justify-content-center" *ngIf="saleData.saleLoading == 'pending'">
                         <ngx-spinner
+                            [style.z-index]="100"
                             type="ball-clip-rotate"
                             [size]="'small'"
                             [color]="'var(--gray-80)'"
@@ -272,12 +280,27 @@
                         class="sale-table-body justify-content-center"
                         *ngIf="saleData.saleLoading != 'pending' && saleData.saleSummary.rows < 1"
                     >
-                        <div class="stb-row-empty">
-                            <div class="stb-row-empty__text">💰 매출 정보가 없어요.</div>
+                        <div class="stb-row-empty" *ngIf="!filterApplied">
+                            <div class="stb-row-empty__text sre-margin">💰 매출 정보가 없어요.</div>
                             <div class="stb-row-empty__text">
                                 회원에게 상품을 판매한 후,<br />
                                 이곳에서 매출을 관리해 보세요.
                             </div>
+                        </div>
+                        <div class="stb-row-empty" *ngIf="filterApplied">
+                            <div class="stb-row-empty__text">
+                                🔎 조건에 맞는 매출 정보를 찾을 수 없어요.<br />
+                                설정한 필터값을 다시 확인해 주세요.
+                            </div>
+                            <rwa-ghost-button
+                                [padding]="'7.5px 15px 5.5px'"
+                                [height]="'42px'"
+                                (onClick)="resetFilters()"
+                            >
+                                <ng-template gbtIdleContent>
+                                    <span class="filter-reset-text">필터 초기화</span>
+                                </ng-template>
+                            </rwa-ghost-button>
                         </div>
                     </div>
                 </ng-container>

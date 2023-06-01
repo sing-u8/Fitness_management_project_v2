@@ -17,7 +17,7 @@ export const adLoadSales = createAction(
 
 export const asGetSales = createAction(
     `${FeatureKey} Async Start Get Sales`,
-    props<{ centerId: string; pageNumber: number }>()
+    props<{ centerId: string; pageNumber: number; cb?: () => void }>()
 )
 export const adGetSales = createAction(`${FeatureKey} Async Done Get Sales`, props<{ sales: GetStatsSalesReturn }>())
 

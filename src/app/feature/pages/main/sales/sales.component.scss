@@ -217,7 +217,7 @@
             .sale-table-body {
                 display: flex;
                 flex-direction: column;
-                min-height: 684px;
+                min-height: 760px;
                 .stb-row {
                     display: flex;
                     align-items: center;
@@ -260,11 +260,18 @@
                     justify-content: center;
                     flex-direction: column;
                     .stb-row-empty__text {
+                        text-align: center;
                         @include rw-type-r(1.7rem, 28px, var(--gray-90));
 
-                        .sre-margin {
+                        &.sre-margin {
                             margin-bottom: 10px;
                         }
+                    }
+                    rwa-ghost-button {
+                        margin-top: 10px;
+                    }
+                    .filter-reset-text {
+                        @include rw-type-b(1.7rem, 28px, var(--gray-90));
                     }
                 }
             }
@@ -468,7 +475,7 @@
                 }
                 .sale-table-body {
                     display: flex;
-                    min-height: 684px;
+                    min-height: 760px;
                     .stb-row {
                         .stb-fixed-td {
                             z-index: 3;

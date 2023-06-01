@@ -30,7 +30,7 @@ import {
     saleSummaryToday,
     saleSummaryYesterday,
 } from '@store/main/selectors/sales.selector'
-import { FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
+import { FilterMap, FilterMapProductTypeCode, FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 import { Center } from '@schemas/center'
 import { Loading } from '@schemas/loading'
 import { asExportSales } from '@store/main/actions/sales.action'
@@ -75,6 +75,9 @@ export class SalesComponent implements OnDestroy, OnInit {
                 this.spinner.hide('sale-table-loading')
             }
         })
+        this.filters$.pipe(takeUntil(this.subject$)).subscribe((v) => {
+            this.checkFilterApplied(v)
+        })
     }
 
     ngOnDestroy() {
@@ -98,7 +101,22 @@ export class SalesComponent implements OnDestroy, OnInit {
         )
     }
 
+    // vars and funcs for filter applied
+    public filterApplied = false
+    public checkFilterApplied(fm: FilterMap) {
+        this.filterApplied = false
+        const typeCode = _.some(_.keys(fm.type_code), (v) => fm.type_code[v])
+        const member = !_.isEmpty(fm.center_user_phone_number) || !_.isEmpty(fm.center_user_name)
+        const productTypeCode = _.some(_.keys(fm.product_type_code), (v) => fm.type_code[v])
+        const productName = !_.isEmpty(fm.product_name)
+        const personInCharge =
+            !_.isEmpty(fm.responsibility_center_user_phone_number) || !_.isEmpty(fm.responsibility_center_user_name)
+
+        this.filterApplied = typeCode || member || productTypeCode || productName || personInCharge
+    }
+
     // filter vars and funcs
+    public filters$ = this.nxStore.select(SaleSelector.filters)
     public dateFilter$ = this.nxStore.select(SaleSelector.dateFilter)
     public typeCodeFilter$ = this.nxStore.select(SaleSelector.typeCodeFilter)
     public memberFilter$ = this.nxStore.select(SaleSelector.memberFilter)
@@ -108,32 +126,80 @@ export class SalesComponent implements OnDestroy, OnInit {
     onTypeCodeFilterChange(typeCode: FilterMapTypeCode) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setTypeCodeFilter({ typeCode }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '‘구분’ 필터가 적용되었어요.' }))
+                },
+            })
+        )
     }
     onMemberFilterChange(member: string) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setMemberFilter({ member }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '‘회원’ 필터가 적용되었어요.' }))
+                },
+            })
+        )
     }
     onProductTypeCodeFilterChange(productTypeCode: FilterMapProductTypeCode) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setProductTypeCodeFilter({ productTypeCode }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '‘상품 유형’ 필터가 적용되었어요.' }))
+                },
+            })
+        )
     }
     onProductNameFilterChange(productName: string) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setProductNameFilter({ productName }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '‘상품명’ 필터가 적용되었어요.' }))
+                },
+            })
+        )
     }
     onPersonInChargeFilterChange(personInCharge: string) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setPersonInChargeFilter({ personInCharge }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '‘결제 담당자’ 필터가 적용되었어요.' }))
+                },
+            })
+        )
     }
     onDateFilterChange(date: { startDate: string; endDate: string }) {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.setDateFilter({ date }))
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '매출 조회 기간이 변경되었어요.' }))
+                },
+            })
+        )
     }
 
     onResetFilter(type: FilterType) {
@@ -173,12 +239,20 @@ export class SalesComponent implements OnDestroy, OnInit {
                 break
         }
         this.selectedPageNumber = 1
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.selectedPageNumber }))
     }
     resetFilters() {
         this.selectedPageNumber = 1
         this.nxStore.dispatch(SalesAction.resetFilters())
-        this.nxStore.dispatch(SalesAction.asGetSales({ centerId: this.center.id, pageNumber: this.pageNumber }))
+        this.nxStore.dispatch(
+            SalesAction.asGetSales({
+                centerId: this.center.id,
+                pageNumber: this.selectedPageNumber,
+                cb: () => {
+                    this.nxStore.dispatch(showToast({ text: '필터가 초기화되었어요.' }))
+                },
+            })
+        )
     }
 
     public saleSummaryThisMonth$ = this.nxStore.select(SaleSelector.saleSummaryThisMonth)

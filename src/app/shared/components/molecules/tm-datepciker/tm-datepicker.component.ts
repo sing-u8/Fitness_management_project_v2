@@ -16,12 +16,12 @@ import {
 import _ from 'lodash'
 
 import dayjs from 'dayjs'
-import isSameOrBefor from 'dayjs/plugin/isSameOrBefore'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import isBetween from 'dayjs/plugin/isBetween'
 import { detectChangesOn } from '@shared/helper/component-helper'
-dayjs.extend(isSameOrBefor)
+dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(weekOfYear)
 dayjs.extend(isBetween)

@@ -14,11 +14,11 @@ import {
 import _ from 'lodash'
 
 import dayjs from 'dayjs'
-import isSameOrBefor from 'dayjs/plugin/isSameOrBefore'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import weekOfYear from 'dayjs/plugin/weekOfYear'
 import isBetween from 'dayjs/plugin/isBetween'
-dayjs.extend(isSameOrBefor)
+dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
 dayjs.extend(weekOfYear)
 dayjs.extend(isBetween)
@@ -407,6 +407,8 @@ export class DatepickerComponent implements OnInit, OnChanges, AfterViewChecked,
     // ------------------ multi line methods -----------------------------------------------------------------------------------
     multiLineSelectDate(weekCol) {
         this.setInitialLineDate(weekCol)
+        this.currentDate = dayjs(weekCol.date)
+        this.month = dayjs(weekCol.date).format('YY년 MM월')
         this.getDays(dayjs(weekCol.date))
     }
     // helper

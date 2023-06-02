@@ -17,6 +17,8 @@ export interface StatsSales {
 
 export interface GetStatsSalesReturnSummary {
     rows: number
+    payment_count: number
+    refund_count: number
     sum_card: number
     sum_trans: number
     sum_cash: number

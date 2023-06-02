@@ -76,6 +76,8 @@ import { ArrowLeftBoldComponent } from './svg/arrow-left-bold/arrow-left-bold.co
 import { ArrowRightBoldComponent } from './svg/arrow-right-bold/arrow-right-bold.component'
 import { ToastComponent } from '@shared/components/atoms/toast/toast.component'
 import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
+import { XsIconButtonComponent } from './xs-icon-button/xs-icon-button.component'
+import { SlideButtonComponent } from './slide-button/slide-button.component'
 
 @NgModule({
     declarations: [
@@ -136,6 +138,8 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         TextareaModalComponent,
         ToastComponent,
         VacantModalComponent,
+        XsIconButtonComponent,
+        SlideButtonComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -195,6 +199,8 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
         TextareaModalComponent,
         ToastComponent,
         VacantModalComponent,
+        XsIconButtonComponent,
+        SlideButtonComponent,
     ],
     schemas: [],
 })

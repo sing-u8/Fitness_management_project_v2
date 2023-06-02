@@ -124,7 +124,6 @@
             <span>처리중 포함</span>
             <div class="h-padding"></div>
             <rwa-button
-                [padding]="'9px 25px 7px'"
                 [status]="button2.status"
                 [loadingName]="button2.loadingName"
                 [progressPercent]="button2.progress"
@@ -248,12 +247,7 @@
         <div class="d-flex align-items-center">
             <span>기본 - bg:red</span>
             <div class="h-padding"></div>
-            <rwa-button
-                [padding]="'7.5px 16px 5.5px'"
-                [sizeType]="'md'"
-                [status]="button1.status"
-                [loadingName]="button1.loadingName"
-            >
+            <rwa-button [sizeType]="'md'" [status]="button1.status" [loadingName]="button1.loadingName">
                 <ng-template btIdleContent><span class="default">저장하기</span> </ng-template>
                 <ng-template btPendingContent><span class="default">저장중</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
@@ -385,6 +379,135 @@
                 <ng-template btIdleContent><span class="default">초기화</span> </ng-template>
                 <ng-template btPendingContent><span class="default">초기화</span></ng-template>
                 <ng-template btDoneContent><span class="default">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <p class="v-padding"></p>
+        <h2>기본 S</h2>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:red</span>
+            <div class="h-padding"></div>
+            <rwa-button [sizeType]="'sm'" [status]="button1.status" [loadingName]="button1.loadingName">
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장중</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [status]="button2.status"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장하기</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button [sizeType]="'sm'" [disableBgColor]="'#EEEEEE'" [disable]="true">
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장하기</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:gray</span>
+            <div class="h-padding"></div>
+            <rwa-button [sizeType]="'sm'" [status]="button1_2.status" [bgColor]="'#2F2D2D'" [hoverBgColor]="'#141517'">
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장하기</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [status]="button2.status"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [progressBgColor]="'#141517'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장하기</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#EEEEEE'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent><span class="small">저장하기</span> </ng-template>
+                <ng-template btPendingContent><span class="small">저장하기</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+        </div>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <span>기본 - bg:white</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [status]="button1_2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+            >
+                <ng-template btIdleContent><span class="small">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="small">초기화</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>처리중 포함 (클릭 시 확인 가능)</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [status]="button2.status"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [progressBgColor]="'var(--gray-30)'"
+                [loadingName]="button2.loadingName"
+                [progressPercent]="button2.progress"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="onClickButton2()"
+            >
+                <ng-template btIdleContent><span class="small">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="small">초기화</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
+            </rwa-button>
+            <div class="h-padding"></div>
+            <span>비활성화</span>
+            <div class="h-padding"></div>
+            <rwa-button
+                [sizeType]="'sm'"
+                [bgColor]="'#2F2D2D'"
+                [fontColor]="'var(--gray-90)'"
+                disableFontColor="var(--gray-60)"
+                [hoverBgColor]="'#141517'"
+                [disableBgColor]="'#FFFFFF'"
+                [loadingColor]="'var(--font-color)'"
+                [disable]="true"
+            >
+                <ng-template btIdleContent><span class="small">초기화</span> </ng-template>
+                <ng-template btPendingContent><span class="small">초기화</span></ng-template>
+                <ng-template btDoneContent><span class="small">완료</span></ng-template>
             </rwa-button>
         </div>
         <p class="v-padding"></p>
@@ -943,6 +1066,24 @@
                 </ng-template>
             </rwa-icon-button>
         </div>
+        <p class="v-padding"></p>
+        <p class="v-padding"></p>
+        <h3>아이콘 XS (작업중)</h3>
+        <p class="v-padding"></p>
+        <div class="d-flex align-items-center">
+            <p class="h-padding"></p>
+            <rwa-xs-icon-button>
+                <rwa-svg-plus color="var(--gray-90)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
+            </rwa-xs-icon-button>
+            <p class="h-padding"></p>
+            <rwa-xs-icon-button>
+                <rwa-svg-plus color="var(--gray-90)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
+            </rwa-xs-icon-button>
+            <p class="h-padding"></p>
+            <rwa-xs-icon-button>
+                <rwa-svg-pencil [width]="'19px'" [height]="'19px'"></rwa-svg-pencil>
+            </rwa-xs-icon-button>
+        </div>
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
@@ -1063,6 +1204,36 @@
         <div class="h-padding"></div>
         <rwa-page-button [pageNumber]="10" [disable]="true"></rwa-page-button>
     </div>
+    <p class="v-padding"></p>
+    <h2>페이지 버튼</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h3>슬라이드 1장</h3>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-slide-button [slideNumber]="slideNumber1" [(curNumber)]="curSlideNumber1"></rwa-slide-button>
+        <div class="h-padding"></div>
+        <rwa-slide-button
+            [allowAdditionalNext]="true"
+            [slideNumber]="slideNumber1_1"
+            [(curNumber)]="curSlideNumber1_1"
+        ></rwa-slide-button>
+    </div>
+    <p class="v-padding"></p>
+    <h3>슬라이드 2장 이상</h3>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-slide-button [slideNumber]="slideNumber2" [(curNumber)]="curSlideNumber2"></rwa-slide-button>
+        <div class="h-padding"></div>
+        <rwa-slide-button
+            [allowAdditionalNext]="true"
+            [slideNumber]="slideNumber2_1"
+            [(curNumber)]="curSlideNumber2_1"
+        ></rwa-slide-button>
+    </div>
+    <p class="v-padding"></p>
+
+    <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h1>- 텍스트 필드</h1>
     <p class="v-padding"></p>

@@ -1,0 +1,21 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    border-radius: 4px;
+    box-sizing: border-box;
+    &.focused {
+        &:focus {
+            border: 2px solid var(--font-color);
+            background-color: var(--white);
+        }
+    }
+}

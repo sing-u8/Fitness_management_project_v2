@@ -135,23 +135,25 @@
             </ng-container>
         </div>
         <div class="sale-table-summary">
-            <div class="l-payment-type-summary">
-                <div class="sale-table-summary-title">
-                    <span class="title-margin">거래</span>
-                    <span *ngrxLet="salesInfoSummary$ as ss">{{ ss.rows }}건</span>
-                </div>
-                <div class="payment-type-content">
-                    <div class="summary-item">
-                        <div class="type-text">결제</div>
-                        <div class="value-text">0,000건</div>
+            <ng-container *ngrxLet="salesInfoSummary$ as ss">
+                <div class="l-payment-type-summary">
+                    <div class="sale-table-summary-title">
+                        <span class="title-margin">거래</span>
+                        <span>{{ ss.rows | numberWithCommas }}건</span>
                     </div>
-                    <div class="plus-bold-gray70"></div>
-                    <div class="summary-item">
-                        <div class="type-text">환불</div>
-                        <div class="value-text">0,000건</div>
+                    <div class="payment-type-content">
+                        <div class="summary-item">
+                            <div class="type-text">결제</div>
+                            <div class="value-text">{{ ss.payment_count | numberWithCommas }}건</div>
+                        </div>
+                        <div class="plus-bold-gray70"></div>
+                        <div class="summary-item">
+                            <div class="type-text">환불</div>
+                            <div class="value-text">{{ ss.refund_count | numberWithCommas }}건</div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </ng-container>
             <div class="l-payment-sale-summary">
                 <div class="sale-table-summary-title">
                     <span class="title-margin">거래</span>

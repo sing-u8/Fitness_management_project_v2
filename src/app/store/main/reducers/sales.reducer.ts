@@ -75,6 +75,8 @@ export const StateInit: State = {
         loading: 'idle',
         summary: {
             rows: 0,
+            payment_count: 0,
+            refund_count: 0,
             sum_card: 0,
             sum_trans: 0,
             sum_cash: 0,

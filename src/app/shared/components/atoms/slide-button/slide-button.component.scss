@@ -1,0 +1,88 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.left-arrow {
+    background-image: url('/assets/icons/arrow/caret-left-1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 21px;
+    height: 21px;
+}
+.right-arrow {
+    background-image: url('/assets/icons/arrow/caret-right-1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 21px;
+    height: 21px;
+}
+
+.l-slide-button {
+    display: flex;
+    align-items: center;
+
+    button {
+        box-sizing: border-box;
+        outline: none;
+        width: 37px;
+        height: 37px;
+        border-radius: 10px;
+        cursor: pointer;
+        border: 2px solid transparent;
+        background-color: var(--white);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &.left {
+            margin-right: 5px;
+        }
+        &.right {
+            margin-left: 5px;
+        }
+
+        &:hover,
+        &:active {
+            background-color: var(--gray-30);
+        }
+
+        &.focus {
+            &:focus {
+                border: 2px solid var(--font-color) !important;
+            }
+        }
+
+        &:disabled {
+            cursor: not-allowed !important;
+            .left-arrow {
+                background-image: url('/assets/icons/arrow/caret-left-1-g60.svg') !important;
+            }
+            .right-arrow {
+                background-image: url('/assets/icons/arrow/caret-right-1-g60.svg') !important;
+            }
+
+            &.left,
+            &.right {
+                &:hover,
+                &:active {
+                    background-color: var(--white);
+                }
+            }
+        }
+    }
+
+    .slide-number {
+        display: flex;
+        align-items: center;
+        @include rw-type-r(1.5rem, 23px, var(--gray-90));
+
+        .number-divider {
+            margin: 0 10px;
+        }
+
+        .cur-number {
+            @include rw-type-b(1.5rem, 23px, var(--font-color));
+        }
+    }
+}

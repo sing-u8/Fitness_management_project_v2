@@ -1,0 +1,13 @@
+<button
+    class="button"
+    #l_button
+    [style.width]="width"
+    [style.height]="height"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus(l_button)"
+    (focusout)="onFocusOut(l_button)"
+    (click)="l_button.blur()"
+>
+    <ng-content></ng-content>
+</button>

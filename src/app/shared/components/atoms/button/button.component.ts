@@ -12,9 +12,10 @@ import {
     ContentChild,
     OnChanges,
     SimpleChanges,
+    ChangeDetectorRef,
 } from '@angular/core'
 import { NgxSpinnerService, Size } from 'ngx-spinner'
-import { changesOn } from '@shared/helper/component-helper'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 
 import { Loading } from '@schemas/loading'
 
@@ -63,7 +64,7 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
     @Input() progressPercent = 0 // 0 ~ 100
     @Input() progressBgColor = 'var(--red-200)'
     @Input() fontColor = 'var(--white)'
-    @Input() sizeType: 'lg' | 'md' = 'lg'
+    @Input() sizeType: 'lg' | 'md' | 'sm' = 'lg'
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--white)'
@@ -78,7 +79,7 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
     @Input() status: Loading = 'idle'
     @Input() padding = '7.5px 16px 5.5px 16px' // padding prop
     @Input() width // ex) 20px, 2rem
-    @Input() height = '45px' // ex) 40px 4rem
+    @Input() height // ex) 40px 4rem
 
     @ViewChild('l_button') l_button_el: ElementRef
     @ViewChild('progress') progress_el: ElementRef
@@ -87,7 +88,7 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
     @ContentChild(ButtonPendingContentDirective) pendingRef!: ButtonPendingContentDirective
     @ContentChild(ButtonDoneContentDirective) doneRef!: ButtonDoneContentDirective
 
-    constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
+    constructor(private spinner: NgxSpinnerService, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
     ngOnChanges(changes: SimpleChanges) {
         // console.log('ngOnChanges in button -- ', changes)
         changesOn(changes, 'status', (status) => {
@@ -102,8 +103,13 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
         changesOn(changes, 'sizeType', (v) => {
             if (v == 'lg' && !this.height) {
                 this.height = '45px'
+                if (!this.padding) this.padding = '9px 25px 7px'
             } else if (v == 'md' && !this.height) {
                 this.height = '42px'
+                if (!this.padding) this.padding = '7.5px 16px 5.5px'
+            } else if (v == 'sm' && !this.height) {
+                this.height = '37px'
+                if (!this.padding) this.padding = '5px 11px 3px'
             }
         })
     }
@@ -116,8 +122,15 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
         }
         if (this.sizeType == 'lg' && !this.height) {
             this.height = '45px'
+            if (!this.padding) this.padding = '9px 25px 7px'
         } else if (this.sizeType == 'md' && !this.height) {
             this.height = '42px'
+            if (!this.padding) this.padding = '7.5px 16px 5.5px'
+        } else if (this.sizeType == 'sm' && !this.height) {
+            this.height = '37px'
+            if (!this.padding) this.padding = '5px 11px 3px'
         }
+
+        this.cd.detectChanges()
     }
 }

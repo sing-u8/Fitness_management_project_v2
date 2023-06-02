@@ -129,10 +129,6 @@ export class PageButtonComponent implements AfterViewInit, OnChanges {
         this.left_button_el.nativeElement.blur()
         if (this.selectedPageNumber == 1 || this.disable) return
         this.selectedPageNumber = this.selectedPageNumber - 1
-        console.log('_onPageNumber left Click -- ', this.pageNumberArr[0], this.selectedPageNumber, [
-            this.selectedPageNumber * this.pageUnit - this.pageUnit,
-            this.selectedPageNumber * this.pageUnit - 1,
-        ])
         this.updatePageConditions()
         this.onPageNumberClick.emit({
             selectedPageNumber: this.selectedPageNumber,
@@ -146,12 +142,6 @@ export class PageButtonComponent implements AfterViewInit, OnChanges {
         this.right_button_el.nativeElement.blur()
         if (this.selectedPageNumber == this.pageNumberArr.length || this.disable) return
         this.selectedPageNumber = this.selectedPageNumber + 1
-        console.log(
-            '_onPageNumber right Click -- ',
-            this.pageNumberArr[this.pageNumberArr.length - 1],
-            this.selectedPageNumber,
-            [this.selectedPageNumber * this.pageUnit - this.pageUnit, this.selectedPageNumber * this.pageUnit - 1]
-        )
         this.updatePageConditions()
         this.onPageNumberClick.emit({
             selectedPageNumber: this.selectedPageNumber,

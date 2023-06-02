@@ -334,6 +334,15 @@ export class ComponentComponent implements OnDestroy {
         }, 2000)
     }
 
+    public slideNumber1 = 1
+    public curSlideNumber1 = 1
+    public slideNumber1_1 = 1
+    public curSlideNumber1_1 = 1
+    public slideNumber2 = 10
+    public curSlideNumber2 = 1
+    public slideNumber2_1 = 10
+    public curSlideNumber2_1 = 1
+
     public datepicker1: Data = { date: dayjs().format('YYYY-MM-DD') }
     public datepicker2: Data = {
         startDate: dayjs().format('YYYY-MM-DD'),

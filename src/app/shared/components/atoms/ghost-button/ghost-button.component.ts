@@ -1,5 +1,6 @@
 import {
     AfterViewInit,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     Directive,
@@ -81,6 +82,7 @@ export class GhostButtonComponent implements AfterViewInit, OnChanges {
     @Input() progressPercent = 0 // 0 ~ 100
     @Input() progressBgColor = 'var(--red-200)'
     @Input() fontColor = 'var(--gray-90)'
+    @Input() sizeType: 'lg' | 'md' | 'sm' = 'lg'
 
     @Input() disable = false
     @Input() disableFontColor = 'var(--gray-60)'
@@ -98,7 +100,7 @@ export class GhostButtonComponent implements AfterViewInit, OnChanges {
     @Input() status: Loading = 'idle'
     @Input() padding = '9px 10px 7px 10px' // padding prop
     @Input() width // ex) 20px, 2rem
-    @Input() height = '45px' // ex) 40px 4rem
+    @Input() height // ex) 40px 4rem
 
     @ViewChild('l_button') l_button_el: ElementRef
     @ViewChild('progress') progress_el: ElementRef
@@ -107,7 +109,7 @@ export class GhostButtonComponent implements AfterViewInit, OnChanges {
     @ContentChild(GhostButtonPendingContentDirective) pendingRef!: GhostButtonPendingContentDirective
     @ContentChild(GhostButtonDoneContentDirective) doneRef!: GhostButtonDoneContentDirective
 
-    constructor(private spinner: NgxSpinnerService, private renderer: Renderer2) {}
+    constructor(private spinner: NgxSpinnerService, private renderer: Renderer2, private cd: ChangeDetectorRef) {}
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'status', (status) => {
             if (status == 'pending') {
@@ -116,6 +118,19 @@ export class GhostButtonComponent implements AfterViewInit, OnChanges {
                 this.renderer.setStyle(this.l_button_el.nativeElement, 'borderColor', this.borderColor)
             } else {
                 this.spinner.hide(this.loadingName)
+            }
+        })
+
+        changesOn(changes, 'sizeType', (v) => {
+            if (v == 'lg' && !this.height) {
+                this.height = '45px'
+                if (!this.padding) this.padding = '9px 25px 7px'
+            } else if (v == 'md' && !this.height) {
+                this.height = '42px'
+                if (!this.padding) this.padding = '7.5px 16px 5.5px'
+            } else if (v == 'sm' && !this.height) {
+                this.height = '37px'
+                if (!this.padding) this.padding = '5px 11px 3px'
             }
         })
     }
@@ -128,5 +143,18 @@ export class GhostButtonComponent implements AfterViewInit, OnChanges {
         } else {
             this.spinner.hide(this.loadingName)
         }
+
+        if (this.sizeType == 'lg' && !this.height) {
+            this.height = '45px'
+            if (!this.padding) this.padding = '9px 25px 7px'
+        } else if (this.sizeType == 'md' && !this.height) {
+            this.height = '42px'
+            if (!this.padding) this.padding = '7.5px 16px 5.5px'
+        } else if (this.sizeType == 'sm' && !this.height) {
+            this.height = '37px'
+            if (!this.padding) this.padding = '5px 11px 3px'
+        }
+
+        this.cd.detectChanges()
     }
 }

@@ -1,0 +1,37 @@
+<div class="l-slide-button">
+    <button
+        #left_button
+        type="button"
+        [class.focus]="!isMouseDown"
+        [disabled]="disable || curNumber == 1"
+        class="left"
+        (click)="onLeftArrowClick()"
+        (mousedown)="onMouseDown()"
+        (mouseup)="onMouseUp()"
+    >
+        <div class="left-arrow"></div>
+    </button>
+
+    <div class="slide-number" *ngIf="!(allowAdditionalNext && curNumber == slideNumber + 1)">
+        <span class="cur-number">{{ curNumber }}</span>
+        <span class="number-divider">/</span>
+        <span>{{ slideNumber }}</span>
+    </div>
+
+    <button
+        #right_button
+        type="button"
+        [class.focus]="!isMouseDown"
+        class="right"
+        [disabled]="
+            disable ||
+            (!allowAdditionalNext && curNumber == slideNumber) ||
+            (allowAdditionalNext && curNumber == slideNumber + 1)
+        "
+        (click)="onRightArrowClick()"
+        (mousedown)="onMouseDown()"
+        (mouseup)="onMouseUp()"
+    >
+        <div class="right-arrow"></div>
+    </button>
+</div>

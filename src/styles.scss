@@ -829,6 +829,14 @@ body {
     width: 14px;
     height: 14px;
 }
+.hand-waving-icon {
+    background-image: url('/assets/icons/etc/hand-waving.svg');
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+}
 
 // Tooltip
 .rw-tooltip {

@@ -12,6 +12,18 @@
                 <div class="top-upper">
                     <span class="rw-type-b20 center-title">센터명</span>
                     <rwa-icon-button
+                        class="hand-waving-button"
+                        [sizeType]="'md'"
+                        borderRadius="14px"
+                        bgColor="transparent"
+                        hoverBgColor="transparent"
+                    >
+                        <ng-template iconBtIdleContent>
+                            <div class="hand-waving-icon"></div>
+                        </ng-template>
+                    </rwa-icon-button>
+                    <rwa-icon-button
+                        class="gear-button"
                         [sizeType]="'md'"
                         borderRadius="14px"
                         bgColor="transparent"
@@ -22,9 +34,9 @@
                         </ng-template>
                     </rwa-icon-button>
                 </div>
-                <div class="top-bottom">
-                    {{ 'redwhale.xyz/centerurl' }}
-                </div>
+                <!--                <div class="top-bottom">-->
+                <!--                    {{ 'redwhale.xyz/centerurl' }}-->
+                <!--                </div>-->
             </div>
             <div class="content menu-scroll-y-overlay">
                 <div class="l-igb">

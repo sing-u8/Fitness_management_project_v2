@@ -123,14 +123,22 @@ $nd_width: 275px;
             position: relative;
 
             .center-title {
-                padding-right: 35px;
+                padding-right: 80px;
                 min-width: 219px;
             }
 
             rwa-icon-button {
-                position: absolute;
-                top: -5px;
-                right: -10px;
+                &.gear-button {
+                    position: absolute;
+                    top: -5px;
+                    right: -10px;
+                }
+                &.hand-waving-button {
+                    position: absolute;
+                    top: -5px;
+                    right: 32px;
+                }
+
             }
             .gear-icon {
                 width: 22px;

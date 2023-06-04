@@ -1,0 +1,77 @@
+<div class="l-payment-product-item--pc user-select-none" *ngIf="mode == 'pc'" [class.selected]="selected">
+    <div class="payment-product-item__header">
+        <div class="ppi-title">{{ paymentItem.top.title }}</div>
+        <div class="ppi-desc">{{ paymentItem.top.desc }}</div>
+        <div class="divider"></div>
+    </div>
+    <div class="payment-product-item__content">
+        <div class="discount-text">{{ paymentItem.middle.discountText }}</div>
+        <div class="l-price">
+            <div class="discounted-price">{{ paymentItem.middle.price }}</div>
+            <div class="original-price">{{ paymentItem.middle.originalPrice }}</div>
+        </div>
+        <div class="price-desc">{{ paymentItem.middle.desc }}</div>
+        <div class="l-payment-desc">
+            <div class="payment-desc-item" *ngFor="let item of paymentItem.bottom">
+                <span class="pdi-left">{{ item.left }}</span>
+                <pre class="pdi-right">{{ item.right }}</pre>
+            </div>
+        </div>
+    </div>
+    <rwa-ghost-button
+        *ngIf="!selected"
+        [width]="'230px'"
+        [height]="'45px'"
+        [borderRadius]="'14px'"
+        [borderWidth]="'1.5px'"
+        (onClick)="_onClick()"
+    >
+        <ng-template gbtIdleContent>
+            <div class="select-button-text">선택하기</div>
+        </ng-template>
+    </rwa-ghost-button>
+
+    <div class="l-selected-text" *ngIf="selected">
+        <rwa-svg-check [color]="'var(--red-200)'" [width]="'22px'" [height]="'22px'"></rwa-svg-check>
+        <div class="selected-text">선택 완료</div>
+    </div>
+</div>
+
+<div class="l-payment-product-item--tablet user-select-none" *ngIf="mode == 'tablet'" [class.selected]="selected">
+    <div class="payment-product-item__header">
+        <div class="ppi-title">{{ paymentItem.top.title }}</div>
+        <div class="ppi-desc">{{ paymentItem.top.desc }}</div>
+        <div class="divider"></div>
+    </div>
+    <div class="payment-product-item__content">
+        <div class="discount-text">{{ paymentItem.middle.discountText }}</div>
+        <div class="l-price">
+            <div class="discounted-price">{{ paymentItem.middle.price }}</div>
+            <div class="original-price">{{ paymentItem.middle.originalPrice }}</div>
+        </div>
+        <div class="price-desc">{{ paymentItem.middle.desc }}</div>
+        <div class="l-payment-desc">
+            <div class="payment-desc-item" *ngFor="let item of paymentItem.bottom">
+                <span class="pdi-left">{{ item.left }}</span>
+                <span class="pdi-right">{{ item.right }}</span>
+            </div>
+        </div>
+    </div>
+    <rwa-ghost-button
+        *ngIf="!selected"
+        [width]="'417px'"
+        [height]="'45px'"
+        [borderRadius]="'14px'"
+        [borderWidth]="'1.5px'"
+        (onClick)="_onClick()"
+    >
+        <ng-template gbtIdleContent>
+            <div class="select-button-text">선택하기</div>
+        </ng-template>
+    </rwa-ghost-button>
+
+    <div class="l-selected-text" *ngIf="selected">
+        <rwa-svg-check [color]="'var(--red-200)'" [width]="'22px'" [height]="'22px'"></rwa-svg-check>
+        <div class="selected-text">선택 완료</div>
+    </div>
+</div>

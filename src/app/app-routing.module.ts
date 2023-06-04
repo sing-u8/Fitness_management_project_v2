@@ -13,6 +13,10 @@ const routes: Routes = [
         loadChildren: () => import('@routes/auth.routes').then((r) => r.AuthRoutes),
     },
     {
+        path: 'payment',
+        loadComponent: () => import('@pages/payment/payment.component').then((m) => m.PaymentComponent),
+    },
+    {
         path: 'main',
         canActivate: [AuthGuard],
         loadChildren: () => import('@routes/main.routes').then((r) => r.MainRoutes),

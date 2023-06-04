@@ -1,0 +1,163 @@
+<section class="l-payment scroll-y-overlay">
+    <div class="l-step-one" *ngIf="step == 'one'">
+        <div class="header">
+            <div class="payment__title">상품 결제하기</div>
+            <div class="l-payment__step">
+                <div class="payment__step selected">
+                    <div class="step-icon">1</div>
+                    <span>상품 선택</span>
+                </div>
+                <div class="caret-right-1-g60-icon"></div>
+                <div class="payment__step">
+                    <div class="step-icon">2</div>
+                    <span>결제 정보 입력</span>
+                </div>
+            </div>
+        </div>
+        <div class="body">
+            <div class="l-payment-item--tablet">
+                <span class="body-title">결제할 상품을 선택해 주세요.</span>
+                <ng-container *ngFor="let item of paymentItemList; let idx = index">
+                    <rwa-payment-product-item
+                        [mode]="'tablet'"
+                        [paymentItem]="item"
+                        [(selected)]="paymentItemSelectedList[idx]"
+                        (onClick)="onPaymentItemClick(idx)"
+                    ></rwa-payment-product-item>
+                </ng-container>
+            </div>
+            <div class="l-payment-item--pc">
+                <span class="body-title">결제할 상품을 선택해 주세요.</span>
+                <div class="d-flex align-items-center justify-content-between">
+                    <ng-container *ngFor="let item of paymentItemList; let idx = index">
+                        <rwa-payment-product-item
+                            [mode]="'pc'"
+                            [paymentItem]="item"
+                            [(selected)]="paymentItemSelectedList[idx]"
+                            (onClick)="onPaymentItemClick(idx)"
+                        ></rwa-payment-product-item>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="l-payment-info">
+                <span class="info-title">결제 및 할인 안내사항</span>
+                <span class="info-desc">부가가치세 10%와 문자 요금(단문 12원, 장문 32원, 사진 90원)은 별도입니다.</span>
+                <span class="info-desc"
+                    >런칭 기념 할인은 각 상품별로 첫 결제 시에만 적용됩니다.<br />동일한 상품을 재결제하는 경우에는 런칭
+                    기념 할인이 적용되지 않으며, 구매 이력이 없는<br class="tablet-break" />다른 상품을 첫 결제하는
+                    경우에는 할인 혜택이 적용됩니다.
+                </span>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="footer-content">
+                <div class="selected-payment-item">
+                    <span *ngIf="selectedPaymentItem">{{ selectedPaymentItem.top.title }}</span>
+                </div>
+                <div class="l-footer-button">
+                    <rwa-button
+                        width="134px"
+                        height="45px"
+                        [padding]="'9px 20px 7px 25px'"
+                        [bgColor]="'var(--red-5)'"
+                        [hoverBgColor]="'var(--red-10)'"
+                        [fontColor]="'var(--red-100)'"
+                        [progressBgColor]="'var(--red-10)'"
+                        [loadingColor]="'var(--red-100)'"
+                    >
+                        <ng-template btIdleContent>
+                            <rwa-svg-arrow-left-bold
+                                width="20px"
+                                height="20px"
+                                [color]="'var(--red-100)'"
+                                [style.margin-right]="'10px'"
+                            ></rwa-svg-arrow-left-bold>
+                            <span class="button-text--red">이전으로</span>
+                        </ng-template>
+                    </rwa-button>
+                    <rwa-button
+                        width="134px"
+                        height="45px"
+                        [padding]="'9px 20px 7px 25px'"
+                        [disable]="!selectedPaymentItem"
+                        (onClick)="onNextInTheFirstStep()"
+                    >
+                        <ng-template btIdleContent>
+                            <span class="button-text--white">다음으로</span>
+                            <rwa-svg-arrow-right-bold
+                                width="20px"
+                                height="20px"
+                                [color]="'var(--white)'"
+                                [style.margin-left]="'10px'"
+                            ></rwa-svg-arrow-right-bold>
+                        </ng-template>
+                    </rwa-button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="l-step-two" *ngIf="step == 'two'">
+        <div class="header">
+            <div class="payment__title">상품 결제하기</div>
+            <div class="l-payment__step">
+                <div class="payment__step">
+                    <div class="step-icon">1</div>
+                    <span>상품 선택</span>
+                </div>
+                <div class="caret-right-1-g60-icon"></div>
+                <div class="payment__step selected">
+                    <div class="step-icon">2</div>
+                    <span>결제 정보 입력</span>
+                </div>
+            </div>
+        </div>
+        <div class="body"></div>
+        <div class="footer">
+            <div class="footer-content">
+                <div class="l-purchase-agree"></div>
+                <div class="l-footer-button">
+                    <rwa-button
+                        width="134px"
+                        height="45px"
+                        [padding]="'9px 20px 7px 25px'"
+                        [bgColor]="'var(--red-5)'"
+                        [hoverBgColor]="'var(--red-10)'"
+                        [fontColor]="'var(--red-100)'"
+                        [progressBgColor]="'var(--red-10)'"
+                        [loadingColor]="'var(--red-100)'"
+                        (onClick)="backToStepOneModal = true"
+                    >
+                        <ng-template btIdleContent>
+                            <rwa-svg-arrow-left-bold
+                                width="20px"
+                                height="20px"
+                                [color]="'var(--red-100)'"
+                                [style.margin-right]="'10px'"
+                            ></rwa-svg-arrow-left-bold>
+                            <span class="button-text--red">이전으로</span>
+                        </ng-template>
+                    </rwa-button>
+                    <rwa-button
+                        width="109px"
+                        height="45px"
+                        [padding]="'9px 20px 7px 25px'"
+                        [disable]="true"
+                        (onClick)="(false)"
+                    >
+                        <ng-template btIdleContent>
+                            <span class="button-text--white">결제하기</span>
+                        </ng-template>
+                    </rwa-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<rwa-modal
+    [(visible)]="backToStepOneModal"
+    [data]="backToStepOneData"
+    (cancel)="backToStepOneModal = false"
+    (confirm)="onBackToStepOneConfirm()"
+></rwa-modal>

@@ -78,6 +78,7 @@ import { ToastComponent } from '@shared/components/atoms/toast/toast.component'
 import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
 import { XsIconButtonComponent } from './xs-icon-button/xs-icon-button.component'
 import { SlideButtonComponent } from './slide-button/slide-button.component'
+import { PaymentProductItemComponent } from './payment-product-item/payment-product-item.component'
 
 @NgModule({
     declarations: [
@@ -140,6 +141,7 @@ import { SlideButtonComponent } from './slide-button/slide-button.component'
         VacantModalComponent,
         XsIconButtonComponent,
         SlideButtonComponent,
+        PaymentProductItemComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -201,6 +203,7 @@ import { SlideButtonComponent } from './slide-button/slide-button.component'
         VacantModalComponent,
         XsIconButtonComponent,
         SlideButtonComponent,
+        PaymentProductItemComponent,
     ],
     schemas: [],
 })

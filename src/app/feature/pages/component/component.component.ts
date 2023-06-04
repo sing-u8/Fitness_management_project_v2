@@ -18,6 +18,7 @@ import _ from 'lodash'
 import { StatsSalesSummary } from '@schemas/stats-sales-summary'
 import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 import { takeUntil } from 'rxjs/operators'
+import { paymentItemList } from '@shared/helper/center-payment'
 
 @Component({
     selector: 'rwp-component',
@@ -462,5 +463,23 @@ export class ComponentComponent implements OnDestroy {
     }
     onSaleFilter1Change(e: FilterMapTypeCode) {
         console.log('onSaleFilter1Change : ', e, ' - sale Filter 1 : ', this.saleFilter1)
+    }
+
+    public paymentItemList = paymentItemList
+    public pi1Selected = false
+    public pi2Selected = false
+    public pi3Selected = false
+    onPi1Selected(e) {
+        this.pi2Selected = false
+        this.pi3Selected = false
+        console.log('onPi1Selected -- ', this.pi1Selected, e)
+    }
+    onPi2Selected() {
+        this.pi1Selected = false
+        this.pi3Selected = false
+    }
+    onPi3Selected() {
+        this.pi2Selected = false
+        this.pi1Selected = false
     }
 }

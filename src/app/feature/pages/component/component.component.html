@@ -1984,5 +1984,61 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
-    <div class="d-flex align-items-center"></div>
+    <h2>결제 상품</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>pc 화면</h2>
+    <p class="v-padding"></p>
+
+    <div class="d-flex align-items-center">
+        <rwa-payment-product-item
+            [paymentItem]="paymentItemList[0]"
+            [(selected)]="pi1Selected"
+            (onClick)="onPi1Selected($event)"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+        <rwa-payment-product-item
+            [paymentItem]="paymentItemList[1]"
+            [(selected)]="pi2Selected"
+            (onClick)="onPi2Selected()"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+        <rwa-payment-product-item
+            [paymentItem]="paymentItemList[2]"
+            [(selected)]="pi3Selected"
+            (onClick)="onPi3Selected()"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>tablet 화면</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+
+    <div class="d-flex align-items-center">
+        <rwa-payment-product-item
+            [mode]="'tablet'"
+            [paymentItem]="paymentItemList[0]"
+            [(selected)]="pi1Selected"
+            (onClick)="onPi1Selected($event)"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+        <rwa-payment-product-item
+            [mode]="'tablet'"
+            [paymentItem]="paymentItemList[1]"
+            [(selected)]="pi2Selected"
+            (onClick)="onPi2Selected()"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+        <rwa-payment-product-item
+            [mode]="'tablet'"
+            [paymentItem]="paymentItemList[2]"
+            [(selected)]="pi3Selected"
+            (onClick)="onPi3Selected()"
+        ></rwa-payment-product-item>
+        <div class="h-padding"></div>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
 </div>

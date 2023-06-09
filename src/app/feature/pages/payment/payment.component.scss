@@ -9,6 +9,7 @@
     align-items: center;
     padding: 70px 0 74px;
     width: 100%;
+    height: 100vh;
     position: relative;
     background-color: var(--gray-30);
 
@@ -60,6 +61,9 @@
         width: 100%;
     }
     .l-step-one {
+        rwa-payment-product-item {
+            z-index: 0;
+        }
         .body {
             .l-payment-item--tablet,
             .l-payment-item--pc {
@@ -122,23 +126,103 @@
 
     .l-step-two {
         .body {
+            display: flex;
+            position: relative;
+
+            .body-left {
+                max-width: 530px;
+                display: grid;
+                grid-gap: 30px;
+
+                .payment-agree__tablet {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: 40.5px 0 12.5px;
+                }
+            }
+            .body-right {
+                height: 100%;
+                display: none;
+                margin-left: 30px;
+
+                .body-right__inner {
+                    width: 100%;
+                    position: sticky;
+                    top: -20px;
+                }
+            }
+
+            .l-payment-note {
+                display: flex;
+                flex-direction: column;
+                margin-top: 40px;
+                width: 100%;
+                .payment-note-title {
+                    @include rw-type-b(1.5rem, 23px, var(--gray-90));
+                    margin-bottom: 10px;
+                }
+                ul.payment-note {
+                    li {
+                        position: relative;
+                        @include rw-type-r(1.5rem, 23px, var(--gray-90));
+                        list-style: none;
+                        padding-left: 11px;
+                        &:not(:last-of-type) {
+                            margin-bottom: 5px;
+                        }
+                        &:before {
+                            content: '';
+                            vertical-align: middle;
+                            background-color: var(--gray-90);
+                            width: 5px;
+                            height: 5px;
+                            display: inline-flex;
+                            border-radius: 50%;
+                            position: absolute;
+                            top: 8px;
+                            left: 0;
+                        }
+                    }
+                }
+            }
         }
     }
 
+    .footer-bg {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 74px;
+        background-color: var(--white);
+        display: flex;
+        z-index: 0;
+    }
     .footer {
         position: fixed;
         bottom: 0;
+        //left: 0;
         width: 100%;
         height: 74px;
         background-color: var(--white);
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 1;
         .footer-content {
             width: 530px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            .l-purchase-agree {
+                display: flex;
+                align-items: center;
+                rwa-checkbox {
+                    display: none;
+                }
+            }
             .selected-payment-item {
                 @include rw-type-b(1.7rem, 28px, var(--font-color));
             }
@@ -191,18 +275,86 @@
             }
         }
         .l-step-two {
+            padding-bottom: 70px;
             .body {
+                .body-left {
+                    max-width: 635px;
+                    .tablet-payment-info {
+                        display: none;
+                    }
+                    .payment-agree__tablet {
+                        display: none;
+                    }
+                }
+                .body-right {
+                    display: flex;
+                    flex-direction: column;
+                }
             }
         }
 
         .footer {
             .footer-content {
                 width: 965px;
+                .l-purchase-agree {
+                    rwa-checkbox {
+                        display: flex;
+                    }
+                }
             }
         }
     }
 
     br.tablet-break {
         display: none !important;
+    }
+}
+
+div.payment-error-modal {
+    .header {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .error-icon {
+            background-image: url('/assets/icons/etc/warning-red.svg');
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        .header-title {
+            white-space: pre-line;
+            @include rw-type-b(2rem, 31px, var(--font-color));
+        }
+        .header-desc {
+            white-space: pre-line;
+            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+            margin-top: 8px;
+        }
+    }
+    .body {
+        width: 100%;
+        padding: 17px 5px;
+        border-top: 1px solid var(--gray-100);
+        border-bottom: 1px solid var(--gray-60);
+        margin: 20px 0 25px;
+        .body-title {
+            white-space: pre-line;
+            @include rw-type-r(1.5rem, 23px, var(--gray-90));
+        }
+        .body-desc {
+            white-space: pre-line;
+            margin-top: 1px;
+            @include rw-type-r(1.7rem, 28px, var(--font-color));
+        }
+    }
+    .button {
+        display: flex;
+        justify-content: flex-end;
+        .button-text {
+            @include rw-type-b(1.7rem, 28px, var(--white));
+        }
     }
 }

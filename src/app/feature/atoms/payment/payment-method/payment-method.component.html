@@ -1,0 +1,41 @@
+<section id="l-payment-method-wrapper">
+    <div id="l-payment-method">
+        <p class="payment-method-title">결제 수단</p>
+        <div class="l-payment-method-checkbox">
+            <rwa-radio-button
+                [disable]="true"
+                [label]="'신용카드'"
+                [checked]="true"
+                [lookNormalWhenDisabled]="true"
+            ></rwa-radio-button>
+        </div>
+        <ng-container *ngIf="!paymentCard">
+            <div class="add-payment-method" (click)="showRegisterCardModal = true">
+                <div class="add-payment-title">
+                    <div class="plus-icon"></div>
+                    (필수) 카드 등록하기
+                </div>
+                <div class="add-payment-desc">
+                    매월 자동 결제할 본인 명의의<br />
+                    카드를 등록해 주세요.
+                </div>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="paymentCard">
+            <rwa-payment-card [cardData]="paymentCard"></rwa-payment-card>
+        </ng-container>
+    </div>
+</section>
+
+<rwm-register-card-modal
+    [(visible)]="showRegisterCardModal"
+    [isError]="isRegisterCardError"
+    (confirm)="onRegisterCardConfirm($event)"
+    (cancel)="showRegisterCardModal = false"
+></rwm-register-card-modal>
+
+<rwm-register-card-result-modal
+    [(visible)]="showRegisterCardResultModal"
+    [cardData]="registerCardData"
+    (confirm)="showRegisterCardResultModal = false"
+></rwm-register-card-result-modal>

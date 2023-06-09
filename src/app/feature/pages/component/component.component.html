@@ -2041,4 +2041,36 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button (onClick)="showPaymentError = !showPaymentError">
+            <ng-template btIdleContent>결제 에러 모달</ng-template>
+        </rwa-button>
+    </div>
 </div>
+
+<rwa-vacant-modal width="345px" height="481px" padding="25px 25px 30px" [(visible)]="showPaymentError">
+    <div class="payment-error-modal">
+        <div class="header">
+            <div class="error-icon"></div>
+            <div class="header-title">
+                {{ paymentErrorData.text }}
+            </div>
+            <div class="header-desc">
+                {{ paymentErrorData.subText }}
+            </div>
+        </div>
+        <div class="body">
+            <div class="body-title">
+                {{ paymentErrorData.detailList[0].title }}
+            </div>
+            <div class="body-desc">
+                {{ paymentErrorData.detailList[0].desc }}
+            </div>
+        </div>
+        <div class="button">
+            <rwa-button width="80px" height="45px" (onClick)="showPaymentError = false">
+                <ng-template btIdleContent>확인</ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>

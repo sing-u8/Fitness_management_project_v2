@@ -158,7 +158,10 @@ export class SalesEffect {
                         cb ? cb() : null
                         return [SalesActions.adExportSales()]
                     }),
-                    catchError((error: any) => of(SalesActions.error({ error })))
+                    catchError((error: any) => {
+                        cb ? cb() : null
+                        return of(SalesActions.error({ error }))
+                    })
                 )
             })
         )

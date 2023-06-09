@@ -1,10 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { PaymentItem } from '@schemas/payment/payment-item'
+import { SharedModule } from '@shared/shared.module'
+import { CommonModule } from '@angular/common'
 
 @Component({
     selector: 'rwa-payment-product-item',
+    standalone: true,
     templateUrl: './payment-product-item.component.html',
     styleUrls: ['./payment-product-item.component.scss'],
+    imports: [SharedModule, CommonModule],
 })
 export class PaymentProductItemComponent {
     @Input() mode: 'pc' | 'tablet' = 'pc'

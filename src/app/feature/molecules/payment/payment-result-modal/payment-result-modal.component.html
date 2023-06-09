@@ -1,0 +1,83 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onCancel()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="l-title">
+            <div class="title">
+                레드웨일 {{ paymentItem.itemInfo.title }}<br />
+                결제가 완료되었어요!
+            </div>
+            <div class="duration">기간 : {{ paymentItem.period.dateStr }}</div>
+        </div>
+
+        <div *ngIf="paymentItem.itemInfo.productCode == 'subscribe_membership'" class="l-self-clearing">
+            <div class="sc-item">
+                <div class="key">결제 수단</div>
+                <div class="value">{{ paymentCard?.card_name }}</div>
+            </div>
+            <div class="sc-item">
+                <div class="key">자동 결제일</div>
+                <div class="value">매월 {{ day }}일</div>
+            </div>
+        </div>
+
+        <div class="l-payment-items">
+            <div class="l-pi-item">
+                <div class="pi-item">
+                    <div class="key">상품 금액</div>
+                    <div class="value">{{ paymentItem.itemInfo.originalPrice | numberWithCommas }}원</div>
+                </div>
+            </div>
+            <div class="l-pi-item">
+                <div class="pi-item">
+                    <div class="key">할인 금액</div>
+                    <div class="value">- {{ totalDiscountPrice | numberWithCommas }}원</div>
+                </div>
+                <div *ngIf="paymentItem.promotions.length > 0" class="l-pi-item-detail">
+                    <ng-container *ngFor="let item of paymentItem.promotions">
+                        <div
+                            *ngIf="!item.isFriendPromotion || (item.isFriendPromotion && item.friend_event_valid)"
+                            class="pi-item-detail"
+                        >
+                            <div class="key--small">· {{ item.title }}</div>
+                            <div class="value small-font">
+                                -
+                                {{
+                                    item.discount_price_for_percent
+                                        ? (item.discount_price_for_percent | numberWithCommas)
+                                        : (item.discount_price_for_money | numberWithCommas)
+                                }}원
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+            <div class="l-pi-item">
+                <div class="pi-item">
+                    <div class="key">부가세 (10%)</div>
+                    <div class="value">{{ totalTax | numberWithCommas }}원</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-price">
+            <div class="pp-item">
+                <div class="key">결제 금액</div>
+                <div class="value price">{{ totalPay + totalTax | numberWithCommas }}원</div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <rwa-button
+                width="80px" height="45px"
+                (click)="onConfirm(); $event.stopPropagation()"
+            >
+                <ng-template btIdleContent><span class="confirm">확인</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</div>

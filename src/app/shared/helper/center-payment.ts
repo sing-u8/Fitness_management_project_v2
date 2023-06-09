@@ -21,6 +21,7 @@ export const paymentItemList: PaymentItem[] = [
             { left: '환불 정책', right: '결제일로부터\n' + '7일 내 환불 가능' },
         ],
         type: 'subscribe_membership',
+        selected: false,
     },
     {
         top: {
@@ -41,6 +42,7 @@ export const paymentItemList: PaymentItem[] = [
             { left: '환불 정책', right: '결제일로부터\n' + '30일 내 환불 가능' },
         ],
         type: '1_years_membership',
+        selected: false,
     },
     {
         top: {
@@ -61,6 +63,7 @@ export const paymentItemList: PaymentItem[] = [
             { left: '환불 정책', right: '결제일로부터\n' + '30일 내 환불 가능' },
         ],
         type: '2_years_membership',
+        selected: false,
     },
 ]
 

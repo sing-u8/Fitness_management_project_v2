@@ -36,3 +36,52 @@ rwa-svg-arrow-right-bold {
     margin-left: 10px;
     margin-bottom: 1px;
 }
+
+div.payment-error-modal {
+    .header {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .error-icon {
+            background-image: url('/assets/icons/etc/warning-red.svg');
+            box-sizing: border-box;
+            background-repeat: no-repeat;
+            background-size: contain;
+            width: 50px;
+            height: 50px;
+            margin-bottom: 15px;
+        }
+        .header-title {
+            white-space: pre-line;
+            @include rw-type-b(2rem, 31px, var(--font-color));
+        }
+        .header-desc {
+            white-space: pre-line;
+            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+            margin-top: 8px;
+        }
+    }
+    .body {
+        width: 100%;
+        padding: 17px 5px;
+        border-top: 1px solid var(--gray-100);
+        border-bottom: 1px solid var(--gray-60);
+        margin: 20px 0 25px;
+        .body-title {
+            white-space: pre-line;
+            @include rw-type-r(1.5rem, 23px, var(--gray-90));
+        }
+        .body-desc {
+            white-space: pre-line;
+            margin-top: 1px;
+            @include rw-type-r(1.7rem, 28px, var(--font-color));
+        }
+    }
+    .button {
+        display: flex;
+        justify-content: flex-end;
+        .button-text {
+            @include rw-type-b(1.7rem, 28px, var(--white));
+        }
+    }
+}

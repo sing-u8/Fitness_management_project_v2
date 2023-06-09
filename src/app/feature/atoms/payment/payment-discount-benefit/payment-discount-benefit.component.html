@@ -1,0 +1,102 @@
+<section id="l-discount-benefit-wrapper">
+    <div id="l-discount-benefit">
+        <p class="discount-benefit-title">할인 혜택</p>
+        <div id="discount-benefit">
+            <ng-container *ngIf="itemInfo.productCode != 'subscribe_membership'">
+                <ng-container *ngFor="let item of promotions; let idx = index; let isLast = last">
+                    <div class="db-item">
+                        <div class="key">할인 {{ idx + 1 }}</div>
+                        <div class="l-db-item-value">
+                            <div class="value-main">
+                                <span class="value-bold1">{{ item.title }}</span>
+                                <span class="value-bold1">
+                                    {{
+                                        item.discount_unit_code == 'promotion_discount_unit_percent'
+                                            ? '- ' + (item.discount_price_for_percent | numberWithCommas)
+                                            : item.isFriendPromotion && item.friend_event_valid
+                                            ? '- ' + (item.discount_price_for_money | numberWithCommas)
+                                            : item.discount_unit_code == 'promotion_discount_unit_won' &&
+                                              !item.isFriendPromotion
+                                            ? '- ' + (item.discount_price_for_money | numberWithCommas)
+                                            : 0
+                                    }}원</span
+                                >
+                            </div>
+                            <div class="value-desc" [innerHTML]="item.description"></div>
+                            <ng-container *ngIf="item.isFriendPromotion">
+                                <div class="l-center-url">
+                                    <div class="center-url">
+                                        <rwa-text-field
+                                            [labelVisible]="false"
+                                            [placeholder]="'추천해 준 센터 코드'"
+                                            [width]="'270px'"
+                                            [height]="'48px'"
+                                            [disabled]="item.friend_event_valid"
+                                            [(ngModel)]="item.friend_event_center_url"
+                                        />
+                                        <rwa-button
+                                            [width]="'113px'"
+                                            [height]="'45px'"
+                                            [bgColor]="'#2F2D2D'"
+                                            [hoverBgColor]="'#141517'"
+                                            [fontColor]="'var(--white)'"
+                                            [disable]="item.friend_event_valid"
+                                            (onClick)="!item.friend_event_valid && this.checkFriendPromotion(idx)"
+                                        >
+                                            <ng-template btIdleContent>
+                                                <span class="button-text">입력 완료</span>
+                                            </ng-template>
+                                        </rwa-button>
+                                    </div>
+                                    <div *ngIf="item.friend_event_error" class="center-url-error">
+                                        <div class="error-icon"></div>
+                                        {{ item.friend_event_error }}
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div *ngIf="!isLast" class="db-divider"></div>
+                </ng-container>
+            </ng-container>
+            <ng-container *ngIf="itemInfo.productCode == 'subscribe_membership'">
+                <div class="db-item">
+                    <div class="key">할인 1</div>
+                    <div class="l-db-item-value">
+                        <div class="value-main">
+                            <span class="value-bold1">{{ promotions[0].title }}</span>
+                            <span class="value-bold1">- {{ promotions[0].discount_price_for_percent }}원</span>
+                        </div>
+                        <div class="value-desc">{{ promotions[0].description }}</div>
+                        <div class="l-month-detail">
+                            <div class="month-detail-item">
+                                <div class="md-item-text">1회 (1개월)</div>
+                                <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
+                            </div>
+                            <div class="right-arrow"></div>
+                            <div class="month-detail-item">
+                                <div class="md-item-text">2회 ~ 6회</div>
+                                <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
+                            </div>
+                            <div class="right-arrow"></div>
+                            <div class="month-detail-item">
+                                <div class="md-item-text">7회 ~</div>
+                                <div class="md-item-price">{{ itemInfo.originalPrice | numberWithCommas }}원</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <div class="db-divider--full"></div>
+            <div class="l-total-price">
+                <div class="price-text">총 할인 금액</div>
+                <div class="price-value">
+                    {{ totalDiscountPrice != 0 ? '- ' + (totalDiscountPrice | numberWithCommas) : 0 }}원
+                    {{ itemInfo.productCode == 'subscribe_membership' ? '(6회차까지)' : '' }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>

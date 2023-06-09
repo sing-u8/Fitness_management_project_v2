@@ -10,6 +10,8 @@ export class RadioButtonComponent {
     @Input() disable = false
     @Input() label = ''
 
+    @Input() lookNormalWhenDisabled = false
+
     @ViewChild('l_button') l_button_el: ElementRef
 
     @Output() onClick = new EventEmitter<boolean>()

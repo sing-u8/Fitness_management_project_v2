@@ -1,0 +1,48 @@
+<div id="l-payment-info" [class.tablet]="mode == 'tablet'">
+    <p class="title">결제 정보</p>
+    <div id="payment-info">
+        <div class="l-price-item">
+            <div class="price-item">
+                <span class="price-item-key">상품 금액</span>
+                <span class="price-item-value">{{ paymentItemInfo.itemInfo.originalPrice | numberWithCommas }}원</span>
+            </div>
+        </div>
+        <div *ngIf="paymentItemInfo.promotions.length > 0" class="l-price-item">
+            <div class="price-item">
+                <span class="price-item-key">할인 금액</span>
+                <span class="price-item-value">- {{ totalDiscountPrice | numberWithCommas }}원</span>
+            </div>
+            <div *ngIf="paymentItemInfo.promotions.length > 0" class="l-additional-price">
+                <ng-container *ngFor="let item of paymentItemInfo.promotions">
+                    <div
+                        *ngIf="!item.isFriendPromotion || (item.isFriendPromotion && item.friend_event_valid)"
+                        class="additional-price"
+                    >
+                        <span class="ad-key">· {{ item.title }}</span>
+                        <span class="ad-value"
+                            >-
+                            {{
+                                item.discount_price_for_percent
+                                    ? (item.discount_price_for_percent | numberWithCommas)
+                                    : (item.discount_price_for_money | numberWithCommas)
+                            }}원</span
+                        >
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+        <div class="l-price-item">
+            <div class="price-item">
+                <span class="price-item-key">부가세 (10%)</span>
+                <span class="price-item-value">{{ totalTax | numberWithCommas }}원</span>
+            </div>
+        </div>
+        <div class="pt-divider"></div>
+        <div class="l-price-item">
+            <div class="price-item">
+                <span class="price-item-key">결제 금액</span>
+                <span class="price-item-value red">{{ totalPay + totalTax | numberWithCommas }}원</span>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,46 @@
+<div class="l-payment-product-info user-select-none">
+    <div class="title">상품 정보</div>
+    <div class="l-info">
+        <div class="info-item">
+            <div class="info-item__name">상품명</div>
+            <div
+                class="info-item__value"
+                (click)="productDetailOpen = !productDetailOpen"
+                [class.open]="productDetailOpen"
+            >
+                <div class="d-flex align-items-center cursor-pointer">
+                    레드웨일 {{ paymentItem.top.title }}
+                    <rwa-svg-caret-down
+                        class="caret-icon"
+                        [width]="'18px'"
+                        [height]="'18px'"
+                        [color]="'var(--gray-90)'"
+                    ></rwa-svg-caret-down>
+                </div>
+                <div class="info-value__detail">
+                    <div class="info-value__detail-item" *ngFor="let item of paymentItem.bottom">
+                        <div class="detail-item-name">{{ item.left }}</div>
+                        <div class="detail-item-value">{{ item.right }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="info-item">
+            <div class="info-item__name">이용 기간</div>
+            <div class="info-item__value">
+                {{ paymentItemInfo.period.startDate | dateFormat : 'YY년 M월 D일' }} ~
+                {{ paymentItemInfo.period.endDate | dateFormat : 'YY년 M월 D일' }}
+            </div>
+        </div>
+        <div class="info-item" *ngIf="paymentItem.type == 'subscribe_membership'">
+            <div class="info-item__name">결제일</div>
+            <div class="info-item__value">
+                매월 {{ paymentItemInfo.period.startDate | dateFormat : 'D' }}일마다 자동 결제
+            </div>
+        </div>
+    </div>
+    <div class="price">
+        <div class="info-item__name">상품 금액</div>
+        <div class="info-item__value">{{ paymentItemInfo.itemInfo.originalPrice | numberWithCommas }}원</div>
+    </div>
+</div>

@@ -25,7 +25,7 @@ export class CenterStatsService {
      * @param reqBody
      */
     exportSalesData(centerId: string, reqBody: ExportSalesDataReqBody): Observable<Response> {
-        const url = this.SERVER + `/${centerId}/stats/export`
+        const url = this.SERVER + `/${centerId}/stats/sales/export`
 
         const options = {
             headers: new HttpHeaders({

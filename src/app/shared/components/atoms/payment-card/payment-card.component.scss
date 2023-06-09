@@ -1,0 +1,54 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+section.l-payment-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    div.payment-card {
+        width: 250px;
+        height: 159px;
+        background: var(--darkgrey);
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+        .top {
+            width: 100%;
+            height: calc(100% - 20px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px 20px 14px 20px;
+            background-color: var(--gray-80);
+            .l-card-name {
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-end;
+                .card-name {
+                    @include rw-type-b(1.5rem, 23px, var(--white));
+                }
+            }
+            .card-number {
+                display: flex;
+                flex-direction: column;
+                @include rw-type-r(1.7rem, 28px, var(--white));
+
+                .card-icon {
+                    background-repeat: no-repeat;
+                    background-image: url('/assets/icons/etc/ic-chip.svg');
+                    background-size: contain;
+                    width: 30px;
+                    height: 30px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+        .bottom {
+            width: 100%;
+            height: 20px;
+            background-color: var(--gray-90);
+        }
+    }
+}

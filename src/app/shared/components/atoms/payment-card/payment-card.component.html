@@ -1,0 +1,19 @@
+<section class="l-payment-card">
+    <div class="payment-card">
+        <div class="top">
+            <div class="l-card-name">
+                <div class="card-name">{{ cardData?.card_name }}</div>
+            </div>
+            <div class="card-number">
+                <div class="card-icon"></div>
+                <span>
+                    {{ cardData?.card_number }}
+                </span>
+            </div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+    <div class="card-name" *ngIf="showBottom">
+        {{ cardData?.card_name }}
+    </div>
+</section>

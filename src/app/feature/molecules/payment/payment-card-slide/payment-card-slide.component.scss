@@ -1,0 +1,9 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-payment-card-slide {
+    display: flex;
+    flex-direction: column;
+}

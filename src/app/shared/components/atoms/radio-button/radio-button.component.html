@@ -3,6 +3,7 @@
     class="l-radio-button user-select-none"
     [class.without-label]="!label && !isMouseDown"
     [class.with-label]="label && !isMouseDown"
+    [class.look-normal-when-disabled]="lookNormalWhenDisabled"
     [disabled]="disable"
     (click)="_onClick()"
     (mousedown)="onMouseDown()"

@@ -1,0 +1,122 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.pt-title {
+    margin-bottom: 12px;
+}
+
+section#l-payment-method-wrapper {
+    div#l-payment-method {
+        width: 530px;
+        min-height: 185px;
+        background-color: var(--white);
+        @include layout-shadow();
+        border-radius: 20px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+
+        padding: 28px;
+
+        .payment-method-title {
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            @include rw-type-b(2rem, 31px, var(--font-color));
+            margin-bottom: 25px;
+        }
+
+        .l-payment-method-checkbox {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        rw-payment-card {
+            margin: 20px 0;
+        }
+        .change-payment-method-button {
+            width: 90px;
+            height: 34px;
+            border: 1px solid #e9e9e9;
+            border-radius: 5px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            top: 20px;
+            right: 20px;
+            position: absolute;
+
+            font-weight: 500;
+            font-size: 13px;
+            line-height: 19px;
+            letter-spacing: -0.169px;
+            color: var(--darkgrey);
+            cursor: pointer;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            .change-icon {
+                background-image: url('/assets/icons/etc/change_place.svg');
+                background-size: contain;
+                background-repeat: no-repeat;
+                width: 23px;
+                height: 23px;
+            }
+        }
+
+        .add-payment-method {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 159px;
+            background-color: var(--white);
+            border: 2px dashed var(--red-100);
+            border-radius: 15px;
+            cursor: pointer;
+            margin-top: 20px;
+            &:hover {
+                background-color: var(--red-5);
+            }
+            .add-payment-title {
+                display: flex;
+                align-items: center;
+                @include rw-type-b(1.7rem, 28px, var(--red-100));
+                .plus-icon {
+                    background-image: url('/assets/icons/etc/plus-bold.svg');
+                    box-sizing: border-box;
+                    background-repeat: no-repeat;
+                    background-size: contain;
+                    width: 22px;
+                    height: 22px;
+                    margin-right: 5px;
+                }
+            }
+            .add-payment-desc {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                @include rw-type-r(1.4rem, 19px, var(--gray-100));
+                margin-top: 8px;
+            }
+        }
+    }
+}
+
+@media (min-width: 1025px) {
+    section#l-payment-method-wrapper {
+        div#l-payment-method {
+            width: 635px;
+        }
+    }
+}

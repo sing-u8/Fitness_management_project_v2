@@ -19,11 +19,19 @@ import { StatsSalesSummary } from '@schemas/stats-sales-summary'
 import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 import { takeUntil } from 'rxjs/operators'
 import { paymentItemList } from '@shared/helper/center-payment'
+import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-product-item/payment-product-item.component'
 
 @Component({
     selector: 'rwp-component',
     standalone: true,
-    imports: [CommonModule, SharedModule, ReactiveFormsModule, SaleSummaryComponent, SaleFilterComponent],
+    imports: [
+        CommonModule,
+        SharedModule,
+        ReactiveFormsModule,
+        SaleSummaryComponent,
+        SaleFilterComponent,
+        PaymentProductItemComponent,
+    ],
     templateUrl: './component.component.html',
     styleUrls: ['./component.component.scss'],
 })
@@ -481,5 +489,22 @@ export class ComponentComponent implements OnDestroy {
     onPi3Selected() {
         this.pi2Selected = false
         this.pi1Selected = false
+    }
+
+    public showPaymentResult = false
+    public showPaymentError = false
+
+    public paymentErrorData = {
+        text: `결제 도중 오류가 발생하여
+            결제에 실패했습니다.`,
+        subText: `카드 정보를 다시 확인하거나 다른 카드를
+            이용해 주세요. 문제가 계속되면, 카드사로
+            문의해 주시기 바랍니다.`,
+        detailList: [
+            {
+                title: '주요 결제 오류 사유',
+                desc: '카드 잔액 부족, 카드 정보 오류,\n 결제 시스템 장애 등',
+            },
+        ],
     }
 }

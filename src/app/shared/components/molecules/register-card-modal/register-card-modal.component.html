@@ -1,0 +1,153 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onCancel()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">카드 정보를 입력해 주세요.</div>
+            <rwa-icon-ghost-button
+                sizeType="md"
+                borderRadius="14px"
+                borderColor="var(--gray-60)"
+                (onClick)="onCancel()"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close width="22px" height="22px"></rwa-svg-close>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+        <form [formGroup]="formGroup" class="body">
+            <div *ngIf="isError" class="l-error-box">
+                <div class="warning-icon"></div>
+                <div class="error-box">
+                    <div class="error-title">이 카드를 추가할 수 없습니다.</div>
+                    <div class="error-desc">
+                        입력한 정보가 맞는지 확인한 후 다시 <br />
+                        등록하거나 다른 카드로 등록해 주세요.
+                    </div>
+                </div>
+            </div>
+            <div class="l-input-item">
+                <div class="l-card-number">
+                    <label>카드 번호</label>
+                    <div class="l-input" [formGroupName]="'cardNumber'">
+                        <input
+                            type="text"
+                            class="card-number1 card-number input-outline"
+                            placeholder="0000"
+                            maxlength="4"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'one'"
+                        />
+                        <span class="card-number-dash">-</span>
+                        <input
+                            type="text"
+                            class="card-number2 card-number input-outline"
+                            placeholder="0000"
+                            maxlength="4"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'two'"
+                        />
+                        <span class="card-number-dash">-</span>
+                        <input
+                            type="text"
+                            class="card-number3 card-number input-outline"
+                            placeholder="0000"
+                            maxlength="4"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'three'"
+                        />
+                        <span class="card-number-dash">-</span>
+                        <input
+                            type="text"
+                            class="card-number4 card-number input-outline"
+                            placeholder="0000"
+                            maxlength="4"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'four'"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="l-input-item">
+                <div class="input-item input-item--small">
+                    <label>생년월일 6자리</label>
+                    <input
+                        class="birth-date l-input input-outline"
+                        placeholder="YYMMDD"
+                        maxlength="6"
+                        type="text"
+                        (keydown)="restrictToNumber($event)"
+                        [formControlName]="'birthDate'"
+                    />
+                </div>
+                <div class="input-item input-item--small" [formGroupName]="'expirationDate'">
+                    <label>유효 기간</label>
+                    <div class="l-input--valid-duration">
+                        <input
+                            type="text"
+                            class="valid-duration"
+                            placeholder="MM"
+                            maxlength="2"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'one'"
+                        />
+                        <span class="card-slash">/</span>
+                        <input
+                            type="text"
+                            class="valid-duration"
+                            placeholder="YY"
+                            maxlength="2"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'two'"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="l-input-item">
+                <div class="input-item input-item--small">
+                    <label>CVC (카드 뒷면 3자리)</label>
+                    <input
+                        class="cvc l-input input-outline"
+                        placeholder="CVC"
+                        maxlength="3"
+                        type="text"
+                        (keydown)="restrictToNumber($event)"
+                        [formControlName]="'cvc'"
+                    />
+                </div>
+                <div class="input-item input-item--small">
+                    <label>비밀번호 앞 2자리</label>
+                    <div class="d-flex align-items-center">
+                        <input
+                            class="password l-input l-input--small input-outline"
+                            placeholder="00"
+                            maxlength="2"
+                            type="password"
+                            (keydown)="restrictToNumber($event)"
+                            [formControlName]="'password'"
+                        />
+                        <span class="pw-text">**</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="l-button">
+                <rwa-button
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [loadingName]="'register-payment-card'"
+                    [status]="buttonLoading"
+                    [disable]="formGroup.invalid"
+                    (onClick)="formGroup.valid && onConfirm()"
+                >
+                    <ng-template btIdleContent><span class="button-text">카드 등록하기</span></ng-template>
+                    <ng-template btPendingContent><span class="button-text">카드 등록하기</span></ng-template>
+                </rwa-button>
+            </div>
+        </form>
+    </div>
+</div>

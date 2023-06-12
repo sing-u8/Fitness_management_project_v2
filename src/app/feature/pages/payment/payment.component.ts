@@ -487,16 +487,19 @@ export class PaymentComponent implements OnDestroy, OnInit {
     // ------------------------------------------------------------------------------------
 
     public paymentCard: PaymentCard = undefined
+    public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
         this.paymentService
             .getSubscribedPaymentCustomers()
             .pipe()
             .subscribe({
-                next: (paymentCard) => {
-                    this.paymentCard = paymentCard
+                next: (paymentCards) => {
+                    this.paymentCardList = paymentCards
+                    this.paymentCard = paymentCards[0]
                     this.paymentItemLoading.paymentMethod = 'done'
                     this.getTotalDiscountPrice()
+                    console.log('getPaymentMethod - ', paymentCards)
                 },
                 error: () => {
                     this.paymentItemLoading.paymentMethod = 'done'
@@ -507,5 +510,5 @@ export class PaymentComponent implements OnDestroy, OnInit {
         this.paymentCard = undefined
     }
 
-    protected readonly undefined = undefined;
+    protected readonly undefined = undefined
 }

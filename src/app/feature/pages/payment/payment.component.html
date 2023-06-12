@@ -144,9 +144,10 @@
                         [paymentItem]="selectedPaymentItem"
                         [paymentItemInfo]="paymentItemInfo"
                     ></rwa-payment-product-info>
-                    <!--                    *ngIf="paymentItemInfo.itemInfo.productCode == 'subscribe_membership'"-->
                     <rwa-payment-method
+                        *ngIf="paymentItemInfo.itemInfo.productCode == 'subscribe_membership'"
                         [paymentCard]="paymentCard"
+                        [paymentCardList]="paymentCardList"
                         (registeredPaymentCard)="paymentCard = $event"
                     ></rwa-payment-method>
                     <rwa-payment-discount-benefit

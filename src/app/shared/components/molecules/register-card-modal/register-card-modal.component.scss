@@ -68,9 +68,6 @@
             .header-title {
                 @include rw-type-b(2rem, 31px, var(--font-color));
             }
-            rwa-svg-close {
-                height: 17px;
-            }
         }
 
         .body {

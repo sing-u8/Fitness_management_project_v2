@@ -9,8 +9,8 @@
                 [lookNormalWhenDisabled]="true"
             ></rwa-radio-button>
         </div>
-        <ng-container *ngIf="!paymentCard">
-            <div class="add-payment-method" (click)="showRegisterCardModal = true">
+        <ng-container *ngIf="paymentCardList.length == 0">
+            <div class="add-payment-method empty-card" (click)="showRegisterCardModal = true">
                 <div class="add-payment-title">
                     <div class="plus-icon"></div>
                     (필수) 카드 등록하기
@@ -21,8 +21,30 @@
                 </div>
             </div>
         </ng-container>
-        <ng-container *ngIf="paymentCard">
-            <rwa-payment-card [cardData]="paymentCard"></rwa-payment-card>
+        <ng-container *ngIf="paymentCardList.length > 0">
+            <div class="l-payment-card-slide">
+                <div class="payment-card-slide" #card_slide>
+                    <rwa-payment-card [cardData]="paymentCard"></rwa-payment-card>
+                    <div class="add-payment-method" (click)="showRegisterCardModal = true">
+                        <div class="add-payment-title">
+                            <div class="plus-icon"></div>
+                            (필수) 카드 등록하기
+                        </div>
+                        <div class="add-payment-desc">
+                            매월 자동 결제할 본인 명의의<br />
+                            카드를 등록해 주세요.
+                        </div>
+                    </div>
+                </div>
+                <div class="payment-card-slide-button">
+                    <rwa-slide-button
+                        [slideNumber]="paymentCardList.length"
+                        [(curNumber)]="curSlideNumber"
+                        [allowAdditionalNext]="true"
+                        (curNumberChange)="onSlideButtonClick($event)"
+                    ></rwa-slide-button>
+                </div>
+            </div>
         </ng-container>
     </div>
 </section>

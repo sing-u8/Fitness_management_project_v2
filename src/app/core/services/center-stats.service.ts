@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpHeaders } from '@angular/common/http'
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
@@ -24,7 +24,7 @@ export class CenterStatsService {
      * @param centerId
      * @param reqBody
      */
-    exportSalesData(centerId: string, reqBody: ExportSalesDataReqBody): Observable<Response> {
+    exportSalesData(centerId: string, reqBody: ExportSalesDataReqBody): Observable<HttpResponse<Blob>> {
         const url = this.SERVER + `/${centerId}/stats/sales/export`
 
         const options = {
@@ -33,12 +33,9 @@ export class CenterStatsService {
             }),
         }
 
-        return this.http.post<Response>(url, reqBody, options).pipe(
-            map((res) => {
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
+        return this.http
+            .post<Blob>(url, reqBody, { ...options, observe: 'response', responseType: 'blob' as 'json' })
+            .pipe(catchError(handleError))
     }
 
     /**

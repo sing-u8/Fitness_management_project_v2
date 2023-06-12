@@ -150,11 +150,11 @@ export class PaymentService {
     }
 
     // 구매자의 빌링키 정보 조회
-    getSubscribedPaymentCustomers(): Observable<PaymentCard> {
+    getSubscribedPaymentCustomers(): Observable<PaymentCard[]> {
         const url = this.SERVER + `/subscribe/customers`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
-                return res.dataset[0]
+                return res.dataset
             }),
             catchError(handleError)
         )

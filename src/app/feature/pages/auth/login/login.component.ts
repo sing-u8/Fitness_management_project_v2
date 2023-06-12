@@ -183,9 +183,9 @@ export class LoginComponent {
 
         kakao$.subscribe({
             next: (user) => {
-                const accessToken = user['access_token']
+                const access_token = user['access_token']
                 this.kakaoBtLoadingFns.showLoading()
-                this.authService.signInWithKakao({ accessToken }).subscribe({
+                this.authService.signInWithKakao({ access_token }).subscribe({
                     next: (user) => {
                         signInWithCustomToken(this.fireAuth, String(user.custom_token)).then(() => {
                             this.storageService.setSignInMethod(this.signInMethod)
@@ -207,8 +207,8 @@ export class LoginComponent {
 
     // helper
     loginWithSocial(uc: UserCredential, cb?: () => void) {
-        uc.user.getIdToken().then((accessToken) => {
-            this.authService.signInWithFirebase({ accessToken }).subscribe({
+        uc.user.getIdToken().then((access_token) => {
+            this.authService.signInWithFirebase({ access_token }).subscribe({
                 next: (user) => {
                     this.storageService.setSignInMethod(this.signInMethod)
                     this.router.navigateByUrl('/main')

@@ -185,8 +185,8 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
             password: this.registration.password,
             privacy: this.registration.privacy,
             service_terms: this.registration.service_terms,
-            sms_marketing: this.registration.sms_marketing,
-            email_marketing: this.registration.email_marketing,
+            marketing_sms: this.registration.marketing_sms,
+            marketing_email: this.registration.marketing_email,
         }
 
         this.authService.registration(body).subscribe({

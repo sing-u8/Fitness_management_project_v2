@@ -17,7 +17,7 @@ import _ from 'lodash'
     providedIn: 'root',
 })
 export class UsersService {
-    private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/users`
+    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/users`
 
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
@@ -63,8 +63,8 @@ export class UsersService {
                     fcm_token: resData['fcm_token'],
                     privacy: resData['privacy'],
                     service_terms: resData['service_terms'],
-                    sms_marketing: resData['sms_marketing'],
-                    email_marketing: resData['email_marketing'],
+                    marketing_sms: resData['marketing_sms'],
+                    marketing_email: resData['marketing_email'],
                     push_notification: resData['push_notification'],
                 })
                 return this.storageService.getUser()
@@ -90,7 +90,7 @@ export class UsersService {
         )
     }
 
-    checkPasswrod(userId: string, requestBody: { password: string }): Observable<Response> {
+    checkPassword(userId: string, requestBody: { password: string }): Observable<Response> {
         const url = this.SERVER + `/${userId}/check-password`
         const options = {
             headers: new HttpHeaders({
@@ -126,14 +126,14 @@ export class UsersService {
 
 interface UpdateUserRequestBody {
     name?: string
-    sex?: string
+    sex?: 'male' | 'female'
     birth_date?: string
     color?: string
     fcm_token?: string
     privacy?: boolean
     service_terms?: boolean
-    sms_marketing?: boolean
-    email_marketing?: boolean
+    marketing_sms?: boolean
+    marketing_email?: boolean
     push_notification?: boolean
 }
 

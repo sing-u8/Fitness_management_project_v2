@@ -25,6 +25,7 @@ import { setRegistration } from '@store/app/actions/registration.action'
 import { registrationSelector } from '@store/app/selectors/selectors'
 import { showToast } from '@store/app/actions/toast.action'
 import { Loading } from '@schemas/loading'
+import _ from 'lodash'
 
 @Component({
     selector: 'rwp-reg-phone',
@@ -87,7 +88,9 @@ export class RegPhoneComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngOnInit(): void {
         this.user = this.storageService.getUser()
-        this.isSocial = !(this.user == null || this.user?.provider == 'redwhale.xyz')
+        this.isSocial = !(
+            this.user == null || _.includes(_.map(_.split(this.user.providers, ','), _.trim), 'redwhale.xyz')
+        )
         this.timeLeft = -1
 
         this.nxStore.pipe(select(registrationSelector)).subscribe((reg) => {

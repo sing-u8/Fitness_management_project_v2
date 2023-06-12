@@ -17,8 +17,8 @@ const initialState: AppStateInterface = {
     registration: {
         service_terms: false,
         privacy: false,
-        email_marketing: false,
-        sms_marketing: false,
+        marketing_email: false,
+        marketing_sms: false,
         regCompleted: false,
         name: undefined,
         email: undefined,
@@ -68,8 +68,8 @@ export const appReducer = createImmerReducer(
         state.registration = {
             service_terms: false,
             privacy: false,
-            email_marketing: false,
-            sms_marketing: false,
+            marketing_email: false,
+            marketing_sms: false,
             regCompleted: false,
             name: undefined,
             email: undefined,

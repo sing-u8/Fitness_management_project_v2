@@ -2,8 +2,8 @@ export interface Registration {
     // 약관동의
     service_terms?: boolean
     privacy?: boolean
-    sms_marketing?: boolean
-    email_marketing?: boolean
+    marketing_sms?: boolean
+    marketing_email?: boolean
     // 가입완료
     regCompleted?: boolean
     // 유저 정보

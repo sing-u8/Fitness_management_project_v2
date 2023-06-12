@@ -24,7 +24,7 @@ export const PERMISSION = {}
     providedIn: 'root',
 })
 export class AuthService {
-    private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/auth`
+    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/auth`
 
     constructor(
         private http: HttpClient,
@@ -103,14 +103,14 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                const accessToken = res.dataset[0].access_token
-                this.storageService.setAccessToken(accessToken)
-                return accessToken
+                const access_token = res.dataset[0].access_token
+                this.storageService.setAccessToken(access_token)
+                return access_token
             })
         )
     }
 
-    checkDuplicateMail(requestBody: CheckDuplicateMailRequestBody): Observable<Response> {
+    checkDuplicateMail(requestBody: CheckDuplicateMailRequestBody): Observable<string> {
         const url = this.SERVER + '/check-duplicate-mail'
 
         const options = {
@@ -121,7 +121,7 @@ export class AuthService {
 
         return this.http.post<Response>(url, requestBody, options).pipe(
             map((res) => {
-                return res
+                return res.dataset[0].providers as string
             }),
             catchError(handleError)
         )
@@ -234,40 +234,6 @@ export class AuthService {
         )
     }
 
-    sendVerificationCodeMailChange(requestBody: SendVerificationCodeMailChangeRequestBody): Observable<Response> {
-        const url = this.SERVER + `/send-verification-code-mail-change`
-
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
-
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
-    }
-
-    checkVerificationCodeMailChange(requestBody: CheckVerificationCodeMailChangeRequestBody): Observable<Response> {
-        const url = this.SERVER + `/check-verification-code-mail-change`
-
-        const options = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-            }),
-        }
-
-        return this.http.post<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                return res
-            }),
-            catchError(handleError)
-        )
-    }
-
     sendVerificationCodeSMSChange(requestBody: SendVerificationCodeSMSChangeRequestBody): Observable<Response> {
         const url = this.SERVER + '/send-verification-code-phone-number-change'
 
@@ -301,22 +267,14 @@ export class AuthService {
             catchError(handleError)
         )
     }
-    // ---------------------------------------------------------------------------------//
-    // checkPermission(permissions: Array<string>, permission: string): boolean {
-    //     if (permissions.includes(permission)) {
-    //         return true
-    //     } else {
-    //         return false
-    //     }
-    // }
 }
 
 export type SignInWithFirebaseRequestBody = {
-    accessToken: string
+    access_token: string
 }
 
 export type SignInWithKakaoRequestBody = {
-    accessToken: string
+    access_token: string
 }
 
 export type SignInWithEmailRequestBody = {
@@ -342,14 +300,14 @@ export type CheckVerificationCodeMailRequestBody = {
 }
 
 export type RegistrationRequestBody = {
-    name: string
     email: string
     verification_code: number
+    name: string
     password: string
     privacy: boolean
     service_terms: boolean
-    sms_marketing: boolean
-    email_marketing: boolean
+    marketing_sms: boolean
+    marketing_email: boolean
 }
 
 export type SendResetPasswordLinkMailRequestBody = {

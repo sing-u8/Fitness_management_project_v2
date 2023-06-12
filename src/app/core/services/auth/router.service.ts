@@ -4,6 +4,8 @@ import { Observable, Subscription } from 'rxjs'
 
 import { StorageService } from '@services/storage.service'
 
+import _ from 'lodash'
+
 @Injectable({
     providedIn: 'root',
 })
@@ -12,7 +14,7 @@ export class RouterService {
 
     initUserDataWhenPopstate(): Subscription {
         const user = this.storageService.getUser()
-        if (user == null || user.provider == 'redwhale.xyz') {
+        if (user == null || _.includes(_.map(_.split(user.providers, ','), _.trim), 'redwhale.xyz')) {
             return new Observable(() => {
                 // do nothing, just return subscription
             }).subscribe()

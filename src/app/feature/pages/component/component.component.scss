@@ -85,3 +85,20 @@ div.payment-error-modal {
         }
     }
 }
+
+.caret-circle-down {
+    box-sizing: border-box;
+    background-image: url('/assets/icons/arrow/caret-circle-down-1.svg');
+    background-repeat: no-repeat;
+    background-size: contain;
+    min-width: 24px;
+    min-height: 24px;
+}
+.ccd {
+    &:active {
+        background-image: url('/assets/icons/arrow/caret-circle-down-duotone.svg');
+    }
+    &:hover {
+        background-image: url('/assets/icons/arrow/caret-circle-down-duotone.svg');
+    }
+}

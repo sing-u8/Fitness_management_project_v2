@@ -865,6 +865,56 @@
         </rwa-text-button>
         <div class="h-padding"></div>
     </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center" [style.background-color]="'var(--gray-100)'">
+        <h3 [style.color]="'white'">light - 1 w.underline / 2 wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--gray-60)'"
+            [hoverColor]="'var(--white)'"
+            [disableColor]="'var(--gray-90)'"
+            fontWeight="700"
+            [showUnderLine]="true"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--gray-60)'"
+            [hoverColor]="'var(--white)'"
+            [disableColor]="'var(--gray-90)'"
+            fontWeight="400"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <h3 [style.color]="'white'">light - 1 비활성화 w.underline / 2 wo.underline</h3>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--gray-60)'"
+            [hoverColor]="'var(--white)'"
+            [disableColor]="'var(--gray-90)'"
+            fontWeight="700"
+            [disable]="true"
+            [showUnderLine]="true"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+        <rwa-text-button
+            [color]="'var(--gray-60)'"
+            [hoverColor]="'var(--white)'"
+            [disableColor]="'var(--gray-90)'"
+            [disable]="true"
+            fontWeight="400"
+        >
+            사용 불가 해제하기
+        </rwa-text-button>
+        <div class="h-padding"></div>
+    </div>
+
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h2>아이콘 고스트 버튼</h2>
@@ -1072,17 +1122,22 @@
         <p class="v-padding"></p>
         <div class="d-flex align-items-center">
             <p class="h-padding"></p>
-            <rwa-xs-icon-button>
-                <rwa-svg-plus color="var(--gray-90)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
+            <rwa-xs-icon-button class="ccd" [width]="'26px'"[height]="'26px'">
+                <div class="caret-circle-down"></div>
             </rwa-xs-icon-button>
             <p class="h-padding"></p>
-            <rwa-xs-icon-button>
-                <rwa-svg-plus color="var(--gray-90)" [width]="'19px'" [height]="'19px'"></rwa-svg-plus>
-            </rwa-xs-icon-button>
-            <p class="h-padding"></p>
-            <rwa-xs-icon-button>
-                <rwa-svg-pencil [width]="'19px'" [height]="'19px'"></rwa-svg-pencil>
-            </rwa-xs-icon-button>
+            <div
+                class="d-flex align-items-center justify-content-center"
+                [ngStyle]="{
+                    width: '40px',
+                    height: '40px',
+                    'background-color': 'var(--gray-90)'
+                }"
+            >
+                <rwa-xs-icon-button [type]="'fill'" width="27px" height="27px" borderRadius="12px">
+                    <rwa-svg-close color="var(--white)" [width]="'15px'" [height]="'15px'"></rwa-svg-close>
+                </rwa-xs-icon-button>
+            </div>
         </div>
     </div>
     <p class="v-padding"></p>

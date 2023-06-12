@@ -9,6 +9,7 @@ import { Loading } from '@schemas/loading'
 export class XsIconButtonComponent {
     @ViewChild('l_button') l_button_el: ElementRef
 
+    @Input() type: 'border' | 'fill' = 'border'
     @Input() borderRadius = '2px'
     @Input() status: Loading = 'idle'
     @Input() width = '24px' // ex) 20px, 2rem

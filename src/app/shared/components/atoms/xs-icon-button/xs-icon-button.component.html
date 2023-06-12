@@ -3,6 +3,8 @@
     #l_button
     [style.width]="width"
     [style.height]="height"
+    [style.border-radius]="borderRadius"
+    [class.mode-fill]="type == 'fill'"
     (mousedown)="onMouseDown()"
     (mouseup)="onMouseUp()"
     (focusin)="onFocus(l_button)"

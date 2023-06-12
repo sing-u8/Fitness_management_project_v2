@@ -9,13 +9,33 @@
     justify-content: center;
     outline: none;
     border: none;
-    background-color: transparent;
-    border-radius: 4px;
     box-sizing: border-box;
+    cursor: pointer;
+    background-color: transparent;
     &.focused {
         &:focus {
             border: 2px solid var(--font-color);
             background-color: var(--white);
+        }
+    }
+
+    &.mode-fill {
+        border: 1.5px solid var(--white) !important;
+        background-color: var(--gray-100);
+        box-sizing: border-box;
+
+        &:active {
+            background-color: var(--font-color);
+        }
+        &:hover {
+            background-color: var(--font-color);
+        }
+
+        &.focused {
+            &:focus {
+                border: 2px solid var(--font-color) !important;
+                background-color: var(--gray-100) !important;
+            }
         }
     }
 }

@@ -78,6 +78,15 @@ export class ComponentComponent implements OnDestroy {
         })
     }
 
+    public tooltip1 = { title: '수정하기' }
+    public tooltip5 = { title: '💌 초대 도착' }
+    public tooltip2 = { title: '1:1 채팅하기' }
+    public tooltip3 = {
+        title: '안내 문구를 입력해 주세요.',
+        desc: '자세히 보기 문구입니다. 자세히 보기 문구입니다. 자세히 보기 문구입니다. 자세히 보기 문구입니다.',
+    }
+    public tooltip4 = { title: '말풍선 제목', desc: '내용' }
+
     public modalSendLink = false
     public modalSendLinkData: ModalInput = {
         title: '비밀번호 재설정 링크의\n' + '유효 시간이 만료되었어요.',

@@ -1,0 +1,68 @@
+<div
+    *ngIf="type == 'normal'"
+    class="l-tooltip normal"
+    [style.height]="height"
+    [style.width]="width"
+    [style.padding]="padding"
+    [style.min-width]="minWidth"
+    [style.border-radius]="borderRadius"
+    [ngClass]="{
+        white: colorType == 'white',
+        black: colorType == 'black',
+        red: colorType == 'red',
+        movable: movable,
+        'tooltip-top': tail == 'top',
+        'tooltip-right': tail == 'right',
+        'tooltip-bottom': tail == 'bottom',
+        'tooltip-left': tail == 'left'
+    }"
+>
+    <div class="title">{{ textObj.title }}</div>
+</div>
+
+<div
+    *ngIf="type == 'withDetail'"
+    class="l-tooltip with-detail"
+    [style.height]="height"
+    [style.width]="width"
+    [style.padding]="padding"
+    [style.min-width]="minWidth"
+    [style.border-radius]="borderRadius"
+    [ngClass]="{
+        white: colorType == 'white',
+        black: colorType == 'black',
+        red: colorType == 'red',
+        movable: movable,
+        'tooltip-top': tail == 'top',
+        'tooltip-right': tail == 'right',
+        'tooltip-bottom': tail == 'bottom',
+        'tooltip-left': tail == 'left'
+    }"
+>
+    <div class="title">{{ textObj.title }}</div>
+    <div class="show-detail" *ngIf="!showDetail" (click)="showDetail = !showDetail">자세히 보기</div>
+    <div class="detail" *ngIf="showDetail">{{ textObj.desc }}</div>
+</div>
+
+<div
+    *ngIf="type == 'title-content'"
+    class="l-tooltip title-content"
+    [style.height]="height"
+    [style.width]="width"
+    [style.padding]="padding"
+    [style.min-width]="minWidth"
+    [style.border-radius]="borderRadius"
+    [ngClass]="{
+        white: colorType == 'white',
+        black: colorType == 'black',
+        red: colorType == 'red',
+        movable: movable,
+        'tooltip-top': tail == 'top',
+        'tooltip-right': tail == 'right',
+        'tooltip-bottom': tail == 'bottom',
+        'tooltip-left': tail == 'left'
+    }"
+>
+    <div class="title">{{ textObj.title }}</div>
+    <div class="detail">{{ textObj.desc }}</div>
+</div>

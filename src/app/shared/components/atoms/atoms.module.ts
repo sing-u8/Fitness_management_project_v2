@@ -78,7 +78,7 @@ import { ToastComponent } from '@shared/components/atoms/toast/toast.component'
 import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
 import { XsIconButtonComponent } from './xs-icon-button/xs-icon-button.component'
 import { SlideButtonComponent } from './slide-button/slide-button.component'
-import { PaymentCardComponent } from './payment-card/payment-card.component';
+import { PaymentCardComponent } from './payment-card/payment-card.component'
 import { TooltipComponent } from './tooltip/tooltip.component'
 
 @NgModule({
@@ -206,6 +206,7 @@ import { TooltipComponent } from './tooltip/tooltip.component'
         XsIconButtonComponent,
         SlideButtonComponent,
         PaymentCardComponent,
+        TooltipComponent,
     ],
     schemas: [],
 })

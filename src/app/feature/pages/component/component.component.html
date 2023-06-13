@@ -31,78 +31,120 @@
     <p class="v-padding"></p>
     <p class="v-padding"></p>
     <h1>- tooltip</h1>
-    <div class="d-flex align-items-center">
-        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="bottom" rwTooltipTitle="수정하기 / 채팅">
-            툴팁 bottom
-        </div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="top" rwTooltipTitle="수정하기 / 채팅">
-            툴팁 top
-        </div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="left" rwTooltipTitle="수정하기 / 채팅">
-            툴팁 left
-        </div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div class="h-padding"></div>
-        <div [keepTooltipWhenOut]="true" rwTooltip rwTooltipPlacement="right" rwTooltipTitle="수정하기 / 채팅">
-            툴팁 right
-        </div>
-    </div>
     <p class="v-padding"></p>
     <div class="d-flex align-items-center">
-        <div
-            [keepTooltipWhenOut]="true"
-            rwTooltip
-            [showTail]="true"
-            rwTooltipPlacement="bottom"
-            rwTooltipTitle="수정하기 / 채팅"
-        >
-            툴팁 bottom
-        </div>
+        <div rwTooltip rwTooltipPlacement="bottom" rwTooltipTitle="수정하기 / 채팅">툴팁 bottom</div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
-        <div
-            [keepTooltipWhenOut]="true"
-            rwTooltip
-            [showTail]="true"
-            rwTooltipPlacement="top"
-            rwTooltipTitle="수정하기 / 채팅"
-        >
-            툴팁 top
-        </div>
+        <div rwTooltip rwTooltipPlacement="top" rwTooltipTitle="수정하기 / 채팅">툴팁 top</div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
-        <div
-            [keepTooltipWhenOut]="true"
-            rwTooltip
-            [offset]="'7'"
-            [showTail]="true"
-            rwTooltipPlacement="left"
-            rwTooltipTitle="수정하기 / 채팅"
-        >
-            툴팁 left
-        </div>
+        <div rwTooltip rwTooltipPlacement="left" rwTooltipTitle="수정하기 / 채팅">툴팁 left</div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
         <div class="h-padding"></div>
-        <div
-            [keepTooltipWhenOut]="true"
-            rwTooltip
-            [offset]="'7'"
-            [showTail]="true"
-            rwTooltipPlacement="right"
-            rwTooltipTitle="수정하기 / 채팅"
-        >
-            툴팁 right
-        </div>
+        <div rwTooltip rwTooltipPlacement="right" rwTooltipTitle="수정하기 / 채팅">툴팁 right</div>
+    </div>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h1>- tooltip component</h1>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-tooltip [textObj]="tooltip1" minWidth="70px"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip1" [colorType]="'white'" minWidth="70px"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip2" minWidth="91px" [tail]="'bottom'"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip2" [colorType]="'white'" minWidth="91px" [tail]="'bottom'"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip2" minWidth="91px" [tail]="'top'"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip2" [colorType]="'white'" minWidth="91px" [tail]="'top'"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip [textObj]="tooltip3" [type]="'withDetail'" [width]="'184px'" [tail]="'bottom'"></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip3"
+            [type]="'withDetail'"
+            [colorType]="'white'"
+            [width]="'184px'"
+            [tail]="'bottom'"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+    </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip5"
+            colorType="red"
+            [type]="'normal'"
+            [tail]="'bottom'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip5"
+            colorType="red"
+            [type]="'normal'"
+            [tail]="'top'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip5"
+            colorType="red"
+            [type]="'normal'"
+            [tail]="'right'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip5"
+            colorType="red"
+            [type]="'normal'"
+            [tail]="'left'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip4"
+            [type]="'title-content'"
+            [width]="'110px'"
+            [tail]="'bottom'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip4"
+            [type]="'title-content'"
+            [width]="'110px'"
+            [tail]="'top'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip4"
+            [type]="'title-content'"
+            [width]="'110px'"
+            [tail]="'right'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
+        <rwa-tooltip
+            [textObj]="tooltip4"
+            [type]="'title-content'"
+            [width]="'110px'"
+            [tail]="'left'"
+            [movable]="true"
+        ></rwa-tooltip>
+        <p class="h-padding"></p>
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
@@ -1122,7 +1164,7 @@
         <p class="v-padding"></p>
         <div class="d-flex align-items-center">
             <p class="h-padding"></p>
-            <rwa-xs-icon-button class="ccd" [width]="'26px'"[height]="'26px'">
+            <rwa-xs-icon-button class="ccd" [width]="'26px'" [height]="'26px'">
                 <div class="caret-circle-down"></div>
             </rwa-xs-icon-button>
             <p class="h-padding"></p>

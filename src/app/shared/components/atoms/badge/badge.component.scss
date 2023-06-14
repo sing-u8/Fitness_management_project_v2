@@ -1,0 +1,10 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

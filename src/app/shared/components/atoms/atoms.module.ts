@@ -79,7 +79,8 @@ import { VacantModalComponent } from './vacant-modal/vacant-modal.component'
 import { XsIconButtonComponent } from './xs-icon-button/xs-icon-button.component'
 import { SlideButtonComponent } from './slide-button/slide-button.component'
 import { PaymentCardComponent } from './payment-card/payment-card.component'
-import { TooltipComponent } from './tooltip/tooltip.component'
+import { TooltipComponent } from './tooltip/tooltip.component';
+import { BadgeComponent } from './badge/badge.component'
 
 @NgModule({
     declarations: [
@@ -144,6 +145,7 @@ import { TooltipComponent } from './tooltip/tooltip.component'
         SlideButtonComponent,
         PaymentCardComponent,
         TooltipComponent,
+        BadgeComponent,
     ],
     imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
     exports: [
@@ -207,6 +209,7 @@ import { TooltipComponent } from './tooltip/tooltip.component'
         SlideButtonComponent,
         PaymentCardComponent,
         TooltipComponent,
+        BadgeComponent
     ],
     schemas: [],
 })

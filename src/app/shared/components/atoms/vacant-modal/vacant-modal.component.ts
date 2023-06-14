@@ -26,8 +26,8 @@ export class VacantModalComponent implements OnChanges, AfterViewChecked, AfterV
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
-    @Input() width = '335px'
-    @Input() height = '195px'
+    @Input() width
+    @Input() height
     @Input() padding = '25px'
 
     @Input() blockClickOutside = false

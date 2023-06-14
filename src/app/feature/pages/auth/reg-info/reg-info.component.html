@@ -75,16 +75,19 @@
     </div>
 </section>
 
-<rwa-vacant-modal [(visible)]="showEmailExistModal" [blockClickOutside]="true" [width]="'345px'" [height]="'329px'">
+<rwa-vacant-modal [(visible)]="showEmailExistModal" [blockClickOutside]="true" [width]="'345px'">
     <div class="email-exist-modal-content">
-        <div class="title">이미 사용 중인 이메일입니다.</div>
+        <div class="title">{{ errorModalData.title }}</div>
         <div class="desc">
-            기존 계정으로 로그인하시거나,<br />
-            다른 이메일 주소로 가입해 주세요.
+            {{ errorModalData.desc }}
         </div>
-        <div class="content">
+        <div class="content first">
             <div class="content-title">이메일 주소</div>
             <div class="content-desc">{{ email }}</div>
+        </div>
+        <div class="content" *ngIf="linkedAccountStr">
+            <div class="content-title">연동된 계정</div>
+            <div class="content-desc">{{ linkedAccountStr }}</div>
         </div>
         <div class="l-modal-button">
             <rwa-button
@@ -101,6 +104,7 @@
                 <ng-template btPendingContent></ng-template>
             </rwa-button>
             <rwa-button
+                *ngIf="!linkedAccountStr"
                 [width]="'80px'"
                 [height]="'45px'"
                 [loadingName]="'info-next-button'"
@@ -108,6 +112,16 @@
                 (onClick)="goBackToInfo()"
             >
                 <ng-template btIdleContent><span class="next-text">확인</span></ng-template>
+            </rwa-button>
+            <rwa-button
+                *ngIf="linkedAccountStr"
+                [width]="'109px'"
+                [height]="'45px'"
+                [loadingName]="'info-next-button'"
+                [loadingMargin]="'0'"
+                (onClick)="goNextPage()"
+            >
+                <ng-template btIdleContent><span class="next-text">계속하기</span></ng-template>
             </rwa-button>
         </div>
     </div>

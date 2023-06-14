@@ -184,6 +184,7 @@ export class LoginComponent {
         kakao$.subscribe({
             next: (user) => {
                 const access_token = user['access_token']
+                console.log('kakao login access token : ', user['access_token'])
                 this.kakaoBtLoadingFns.showLoading()
                 this.authService.signInWithKakao({ access_token }).subscribe({
                     next: (user) => {

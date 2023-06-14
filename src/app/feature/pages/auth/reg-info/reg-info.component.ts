@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
-import { Observable, fromEvent } from 'rxjs'
-import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators'
+import { Observable } from 'rxjs'
 
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
@@ -49,6 +48,37 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
     public passwordStatus: 'warning' | 'error' | 'success' | 'none' = 'none'
 
     public nextButtonStatus: Loading = 'idle'
+
+    public errorModalData = {
+        title: '',
+        desc: '',
+    }
+    public existedEmailErrData = {
+        title: `이미 사용 중인 이메일입니다.`,
+        desc: `기존 계정으로 로그인하시거나,
+            다른 이메일 주소로 가입해 주세요.`,
+    }
+    public linkedEmailErrData = {
+        title: `이메일에 연동된 계정이 있어요.`,
+        desc: `기존에 가입한 소셜 계정으로 로그인하실 수 있어요. 계속해서 회원가입을 하시면, 기존
+                소셜 계정의 모든 정보가 연동됩니다.`,
+    }
+    public linkedAccountStr = ''
+    getLinkedAccountStr(str: string) {
+        let linkedAccountArr = _.map(_.split(str, ','), _.trim)
+        linkedAccountArr = _.map(linkedAccountArr, (v) => {
+            if (v == 'google.com') {
+                return '구글'
+            } else if (v == 'apple.com') {
+                return '애플'
+            } else if (v == 'kakao.com') {
+                return '카카오'
+            } else {
+                return '레드웨일'
+            }
+        })
+        this.linkedAccountStr = _.join(linkedAccountArr, ', ')
+    }
 
     constructor(
         private location: Location,
@@ -174,26 +204,39 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
         this.authService.checkDuplicateMail({ email: this.email }).subscribe(
             (v) => {
                 this.nextButtonStatus = 'idle'
-                this.emailValid = true
-                this.nxStore.dispatch(
-                    setRegistration({
-                        registration: {
-                            name: this.name.trim(),
-                            email: this.email,
-                            emailValid: this.emailValid,
-                            password: this.password,
-                            passwordValid: this.passwordValid,
-                        },
-                    })
-                )
-                this.router.navigateByUrl('/auth/registration/email')
+                if (_.isEmpty(v)) {
+                    this.goNextPage()
+                } else {
+                    this.errorModalData = this.linkedEmailErrData
+                    this.emailError = '이미 사용중인 이메일입니다.'
+                    this.setShowEmailExistModal(true)
+                    this.getLinkedAccountStr(v)
+                }
             },
             (e) => {
+                this.errorModalData = this.existedEmailErrData
+                this.linkedAccountStr = ''
                 this.emailError = '이미 사용중인 이메일입니다.'
                 this.setShowEmailExistModal(true)
                 this.nextButtonStatus = 'idle'
             }
         )
+    }
+    goNextPage() {
+        this.linkedAccountStr = ''
+        this.emailValid = true
+        this.nxStore.dispatch(
+            setRegistration({
+                registration: {
+                    name: this.name.trim(),
+                    email: this.email,
+                    emailValid: this.emailValid,
+                    password: this.password,
+                    passwordValid: this.passwordValid,
+                },
+            })
+        )
+        this.router.navigateByUrl('/auth/registration/email')
     }
 
     onKeyup(event, type: string) {

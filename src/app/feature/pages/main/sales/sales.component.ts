@@ -54,14 +54,14 @@ export class SalesComponent implements OnDestroy, OnInit {
     ) {}
     ngOnInit() {
         this.center = this.storageService.getCenter()
-        setTimeout(() => {
-            console.log('dispatch asLoadSales !!')
-            this.nxStore.dispatch(
-                SalesActions.asLoadSales({
-                    centerId: this.center.id,
-                })
-            )
-        }, 2000)
+        // setTimeout(() => {
+        //     console.log('dispatch asLoadSales !!')
+        //     this.nxStore.dispatch(
+        //         SalesActions.asLoadSales({
+        //             centerId: this.center.id,
+        //         })
+        //     )
+        // }, 2000)
 
         this.salesInfoSummary$.pipe(takeUntil(this.subject$)).subscribe((v) => {
             this.salesInfoTotalPrice =

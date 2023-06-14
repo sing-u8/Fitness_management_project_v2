@@ -86,11 +86,13 @@ section.l-reg-info {
     flex-direction: column;
 
     .title {
+        white-space: pre-line;
         width: 100%;
         @include rw-type-b(2rem, 31px, var(--font-color));
         margin: 5px 0 8px;
     }
     .desc {
+        white-space: pre-line;
         width: 100%;
         @include rw-type-r(1.7rem, 28px, var(--gray-90));
     }
@@ -98,8 +100,10 @@ section.l-reg-info {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 20px 0 25px;
-        border-top: solid 1px var(--gray-100);
+        &.first {
+            border-top: solid 1px var(--gray-100);
+            margin-top: 20px;
+        }
         border-bottom: solid 1px var(--gray-60);
         width: 100%;
         min-height: 88px;
@@ -110,12 +114,15 @@ section.l-reg-info {
         .content-desc {
             @include rw-type-r(1.7rem, 28px, var(--gray-90));
         }
+        &:not(:first-of-type) {
+        }
     }
     .l-modal-button {
         display: flex;
         align-items: center;
         justify-content: flex-end;
         width: 100%;
+        margin-top: 25px;
         rwa-button {
             &:first-of-type {
                 margin-right: 10px;

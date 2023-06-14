@@ -21,7 +21,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null)
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const url = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}`
+        const url = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}`
         if (req.url.indexOf(url) == 0) {
             let accessToken = 'none'
             const user = this.storageService.getUser()

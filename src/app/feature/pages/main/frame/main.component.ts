@@ -39,7 +39,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     constructor(private storageService: StorageService, private usersCenterService: UsersCenterService) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
-        this.getCenterForTest()
+        // this.getCenterForTest()
     }
     ngAfterViewInit() {
         Promise.resolve().then(() => {

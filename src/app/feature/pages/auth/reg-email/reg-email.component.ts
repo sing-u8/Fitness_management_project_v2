@@ -193,7 +193,9 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
             next: (user: User) => {
                 signInWithCustomToken(this.fireAuth, user.custom_token).then(() => {
                     this.nextButtonStatus = 'idle'
-                    this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
+                    if (!this.registration.linkedAccountExist) {
+                        this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
+                    }
                     this.router.navigateByUrl('/main')
                 })
             },

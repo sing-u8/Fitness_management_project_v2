@@ -12,4 +12,6 @@ export interface Registration {
     emailValid?: boolean
     password?: string
     passwordValid?: boolean
+    // for frontend
+    linkedAccountExist?: boolean
 }

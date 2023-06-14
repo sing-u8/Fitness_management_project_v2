@@ -47,6 +47,8 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
     public passwordValid = false
     public passwordStatus: 'warning' | 'error' | 'success' | 'none' = 'none'
 
+    public linkedAccountExist = false
+
     public nextButtonStatus: Loading = 'idle'
 
     public errorModalData = {
@@ -205,7 +207,7 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
             (v) => {
                 this.nextButtonStatus = 'idle'
                 if (_.isEmpty(v)) {
-                    this.goNextPage()
+                    this.goNextPage(false)
                 } else {
                     this.errorModalData = this.linkedEmailErrData
                     this.emailError = '이미 사용중인 이메일입니다.'
@@ -222,7 +224,8 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
             }
         )
     }
-    goNextPage() {
+    goNextPage(linkedAccountExist: boolean) {
+        this.linkedAccountExist = linkedAccountExist
         this.linkedAccountStr = ''
         this.emailValid = true
         this.nxStore.dispatch(
@@ -233,6 +236,7 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
                     emailValid: this.emailValid,
                     password: this.password,
                     passwordValid: this.passwordValid,
+                    linkedAccountExist: this.linkedAccountExist,
                 },
             })
         )

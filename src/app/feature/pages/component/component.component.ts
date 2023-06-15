@@ -20,6 +20,7 @@ import { FilterMapTypeCode } from '@store/main/reducers/sales.reducer'
 import { takeUntil } from 'rxjs/operators'
 import { paymentItemList } from '@shared/helper/center-payment'
 import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-product-item/payment-product-item.component'
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'rwp-component',
@@ -516,4 +517,35 @@ export class ComponentComponent implements OnDestroy {
             },
         ],
     }
+
+    public showMyProfileModal = false
+    public showMyProfileModal2 = false
+    public dummyUser: User = {
+        id: '9bf30960-0a58-11ee-8e6d-29b1ca86b52a',
+        name: 'park singyu',
+        sex: null,
+        birth_date: null,
+        email: 'singyu13@gmail.com',
+        email_verified: true,
+        phone_number: '01047088286',
+        phone_number_verified: true,
+        color: '#FFE885',
+        privacy: true,
+        service_terms: true,
+        marketing_sms: true,
+        marketing_email: true,
+        push_notification: true,
+        providers: 'apple.com, google.com, redwhale.xyz',
+        picture: null,
+        background: null,
+        access_token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWJmMzA5NjAtMGE1OC0xMWVlLThlNmQtMjliMWNhODZiNTJhIiwiaWF0IjoxNjg2NzIyMjUyLCJleHAiOjE2ODY4MDg2NTIsImlzcyI6InJlZHdoYWxlLnh5eiIsInN1YiI6IkFjY2Vzc1Rva2VuIn0.9euA9CtO_eRPCZiMuk0EgdOYnBPjyhbo9Iu_EmfzYCs',
+        refresh_token:
+            'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWJmMzA5NjAtMGE1OC0xMWVlLThlNmQtMjliMWNhODZiNTJhIiwiaWF0IjoxNjg2NzIyMjUyLCJleHAiOjE3MTgyNTgyNTIsImlzcyI6InJlZHdoYWxlLnh5eiIsInN1YiI6IlJlZnJlc2hUb2tlbiJ9.CdJhAZyyNdaNL6qBkrjjsCDRVH5V13WpAyBl5t8Fh4c',
+        custom_token:
+            'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJodHRwczovL2lkZW50aXR5dG9vbGtpdC5nb29nbGVhcGlzLmNvbS9nb29nbGUuaWRlbnRpdHkuaWRlbnRpdHl0b29sa2l0LnYxLklkZW50aXR5VG9vbGtpdCIsImlhdCI6MTY4NjcyMjI1MiwiZXhwIjoxNjg2NzI1ODUyLCJpc3MiOiJmaXJlYmFzZS1hZG1pbnNkay14OXplZUByZWR3aGFsZS1mOTg5MC5pYW0uZ3NlcnZpY2VhY2NvdW50LmNvbSIsInN1YiI6ImZpcmViYXNlLWFkbWluc2RrLXg5emVlQHJlZHdoYWxlLWY5ODkwLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwidWlkIjoiZGEzak9tbGZwYlVsZTF3djNQQ04wcnhKWm9qMSIsImNsYWltcyI6eyJwcm92aWRlciI6InJlZHdoYWxlLnh5eiJ9fQ.H9tOCNoogBXbHHmtvudlcZQCnH6eDJ__qT0TDd2TaplJ3kmVdcqtwd2uljQCxHWZWGoNyY_hRKi0C902IKyhXk8wU2yTsFb2HwImOMQroFQcXqpMzkD006rKEVx-PQALJ3njzDjzgUJtHg5gFlU32BJwLAB6JvhCGv1Fk3Kaq6oXcPnXqNNzA26LxJ9Bi-YrP0Pvp0ezeHSOjD0Uja3IPj4lvJGd51osEiCYZgw4xqGPnDwfeYn1tu9RbnH-3NFpXuJYBXoYaGGwQr5mvzLYJ5v9w9R4lVuH9SCJwDFo2ar2NiST1zZxVtp_qjGI594cFJwQAtC0jeN4VRbPXGNaLg',
+        sign_in_method: 'email',
+    }
+    public dummyUser2: User = { ..._.cloneDeep(this.dummyUser), picture: '/assets/images/logo/logo (120px).png' }
+    public dummyUser3: User = { ..._.cloneDeep(this.dummyUser), providers: 'redwhale.xyz', marketing_email: false }
 }

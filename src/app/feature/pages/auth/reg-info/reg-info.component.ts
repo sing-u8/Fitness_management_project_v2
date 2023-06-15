@@ -15,6 +15,7 @@ import _ from 'lodash'
 
 // helper
 import { isEmail, isPassword } from '@shared/helper/form-helper'
+import { getLinkedAccountStr } from '@shared/helper/account-helper'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
@@ -67,19 +68,7 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
     }
     public linkedAccountStr = ''
     getLinkedAccountStr(str: string) {
-        let linkedAccountArr = _.map(_.split(str, ','), _.trim)
-        linkedAccountArr = _.map(linkedAccountArr, (v) => {
-            if (v == 'google.com') {
-                return '구글'
-            } else if (v == 'apple.com') {
-                return '애플'
-            } else if (v == 'kakao.com') {
-                return '카카오'
-            } else {
-                return '레드웨일'
-            }
-        })
-        this.linkedAccountStr = _.join(linkedAccountArr, ', ')
+        this.linkedAccountStr = getLinkedAccountStr(str)
     }
 
     constructor(

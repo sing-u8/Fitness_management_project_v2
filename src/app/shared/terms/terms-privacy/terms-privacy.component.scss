@@ -16,7 +16,7 @@
     -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
-    z-index: 999;
+    z-index: 1005;
 }
 
 .rw-modal-background-show {
@@ -30,7 +30,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    z-index: 1000;
+    z-index: 1010;
 
     .rw-modal {
         position: relative;

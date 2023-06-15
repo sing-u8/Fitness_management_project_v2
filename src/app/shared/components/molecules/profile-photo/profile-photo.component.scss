@@ -1,0 +1,33 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-profile-photo {
+    position: relative;
+    .profile-photo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 137px;
+        height: 137px;
+        border-radius: 50px;
+        &.empty {
+            background-color: #eb7c7c;
+        }
+    }
+
+    .add-picture,
+    .edit-picture {
+        position: absolute;
+        bottom: 0;
+        right: -10px;
+    }
+
+    .remove-picture {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+}
+

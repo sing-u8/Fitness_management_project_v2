@@ -2209,7 +2209,45 @@
             <ng-template btIdleContent>결제 에러 모달</ng-template>
         </rwa-button>
     </div>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h1>내 정보</h1>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+
+    <rwa-button (onClick)="showMyProfileModal = !showMyProfileModal">
+        <ng-template btIdleContent>내 정보 버튼</ng-template>
+    </rwa-button>
+
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <rwa-button (onClick)="showMyProfileModal2 = !showMyProfileModal2">
+        <ng-template btIdleContent>내 정보 버튼</ng-template>
+    </rwa-button>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <h2>내 정보 / 프로필 사진</h2>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>
+        <div class="h-padding"></div>
+        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>
+        <div class="h-padding"></div>
+        <rwm-profile-photo [user]="dummyUser2"></rwm-profile-photo>
+    </div>
 </div>
+
+<rwm-my-profile-modal
+    [(visible)]="showMyProfileModal"
+    (close)="showMyProfileModal = false"
+    [user]="dummyUser"
+></rwm-my-profile-modal>
+<rwm-my-profile-modal
+    [(visible)]="showMyProfileModal2"
+    (close)="showMyProfileModal2 = false"
+    [user]="dummyUser3"
+></rwm-my-profile-modal>
 
 <rwa-vacant-modal width="345px" height="481px" padding="25px 25px 30px" [(visible)]="showPaymentError">
     <div class="payment-error-modal">

@@ -1,0 +1,19 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">성별</div>
+            <rwa-icon-ghost-button sizeType="md" borderRadius="14px" borderColor="var(--gray-60)" (onClick)="onClose()">
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+        <div class="body"></div>
+    </div>
+</div>

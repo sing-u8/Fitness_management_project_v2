@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core'
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 // modules
@@ -15,6 +15,16 @@ import { TmDatepickerComponent } from './tm-datepciker/tm-datepicker.component'
 import { PhoneCertificationModalComponent } from './phone-certification-modal/phone-certification-modal.component'
 import { RegisterCardModalComponent } from './register-card-modal/register-card-modal.component'
 import { RegisterCardResultModalComponent } from './register-card-result-modal/register-card-result-modal.component'
+import { MyProfileModalComponent } from './my-profile-modal/my-profile-modal.component'
+import { ProfilePhotoComponent } from './profile-photo/profile-photo.component'
+import { SharedTermsModule } from "@shared/terms/terms.module";
+import { ChangeUserNameModalComponent } from './change-user-name-modal/change-user-name-modal.component';
+import { ChangeUserPhoneNumberModalComponent } from './change-user-phone-number-modal/change-user-phone-number-modal.component';
+import { ChangeUserGenderModalComponent } from './change-user-gender-modal/change-user-gender-modal.component';
+import { ChangeUserBirthDateModalComponent } from './change-user-birth-date-modal/change-user-birth-date-modal.component';
+import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal/change-user-marketing-modal.component';
+import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component';
+import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component';
 
 @NgModule({
     declarations: [
@@ -23,6 +33,15 @@ import { RegisterCardResultModalComponent } from './register-card-result-modal/r
         PhoneCertificationModalComponent,
         RegisterCardModalComponent,
         RegisterCardResultModalComponent,
+        MyProfileModalComponent,
+        ProfilePhotoComponent,
+        ChangeUserNameModalComponent,
+        ChangeUserPhoneNumberModalComponent,
+        ChangeUserGenderModalComponent,
+        ChangeUserBirthDateModalComponent,
+        ChangeUserMarketingModalComponent,
+        ChangeUserPasswordModalComponent,
+        DeleteAccountModalComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -32,6 +51,8 @@ import { RegisterCardResultModalComponent } from './register-card-result-modal/r
         DirectivesModule,
         PipesModule,
         AtomsModule,
+        NgOptimizedImage,
+        SharedTermsModule
     ],
     exports: [
         DatepickerComponent,
@@ -39,6 +60,8 @@ import { RegisterCardResultModalComponent } from './register-card-result-modal/r
         PhoneCertificationModalComponent,
         RegisterCardModalComponent,
         RegisterCardResultModalComponent,
+        MyProfileModalComponent,
+        ProfilePhotoComponent,
     ],
     schemas: [],
 })

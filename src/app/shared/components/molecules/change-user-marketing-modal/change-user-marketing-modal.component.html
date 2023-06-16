@@ -14,6 +14,29 @@
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
-        <div class="body"></div>
+        <div class="body">
+            <div class="l-gender-radio">
+                <rwa-checkbox
+                    [checked]="checkObj.sms"
+                    label="SMS"
+                    (onClick)="checkObj.sms = !checkObj.sms"
+                ></rwa-checkbox>
+                <rwa-checkbox
+                    [checked]="checkObj.email"
+                    label="이메일"
+                    (onClick)="checkObj.email = !checkObj.email"
+                ></rwa-checkbox>
+            </div>
+            <rwa-button
+                class="save-button"
+                padding="9px 25px 7px"
+                (onClick)="onConfirm()"
+                [loadingName]="'marketing-save'"
+                [status]="confirmButtonLoading"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장하기</span></ng-template>
+                <ng-template btPendingContent><span class="save-button-text">저장하기</span></ng-template>
+            </rwa-button>
+        </div>
     </div>
 </div>

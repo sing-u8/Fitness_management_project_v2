@@ -31,6 +31,7 @@ import _ from 'lodash'
 import { showToast } from '@store/app/actions/toast.action'
 import { Store, select } from '@ngrx/store'
 import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
+import { ChangeUserMarketingOutput } from '@shared/components/molecules/change-user-marketing-modal/change-user-marketing-modal.component'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -193,7 +194,35 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                 },
             })
     }
+    onChangeMarketing(res: ChangeUserMarketingOutput) {
+        res.loadingFn.showLoading()
+        this.usersService
+            .updateUser(this.user.id, {
+                marketing_email: res.value.email,
+                marketing_sms: res.value.sms,
+            })
+            .subscribe({
+                next: (v) => {
+                    this.showChangeMarketingModal = false
+                    res.loadingFn.hideLoading()
+                    this.nxStore.dispatch(showToast({ text: '마케팅 정보 수신 여부가 변경되었어요.' }))
 
+                    this.storageService.setUser(v)
+                    this.user = _.cloneDeep(v)
+                    this.getBasicInfo(this.user)
+                    this.onUserChange.emit(this.user)
+                },
+                error: (err) => {
+                    res.loadingFn.hideLoading()
+                },
+            })
+    }
+    onChangePhoneNumber() {
+        this.showChangePhoneNumberModal = false
+        this.user = this.storageService.getUser()
+        this.getBasicInfo(this.user)
+        this.onUserChange.emit(this.user)
+    }
     // -----------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------
     public showChangeNameModal = false

@@ -36,10 +36,7 @@
                             class="basic-info__item-value"
                             [class.gray-value]="item.key == 'email' || item.key == 'linkedAccount'"
                         >
-                            <span *ngIf="item.key == 'phoneNumber'">
-                                {{ (item.value['value'] | phoneNumber) ?? '' }}
-                            </span>
-                            <span *ngIf="item.key != 'phoneNumber'">
+                            <span>
                                 {{ item.value['value'] ?? '-' }}
                             </span>
                         </div>
@@ -91,7 +88,12 @@
     (onNameConfirm)="onChangeName($event)"
     [name]="user?.name"
 ></rwm-change-user-name-modal>
-<!--<rwm-change-user-phone-number-modal [(visible)]="showChangePhoneNumberModal" (close)="showChangePhoneNumberModal = false" ></rwm-change-user-phone-number-modal>-->
+<rwm-change-user-phone-number-modal
+    [(visible)]="showChangePhoneNumberModal"
+    (close)="showChangePhoneNumberModal = false"
+    (confirm)="onChangePhoneNumber()"
+    [user]="user"
+></rwm-change-user-phone-number-modal>
 <rwm-change-user-gender-modal
     [(visible)]="showChangeGenderModal"
     (close)="showChangeGenderModal = false"
@@ -105,8 +107,11 @@
     (onBirthDateConfirm)="onChangeBirthDate($event)"
 ></rwm-change-user-birth-date-modal>
 <rwm-change-user-marketing-modal
+    [email]="user?.marketing_email"
+    [sms]="user?.marketing_sms"
     [(visible)]="showChangeMarketingModal"
     (close)="showChangeMarketingModal = false"
+    (onMarketingConfirm)="onChangeMarketing($event)"
 ></rwm-change-user-marketing-modal>
 <!--<rwm-change-user-password-modal [(visible)]="showChangePasswordModal" (close)="showChangePasswordModal = false"></rwm-change-user-password-modal>-->
 <!--<rwm-delete-account-modal [(visible)]="showDeleteUserModal" (close)="showDeleteUserModal = false"></rwm-delete-account-modal>-->

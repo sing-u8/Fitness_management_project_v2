@@ -15,7 +15,15 @@ import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
-import { changesOn } from '@shared/helper/component-helper'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
+
+export type ChangeUserMarketingOutput = {
+    loadingFn: ModalOutPut
+    value: {
+        email: boolean
+        sms: boolean
+    }
+}
 
 @Component({
     selector: 'rwm-change-user-marketing-modal',
@@ -28,22 +36,19 @@ export class ChangeUserMarketingModalComponent implements OnChanges, AfterViewIn
 
     @Input() email = false
     @Input() sms = false
-    @Output() onNameConfirm = new EventEmitter<{
-        loadingFn: ModalOutPut
-        value: {
-            email: boolean
-            sms: boolean
-        }
-    }>()
+    public checkObj = {
+        email: false,
+        sms: false,
+    }
+    @Output() onMarketingConfirm = new EventEmitter<ChangeUserMarketingOutput>()
     onConfirm() {
-        this.onNameConfirm.emit({
+        this.onMarketingConfirm.emit({
             loadingFn: {
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
             value: {
-                email: this.email,
-                sms: this.sms,
+                ...this.checkObj,
             },
         })
     }
@@ -84,6 +89,16 @@ export class ChangeUserMarketingModalComponent implements OnChanges, AfterViewIn
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this.checkObj = {
+                    email: this.email,
+                    sms: this.sms,
+                }
+            }
+        })
+        changesOn(changes, 'visible', (v) => {
+            this.checkObj = {
+                email: this.email,
+                sms: this.sms,
             }
         })
     }

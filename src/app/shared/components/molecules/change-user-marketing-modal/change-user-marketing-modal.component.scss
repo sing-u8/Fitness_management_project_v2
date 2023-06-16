@@ -62,9 +62,27 @@
             height: calc(100% - 70px);
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
+            align-items: flex-end;
+            justify-content: space-between;
             position: relative;
+            padding: 25px 30px;
+
+            .l-gender-radio {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                rwa-checkbox {
+                    &:first-of-type {
+                        margin-bottom: 20px;
+                    }
+                }
+            }
+            .save-button {
+            }
+            .save-button-text {
+                @include rw-type-b(1.7rem, 28px, var(--white));
+            }
         }
     }
 }

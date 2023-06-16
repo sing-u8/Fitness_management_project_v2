@@ -9,7 +9,7 @@ export const AuthErrors = {
         message: '존재하지 않는 사용자입니다.',
     },
     AUTHENTICATION_004: {
-        message: '이메일을 인증해주세요.',
+        message: '이메일을 인증해 주세요.',
     },
     AUTHENTICATION_005: {
         message: '이미 등록된 이메일입니다.',
@@ -24,7 +24,7 @@ export const AuthErrors = {
         message: '만료된 비밀번호 초기화 링크입니다.',
     },
     FUNCTION_AUTH_010: {
-        message: '전화번호 양식을 올바르게 입력해주세요.',
+        message: '전화번호 양식을 올바르게 입력해 주세요.',
     },
     FUNCTION_AUTH_011: {
         message: '유효한 토큰이 아닙니다.',

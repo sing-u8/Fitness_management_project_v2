@@ -52,8 +52,6 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    btWidth = '235px'
-
     constructor(private renderer: Renderer2, private storageService: StorageService, public route: Router) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -87,5 +85,13 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
             fragment: 'ignored',
             matrixParams: 'ignored',
         })
+    }
+
+    public showMyInformation = false
+    openMyInfoModal() {
+        this.showMyInformation = true
+    }
+    closeMyInfoModal() {
+        this.showMyInformation = false
     }
 }

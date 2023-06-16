@@ -17,7 +17,7 @@
         <div class="body thin-scroll-y-overlay">
             <div class="l-profile-photo body-item-gap">
                 <rwm-profile-photo [user]="user"></rwm-profile-photo>
-                <span class="profile-photo__text" rwEllipsisDropdown [lineClamp]="2">{{ user.name }}</span>
+                <span class="profile-photo__text" rwEllipsisDropdown [lineClamp]="2" [edText]="user.name"></span>
                 <rwa-ghost-button width="230px" height="45px" (onClick)="(false)">
                     <ng-template gbtIdleContent>
                         <span class="logout-text">로그아웃</span>
@@ -88,6 +88,8 @@
 <rwm-change-user-name-modal
     [(visible)]="showChangeNameModal"
     (close)="showChangeNameModal = false"
+    (onNameConfirm)="onChangeName($event)"
+    [name]="user?.name"
 ></rwm-change-user-name-modal>
 <!--<rwm-change-user-phone-number-modal [(visible)]="showChangePhoneNumberModal" (close)="showChangePhoneNumberModal = false" ></rwm-change-user-phone-number-modal>-->
 <rwm-change-user-gender-modal

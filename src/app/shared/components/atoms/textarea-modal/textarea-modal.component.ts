@@ -44,7 +44,7 @@ export class TextareaModalComponent {
     @Input() text = ''
     public textValue = ''
 
-    @Input() placeholder = '내용을 입력해주세요.'
+    @Input() placeholder = '내용을 입력해 주세요.'
 
     public changed: boolean
 

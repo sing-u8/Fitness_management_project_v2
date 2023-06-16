@@ -14,6 +14,23 @@
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
-        <div class="body"></div>
+        <div class="body">
+            <rwa-text-field
+                [label]="'원활한 센터 이용을 위해 실명을 입력해 주세요.'"
+                placeholder="이름"
+                width="320px"
+                [formControl]="nameForm"
+            ></rwa-text-field>
+            <rwa-button
+                [disable]="nameForm.invalid"
+                class="save-button"
+                padding="9px 25px 7px"
+                (onClick)="onConfirm()"
+                [status]="confirmButtonLoading"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장하기</span></ng-template>
+                <ng-template btPendingContent><span class="save-button-text">저장하기</span></ng-template>
+            </rwa-button>
+        </div>
     </div>
 </div>

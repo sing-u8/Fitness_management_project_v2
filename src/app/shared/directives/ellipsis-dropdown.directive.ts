@@ -1,46 +1,93 @@
-import { AfterViewInit, Directive, ElementRef, Input, Output, Renderer2, OnDestroy } from '@angular/core'
+import {
+    AfterViewInit,
+    Directive,
+    ElementRef,
+    Input,
+    Output,
+    Renderer2,
+    OnDestroy,
+    OnChanges,
+    SimpleChanges,
+} from '@angular/core'
+import { detectChangesOn } from '@shared/helper/component-helper'
+
+import _ from 'lodash'
 
 @Directive({
     selector: '[rwEllipsisDropdown]',
 })
-export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy {
+export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnChanges {
     @Input() lineClamp = 1
     @Input() deviation = 0
+    @Input() edText = ''
+
+    public spanEl: HTMLSpanElement = undefined
+    public dropdownEl: HTMLDivElement = undefined
 
     public dropDownMouseOverUnlistener: () => void = () => {}
     public dropDownMouseLeaveUnlistener: () => void = () => {}
 
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
+    ngOnChanges(changes: SimpleChanges) {
+        detectChangesOn(changes, 'edText', (v) => {
+            console.log(
+                'detectChangesOn in eliipsis dropdown 1: ',
+                v,
+                this.edText,
+                this.spanEl,
+                _.isElement(this.spanEl)
+            )
+            if (_.isElement(this.spanEl) && _.isElement(this.dropdownEl)) {
+                const element = this.elementRef.nativeElement
+                this.spanEl.innerText = this.edText
+                this.dropdownEl.innerText = this.edText
+                if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
+                    this.renderer.addClass(this.spanEl, 'cursor-pointer')
+                    if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
+                    this.dropDownMouseOverUnlistener = this.renderer.listen(element, 'mouseover', (e) => {
+                        this.renderer.setStyle(this.dropdownEl, 'display', 'flex')
+                    })
+                    if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
+                    this.dropDownMouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', (e) => {
+                        this.renderer.setStyle(this.dropdownEl, 'display', 'none')
+                    })
+                }
+            }
+        })
+    }
+
     ngAfterViewInit(): void {
         const element = this.elementRef.nativeElement
         this.renderer.setStyle(element, 'position', 'relative')
-        const innerText = element.innerText
+        const innerText = this.edText
 
-        const span = this.renderer.createElement('span')
+        this.spanEl = this.renderer.createElement('span')
         element.innerText = ''
-        span.innerText = innerText
-        this.renderer.appendChild(element, span)
+        this.spanEl.innerText = innerText
+        this.renderer.appendChild(element, this.spanEl)
 
-        const dropDown = this.renderer.createElement('div')
-        dropDown.innerText = innerText
-        this.renderer.appendChild(element, dropDown)
-        this.renderer.addClass(dropDown, 'ellipsis-dropdown')
-        this.renderer.setStyle(dropDown, 'bottom', `-${dropDown.offsetHeight + 5}px`)
-        this.renderer.setStyle(dropDown, 'z-index', `5`)
-        this.renderer.setStyle(dropDown, 'display', 'none')
+        this.dropdownEl = this.renderer.createElement('div')
+        this.dropdownEl.innerText = innerText
+        this.renderer.appendChild(element, this.dropdownEl)
+        this.renderer.addClass(this.dropdownEl, 'ellipsis-dropdown')
+        this.renderer.setStyle(this.dropdownEl, 'bottom', `-${this.dropdownEl.offsetHeight + 5}px`)
+        this.renderer.setStyle(this.dropdownEl, 'z-index', `5`)
+        this.renderer.setStyle(this.dropdownEl, 'display', 'none')
 
         this.renderer.setStyle(element, 'position', 'relative')
-        this.renderer.addClass(span, 'line-ellipsis')
+        this.renderer.addClass(this.spanEl, 'line-ellipsis')
 
         setTimeout(() => {
-            if (this.checkIsOverFlow(span, this.lineClamp, this.deviation)) {
-                this.renderer.addClass(span, 'cursor-pointer')
+            if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
+                this.renderer.addClass(this.spanEl, 'cursor-pointer')
+                if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
                 this.dropDownMouseOverUnlistener = this.renderer.listen(element, 'mouseover', (e) => {
-                    this.renderer.setStyle(dropDown, 'display', 'flex')
+                    this.renderer.setStyle(this.dropdownEl, 'display', 'flex')
                 })
+                if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
                 this.dropDownMouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', (e) => {
-                    this.renderer.setStyle(dropDown, 'display', 'none')
+                    this.renderer.setStyle(this.dropdownEl, 'display', 'none')
                 })
             }
         }, 10)

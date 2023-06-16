@@ -346,6 +346,7 @@
                         borderRadius="14px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        (onClick)="openMyInfoModal()"
                     >
                         <ng-template iconBtIdleContent>
                             <div class="three-dots-icon"></div>
@@ -539,3 +540,5 @@
         </rwa-icon-ghost-button>
     </section>
 </article>
+
+<rwm-my-profile-modal [(visible)]="showMyInformation" [user]="user" (close)="closeMyInfoModal()"></rwm-my-profile-modal>

@@ -13,15 +13,23 @@ import {
 } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
 
+import { UsersService } from '@services/users.service'
+import { StorageService } from '@services/storage.service'
+
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
-import { changesOn } from '@shared/helper/component-helper'
 import { User } from '@schemas/user'
 
+import { changesOn } from '@shared/helper/component-helper'
 import { originalOrder } from '@shared/helper/pipe/keyvalue-helper'
 import { getLinkedAccountStr, getMarketingStr, isLinkedAccountExist } from '@shared/helper/account-helper'
 
+import { ChangeUserNameOutput } from '@shared/components/molecules/change-user-name-modal/change-user-name-modal.component'
 import dayjs from 'dayjs'
+import _ from 'lodash'
+
+import { showToast } from '@store/app/actions/toast.action'
+import { Store, select } from '@ngrx/store'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -33,6 +41,8 @@ export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' |
 export class MyProfileModalComponent implements OnChanges, AfterViewChecked, AfterViewInit {
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
+
+    @Output() onUserChange = new EventEmitter<User>() // 나중에 storage service에서 subject로 내보내기
 
     @Input() blockClickOutside = true
 
@@ -76,7 +86,14 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     }
 
     public originalOrder = originalOrder
-    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2,
+        private spinner: NgxSpinnerService,
+        private usersService: UsersService,
+        private nxStore: Store,
+        private storageService: StorageService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {
@@ -104,6 +121,31 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
 
+    // -----------------------------------------------------------------------------------------------------------
+    onChangeName(res: ChangeUserNameOutput) {
+        res.loadingFn.showLoading()
+        this.usersService
+            .updateUser(this.user.id, {
+                name: res.value,
+            })
+            .subscribe({
+                next: (v) => {
+                    this.showChangeNameModal = false
+                    res.loadingFn.hideLoading()
+                    this.nxStore.dispatch(showToast({ text: '이름이 변경되었어요.' }))
+
+                    this.storageService.setUser(v)
+                    this.user = _.cloneDeep(v)
+                    this.getBasicInfo(this.user)
+                    this.onUserChange.emit(this.user)
+                },
+                error: (err) => {
+                    res.loadingFn.hideLoading()
+                },
+            })
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------
     public showChangeNameModal = false
     public showChangePhoneNumberModal = false

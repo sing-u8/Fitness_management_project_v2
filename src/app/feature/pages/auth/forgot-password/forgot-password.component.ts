@@ -56,7 +56,7 @@ export class ForgotPasswordComponent {
         this.authService.sendResetPasswordLinkMail({ email: this.email }).subscribe({
             next: (v) => {
                 this.sendResetPwLinkStatus = 'idle'
-                this.nxStore.dispatch(showToast({ text: '메일이 전송되었어요. 메일함을 확인해주세요!' }))
+                this.nxStore.dispatch(showToast({ text: '메일이 전송되었어요. 메일함을 확인해 주세요!' }))
             },
             error: (e) => {
                 this.sendResetPwLinkStatus = 'idle'

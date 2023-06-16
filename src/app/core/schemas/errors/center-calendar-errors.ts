@@ -21,6 +21,6 @@ export const CenterCalendarError = {
         message: '존재하지 않는 센터입니다.',
     },
     FUNCTION_CENTER_CALENDAR_007: {
-        message: '예약 인원을 초과했습니다. 다른 수업을 예약해주세요.',
+        message: '예약 인원을 초과했습니다. 다른 수업을 예약해 주세요.',
     },
 }

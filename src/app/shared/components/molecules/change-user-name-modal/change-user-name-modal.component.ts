@@ -11,11 +11,18 @@ import {
     ViewChild,
     AfterViewInit,
 } from '@angular/core'
+import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { changesOn } from '@shared/helper/component-helper'
+import { passwordValidator } from '@shared/helper/form-helper'
+
+export type ChangeUserNameOutput = {
+    loadingFn: ModalOutPut
+    value: string
+}
 
 @Component({
     selector: 'rwm-change-user-name-modal',
@@ -27,17 +34,14 @@ export class ChangeUserNameModalComponent implements OnChanges, AfterViewInit, A
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() name = ''
-    @Output() onNameConfirm = new EventEmitter<{
-        loadingFn: ModalOutPut
-        value: string
-    }>()
+    @Output() onNameConfirm = new EventEmitter<ChangeUserNameOutput>()
     onConfirm() {
         this.onNameConfirm.emit({
             loadingFn: {
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
-            value: this.name,
+            value: this.nameForm.value,
         })
     }
 
@@ -59,7 +63,11 @@ export class ChangeUserNameModalComponent implements OnChanges, AfterViewInit, A
         this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+    public nameForm = this.fb.control(this.name, {
+        validators: [Validators.required],
+    })
+
+    constructor(private el: ElementRef, private renderer: Renderer2, private fb: FormBuilder) {}
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {
@@ -77,7 +85,11 @@ export class ChangeUserNameModalComponent implements OnChanges, AfterViewInit, A
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this.nameForm.setValue(this.name)
             }
+        })
+        changesOn(changes, 'visible', (v) => {
+            this.nameForm.setValue(this.name)
         })
     }
     ngAfterViewChecked() {}

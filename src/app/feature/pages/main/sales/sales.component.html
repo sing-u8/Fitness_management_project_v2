@@ -218,8 +218,8 @@
                                 <div class="stb-movable-td body-text">
                                     <div class="sth-col-4">{{ item.product_type_code_name }}</div>
                                     <div class="sth-col-5">
-                                        <span rwEllipsisDropdown [lineClamp]="2">
-                                            {{ item.product_name }}
+                                        <span rwEllipsisDropdown [lineClamp]="2" [edText]="item.product_name">
+                                            <!--                                            {{ item.product_name }}-->
                                         </span>
                                     </div>
                                     <div class="sth-col-6">

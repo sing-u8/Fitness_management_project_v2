@@ -101,6 +101,7 @@
 <rwm-change-user-birth-date-modal
     [(visible)]="showChangeBirthDateModal"
     (close)="showChangeBirthDateModal = false"
+    [birthDate]="user?.birth_date"
     (onBirthDateConfirm)="onChangeBirthDate($event)"
 ></rwm-change-user-birth-date-modal>
 <rwm-change-user-marketing-modal

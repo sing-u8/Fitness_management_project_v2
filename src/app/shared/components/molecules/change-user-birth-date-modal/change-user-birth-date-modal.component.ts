@@ -17,6 +17,8 @@ import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { changesOn } from '@shared/helper/component-helper'
 import { passwordValidator } from '@shared/helper/form-helper'
+import dayjs from 'dayjs'
+import _ from 'lodash'
 
 export type ChangeBirthDateOutput = {
     loadingFn: ModalOutPut
@@ -33,6 +35,7 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() birthDate = ''
+    public _birthDate = ''
     @Output() onBirthDateConfirm = new EventEmitter<ChangeBirthDateOutput>()
     onConfirm() {
         this.onBirthDateConfirm.emit({
@@ -84,11 +87,13 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
-                this.birthDateForm.setValue(this.birthDate)
+                if (!_.isEmpty(this.birthDate)) this._birthDate = dayjs(this.birthDate).format('YYMMDD')
+                this.birthDateForm.setValue(this._birthDate)
             }
         })
         changesOn(changes, 'visible', (v) => {
-            this.birthDateForm.setValue(this.birthDate)
+            if (!_.isEmpty(this.birthDate)) this._birthDate = dayjs(this.birthDate).format('YYMMDD')
+            this.birthDateForm.setValue(this._birthDate)
         })
     }
     ngAfterViewChecked() {}

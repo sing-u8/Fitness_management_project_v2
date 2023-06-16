@@ -126,7 +126,7 @@ export class UsersService {
 
 interface UpdateUserRequestBody {
     name?: string
-    sex?: 'male' | 'female'
+    sex?: string //'male' | 'female'
     birth_date?: string
     color?: string
     fcm_token?: string

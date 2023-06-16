@@ -14,6 +14,22 @@
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
-        <div class="body"></div>
+        <div class="body">
+            <div class="l-gender-radio">
+                <rwa-radio-button [checked]="isMale" label="남성" (onClick)="onMaleClick()"></rwa-radio-button>
+                <rwa-radio-button [checked]="isFeMale" label="여성" (onClick)="onFemaleClick()"></rwa-radio-button>
+            </div>
+            <rwa-button
+                [disable]="!isMale && !isFeMale"
+                class="save-button"
+                padding="9px 25px 7px"
+                (onClick)="onConfirm()"
+                [loadingName]="'gender-save'"
+                [status]="confirmButtonLoading"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장하기</span></ng-template>
+                <ng-template btPendingContent><span class="save-button-text">저장하기</span></ng-template>
+            </rwa-button>
+        </div>
     </div>
 </div>

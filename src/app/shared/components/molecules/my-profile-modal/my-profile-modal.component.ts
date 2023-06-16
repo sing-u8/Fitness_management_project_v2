@@ -30,6 +30,7 @@ import _ from 'lodash'
 
 import { showToast } from '@store/app/actions/toast.action'
 import { Store, select } from '@ngrx/store'
+import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -75,7 +76,11 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                 category: '연동된 계정',
             },
             phoneNumber: { value: user.phone_number, visible: true, category: '전화번호' },
-            gender: { value: user.sex, visible: true, category: '성별' },
+            gender: {
+                value: user.sex == 'female' ? '여성' : user.sex == 'male' ? '남성' : null,
+                visible: true,
+                category: '성별',
+            },
             birthDate: {
                 value: user.birth_date ? dayjs(user.birth_date).format('YYMMDD') : undefined,
                 visible: true,
@@ -133,6 +138,50 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.showChangeNameModal = false
                     res.loadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '이름이 변경되었어요.' }))
+
+                    this.storageService.setUser(v)
+                    this.user = _.cloneDeep(v)
+                    this.getBasicInfo(this.user)
+                    this.onUserChange.emit(this.user)
+                },
+                error: (err) => {
+                    res.loadingFn.hideLoading()
+                },
+            })
+    }
+    onChangeGender(res: ChangeUserGenderOutput) {
+        res.loadingFn.showLoading()
+        this.usersService
+            .updateUser(this.user.id, {
+                sex: res.value,
+            })
+            .subscribe({
+                next: (v) => {
+                    this.showChangeGenderModal = false
+                    res.loadingFn.hideLoading()
+                    this.nxStore.dispatch(showToast({ text: '성별이 변경되었어요.' }))
+
+                    this.storageService.setUser(v)
+                    this.user = _.cloneDeep(v)
+                    this.getBasicInfo(this.user)
+                    this.onUserChange.emit(this.user)
+                },
+                error: (err) => {
+                    res.loadingFn.hideLoading()
+                },
+            })
+    }
+    onChangeBirthDate(res: ChangeUserGenderOutput) {
+        res.loadingFn.showLoading()
+        this.usersService
+            .updateUser(this.user.id, {
+                birth_date: res.value,
+            })
+            .subscribe({
+                next: (v) => {
+                    this.showChangeBirthDateModal = false
+                    res.loadingFn.hideLoading()
+                    this.nxStore.dispatch(showToast({ text: '생년월일이 변경되었어요.' }))
 
                     this.storageService.setUser(v)
                     this.user = _.cloneDeep(v)

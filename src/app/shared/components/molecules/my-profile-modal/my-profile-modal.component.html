@@ -95,10 +95,13 @@
 <rwm-change-user-gender-modal
     [(visible)]="showChangeGenderModal"
     (close)="showChangeGenderModal = false"
+    [gender]="user?.sex"
+    (onGenderConfirm)="onChangeGender($event)"
 ></rwm-change-user-gender-modal>
 <rwm-change-user-birth-date-modal
     [(visible)]="showChangeBirthDateModal"
     (close)="showChangeBirthDateModal = false"
+    (onBirthDateConfirm)="onChangeBirthDate($event)"
 ></rwm-change-user-birth-date-modal>
 <rwm-change-user-marketing-modal
     [(visible)]="showChangeMarketingModal"

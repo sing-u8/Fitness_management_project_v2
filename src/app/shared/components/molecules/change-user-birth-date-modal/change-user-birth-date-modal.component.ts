@@ -11,11 +11,17 @@ import {
     ViewChild,
     AfterViewInit,
 } from '@angular/core'
-import { NgxSpinnerService } from 'ngx-spinner'
+import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { changesOn } from '@shared/helper/component-helper'
+import { passwordValidator } from '@shared/helper/form-helper'
+
+export type ChangeBirthDateOutput = {
+    loadingFn: ModalOutPut
+    value: string
+}
 
 @Component({
     selector: 'rwm-change-user-birth-date-modal',
@@ -27,17 +33,14 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() birthDate = ''
-    @Output() onNameConfirm = new EventEmitter<{
-        loadingFn: ModalOutPut
-        value: string
-    }>()
+    @Output() onBirthDateConfirm = new EventEmitter<ChangeBirthDateOutput>()
     onConfirm() {
-        this.onNameConfirm.emit({
+        this.onBirthDateConfirm.emit({
             loadingFn: {
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
-            value: this.birthDate,
+            value: this.birthDateForm.value,
         })
     }
 
@@ -59,7 +62,11 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
         this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+    public birthDateForm = this.fb.control(this.birthDate, {
+        validators: [Validators.required, Validators.pattern(/^[0-9]{6}$/)],
+    })
+
+    constructor(private el: ElementRef, private renderer: Renderer2, private fb: FormBuilder) {}
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {
@@ -77,7 +84,11 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this.birthDateForm.setValue(this.birthDate)
             }
+        })
+        changesOn(changes, 'visible', (v) => {
+            this.birthDateForm.setValue(this.birthDate)
         })
     }
     ngAfterViewChecked() {}

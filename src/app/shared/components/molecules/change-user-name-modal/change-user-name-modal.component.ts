@@ -12,7 +12,6 @@ import {
     AfterViewInit,
 } from '@angular/core'
 import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
-import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'

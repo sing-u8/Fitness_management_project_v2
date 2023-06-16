@@ -15,7 +15,12 @@ import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
-import { changesOn } from '@shared/helper/component-helper'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
+
+export type ChangeUserGenderOutput = {
+    loadingFn: ModalOutPut
+    value: string
+}
 
 @Component({
     selector: 'rwm-change-user-gender-modal',
@@ -27,17 +32,15 @@ export class ChangeUserGenderModalComponent implements OnChanges, AfterViewInit,
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() gender = ''
-    @Output() onNameConfirm = new EventEmitter<{
-        loadingFn: ModalOutPut
-        value: string
-    }>()
+    public _gender = ''
+    @Output() onGenderConfirm = new EventEmitter<ChangeUserGenderOutput>()
     onConfirm() {
-        this.onNameConfirm.emit({
+        this.onGenderConfirm.emit({
             loadingFn: {
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
-            value: this.gender,
+            value: this._gender,
         })
     }
 
@@ -70,6 +73,8 @@ export class ChangeUserGenderModalComponent implements OnChanges, AfterViewInit,
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
+                // this._gender = this.gender
+                // this.getGender()
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
@@ -77,11 +82,51 @@ export class ChangeUserGenderModalComponent implements OnChanges, AfterViewInit,
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this._gender = this.gender
+                this.getGender()
             }
+        })
+        detectChangesOn(changes, 'gender', (v) => {
+            this._gender = this.gender
+            this.getGender()
         })
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
+
+    public isMale = false
+    public isFeMale = false
+    onMaleClick() {
+        this.isMale = true
+        this.isFeMale = false
+        this.getGenderStr()
+    }
+    onFemaleClick() {
+        this.isMale = false
+        this.isFeMale = true
+        this.getGenderStr()
+    }
+    getGender() {
+        if (this.gender == 'male') {
+            this.isMale = true
+            this.isFeMale = false
+        } else if (this.gender == 'female') {
+            this.isMale = false
+            this.isFeMale = true
+        } else {
+            this.isMale = false
+            this.isFeMale = false
+        }
+    }
+    getGenderStr() {
+        if (this.isFeMale) {
+            this._gender = 'female'
+        } else if (this.isMale) {
+            this._gender = 'male'
+        } else {
+            this._gender = null
+        }
+    }
 
     // on mouse rw-modal down
     public isMouseModalDown = false

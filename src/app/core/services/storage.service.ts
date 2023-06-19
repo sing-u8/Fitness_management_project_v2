@@ -11,6 +11,7 @@ import { Center } from '@schemas/center'
 
 import _ from 'lodash'
 import { CenterUser } from '@schemas/center-user'
+import { Subject } from 'rxjs'
 
 type UserOrEmpty = User | { sign_in_method: string }
 
@@ -18,6 +19,8 @@ type UserOrEmpty = User | { sign_in_method: string }
 export class StorageService {
     private storage = localStorage // sessionStorage
     private userKey = 'redwhale:authUser'
+
+    public userChangeSubject = new Subject()
 
     constructor(private fireAuth: Auth, private router: Router) {}
 

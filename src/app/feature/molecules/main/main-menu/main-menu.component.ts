@@ -8,6 +8,8 @@ import { User } from '@schemas/user'
 import { CenterUser } from '@schemas/center-user'
 import { Center } from '@schemas/center'
 import { Router, RouterLink } from '@angular/router'
+import { takeUntil } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 @Component({
     selector: 'rwm-main-menu',
@@ -40,6 +42,8 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     public centerUser: CenterUser
     public center: Center
 
+    public unDescriber$ = new Subject()
+
     public resizeListener: () => void = undefined
 
     // vars for html tags
@@ -57,7 +61,12 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         this.user = this.storageService.getUser()
         this.centerUser = this.storageService.getCenterUser()
         this.center = this.storageService.getCenter()
-        console.log('in main menu : ', this.user, this.centerUser, this.center)
+
+        this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
+            this.user = this.storageService.getUser()
+            this.centerUser = this.storageService.getCenterUser()
+            console.log('main-menu console in userChangeSubject : ', this.user, this.centerUser)
+        })
     }
     ngAfterViewInit() {
         this.resizeListener = this.renderer.listen(window, 'resize', (e) => {
@@ -76,6 +85,8 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     ngOnDestroy() {
         this.resizeListener()
+        this.unDescriber$.next(true)
+        this.unDescriber$.complete()
     }
 
     isActive(url: string) {

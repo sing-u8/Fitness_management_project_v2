@@ -31,13 +31,6 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
 
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'edText', (v) => {
-            console.log(
-                'detectChangesOn in eliipsis dropdown 1: ',
-                v,
-                this.edText,
-                this.spanEl,
-                _.isElement(this.spanEl)
-            )
             if (_.isElement(this.spanEl) && _.isElement(this.dropdownEl)) {
                 const element = this.elementRef.nativeElement
                 this.spanEl.innerText = this.edText

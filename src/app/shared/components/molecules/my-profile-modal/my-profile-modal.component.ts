@@ -44,8 +44,6 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
-    @Output() onUserChange = new EventEmitter<User>() // 나중에 storage service에서 subject로 내보내기
-
     @Input() blockClickOutside = true
 
     @Input() user: User
@@ -150,7 +148,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.storageService.setUser(v)
                     this.user = _.cloneDeep(v)
                     this.getBasicInfo(this.user)
-                    this.onUserChange.emit(this.user)
+                    this.storageService.userChangeSubject.next(true)
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -173,7 +171,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.storageService.setUser(v)
                     this.user = _.cloneDeep(v)
                     this.getBasicInfo(this.user)
-                    this.onUserChange.emit(this.user)
+                    this.storageService.userChangeSubject.next(true)
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -196,7 +194,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.storageService.setUser(v)
                     this.user = _.cloneDeep(v)
                     this.getBasicInfo(this.user)
-                    this.onUserChange.emit(this.user)
+                    this.storageService.userChangeSubject.next(true)
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -220,7 +218,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.storageService.setUser(v)
                     this.user = _.cloneDeep(v)
                     this.getBasicInfo(this.user)
-                    this.onUserChange.emit(this.user)
+                    this.storageService.userChangeSubject.next(true)
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -232,7 +230,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
         this.onOpen()
         this.user = this.storageService.getUser()
         this.getBasicInfo(this.user)
-        this.onUserChange.emit(this.user)
+        this.storageService.userChangeSubject.next(true)
     }
 
     // -----------------------------------------------------------------------------------------------------------

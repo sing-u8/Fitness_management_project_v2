@@ -50,8 +50,9 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
 
     @Input() user: User
 
-    @ViewChild('modalBackgroundElement') modalBackgroundElement
-    @ViewChild('modalWrapperElement') modalWrapperElement
+    @ViewChild('modalBackgroundElement') modalBackgroundElement: ElementRef
+    @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
+    @ViewChild('body') bodyElement: ElementRef
 
     public isMouseModalDown = false
 
@@ -110,6 +111,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                 setTimeout(() => {
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
+                    this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
@@ -128,6 +130,10 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     ngAfterViewInit() {}
 
     // -----------------------------------------------------------------------------------------------------------
+    logout() {
+        this.storageService.logout()
+    }
+    // -----------------------------------------------------------------------------------------------------------
     onChangeName(res: ChangeUserNameOutput) {
         res.loadingFn.showLoading()
         this.usersService
@@ -137,6 +143,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
             .subscribe({
                 next: (v) => {
                     this.showChangeNameModal = false
+                    this.onOpen()
                     res.loadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '이름이 변경되었어요.' }))
 
@@ -159,6 +166,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
             .subscribe({
                 next: (v) => {
                     this.showChangeGenderModal = false
+                    this.onOpen()
                     res.loadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '성별이 변경되었어요.' }))
 
@@ -181,6 +189,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
             .subscribe({
                 next: (v) => {
                     this.showChangeBirthDateModal = false
+                    this.onOpen()
                     res.loadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '생년월일이 변경되었어요.' }))
 
@@ -204,6 +213,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
             .subscribe({
                 next: (v) => {
                     this.showChangeMarketingModal = false
+                    this.onOpen()
                     res.loadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '마케팅 정보 수신 여부가 변경되었어요.' }))
 
@@ -219,10 +229,12 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     }
     onChangePhoneNumber() {
         this.showChangePhoneNumberModal = false
+        this.onOpen()
         this.user = this.storageService.getUser()
         this.getBasicInfo(this.user)
         this.onUserChange.emit(this.user)
     }
+
     // -----------------------------------------------------------------------------------------------------------
     // -----------------------------------------------------------------------------------------------------------
     public showChangeNameModal = false
@@ -234,6 +246,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     public showDeleteUserModal = false
 
     onBasicInfoClick(type: string) {
+        this.onClose()
         const _type = type as MyInfo
         switch (_type) {
             case 'name':
@@ -258,9 +271,15 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
 
     // -----------------------------------------------------------------------------------------------------------
 
-    @Output() close = new EventEmitter<any>()
-    onClose(): void {
-        this.close.emit({})
+    @Output() close = new EventEmitter()
+    @Output() open = new EventEmitter()
+    public scrollTop = 0
+    onClose(keepScroll = true): void {
+        this.scrollTop = keepScroll ? this.bodyElement.nativeElement.scrollTop : 0
+        this.close.emit()
+    }
+    onOpen() {
+        this.open.emit()
     }
     // on mouse rw-modal down
     onMouseModalDown() {

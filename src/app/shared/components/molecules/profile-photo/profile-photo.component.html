@@ -8,20 +8,15 @@
             [priority]="true"
             alt="avatar-smiley-white.svg"
         />
-        <img
-            *ngIf="!!user.picture"
-            [ngSrc]="'/assets/images/kakao.png'"
-            fill
-            priority
-            alt="user-picture.png"
-        />
+        <img *ngIf="!!user.picture" [ngSrc]="user.picture" fill priority alt="user-picture.png" />
+        <input type="file" accept="image/*" #userProfile (change)="registerPhoto(userProfile)" hidden />
     </div>
-    <rwa-icon-ghost-button *ngIf="!!!user.picture" class="add-picture" [sizeType]="'md'">
+    <rwa-icon-ghost-button *ngIf="!!!user.picture" class="add-picture" [sizeType]="'md'" (onClick)="userProfile.click()">
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-plus [color]="'var(--gray-90)'" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
         </ng-template>
     </rwa-icon-ghost-button>
-    <rwa-icon-ghost-button *ngIf="!!user.picture" class="edit-picture" [sizeType]="'md'">
+    <rwa-icon-ghost-button *ngIf="!!user.picture" class="edit-picture" [sizeType]="'md'" (onClick)="removePhoto()">
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
         </ng-template>

@@ -146,7 +146,12 @@ export class FileService {
     }
 }
 
-export type FileType = 'file_type_user_picture' | 'file_type_user_background'
+export type FileType =
+    | 'file_type_user_picture'
+    | 'file_type_user_background'
+    | 'file_type_center_picture'
+    | 'file_type_center_background'
+    | 'file_type_center_business_registration'
 export interface UploadFileReqBody {
     type_code: FileType
 }

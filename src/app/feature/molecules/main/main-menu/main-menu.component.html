@@ -541,4 +541,9 @@
     </section>
 </article>
 
-<rwm-my-profile-modal [(visible)]="showMyInformation" [user]="user" (close)="closeMyInfoModal()"></rwm-my-profile-modal>
+<rwm-my-profile-modal
+    [(visible)]="showMyInformation"
+    [user]="user"
+    (close)="closeMyInfoModal()"
+    (open)="openMyInfoModal()"
+></rwm-my-profile-modal>

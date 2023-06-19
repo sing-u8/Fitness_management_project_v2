@@ -22,6 +22,10 @@ const routes: Routes = [
         loadChildren: () => import('@routes/main.routes').then((r) => r.MainRoutes),
     },
     {
+        path: 'center-list',
+        loadComponent: () => import('@pages/center-list/center-list.component').then((m) => m.CenterListComponent),
+    },
+    {
         path: 'components',
         component: ComponentComponent,
     },

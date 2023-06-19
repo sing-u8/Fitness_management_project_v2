@@ -17,14 +17,16 @@ import { RegisterCardModalComponent } from './register-card-modal/register-card-
 import { RegisterCardResultModalComponent } from './register-card-result-modal/register-card-result-modal.component'
 import { MyProfileModalComponent } from './my-profile-modal/my-profile-modal.component'
 import { ProfilePhotoComponent } from './profile-photo/profile-photo.component'
-import { SharedTermsModule } from "@shared/terms/terms.module";
-import { ChangeUserNameModalComponent } from './change-user-name-modal/change-user-name-modal.component';
-import { ChangeUserPhoneNumberModalComponent } from './change-user-phone-number-modal/change-user-phone-number-modal.component';
-import { ChangeUserGenderModalComponent } from './change-user-gender-modal/change-user-gender-modal.component';
-import { ChangeUserBirthDateModalComponent } from './change-user-birth-date-modal/change-user-birth-date-modal.component';
-import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal/change-user-marketing-modal.component';
-import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component';
-import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component';
+import { SharedTermsModule } from '@shared/terms/terms.module'
+import { ChangeUserNameModalComponent } from './change-user-name-modal/change-user-name-modal.component'
+import { ChangeUserPhoneNumberModalComponent } from './change-user-phone-number-modal/change-user-phone-number-modal.component'
+import { ChangeUserGenderModalComponent } from './change-user-gender-modal/change-user-gender-modal.component'
+import { ChangeUserBirthDateModalComponent } from './change-user-birth-date-modal/change-user-birth-date-modal.component'
+import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal/change-user-marketing-modal.component'
+import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component'
+import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component'
+import { CenterPhotoComponent } from './center-photo/center-photo.component'
+import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component'
 
 @NgModule({
     declarations: [
@@ -42,6 +44,8 @@ import { DeleteAccountModalComponent } from './delete-account-modal/delete-accou
         ChangeUserMarketingModalComponent,
         ChangeUserPasswordModalComponent,
         DeleteAccountModalComponent,
+        CenterPhotoComponent,
+        CreateCenterModalComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -52,7 +56,7 @@ import { DeleteAccountModalComponent } from './delete-account-modal/delete-accou
         PipesModule,
         AtomsModule,
         NgOptimizedImage,
-        SharedTermsModule
+        SharedTermsModule,
     ],
     exports: [
         DatepickerComponent,
@@ -62,6 +66,15 @@ import { DeleteAccountModalComponent } from './delete-account-modal/delete-accou
         RegisterCardResultModalComponent,
         MyProfileModalComponent,
         ProfilePhotoComponent,
+        ChangeUserNameModalComponent,
+        ChangeUserPhoneNumberModalComponent,
+        ChangeUserGenderModalComponent,
+        ChangeUserBirthDateModalComponent,
+        ChangeUserMarketingModalComponent,
+        ChangeUserPasswordModalComponent,
+        DeleteAccountModalComponent,
+        CenterPhotoComponent,
+        CreateCenterModalComponent,
     ],
     schemas: [],
 })

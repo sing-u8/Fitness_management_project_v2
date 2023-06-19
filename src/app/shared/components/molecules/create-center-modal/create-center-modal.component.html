@@ -1,0 +1,26 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose(false)"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">
+                내 정보
+            </div>
+            <rwa-icon-ghost-button
+                sizeType="md"
+                borderRadius="14px"
+                borderColor="var(--gray-60)"
+                (onClick)="onClose(false)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+        <div class="body thin-scroll-y-overlay" #body></div>
+    </div>
+</div>

@@ -1,0 +1,70 @@
+<div class="l-center-list user-select-none">
+    <header>
+        <div class="header-tag">
+            <img
+                [ngSrc]="'/assets/images/logo/full-logo.png'"
+                alt="full-logo.png"
+                [width]="120"
+                [height]="21"
+                [priority]="true"
+            />
+
+            <div class="l-user">
+                <div class="l-user-picture" [style.background-color]="user.background ?? '#EB7C7C'">
+                    <img
+                        *ngIf="user.picture"
+                        [ngSrc]="user.picture"
+                        alt="user-picture.png"
+                        [width]="28"
+                        [height]="28"
+                        [priority]="true"
+                    />
+                    <img
+                        *ngIf="!user.picture"
+                        [ngSrc]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+                        alt="avatar-smiley-white.svg"
+                        [width]="14"
+                        [height]="14"
+                        [priority]="true"
+                    />
+                </div>
+                <span class="user-name">{{ user.name }}</span>
+            </div>
+        </div>
+    </header>
+
+    <section class="thin-scroll-y-overlay">
+        <div class="l-center-list">
+            <div class="center-list__header">
+                <div class="center-list__header-left">
+                    <div class="center-list__header-title">내 센터</div>
+                    <div class="center-list__header-desc">회원 권한의 센터는 앱에서 확인하실 수 있어요.</div>
+                </div>
+                <rwa-ghost-button
+                    padding="7.5px 15px 5.5px 11px"
+                    [height]="'42px'"
+                    [borderColor]="'var(--red-100)'"
+                    [hoverBorderColor]="'var(--red-100)'"
+                    [fontColor]="'var(--red-100)'"
+                    [hoverBgColor]="'var(--red-5)'"
+                    (onClick)="(false)"
+                >
+                    <ng-template gbtIdleContent>
+                        <rwa-svg-plus [margin]="'0 5px 1.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
+                        <span class="create-center-text">수업 추가</span></ng-template
+                    >
+                </rwa-ghost-button>
+            </div>
+
+            <div class="center-list-items">
+                <div class="empty-item-box">
+                    <span class="empty-text"> 👀 아직 입장할 수 있는 센터가 없어요. </span>
+                    <span class="empty-text">
+                        센터에 직접 초대를 요청하거나<br />
+                        센터를 만들어 보세요.
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

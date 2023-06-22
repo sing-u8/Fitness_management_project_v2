@@ -19,7 +19,7 @@
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
-        <div class="body thin-scroll-y-overlay" #body>
+        <div class="body scroll-y-overlay" #body>
             <div class="l-profile-photo body-item-gap">
                 <rwm-profile-photo [user]="user"></rwm-profile-photo>
                 <span class="profile-photo__text" rwEllipsisDropdown [lineClamp]="2" [edText]="user.name"></span>
@@ -64,21 +64,19 @@
                     <span>계정 관리</span>
                     <div class="account-management__header-tag"></div>
                 </div>
-                <div class="account-management__item" (click)="showChangePasswordModal = true; onClose()">
+                <div class="account-management__item" (click)="showChangePasswordModal = true">
                     <div class="account-management__item-value">비밀번호 변경</div>
                     <div class="caret-icon"></div>
                 </div>
-                <div class="account-management__item" (click)="showDeleteUserModal = true; onClose()">
+                <div class="account-management__item" (click)="showDeleteUserModal = true">
                     <div class="account-management__item-value">계정 삭제</div>
                     <div class="caret-icon"></div>
                 </div>
             </div>
             <div class="l-terms">
-                <rwa-text-button fontWeight="400" (onClick)="termsEULAVisible = true; onClose()"
-                    >서비스 이용약관</rwa-text-button
-                >
+                <rwa-text-button fontWeight="400" (onClick)="termsEULAVisible = true">서비스 이용약관</rwa-text-button>
                 <div class="l-terms-divider"></div>
-                <rwa-text-button fontWeight="400" (onClick)="termsPrivacyVisible = true; onClose()"
+                <rwa-text-button fontWeight="400" (onClick)="termsPrivacyVisible = true"
                     >개인정보 보호 및 이용</rwa-text-button
                 >
             </div>
@@ -86,30 +84,30 @@
     </div>
 </div>
 
-<rw-terms-eula [(visible)]="termsEULAVisible" (cancel)="termsEULAVisible = false; onOpen()"></rw-terms-eula>
-<rw-terms-privacy [(visible)]="termsPrivacyVisible" (cancel)="termsPrivacyVisible = false; onOpen()"></rw-terms-privacy>
+<rw-terms-eula [(visible)]="termsEULAVisible" (cancel)="termsEULAVisible = false"></rw-terms-eula>
+<rw-terms-privacy [(visible)]="termsPrivacyVisible" (cancel)="termsPrivacyVisible = false"></rw-terms-privacy>
 
 <rwm-change-user-name-modal
     [(visible)]="showChangeNameModal"
-    (close)="showChangeNameModal = false; onOpen()"
+    (close)="showChangeNameModal = false"
     (onNameConfirm)="onChangeName($event)"
     [name]="user?.name"
 ></rwm-change-user-name-modal>
 <rwm-change-user-phone-number-modal
     [(visible)]="showChangePhoneNumberModal"
-    (close)="showChangePhoneNumberModal = false; onOpen()"
+    (close)="showChangePhoneNumberModal = false"
     (confirm)="onChangePhoneNumber()"
     [user]="user"
 ></rwm-change-user-phone-number-modal>
 <rwm-change-user-gender-modal
     [(visible)]="showChangeGenderModal"
-    (close)="showChangeGenderModal = false; onOpen()"
+    (close)="showChangeGenderModal = false"
     [gender]="user?.sex"
     (onGenderConfirm)="onChangeGender($event)"
 ></rwm-change-user-gender-modal>
 <rwm-change-user-birth-date-modal
     [(visible)]="showChangeBirthDateModal"
-    (close)="showChangeBirthDateModal = false; onOpen()"
+    (close)="showChangeBirthDateModal = false"
     [birthDate]="user?.birth_date"
     (onBirthDateConfirm)="onChangeBirthDate($event)"
 ></rwm-change-user-birth-date-modal>
@@ -117,13 +115,13 @@
     [email]="user?.marketing_email"
     [sms]="user?.marketing_sms"
     [(visible)]="showChangeMarketingModal"
-    (close)="showChangeMarketingModal = false; onOpen()"
+    (close)="showChangeMarketingModal = false"
     (onMarketingConfirm)="onChangeMarketing($event)"
 ></rwm-change-user-marketing-modal>
 <rwm-change-user-password-modal
     [user]="user"
     [(visible)]="showChangePasswordModal"
-    (close)="showChangePasswordModal = false; onOpen()"
+    (close)="showChangePasswordModal = false"
     (onPasswordConfirm)="showChangePasswordModal = false"
 ></rwm-change-user-password-modal>
 <!--<rwm-delete-account-modal [(visible)]="showDeleteUserModal" (close)="showDeleteUserModal = false"></rwm-delete-account-modal>-->

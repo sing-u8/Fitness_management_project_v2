@@ -78,6 +78,12 @@
                     color: var(--gray-80);
                 }
             }
+            .placeholder {
+                @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                &.disable-value {
+                    color: var(--gray-80);
+                }
+            }
             .tag-text {
                 @include rw-type-r(1.7rem, 28px, var(--red-100));
                 text-align: right;
@@ -95,6 +101,9 @@
             @include rw-type-r(1.5rem, 23px, var(--gray-90));
             .info-icon {
                 margin-right: 3px;
+            }
+            .hint-text {
+                margin-top: 3px;
             }
         }
         .status {

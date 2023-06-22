@@ -24,11 +24,15 @@
             (focusout)="onFocusOut()"
             (click)="onClick.emit()"
         >
-            <span class="value ellipsis" [class.disable-value]="disable">{{ value }}</span>
+            <span *ngIf="value" class="value ellipsis" [class.disable-value]="disable">{{ value }}</span>
+            <span *ngIf="!value" class="placeholder ellipsis" [class.disable-value]="disable">{{placeHolder}}</span>
             <span #tag_text class="tag-text">{{ tagText }}</span>
         </button>
 
-        <div *ngIf="hint" class="hint"><span class="info-icon"></span>{{ hint }}</div>
+        <div *ngIf="hint" class="hint">
+            <span class="info-icon"></span>
+            <span class="hint-text">{{ hint }}</span>
+        </div>
         <div
             *ngIf="status == 'warning' || status == 'error'"
             class="status"

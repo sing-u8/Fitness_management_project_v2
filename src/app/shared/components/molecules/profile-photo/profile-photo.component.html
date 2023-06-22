@@ -2,21 +2,49 @@
     <div class="profile-photo" [class.empty]="!!!user.picture">
         <img
             *ngIf="!!!user.picture"
-            [ngSrc]="'/assets/icons/avatar/avatar-smiley-white.svg'"
-            [width]="75"
-            [height]="75"
-            [priority]="true"
+            [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+            [style.width]="'75px'"
+            [style.height]="'75px'"
             alt="avatar-smiley-white.svg"
         />
-        <img *ngIf="!!user.picture" [ngSrc]="user.picture" fill priority alt="user-picture.png" />
-        <input type="file" accept="image/*" #userProfile (change)="registerPhoto(userProfile)" hidden />
+        <img
+            *ngIf="!!user.picture"
+            [src]="user.picture"
+            [style.width]="'137px'"
+            [style.height]="'137px'"
+            alt="user-picture.png"
+        />
+        <input
+            type="file"
+            accept="image/*"
+            #userProfile
+            (change)="registerPhoto(userProfile)"
+            (click)="onPhotoClicked($event)"
+            hidden
+        />
     </div>
-    <rwa-icon-ghost-button *ngIf="!!!user.picture" class="add-picture" [sizeType]="'md'" (onClick)="userProfile.click()">
+    <rwa-icon-ghost-button
+        *ngIf="!!!user.picture"
+        class="add-picture"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="내 사진 등록"
+    >
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-plus [color]="'var(--gray-90)'" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
         </ng-template>
     </rwa-icon-ghost-button>
-    <rwa-icon-ghost-button *ngIf="!!user.picture" class="edit-picture" [sizeType]="'md'" (onClick)="removePhoto()">
+    <rwa-icon-ghost-button
+        *ngIf="!!user.picture"
+        class="edit-picture"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="내 사진 변경"
+    >
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
         </ng-template>
@@ -28,6 +56,7 @@
         width="27px"
         height="27px"
         borderRadius="12px"
+        (onClick)="removePhoto()"
     >
         <rwa-svg-close color="var(--white)" [width]="'15px'" [height]="'15px'"></rwa-svg-close>
     </rwa-xs-icon-button>

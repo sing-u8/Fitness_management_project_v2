@@ -1,1 +1,47 @@
-<p>center-photo works!</p>
+<div class="l-profile-photo">
+    <div class="profile-photo" [class.empty]="!!!pictureSrc">
+        <img
+            class="default-image"
+            *ngIf="!!!pictureSrc"
+            [src]="'/assets/icons/etc/muscle.svg'"
+            [style.width]="'118px'"
+            [style.height]="'111px'"
+            alt="muscle.svg"
+        />
+        <img class="center-image" *ngIf="!!pictureSrc" [src]="pictureSrc" alt="user-picture.png" />
+        <input
+            type="file"
+            accept="image/*"
+            #userProfile
+            (change)="setPhoto(userProfile)"
+            (click)="onPhotoClicked($event)"
+            hidden
+        />
+    </div>
+    <rwa-icon-ghost-button
+        class="add-picture"
+        [class.hide-icon]="!!pictureSrc"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="내 사진 등록"
+    >
+        <ng-template iconGhostBtIdleContent>
+            <rwa-svg-plus [color]="'var(--gray-90)'" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
+        </ng-template>
+    </rwa-icon-ghost-button>
+    <rwa-icon-ghost-button
+        class="edit-picture"
+        [class.hide-icon]="!!!pictureSrc"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="내 사진 등록"
+    >
+        <ng-template iconGhostBtIdleContent>
+            <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
+        </ng-template>
+    </rwa-icon-ghost-button>
+</div>

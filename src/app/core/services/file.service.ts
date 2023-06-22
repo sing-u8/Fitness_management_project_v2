@@ -14,12 +14,12 @@ import _ from 'lodash'
     providedIn: 'root',
 })
 export class FileService {
-    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/files`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/files`
 
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    uploadFile(reqBody: UploadFileReqBody, files: FileList): Observable<Array<File>> {
-        const url = this.SERVER
+    uploadFile(centerId: string, reqBody: UploadFileReqBody, files: FileList): Observable<Array<File>> {
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${reqBody.type_code}`
 
         const options = {
             headers: new HttpHeaders({
@@ -29,10 +29,10 @@ export class FileService {
 
         const formData: FormData = new FormData()
 
-        const keys = Object.keys(reqBody)
-        keys.forEach((key) => {
-            formData.append(key, reqBody[key])
-        })
+        // const keys = Object.keys(reqBody)
+        // keys.forEach((key) => {
+        //     formData.append(key, reqBody[key])
+        // })
 
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i])
@@ -46,15 +46,15 @@ export class FileService {
         )
     }
 
-    uploadFileWithReport(reqBody: UploadFileReqBody, files: FileList) {
-        const url = this.SERVER
+    uploadFileWithReport(centerId: string, reqBody: UploadFileReqBody, files: FileList) {
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${reqBody.type_code}`
 
         const formData: FormData = new FormData()
 
-        const keys = Object.keys(reqBody)
-        keys.forEach((key) => {
-            formData.append(key, reqBody[key])
-        })
+        // const keys = Object.keys(reqBody)
+        // keys.forEach((key) => {
+        //     formData.append(key, reqBody[key])
+        // })
 
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i])
@@ -74,7 +74,7 @@ export class FileService {
     getFile(param: GetFileParam): Observable<Array<File>> {
         const url =
             this.SERVER +
-            `/files?type_code=${param.type_code}` +
+            `/files?type_code=${param.type_code}&center_id=${param.center_id}` +
             (param.page ? `&page=${param.page}` : ``) +
             (param.pageSize ? `&pageSize=${param.pageSize}` : ``)
 
@@ -144,6 +144,11 @@ export class FileService {
                 return dt.files
             })
     }
+    checkFileSizeTooLarge(file: File, limitSize = 300): boolean {
+        // unit: mb
+        console.log('check file size : ', _.round(file.size / (1024 * 1024), 4), limitSize)
+        return _.round(file.size / (1024 * 1024), 4) >= limitSize
+    }
 }
 
 export type FileType =
@@ -157,6 +162,7 @@ export interface UploadFileReqBody {
 }
 
 export interface GetFileParam {
+    center_id: string
     type_code: FileType
     page?: number
     pageSize?: number

@@ -17,7 +17,7 @@ import _ from 'lodash'
     providedIn: 'root',
 })
 export class UsersService {
-    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/users`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/users`
 
     constructor(private http: HttpClient, private storageService: StorageService) {}
 

@@ -21,7 +21,8 @@ import { changesOn } from '@shared/helper/component-helper'
 })
 export class TextfieldButtonComponent implements AfterViewInit, OnChanges {
     @Input() value = ''
-    @Input() onClick = new EventEmitter<any>()
+    @Input() placeHolder = ''
+    @Output() onClick = new EventEmitter<any>()
     @Input() tagText = '변경'
 
     @Input() width = '400px'

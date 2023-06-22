@@ -92,15 +92,6 @@ export class ChangeUserPhoneNumberModalComponent
 
     ngOnInit() {
         this.user = this.storageService.getUser()
-    }
-    ngOnChanges(changes: SimpleChanges) {
-        if (
-            changes['visible'] &&
-            !changes['visible'].firstChange &&
-            changes['visible'].previousValue != changes['visible'].currentValue
-        ) {
-            this.changed = true
-        }
 
         this.phoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
             let value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
@@ -117,6 +108,15 @@ export class ChangeUserPhoneNumberModalComponent
             const value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
             this.verificationCode.setValue(value, { emitEvent: false })
         })
+    }
+    ngOnChanges(changes: SimpleChanges) {
+        if (
+            changes['visible'] &&
+            !changes['visible'].firstChange &&
+            changes['visible'].previousValue != changes['visible'].currentValue
+        ) {
+            this.changed = true
+        }
     }
     ngAfterViewChecked() {
         if (this.changed) {

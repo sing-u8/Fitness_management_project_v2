@@ -36,6 +36,7 @@
         "@ngrx/router-store": "^15.3.0",
         "@ngrx/store": "^15.3.0",
         "@ngrx/store-devtools": "^15.3.0",
+        "@types/daum-postcode": "^2.0.0",
         "@types/lodash": "^4.14.191",
         "firebase": "^9.17.1",
         "ng-recaptcha": "^11.0.0",

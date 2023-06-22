@@ -11,7 +11,6 @@ import {
     ViewChild,
     AfterViewInit,
 } from '@angular/core'
-import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'

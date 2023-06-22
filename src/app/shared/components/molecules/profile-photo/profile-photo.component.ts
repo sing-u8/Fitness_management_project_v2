@@ -28,23 +28,27 @@ export class ProfilePhotoComponent {
     isFileExist(fileList: FileList) {
         return !(fileList && fileList.length == 0)
     }
+    onPhotoClicked(event) {
+        event.target.value = null
+    }
     registerPhoto(picture: any) {
         const files: FileList = picture.files
         if (!this.isFileExist(files)) return
 
         const reqBody: UploadFileReqBody = { type_code: 'file_type_user_picture' }
-        this.fileService.uploadFile(reqBody, files).subscribe((__) => {
+        this.fileService.uploadFile('', reqBody, files).subscribe((__) => {
             console.log('uploadFile -- ', __)
             this.usersService.getUser(this.user.id).subscribe({
                 next: (resData) => {
                     this.user.picture = resData['picture']
                     // this.globalSettingAccountService.setUserAvatar(resData['picture'])
                     this.storageService.setUser({
-                        ...resData,
+                        ...this.user,
                         picture: resData['picture'],
                     })
                     this.user = this.storageService.getUser()
-                    this.nxStore.dispatch(showToast({ text: '프로필 사진이 변경되었습니다.' }))
+                    this.storageService.userChangeSubject.next(true)
+                    this.nxStore.dispatch(showToast({ text: '내 사진이 등록되었어요.' }))
                 },
                 error: (err) => {
                     console.log('create account avatar file err: ', err)
@@ -54,16 +58,19 @@ export class ProfilePhotoComponent {
     }
     removePhoto() {
         const prevPicture = this.user.picture
+        console.log('removePhoto -- ', this.user)
         this.fileService.deleteFile(prevPicture).subscribe({
             next: (__) => {
                 this.usersService.getUser(this.user.id).subscribe({
                     next: (resData) => {
                         this.storageService.setUser({
-                            ...resData,
+                            ...this.user,
+                            picture: resData['picture'],
                         })
                         this.user = this.storageService.getUser()
+                        this.storageService.userChangeSubject.next(true)
                         // this.globalSettingAccountService.setUserAvatar(this.user.picture)
-                        this.nxStore.dispatch(showToast({ text: '프로필 사진이 변경되었습니다.' }))
+                        this.nxStore.dispatch(showToast({ text: '내 사진이 삭제되었어요.' }))
                     },
                     error: (err) => {
                         console.log('get user error :', err)

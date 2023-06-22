@@ -17,7 +17,7 @@ export class RadioButtonComponent {
     @Output() onClick = new EventEmitter<boolean>()
     _onClick() {
         this.l_button_el.nativeElement.blur()
-        this.checked = !this.checked
+        this.checked = true
         this.onClick.emit(this.checked)
     }
 

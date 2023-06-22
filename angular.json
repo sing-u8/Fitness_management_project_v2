@@ -39,7 +39,7 @@
                             "node_modules/ngx-spinner/animations/ball-clip-rotate.css"
                         ],
                         "scripts": ["src/assets/javascripts/kakao.min.js"],
-                        "allowedCommonJsDependencies": ["lodash", "dayjs"]
+                        "allowedCommonJsDependencies": ["lodash", "dayjs", ""]
                     },
                     "configurations": {
                         "production": {

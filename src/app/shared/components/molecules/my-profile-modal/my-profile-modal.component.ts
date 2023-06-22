@@ -16,8 +16,6 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { UsersService } from '@services/users.service'
 import { StorageService } from '@services/storage.service'
 
-import { Loading } from '@schemas/loading'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { User } from '@schemas/user'
 
 import { changesOn } from '@shared/helper/component-helper'
@@ -244,7 +242,6 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     public showDeleteUserModal = false
 
     onBasicInfoClick(type: string) {
-        this.onClose()
         const _type = type as MyInfo
         switch (_type) {
             case 'name':

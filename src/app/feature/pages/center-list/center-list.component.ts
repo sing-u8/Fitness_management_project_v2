@@ -14,6 +14,8 @@ import { User } from '@schemas/user'
 })
 export class CenterListComponent {
     public user: User
+
+    public showCreateCenterModal = false
     constructor(private storageService: StorageService) {
         this.user = storageService.getUser()
     }

@@ -2,30 +2,27 @@
     <header>
         <div class="header-tag">
             <img
-                [ngSrc]="'/assets/images/logo/full-logo.png'"
+                [src]="'/assets/images/logo/full-logo.png'"
                 alt="full-logo.png"
-                [width]="120"
-                [height]="21"
-                [priority]="true"
+                [style.width]="'120px'"
+                [style.height]="'21px'"
             />
 
             <div class="l-user">
                 <div class="l-user-picture" [style.background-color]="user.background ?? '#EB7C7C'">
                     <img
                         *ngIf="user.picture"
-                        [ngSrc]="user.picture"
+                        [src]="user.picture"
                         alt="user-picture.png"
-                        [width]="28"
-                        [height]="28"
-                        [priority]="true"
+                        [style.width]="'28px'"
+                        [style.height]="'28px'"
                     />
                     <img
                         *ngIf="!user.picture"
-                        [ngSrc]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+                        [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
                         alt="avatar-smiley-white.svg"
-                        [width]="14"
-                        [height]="14"
-                        [priority]="true"
+                        [style.width]="'14px'"
+                        [style.height]="'14px'"
                     />
                 </div>
                 <span class="user-name">{{ user.name }}</span>
@@ -47,7 +44,7 @@
                     [hoverBorderColor]="'var(--red-100)'"
                     [fontColor]="'var(--red-100)'"
                     [hoverBgColor]="'var(--red-5)'"
-                    (onClick)="(false)"
+                    (onClick)="showCreateCenterModal = true"
                 >
                     <ng-template gbtIdleContent>
                         <rwa-svg-plus [margin]="'0 5px 1.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
@@ -68,3 +65,8 @@
         </div>
     </section>
 </div>
+
+<rwm-create-center-modal
+    [(visible)]="showCreateCenterModal"
+    (close)="showCreateCenterModal = false"
+></rwm-create-center-modal>

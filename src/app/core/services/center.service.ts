@@ -15,7 +15,7 @@ import { CenterUser } from '@schemas/center-user'
     providedIn: 'root',
 })
 export class CenterService {
-    private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/center`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
 
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
@@ -126,7 +126,10 @@ export class CenterService {
 
 export interface CreateCenterRequestBody {
     name: string
-    address: string
+    zip_no: string
+    road_full_addr: string
+    addr_detail: string
+    phone_number: string
     free_trial_terms: boolean
 }
 

@@ -9,7 +9,7 @@
     (mouseup)="onMouseUp()"
     (focusin)="onFocus(l_button)"
     (focusout)="onFocusOut(l_button)"
-    (click)="l_button.blur()"
+    (click)="_onClick()"
 >
     <ng-content></ng-content>
 </button>

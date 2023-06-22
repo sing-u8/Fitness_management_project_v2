@@ -15,7 +15,7 @@ import { CodeItem } from '@schemas/code-item'
     providedIn: 'root',
 })
 export class CodeService {
-    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/code`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/code`
     constructor(
         private http: HttpClient,
         private storageService: StorageService // private WsChat: WsChatService

@@ -2,7 +2,7 @@ export const environment = {
     production: false,
     protocol: 'https://',
     subDomain: 'devapi.',
-    v3SubDomain: 'v3api.',
+    prodSubDomain: 'v3api.',
     domain: 'redwhale.xyz',
     port: '',
     version: '/latest',

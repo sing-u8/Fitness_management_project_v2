@@ -16,7 +16,6 @@
         (mouseleave)="isMouseOn = false"
         (mousedown)="isMouseDown = true"
         (mouseup)="isMouseDown = false"
-
     >
         <div *ngIf="textFieldType == 'search'" class="search-icon"></div>
         <input
@@ -109,7 +108,8 @@
         </div>
 
         <div *ngIf="(status == 'none' || status == 'success') && hint" class="hint">
-            <span class="info-icon"></span>{{ hint }}
+            <span class="info-icon"></span>
+            <span class="hint-text">{{ hint }}</span>
         </div>
         <div
             *ngIf="status == 'warning' || status == 'error'"

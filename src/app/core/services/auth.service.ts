@@ -24,7 +24,7 @@ export const PERMISSION = {}
     providedIn: 'root',
 })
 export class AuthService {
-    private SERVER = `${environment.protocol}${environment.v3SubDomain}${environment.domain}${environment.port}${environment.version}/auth`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/auth`
 
     constructor(
         private http: HttpClient,

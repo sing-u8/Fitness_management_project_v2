@@ -14,7 +14,7 @@
     bottom: 0;
     left: 0;
     opacity: 0;
-    z-index: 5;
+    z-index: 4;
 
     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
     -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
@@ -32,7 +32,7 @@
 }
 
 section.l-main-drawer {
-    z-index: 10;
+    z-index: 4;
     display: flex;
     align-items: center;
     height: 100vh;

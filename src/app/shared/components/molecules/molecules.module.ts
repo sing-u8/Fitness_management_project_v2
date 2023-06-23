@@ -26,7 +26,8 @@ import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal
 import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component'
 import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component'
 import { CenterPhotoComponent } from './center-photo/center-photo.component'
-import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component'
+import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component';
+import { CenterListItemComponent } from './center-list-item/center-list-item.component'
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { CreateCenterModalComponent } from './create-center-modal/create-center-
         DeleteAccountModalComponent,
         CenterPhotoComponent,
         CreateCenterModalComponent,
+        CenterListItemComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -75,6 +77,7 @@ import { CreateCenterModalComponent } from './create-center-modal/create-center-
         DeleteAccountModalComponent,
         CenterPhotoComponent,
         CreateCenterModalComponent,
+        CenterListItemComponent
     ],
     schemas: [],
 })

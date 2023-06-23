@@ -3,6 +3,7 @@
         <img
             *ngIf="!!!user.picture"
             [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+            loading="lazy"
             [style.width]="'75px'"
             [style.height]="'75px'"
             alt="avatar-smiley-white.svg"
@@ -10,6 +11,7 @@
         <img
             *ngIf="!!user.picture"
             [src]="user.picture"
+            loading="lazy"
             [style.width]="'137px'"
             [style.height]="'137px'"
             alt="user-picture.png"

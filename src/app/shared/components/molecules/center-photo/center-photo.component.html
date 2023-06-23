@@ -4,11 +4,11 @@
             class="default-image"
             *ngIf="!!!pictureSrc"
             [src]="'/assets/icons/etc/muscle.svg'"
-            [style.width]="'118px'"
-            [style.height]="'111px'"
+            [style.width]="'140px'"
+            [style.height]="'140px'"
             alt="muscle.svg"
         />
-        <img class="center-image" *ngIf="!!pictureSrc" [src]="pictureSrc" alt="user-picture.png" />
+        <img class="center-image" *ngIf="!!pictureSrc" [src]="pictureSrc" loading="lazy" alt="user-picture.png" />
         <input
             type="file"
             accept="image/*"

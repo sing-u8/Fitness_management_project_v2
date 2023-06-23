@@ -1,0 +1,152 @@
+<div
+    *ngIf="true"
+    class="l-center-list-item"
+    [class.border-red]="headerState == 'invite'"
+    [class.border-gray]="headerState == 'subscribeFailed' || headerState == 'expired' || headerState == 'freeTrialEnd'"
+>
+    <div
+        *ngIf="headerState != 'normal' && headerState != 'needToBuy'"
+        class="center-list-item-header"
+        [class.bg-red]="headerState == 'invite'"
+    >
+        <span *ngIf="headerState == 'invite'" class="header-text">💌 새로운 초대가 도착했어요.</span>
+        <div *ngIf="headerState == 'subscribeFailed'" class="d-flex align-items-center">
+            <span class="header-text">자동 결제에 실패했어요! 결제 수단을 확인해 주세요.</span>
+            <rwa-text-button [showUnderLine]="true">
+                <span class="header-text-button">자세히 보기</span>
+            </rwa-text-button>
+        </div>
+        <div *ngIf="headerState == 'freeTrialEnd'" class="d-flex align-items-center">
+            <span class="header-text">무료 체험이 종료되었어요! 이용권을 구매해 이어서 사용해 보세요.</span>
+            <rwa-text-button [showUnderLine]="true">
+                <span class="header-text-button">자세히 보기</span>
+            </rwa-text-button>
+        </div>
+        <div *ngIf="headerState == 'expired'" class="d-flex align-items-center">
+            <span class="header-text">이용권이 만료되었어요! 새 이용권을 구매해 이어서 사용해 보세요.</span>
+            <rwa-text-button [showUnderLine]="true">
+                <span class="header-text-button">자세히 보기</span>
+            </rwa-text-button>
+        </div>
+    </div>
+
+    <div class="center-list-item" [class.header-exist]="">
+        <rwa-icon-ghost-button [sizeType]="'md'" class="center-setting-icon">
+            <ng-template iconGhostBtIdleContent>
+                <div class="gear-icon"></div>
+            </ng-template>
+        </rwa-icon-ghost-button>
+
+        <div
+            class="center-list-item__name"
+            [class.expired-opacity]="badgeState == 'freeTrialEnd' || badgeState == 'expired'"
+        >
+            <span class="center-name line-ellipsis-one" [class.badge-exist]="badgeState != 'normal'">
+                {{ center.name }}
+            </span>
+            <rwa-badge
+                *ngIf="badgeState != 'normal'"
+                [color]="badgeStateObj[badgeState].color"
+                [bgColor]="badgeStateObj[badgeState].bgColor"
+            >
+                {{
+                    badgeState == 'expirationExpected' || badgeState == 'freeTrialEndExpected'
+                        ? badgeStateObj[badgeState]['text1'] +
+                          badgeStateObj[badgeState]['day'] +
+                          badgeStateObj[badgeState]['text2']
+                        : badgeStateObj[badgeState]['text']
+                }}
+            </rwa-badge>
+        </div>
+
+        <div
+            class="center-list-item__body"
+            [class.invite-body]="headerState == 'invite'"
+            [class.expired-opacity]="badgeState == 'freeTrialEnd' || badgeState == 'expired'"
+        >
+            <div class="center-photo" [class.empty]="!!!center.picture">
+                <img
+                    *ngIf="!!!center.picture"
+                    [src]="'/assets/icons/etc/muscle.svg'"
+                    class="default-image"
+                    loading="lazy"
+                    alt="muscle.svg"
+                />
+                <img
+                    *ngIf="!!center.picture"
+                    [src]="center.picture"
+                    class="center-image"
+                    loading="lazy"
+                    alt="user-picture.png"
+                />
+            </div>
+            <div class="center-info">
+                <div class="center-info-item" *ngIf="headerState != 'invite'">
+                    <div class="instructor-icon"></div>
+                    <span>{{ center.role_name }}</span>
+                </div>
+                <div class="center-info-item">
+                    <div class="phone-number-icon"></div>
+                    <span>{{ center.phone_number | phoneNumber }}</span>
+                </div>
+                <div class="center-info-item">
+                    <div class="address-icon"></div>
+                    <span>{{ center.road_full_addr }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="center-list-item__button">
+            <ng-container *ngIf="headerState == 'normal' || headerState == 'needToBuy'">
+                <rwa-ghost-button class="button" padding="7.5px 15px 5.5px">
+                    <ng-template gbtIdleContent>
+                        <span class="button-text">입장하기</span>
+                    </ng-template>
+                </rwa-ghost-button>
+            </ng-container>
+
+            <ng-container *ngIf="headerState == 'invite'">
+                <rwa-button
+                    class="button"
+                    padding="7.5px 15px 5.5px"
+                    [fontColor]="'var(--gray-90)'"
+                    [bgColor]="'var(--white)'"
+                    [hoverBgColor]="'var(--gray-30)'"
+                    [loadingColor]="'var(--font-color)'"
+                >
+                    <ng-template btIdleContent>
+                        <span class="button-text">거절</span>
+                    </ng-template>
+                </rwa-button>
+                <rwa-button class="button" padding="7.5px 15px 5.5px">
+                    <ng-template btIdleContent>
+                        <span class="button-text white-text">초대 수락</span>
+                    </ng-template>
+                </rwa-button>
+            </ng-container>
+
+            <rwa-button
+                *ngIf="headerState == 'needToBuy' || headerState == 'expired' || headerState == 'freeTrialEnd'"
+                class="button-margin button"
+                padding="7.5px 15px 5.5px"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+            >
+                <ng-template btIdleContent>
+                    <span class="button-text white-text">이용권 구매</span>
+                </ng-template>
+            </rwa-button>
+            <rwa-button
+                *ngIf="headerState == 'subscribeFailed'"
+                class="button-margin button"
+                padding="7.5px 15px 5.5px"
+                [bgColor]="'#2F2D2D'"
+                [hoverBgColor]="'#141517'"
+            >
+                <ng-template btIdleContent>
+                    <span class="button-text white-text">결제 수단 관리</span>
+                </ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</div>

@@ -41,8 +41,11 @@
                             class="basic-info__item-value"
                             [class.gray-value]="item.key == 'email' || item.key == 'linkedAccount'"
                         >
-                            <span>
+                            <span *ngIf="item.key != 'phoneNumber'">
                                 {{ item.value['value'] ?? '-' }}
+                            </span>
+                            <span *ngIf="item.key == 'phoneNumber'">
+                                {{ (item.value['value'] | phoneNumber) ?? '-' }}
                             </span>
                         </div>
                         <rwa-ghost-button

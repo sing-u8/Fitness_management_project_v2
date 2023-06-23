@@ -330,7 +330,7 @@
             <div class="bottom">
                 <div class="l-center-user">
                     <div class="avatar" [class.picture-exist]="user.picture">
-                        <img *ngIf="user.picture" [src]="user.picture" alt="'user.picture'" />
+                        <img *ngIf="user.picture"  [src]="user.picture" loading="lazy" alt="'user.picture'" />
                         <rwa-svg-avatar-smiley *ngIf="!user.picture"></rwa-svg-avatar-smiley>
                     </div>
                     <div class="l-user-info">
@@ -369,7 +369,7 @@
         <div class="small-menu">
             <div class="top">
                 <div class="center-avatar">
-                    <img *ngIf="center?.picture" [src]="center?.picture" alt="center-picture" />
+                    <img *ngIf="center?.picture" [src]="center?.picture" loading="lazy" alt="center-picture" />
                     <div *ngIf="!center?.picture" class="center-name">{{ center?.name ? center?.name[0] : '' }}</div>
                 </div>
             </div>
@@ -511,7 +511,7 @@
             <div class="bottom">
                 <div class="l-center-user">
                     <div class="avatar" [class.picture-exist]="user.picture">
-                        <img *ngIf="user.picture" [src]="user.picture" alt="'user.picture'" />
+                        <img *ngIf="user.picture" [src]="user.picture" loading="lazy" alt="'user.picture'" />
                         <rwa-svg-avatar-smiley *ngIf="!user.picture"></rwa-svg-avatar-smiley>
                     </div>
                 </div>

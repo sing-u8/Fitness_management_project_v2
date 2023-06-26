@@ -12,26 +12,35 @@
         <span *ngIf="headerState == 'invite'" class="header-text">💌 새로운 초대가 도착했어요.</span>
         <div *ngIf="headerState == 'subscribeFailed'" class="d-flex align-items-center">
             <span class="header-text">자동 결제에 실패했어요! 결제 수단을 확인해 주세요.</span>
-            <rwa-text-button [showUnderLine]="true">
+            <rwa-text-button [showUnderLine]="true" (onClick)="showDetailModal = true">
                 <span class="header-text-button">자세히 보기</span>
             </rwa-text-button>
         </div>
         <div *ngIf="headerState == 'freeTrialEnd'" class="d-flex align-items-center">
             <span class="header-text">무료 체험이 종료되었어요! 이용권을 구매해 이어서 사용해 보세요.</span>
-            <rwa-text-button [showUnderLine]="true">
+            <rwa-text-button [showUnderLine]="true" (onClick)="showDetailModal = true">
                 <span class="header-text-button">자세히 보기</span>
             </rwa-text-button>
         </div>
         <div *ngIf="headerState == 'expired'" class="d-flex align-items-center">
             <span class="header-text">이용권이 만료되었어요! 새 이용권을 구매해 이어서 사용해 보세요.</span>
-            <rwa-text-button [showUnderLine]="true">
+            <rwa-text-button [showUnderLine]="true" (onClick)="showDetailModal = true">
                 <span class="header-text-button">자세히 보기</span>
             </rwa-text-button>
         </div>
     </div>
 
-    <div class="center-list-item" [class.header-exist]="">
-        <rwa-icon-ghost-button [sizeType]="'md'" class="center-setting-icon">
+    <div
+        class="center-list-item"
+        [class.header-exist]="
+            headerState == 'freeTrialEnd' || headerState == 'expired' || headerState == 'subscribeFailed'
+        "
+    >
+        <rwa-icon-ghost-button
+            *ngIf="!(headerState == 'freeTrialEnd' || headerState == 'expired')"
+            [sizeType]="'md'"
+            class="center-setting-icon"
+        >
             <ng-template iconGhostBtIdleContent>
                 <div class="gear-icon"></div>
             </ng-template>
@@ -97,7 +106,9 @@
         </div>
 
         <div class="center-list-item__button">
-            <ng-container *ngIf="headerState == 'normal' || headerState == 'needToBuy'">
+            <ng-container
+                *ngIf="headerState == 'normal' || headerState == 'needToBuy' || headerState == 'subscribeFailed'"
+            >
                 <rwa-ghost-button class="button" padding="7.5px 15px 5.5px">
                     <ng-template gbtIdleContent>
                         <span class="button-text">입장하기</span>
@@ -113,12 +124,13 @@
                     [bgColor]="'var(--white)'"
                     [hoverBgColor]="'var(--gray-30)'"
                     [loadingColor]="'var(--font-color)'"
+                    (onClick)="showRefuseInviteModal = true"
                 >
                     <ng-template btIdleContent>
                         <span class="button-text">거절</span>
                     </ng-template>
                 </rwa-button>
-                <rwa-button class="button" padding="7.5px 15px 5.5px">
+                <rwa-button class="button" padding="7.5px 15px 5.5px" (onClick)="showAgreeInviteModal = true">
                     <ng-template btIdleContent>
                         <span class="button-text white-text">초대 수락</span>
                     </ng-template>
@@ -150,3 +162,175 @@
         </div>
     </div>
 </div>
+
+<rwa-vacant-modal
+    [(visible)]="showDetailModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-detail-modal">
+        <div class="error-icon" *ngIf="detailModalMode == 'subscriptionFailed'"></div>
+        <div class="title">
+            {{ detailInfo.title }}
+        </div>
+        <div class="center-info">
+            <div class="center-info-item">
+                <div class="center-info-item__title">센터 이름</div>
+                <div class="center-info-item__content line-ellipsis-one">{{ center.name }}</div>
+            </div>
+            <div class="center-info-item" *ngIf="detailModalMode != 'subscriptionFailed'">
+                <div class="center-info-item__title">
+                    {{ detailModalMode == 'freeTrial' ? '무료 체험 기간' : '이용권 이용 기간' }}
+                </div>
+                <div class="center-info-item__content">
+                    {{ center.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
+                    {{ center.end_date | dateFormat : 'YY년 MM월 DD일' }}
+                </div>
+            </div>
+        </div>
+        <div class="center-info-desc">
+            <div class="center-info-desc__item" *ngFor="let item of detailInfo.desc">
+                {{ item }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="showDetailModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">확인</span></ng-template>
+            </rwa-button>
+            <rwa-button
+                *ngIf="detailModalMode != 'subscriptionFailed'"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                (onClick)="(false)"
+            >
+                <ng-template btIdleContent><span class="white-button-text">이용권 구매</span></ng-template>
+            </rwa-button>
+            <rwa-button
+                *ngIf="detailModalMode == 'subscriptionFailed'"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                (onClick)="(false)"
+            >
+                <ng-template btIdleContent><span class="white-button-text">결제 수단 관리</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>
+
+<rwa-vacant-modal
+    [(visible)]="showAgreeInviteModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-invite-modal">
+        <div class="invite-title">초대를 수락하시겠어요?</div>
+        <div class="invite-desc">초대를 수락하면 센터에 입장할 수 있어요.</div>
+        <div class="invite-content">
+            <div class="invite-content-item__title">센터 이름</div>
+            <div class="invite-content-item__content">
+                {{ center.name }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [width]="'80px'"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="showAgreeInviteModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
+            </rwa-button>
+            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
+                <ng-template btIdleContent><span class="white-button-text">수락하기</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>
+
+<rwa-vacant-modal
+    [(visible)]="showAgreeInviteModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-invite-modal">
+        <div class="invite-title">초대를 수락하시겠어요?</div>
+        <div class="invite-desc">초대를 수락하면 센터에 입장할 수 있어요.</div>
+        <div class="invite-content">
+            <div class="invite-content-item__title">센터 이름</div>
+            <div class="invite-content-item__content">
+                {{ center.name }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [width]="'80px'"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="showAgreeInviteModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
+            </rwa-button>
+            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
+                <ng-template btIdleContent><span class="white-button-text">수락하기</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>
+
+<rwa-vacant-modal
+    [(visible)]="showRefuseInviteModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-invite-modal">
+        <div class="invite-title">초대를 거절하시겠어요?</div>
+        <div class="invite-desc">
+            초대를 거절하면 센터에 입장할 수 없어요.<br />
+            거절한 센터의 입장을 원할 경우, 센터로부터<br />
+            다시 초대 요청을 받아야 해요.
+        </div>
+        <div class="invite-content">
+            <div class="invite-content-item__title">센터 이름</div>
+            <div class="invite-content-item__content">
+                {{ center.name }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [width]="'80px'"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                (onClick)="showRefuseInviteModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
+            </rwa-button>
+            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
+                <ng-template btIdleContent><span class="white-button-text">거절하기</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>

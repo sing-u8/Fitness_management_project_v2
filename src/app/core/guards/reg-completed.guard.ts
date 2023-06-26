@@ -26,7 +26,7 @@ export class RegCompletedGuard implements CanActivate {
         if (registration && registration.regCompleted) {
             return true
         } else {
-            this.router.navigateByUrl('/main')
+            this.router.navigateByUrl(`/${route.params['center-name']}/main`)
             return false
         }
     }

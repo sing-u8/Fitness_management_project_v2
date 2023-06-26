@@ -13,12 +13,12 @@ import { Center } from '@schemas/center'
     providedIn: 'root',
 })
 export class UsersCenterService {
-    private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/users`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/users`
 
     constructor(private http: HttpClient) {}
 
     getCenterList(userId: string, isApp = false, page = '', pageSize = ''): Observable<Array<Center>> {
-        const url = this.SERVER + `/${userId}/center?page=${page}&pageSize=${pageSize}&app=${isApp}`
+        const url = this.SERVER + `/${userId}/center?page=${page}&pageSize=${pageSize}&platform=${isApp ? 'app' : 'web'}`
 
         const options = {
             headers: new HttpHeaders({

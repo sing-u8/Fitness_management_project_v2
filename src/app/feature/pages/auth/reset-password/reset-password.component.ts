@@ -209,7 +209,7 @@ export class ResetPasswordComponent implements OnInit {
             next: (user: User) => {
                 this.nxStore.dispatch(showToast({ text: '비밀번호가 변경되었어요.' }))
                 this.changePwStatus = 'idle'
-                this.router.navigateByUrl('/main')
+                this.router.navigateByUrl('/redwhale-home')
             },
             error: (e) => {
                 this.changePwStatus = 'idle'

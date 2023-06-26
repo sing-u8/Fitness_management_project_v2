@@ -83,7 +83,6 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     getBadgeState() {
         const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (this.center.product_code == 'free_trial_membership') {
-            console.log('getBadgeState -- free_trial_membership ', dayRemains)
             if (dayRemains > 14) {
                 this.badgeState = 'normal'
             } else if (dayRemains <= 14 && dayRemains > 1) {
@@ -95,7 +94,6 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
                 this.badgeState = 'freeTrialEnd'
             }
         } else if (this.center.product_code == 'subscription_membership') {
-            console.log('getBadgeState --  subscription_membership ', dayRemains)
             if (dayRemains > 14) {
                 this.badgeState = 'normal'
             } else if (dayRemains <= 14 && dayRemains > 1) {
@@ -108,7 +106,6 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             }
         } else {
             // 1, 2년 구독
-            console.log('getBadgeState -- years_membership', dayRemains)
             if (dayRemains > 14) {
                 this.badgeState = 'normal'
             } else if (dayRemains <= 14 && dayRemains > 1) {
@@ -230,5 +227,4 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     public showAgreeInviteModal = false
     public showRefuseInviteModal = false
-
 }

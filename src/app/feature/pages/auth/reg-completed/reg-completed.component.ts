@@ -28,6 +28,6 @@ export class RegCompletedComponent implements OnInit {
     }
 
     next() {
-        this.router.navigateByUrl('/main')
+        this.router.navigateByUrl('/redwhale-home')
     }
 }

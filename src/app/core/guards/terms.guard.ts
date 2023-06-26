@@ -13,7 +13,7 @@ export class TermsGuard implements CanActivate {
         const user = this.storageService.getUser()
 
         if (user && user.service_terms && user.privacy) {
-            this.router.navigateByUrl('/main')
+            this.router.navigateByUrl(`/${route.params['center-name']}/main`)
             return false
         } else {
             return true

@@ -196,7 +196,7 @@ export class RegEmailComponent implements OnInit, AfterViewInit, OnDestroy, OnCh
                     if (!this.registration.linkedAccountExist) {
                         this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
                     }
-                    this.router.navigateByUrl('/main')
+                    this.router.navigateByUrl('/redwhale-home')
                 })
             },
             error: (e) => {

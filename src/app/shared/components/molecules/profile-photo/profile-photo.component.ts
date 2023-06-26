@@ -37,11 +37,11 @@ export class ProfilePhotoComponent {
 
         const reqBody: UploadFileReqBody = { type_code: 'file_type_user_picture' }
         this.fileService.uploadFile('', reqBody, files).subscribe((__) => {
-            console.log('uploadFile -- ', __)
+            console.log('resData - user uploadFile : ', __)
             this.usersService.getUser(this.user.id).subscribe({
                 next: (resData) => {
+                    console.log('resData - user : ', resData)
                     this.user.picture = resData['picture']
-                    // this.globalSettingAccountService.setUserAvatar(resData['picture'])
                     this.storageService.setUser({
                         ...this.user,
                         picture: resData['picture'],

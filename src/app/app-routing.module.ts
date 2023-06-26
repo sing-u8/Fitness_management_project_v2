@@ -17,12 +17,13 @@ const routes: Routes = [
         loadComponent: () => import('@pages/payment/payment.component').then((m) => m.PaymentComponent),
     },
     {
-        path: 'main',
+        path: ':center-name/main',
         canActivate: [AuthGuard],
         loadChildren: () => import('@routes/main.routes').then((r) => r.MainRoutes),
     },
     {
-        path: 'center-list',
+        path: 'redwhale-home',
+        canActivate: [AuthGuard],
         loadComponent: () => import('@pages/center-list/center-list.component').then((m) => m.CenterListComponent),
     },
     {

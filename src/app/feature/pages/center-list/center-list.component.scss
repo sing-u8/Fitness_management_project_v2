@@ -10,19 +10,6 @@
     height: 100vh;
     position: relative;
 
-    .l-user {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        height: 44px;
-        padding: 8px;
-
-        .user-name {
-            margin-left: 8px;
-            @include rw-type-r(1.5rem, 23px, var(--gray-100));
-        }
-    }
-
     header {
         width: 100%;
         height: 70px;
@@ -47,6 +34,10 @@
                 border-radius: 12px;
                 overflow: hidden;
             }
+            .user-name {
+                margin-left: 8px;
+                @include rw-type-r(1.5rem, 23px, var(--gray-100));
+            }
         }
     }
     section {
@@ -58,7 +49,8 @@
         justify-content: center;
 
         .l-center-list {
-            width: 540px;
+            min-width: 540px;
+            max-width: 540px;
             position: relative;
             .center-list__header {
                 width: 100%;
@@ -85,6 +77,9 @@
             }
 
             .center-list-items {
+                display: grid;
+                gap: 25px;
+                padding-bottom: 30px;
                 .empty-item-box {
                     width: 100%;
                     height: 350px;

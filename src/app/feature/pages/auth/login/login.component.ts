@@ -104,7 +104,7 @@ export class LoginComponent {
                 signInWithCustomToken(this.fireAuth, user.custom_token)
                     .then((userCredential) => {
                         this.storageService.setSignInMethod(this.signInMethod)
-                        this.router.navigateByUrl('/main')
+                        this.router.navigateByUrl('/redwhale-home')
                     })
                     .finally(() => {
                         this.loginBtStatus = 'idle'
@@ -191,7 +191,7 @@ export class LoginComponent {
                         signInWithCustomToken(this.fireAuth, String(user.custom_token)).then(() => {
                             this.storageService.setSignInMethod(this.signInMethod)
                             this.kakaoBtLoadingFns.hideLoading()
-                            this.router.navigateByUrl('/main')
+                            this.router.navigateByUrl('/redwhale-home')
                         })
                     },
                     error: () => {
@@ -212,7 +212,7 @@ export class LoginComponent {
             this.authService.signInWithFirebase({ access_token }).subscribe({
                 next: (user) => {
                     this.storageService.setSignInMethod(this.signInMethod)
-                    this.router.navigateByUrl('/main')
+                    this.router.navigateByUrl('/redwhale-home')
                     if (!_.isEmpty(cb)) {
                         cb()
                     }

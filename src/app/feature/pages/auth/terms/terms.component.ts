@@ -158,7 +158,7 @@ export class TermsComponent implements OnInit, OnDestroy {
             this.usersService.updateUser(this.user.id, requestBody).subscribe({
                 next: (user) => {
                     this.nxStore.dispatch(showToast({ text: '🎉  회원가입이 완료되었어요.' }))
-                    this.router.navigateByUrl('/main')
+                    this.router.navigateByUrl('/redwhale-home')
                 },
                 error: (err) => {
                     this.nxStore.dispatch(showModal({ data: { text: this.TAG, subText: err.message } }))

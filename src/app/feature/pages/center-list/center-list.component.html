@@ -8,31 +8,41 @@
                 [style.height]="'21px'"
             />
 
-            <div class="l-user">
-                <div class="l-user-picture" [style.background-color]="user.background ?? '#EB7C7C'">
-                    <img
-                        *ngIf="user.picture"
-                        [src]="user.picture"
-                        loading="lazy"
-                        alt="user-picture.png"
-                        [style.width]="'28px'"
-                        [style.height]="'28px'"
-                    />
-                    <img
-                        *ngIf="!user.picture"
-                        [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
-                        loading="lazy"
-                        alt="avatar-smiley-white.svg"
-                        [style.width]="'14px'"
-                        [style.height]="'14px'"
-                    />
-                </div>
-                <span class="user-name">{{ user.name }}</span>
-            </div>
+            <rwa-button
+                [padding]="'8px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                [borderRadius]="'10px'"
+                (onClick)="openMyInfoModal()"
+            >
+                <ng-template btIdleContent>
+                    <div class="l-user-picture" [style.background-color]="user.background ?? '#EB7C7C'">
+                        <img
+                            *ngIf="user.picture"
+                            [src]="user.picture"
+                            loading="lazy"
+                            alt="user-picture.png"
+                            [style.width]="'28px'"
+                            [style.height]="'28px'"
+                        />
+                        <img
+                            *ngIf="!user.picture"
+                            [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+                            loading="lazy"
+                            alt="avatar-smiley-white.svg"
+                            [style.width]="'14px'"
+                            [style.height]="'14px'"
+                        />
+                    </div>
+                    <span class="user-name">{{ user.name }}</span>
+                </ng-template>
+            </rwa-button>
         </div>
     </header>
 
-    <section class="thin-scroll-y-overlay">
+    <section class="thin-scroll-y-overlay thin-scroll-x-overlay">
         <div class="l-center-list">
             <div class="center-list__header">
                 <div class="center-list__header-left">
@@ -56,13 +66,26 @@
             </div>
 
             <div class="center-list-items">
-                <div class="empty-item-box">
-                    <span class="empty-text"> 👀 아직 입장할 수 있는 센터가 없어요. </span>
-                    <span class="empty-text">
-                        센터에 직접 초대를 요청하거나<br />
-                        센터를 만들어 보세요.
-                    </span>
-                </div>
+                <ng-container *ngIf="centerLoading == 'idle'">
+                    <div *ngIf="centerList.length == 0" class="empty-item-box">
+                        <span class="empty-text"> 👀 아직 입장할 수 있는 센터가 없어요. </span>
+                        <span class="empty-text">
+                            센터에 직접 초대를 요청하거나<br />
+                            센터를 만들어 보세요.
+                        </span>
+                    </div>
+                    <ng-container *ngFor="let centerItem of centerList">
+                        <rwm-center-list-item [center]="centerItem"></rwm-center-list-item>
+                    </ng-container>
+                </ng-container>
+                <ng-container *ngIf="centerLoading == 'pending'">
+                    <ngx-skeleton-loader
+                        *ngFor="let i of [1, 2, 3]"
+                        count="1"
+                        appearance="line"
+                        [theme]="{ width: '540px', height: '242px', 'border-radius': '20px', margin: '0' }"
+                    ></ngx-skeleton-loader>
+                </ng-container>
             </div>
         </div>
     </section>
@@ -72,3 +95,10 @@
     [(visible)]="showCreateCenterModal"
     (close)="showCreateCenterModal = false"
 ></rwm-create-center-modal>
+
+<rwm-my-profile-modal
+    [(visible)]="showMyInformation"
+    [user]="user"
+    (close)="closeMyInfoModal()"
+    (open)="openMyInfoModal()"
+></rwm-my-profile-modal>

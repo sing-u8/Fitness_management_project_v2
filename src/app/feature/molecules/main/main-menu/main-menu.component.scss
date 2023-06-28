@@ -6,24 +6,43 @@
 
 .user-circle-icon {
     @include icon('/assets/icons/main_menu/user-circle.svg');
+    width: 22px;
+    height: 22px;
 }
 .sale-icon {
     @include icon('/assets/icons/main_menu/arrow-fat-line-up.svg');
+    width: 22px;
+    height: 22px;
 }
 .calendar-icon {
     @include icon('/assets/icons/main_menu/calendar-blank.svg');
+    width: 22px;
+    height: 22px;
 }
 .chatting-icon {
     @include icon('/assets/icons/main_menu/chat-circle-dots.svg');
+    width: 22px;
+    height: 22px;
 }
 .message-icon {
     @include icon('/assets/icons/main_menu/envelope-simple.svg');
+    width: 22px;
+    height: 22px;
 }
 .product-icon {
     @include icon('/assets/icons/main_menu/ticket.svg');
+    width: 22px;
+    height: 22px;
 }
 .lesson-icon {
     @include icon('/assets/icons/main_menu/person.svg');
+    width: 22px;
+    height: 22px;
+}
+.megaphone-icon {
+    @include icon('/assets/icons/etc/megaphone-duotone.svg');
+    width: 22px;
+    height: 22px;
 }
 
 $nd_width: 275px;
@@ -102,6 +121,9 @@ $nd_width: 275px;
         height: 100%;
         justify-content: space-between;
     }
+    .large-menu {
+        align-items: flex-start;
+    }
 
     display: flex;
     flex-direction: column;
@@ -115,16 +137,74 @@ $nd_width: 275px;
     .top {
         display: flex;
         flex-direction: column;
-        padding: 28px 28px 15px;
+        padding: 30px 17px 15px 25px;
         .top-upper {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             position: relative;
 
-            .center-title {
-                padding-right: 80px;
-                min-width: 219px;
+            .l-center-large-avatar {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                .center-large-avatar {
+                    min-width: 90px;
+                    min-height: 90px;
+                    width: 90px;
+                    height: 90px;
+                    border: 1px solid var(--gray-60);
+                    position: relative;
+                    overflow: hidden;
+                    border-radius: 35px;
+                    &.picture-exist {
+                        border: none;
+                    }
+
+                    .default-image {
+                        position: absolute;
+                        bottom: 0;
+                        right: -3px;
+                        width: 78px;
+                        height: 78px;
+                    }
+                    .center-image {
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+                }
+                .center-title-button {
+                    margin: 15px 0;
+                    position: relative;
+                }
+                .center-dropdown {
+                    z-index: 1;
+                    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+                    -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+                    -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+                    -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+                    position: absolute;
+                    left: -12px;
+                    top: 144.5px;
+                    display: none;
+                    opacity: 0;
+                    &.show-dropdown {
+                        display: initial;
+                        opacity: 1;
+                    }
+                }
+                .center-title {
+                    max-width: 228px;
+                }
+                .l-icon-gbt {
+                    display: flex;
+                    align-items: center;
+                    rwa-icon-ghost-button {
+                        &:not(:last-of-type) {
+                            margin-right: 15px;
+                        }
+                    }
+                }
             }
 
             rwa-icon-button {
@@ -155,6 +235,7 @@ $nd_width: 275px;
         max-height: calc(100% - 270px); //(97px + 168px + 20px)); // 100% - (top h + bottom h + padding(20px))
         width: calc(100% - 8px); // 스크롤 오른쪽 여백을 7px 주기 위해서 함.
         padding: 0 12px 0 20px;
+        margin-top: 20px;
         overflow-x: hidden;
 
         .l-igb {
@@ -342,16 +423,16 @@ $nd_width: 275px;
     .bottom {
         display: flex;
         flex-direction: column;
-        padding: 19px 22px 28px;
+        padding: 19px 14px 28px 22px;
         border-radius: 0 0 30px 0;
         overflow-x: hidden;
+        min-height: 102px;
         .l-center-user {
             width: 100%;
             position: relative;
             display: flex;
             align-items: center;
             .avatar {
-                background: var(--label-red);
                 border-radius: 19px;
                 min-width: 46px;
                 min-height: 46px;
@@ -375,16 +456,16 @@ $nd_width: 275px;
             .l-user-info {
                 display: flex;
                 flex-direction: column;
-                min-width: calc(100% - 100px);
+                min-width: calc(100% - 58px);
                 .user-name {
                     max-height: 29px;
-                    min-width: 131px;
+                    min-width: 173px;
                     @include rw-type-r(1.8rem, 29px, var(--font-color));
                 }
                 .user-position {
                     max-height: 23px;
-                    min-width: 131px;
-                    @include rw-type-r(1.6rem, 23px, var(--gray-90));
+                    min-width: 173px;
+                    @include rw-type-r(1.5rem, 23px, var(--gray-90));
                 }
             }
         }
@@ -446,19 +527,31 @@ $nd_width: 275px;
                 display: inherit;
                 .top {
                     padding: 30px 18px 15px;
-                    .center-avatar {
+
+                    .center-small-avatar {
+                        min-width: 44px;
+                        min-height: 44px;
                         width: 44px;
                         height: 44px;
+                        border: 1px solid var(--gray-60);
                         position: relative;
-                        background-color: var(--white);
-                        border-radius: 18px;
                         overflow: hidden;
-                        img {
+                        border-radius: 18px;
+                        &.picture-exist {
+                            border: none;
+                        }
+
+                        .default-image {
+                            position: absolute;
+                            bottom: 0;
+                            right: -3px;
+                            width: 40px;
+                            height: 40px;
+                        }
+                        .center-image {
                             width: 100%;
                             height: 100%;
                             object-fit: cover;
-                        }
-                        .center-name {
                         }
                     }
                 }

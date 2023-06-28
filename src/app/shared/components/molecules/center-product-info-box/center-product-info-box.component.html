@@ -1,0 +1,25 @@
+<ng-container *ngIf="state != 'normal'">
+    <div
+        *ngIf="mode == 'pc'"
+        class="l-center-product-info-box"
+        [style.background-color]="curInfoData.bgColor"
+        [style.border-color]="curInfoData.borderColor"
+    >
+        <rwa-svg-warning [width]="'20px'" [height]="'20px'" [color]="curInfoData.borderColor"></rwa-svg-warning>
+        <div class="center-product-info">
+            <div class="info-title">
+                {{ curInfoData['day'] ? curInfoData['day'] + curInfoData.title : curInfoData.title }}
+            </div>
+            <div class="info-desc">
+                {{ curInfoData.desc }}
+            </div>
+            <rwa-text-button [showUnderLine]="true" [fontWeight]="'700'">
+                {{ curInfoData.btText }}
+            </rwa-text-button>
+        </div>
+    </div>
+
+    <div *ngIf="mode == 'tablet'" class="tablet-center-product-info">
+        <rwa-svg-warning [width]="'22px'" [height]="'22px'" [color]="curInfoData.borderColor"></rwa-svg-warning>
+    </div>
+</ng-container>

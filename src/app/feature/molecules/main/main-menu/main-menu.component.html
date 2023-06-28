@@ -2,375 +2,510 @@
 
 <article class="l-main-menu__outer">
     <section
-        class="l-main-menu user-select-none"
+        class="l-main-menu user-select-none menu-scroll-y-overlay"
         [class.show-tablet-nav]="showTabletNav"
         [class.tablet]="mode == 'tablet'"
         [class.pc]="mode == 'pc'"
     >
         <div class="large-menu">
-            <div class="top">
-                <div class="top-upper">
-                    <span class="rw-type-b20 center-title">센터명</span>
-                    <rwa-icon-button
-                        class="hand-waving-button"
-                        [sizeType]="'md'"
-                        borderRadius="14px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                    >
-                        <ng-template iconBtIdleContent>
-                            <div class="hand-waving-icon"></div>
-                        </ng-template>
-                    </rwa-icon-button>
-                    <rwa-icon-button
-                        class="gear-button"
-                        [sizeType]="'md'"
-                        borderRadius="14px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                    >
-                        <ng-template iconBtIdleContent>
-                            <div class="gear-icon"></div>
-                        </ng-template>
-                    </rwa-icon-button>
-                </div>
-                <!--                <div class="top-bottom">-->
-                <!--                    {{ 'redwhale.xyz/centerurl' }}-->
-                <!--                </div>-->
-            </div>
-            <div class="content menu-scroll-y-overlay">
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="235px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        routerLink="/main/member-management"
-                        tabindex="-1"
-                        (onClick)="onRouteClick(); closeCategs()"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/member-management')">
-                                <div class="nb-left">
-                                    <div class="nb-icon user-circle-icon"></div>
-                                    <span>회원 관리</span>
-                                </div>
+            <div class="d-flex flex-column">
+                <div class="top">
+                    <div class="top-upper">
+                        <div class="l-center-large-avatar">
+                            <div class="center-large-avatar" [class.picture-exist]="!!center.picture">
+                                <img
+                                    *ngIf="!!!center.picture"
+                                    [src]="'/assets/icons/etc/muscle.svg'"
+                                    class="default-image"
+                                    loading="lazy"
+                                    alt="muscle.svg"
+                                />
+                                <img
+                                    *ngIf="!!center.picture"
+                                    [src]="center.picture"
+                                    class="center-image"
+                                    loading="lazy"
+                                    alt="user-picture.png"
+                                />
                             </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
-                </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="235px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        routerLink="/main/sales"
-                        tabindex="-1"
-                        (onClick)="onRouteClick(); closeCategs()"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/sales')">
-                                <div class="nb-left">
-                                    <div class="nb-icon sale-icon"></div>
-                                    <span>매출</span>
-                                </div>
+                            <div class="d-flex flex-column">
+                                <rwa-text-button
+                                    class="center-title-button"
+                                    (onClick)="showCenterDropdown = !showCenterDropdown"
+                                >
+                                    <span class="rw-type-b20 center-title line-ellipsis-one">{{ center.name }}</span>
+                                </rwa-text-button>
+                                <rwm-center-info-dropdown
+                                    class="center-dropdown"
+                                    [class.show-dropdown]="showCenterDropdown"
+                                    [center]="center"
+                                    [centerList]="centerList"
+                                    [centerListLoading]="centerLoading"
+                                ></rwm-center-info-dropdown>
                             </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
-                </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="235px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        routerLink="/main/schedule"
-                        tabindex="-1"
-                        (onClick)="onRouteClick(); closeCategs()"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/schedule')">
-                                <div class="nb-left">
-                                    <div class="nb-icon calendar-icon"></div>
-                                    <span>스케줄</span>
-                                </div>
+                            <div class="l-icon-gbt">
+                                <rwa-icon-ghost-button
+                                    rwTooltip
+                                    rwTooltipPlacement="bottom"
+                                    rwTooltipTitle="출석 화면 켜기"
+                                    [sizeType]="'md'"
+                                    borderRadius="14px"
+                                    borderColor="var(--gray-60)"
+                                    bgColor="transparent"
+                                    hoverBgColor="transparent"
+                                >
+                                    <ng-template iconGhostBtIdleContent>
+                                        <div class="monitor-duotone-icon"></div>
+                                    </ng-template>
+                                </rwa-icon-ghost-button>
+                                <rwa-icon-ghost-button
+                                    rwTooltip
+                                    rwTooltipPlacement="bottom"
+                                    rwTooltipTitle="센터 설정"
+                                    [sizeType]="'md'"
+                                    borderRadius="14px"
+                                    borderColor="var(--gray-60)"
+                                    bgColor="transparent"
+                                    hoverBgColor="transparent"
+                                >
+                                    <ng-template iconGhostBtIdleContent>
+                                        <div class="gear-icon"></div>
+                                    </ng-template>
+                                </rwa-icon-ghost-button>
                             </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
+                        </div>
+                    </div>
                 </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="235px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        routerLink="/main/chatting"
-                        tabindex="-1"
-                        (onClick)="onRouteClick(); closeCategs()"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">
-                                <div class="nb-left">
-                                    <div class="nb-icon chatting-icon"></div>
-                                    <span>채팅</span>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
-                </div>
-                <div class="l-igb">
-                    <div class="l-group-navigation-button">
-                        <div
-                            class="navigation-button"
-                            (click)="onSmsCategClick()"
-                            [class.category-selected]="isActive('/main/sms')"
+                <rwm-center-product-info-box [center]="center" [mode]="'pc'"></rwm-center-product-info-box>
+                <div class="content">
+                    <div class="l-igb">
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                            [routerLink]="'/' + center.name + '/main/member-management'"
+                            tabindex="-1"
+                            (onClick)="onRouteClick(); closeCategs()"
                         >
-                            <div class="nb-left">
-                                <div class="nb-icon message-icon"></div>
-                                <span>문자</span>
-                            </div>
-                            <div class="nb-right">
-                                <rwa-svg-caret-down [class.open]="smsOpen"></rwa-svg-caret-down>
-                            </div>
-                        </div>
-                        <div class="l-button-item" [class.open]="smsOpen">
-                            <rwa-icon-ghost-button
-                                borderColor="transparent"
-                                borderWidth="2px"
-                                width="235px"
-                                height="''"
-                                borderRadius="10px"
-                                bgColor="transparent"
-                                hoverBgColor="transparent"
-                                routerLink="/main/sms/general-transmit"
-                                tabindex="-1"
-                                (onClick)="onRouteClick()"
-                            >
-                                <ng-template iconGhostBtIdleContent>
-                                    <div
-                                        class="group-navigation-button"
-                                        [class.selected]="isActive('/main/sms/general-transmit')"
-                                    >
-                                        <div class="dot"></div>
-                                        <div>일반 전송</div>
+                            <ng-template iconGhostBtIdleContent>
+                                <div
+                                    class="navigation-button"
+                                    [class.selected]="isActive('/' + center.name + '/main/member-management')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon user-circle-icon"></div>
+                                        <span>회원 관리</span>
                                     </div>
-                                </ng-template>
-                            </rwa-icon-ghost-button>
-                            <rwa-icon-ghost-button
-                                borderColor="transparent"
-                                borderWidth="2px"
-                                width="235px"
-                                height="''"
-                                borderRadius="10px"
-                                bgColor="transparent"
-                                hoverBgColor="transparent"
-                                routerLink="/main/sms/auto-transmit"
-                                tabindex="-1"
-                                (onClick)="onRouteClick()"
-                            >
-                                <ng-template iconGhostBtIdleContent>
-                                    <div
-                                        class="group-navigation-button"
-                                        [class.selected]="isActive('/main/sms/auto-transmit')"
-                                    >
-                                        <div class="dot"></div>
-                                        <div>자동 전송</div>
-                                    </div>
-                                </ng-template>
-                            </rwa-icon-ghost-button>
-                            <rwa-icon-ghost-button
-                                borderColor="transparent"
-                                borderWidth="2px"
-                                width="235px"
-                                height="''"
-                                borderRadius="10px"
-                                bgColor="transparent"
-                                hoverBgColor="transparent"
-                                routerLink="/main/sms/transmit-history"
-                                tabindex="-1"
-                                (onClick)="onRouteClick()"
-                            >
-                                <ng-template iconGhostBtIdleContent>
-                                    <div
-                                        class="group-navigation-button"
-                                        [class.selected]="isActive('/main/sms/transmit-history')"
-                                    >
-                                        <div class="dot"></div>
-                                        <div>전송 내역</div>
-                                    </div>
-                                </ng-template>
-                            </rwa-icon-ghost-button>
-                        </div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
                     </div>
-                </div>
-                <div class="l-igb">
-                    <div class="l-group-navigation-button">
+
+                    <div class="l-igb">
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                            [routerLink]="'/' + center.name + '/main/schedule'"
+                            tabindex="-1"
+                            (onClick)="onRouteClick(); closeCategs()"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div
+                                    class="navigation-button"
+                                    [class.selected]="isActive('/' + center.name + '/main/schedule')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon calendar-icon"></div>
+                                        <span>스케줄</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                    </div>
+
+                    <div class="l-igb">
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                            routerLink="/main/lesson"
+                            [routerLink]="'/' + center.name + '/main/lesson'"
+                            tabindex="-1"
+                            (onClick)="onRouteClick(); closeCategs()"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div
+                                    class="navigation-button wo-mb"
+                                    [class.selected]="isActive('/' + center.name + '/main/lesson')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon lesson-icon"></div>
+                                        <span>수업</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                    </div>
+
+                    <!--                <div class="l-igb">-->
+                    <!--                    <rwa-icon-ghost-button-->
+                    <!--                        borderColor="transparent"-->
+                    <!--                        borderWidth="2px"-->
+                    <!--                        width="235px"-->
+                    <!--                        height="''"-->
+                    <!--                        borderRadius="10px"-->
+                    <!--                        bgColor="transparent"-->
+                    <!--                        hoverBgColor="transparent"-->
+                    <!--                        routerLink="/main/chatting"-->
+                    <!--                        tabindex="-1"-->
+                    <!--                        (onClick)="onRouteClick(); closeCategs()"-->
+                    <!--                    >-->
+                    <!--                        <ng-template iconGhostBtIdleContent>-->
+                    <!--                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">-->
+                    <!--                                <div class="nb-left">-->
+                    <!--                                    <div class="nb-icon chatting-icon"></div>-->
+                    <!--                                    <span>채팅</span>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </ng-template>-->
+                    <!--                    </rwa-icon-ghost-button>-->
+                    <!--                </div>-->
+                    <!--                <div class="l-igb">-->
+                    <!--                    <div class="l-group-navigation-button">-->
+                    <!--                        <div-->
+                    <!--                            class="navigation-button"-->
+                    <!--                            (click)="onSmsCategClick()"-->
+                    <!--                            [class.category-selected]="isActive('/main/sms')"-->
+                    <!--                        >-->
+                    <!--                            <div class="nb-left">-->
+                    <!--                                <div class="nb-icon message-icon"></div>-->
+                    <!--                                <span>문자</span>-->
+                    <!--                            </div>-->
+                    <!--                            <div class="nb-right">-->
+                    <!--                                <rwa-svg-caret-down [class.open]="smsOpen"></rwa-svg-caret-down>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--                        <div class="l-button-item" [class.open]="smsOpen">-->
+                    <!--                            <rwa-icon-ghost-button-->
+                    <!--                                borderColor="transparent"-->
+                    <!--                                borderWidth="2px"-->
+                    <!--                                width="235px"-->
+                    <!--                                height="''"-->
+                    <!--                                borderRadius="10px"-->
+                    <!--                                bgColor="transparent"-->
+                    <!--                                hoverBgColor="transparent"-->
+                    <!--                                routerLink="/main/sms/general-transmit"-->
+                    <!--                                tabindex="-1"-->
+                    <!--                                (onClick)="onRouteClick()"-->
+                    <!--                            >-->
+                    <!--                                <ng-template iconGhostBtIdleContent>-->
+                    <!--                                    <div-->
+                    <!--                                        class="group-navigation-button"-->
+                    <!--                                        [class.selected]="isActive('/main/sms/general-transmit')"-->
+                    <!--                                    >-->
+                    <!--                                        <div class="dot"></div>-->
+                    <!--                                        <div>일반 전송</div>-->
+                    <!--                                    </div>-->
+                    <!--                                </ng-template>-->
+                    <!--                            </rwa-icon-ghost-button>-->
+                    <!--                            <rwa-icon-ghost-button-->
+                    <!--                                borderColor="transparent"-->
+                    <!--                                borderWidth="2px"-->
+                    <!--                                width="235px"-->
+                    <!--                                height="''"-->
+                    <!--                                borderRadius="10px"-->
+                    <!--                                bgColor="transparent"-->
+                    <!--                                hoverBgColor="transparent"-->
+                    <!--                                routerLink="/main/sms/auto-transmit"-->
+                    <!--                                tabindex="-1"-->
+                    <!--                                (onClick)="onRouteClick()"-->
+                    <!--                            >-->
+                    <!--                                <ng-template iconGhostBtIdleContent>-->
+                    <!--                                    <div-->
+                    <!--                                        class="group-navigation-button"-->
+                    <!--                                        [class.selected]="isActive('/main/sms/auto-transmit')"-->
+                    <!--                                    >-->
+                    <!--                                        <div class="dot"></div>-->
+                    <!--                                        <div>자동 전송</div>-->
+                    <!--                                    </div>-->
+                    <!--                                </ng-template>-->
+                    <!--                            </rwa-icon-ghost-button>-->
+                    <!--                            <rwa-icon-ghost-button-->
+                    <!--                                borderColor="transparent"-->
+                    <!--                                borderWidth="2px"-->
+                    <!--                                width="235px"-->
+                    <!--                                height="''"-->
+                    <!--                                borderRadius="10px"-->
+                    <!--                                bgColor="transparent"-->
+                    <!--                                hoverBgColor="transparent"-->
+                    <!--                                routerLink="/main/sms/transmit-history"-->
+                    <!--                                tabindex="-1"-->
+                    <!--                                (onClick)="onRouteClick()"-->
+                    <!--                            >-->
+                    <!--                                <ng-template iconGhostBtIdleContent>-->
+                    <!--                                    <div-->
+                    <!--                                        class="group-navigation-button"-->
+                    <!--                                        [class.selected]="isActive('/main/sms/transmit-history')"-->
+                    <!--                                    >-->
+                    <!--                                        <div class="dot"></div>-->
+                    <!--                                        <div>전송 내역</div>-->
+                    <!--                                    </div>-->
+                    <!--                                </ng-template>-->
+                    <!--                            </rwa-icon-ghost-button>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+                    <!--                </div>-->
+                    <div class="l-igb">
                         <div class="l-group-navigation-button">
-                            <div
-                                class="navigation-button"
-                                (click)="onProductCategClick()"
-                                [class.category-selected]="isActive('/main/product')"
-                            >
-                                <div class="nb-left">
-                                    <div class="nb-icon product-icon"></div>
-                                    <span>상품</span>
+                            <div class="l-group-navigation-button">
+                                <div
+                                    class="navigation-button"
+                                    (click)="onProductCategClick()"
+                                    [class.category-selected]="isActive('/' + center.name + '/main/product')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon product-icon"></div>
+                                        <span>상품</span>
+                                    </div>
+                                    <div class="nb-right">
+                                        <rwa-svg-caret-down [class.open]="productOpen"></rwa-svg-caret-down>
+                                    </div>
                                 </div>
-                                <div class="nb-right">
-                                    <rwa-svg-caret-down [class.open]="productOpen"></rwa-svg-caret-down>
+                                <div class="l-button-item" [class.open]="productOpen">
+                                    <rwa-icon-ghost-button
+                                        borderColor="transparent"
+                                        borderWidth="2px"
+                                        width="235px"
+                                        height="''"
+                                        borderRadius="10px"
+                                        bgColor="transparent"
+                                        hoverBgColor="transparent"
+                                        [routerLink]="'/' + center.name + '/main/product/membership'"
+                                        tabindex="-1"
+                                        (onClick)="onRouteClick()"
+                                    >
+                                        <ng-template iconGhostBtIdleContent>
+                                            <div
+                                                class="group-navigation-button"
+                                                [class.selected]="
+                                                    isActive('/' + center.name + '/main/product/membership')
+                                                "
+                                            >
+                                                <div class="dot"></div>
+                                                <div>회원권</div>
+                                            </div>
+                                        </ng-template>
+                                    </rwa-icon-ghost-button>
+                                    <rwa-icon-ghost-button
+                                        borderColor="transparent"
+                                        borderWidth="2px"
+                                        width="235px"
+                                        height="''"
+                                        borderRadius="10px"
+                                        bgColor="transparent"
+                                        hoverBgColor="transparent"
+                                        routerLink="/main/product/locker"
+                                        [routerLink]="'/' + center.name + '/main/product/locker'"
+                                        tabindex="-1"
+                                        (onClick)="onRouteClick()"
+                                    >
+                                        <ng-template iconGhostBtIdleContent>
+                                            <div
+                                                class="group-navigation-button"
+                                                [class.selected]="isActive('/' + center.name + '/main/product/locker')"
+                                            >
+                                                <div class="dot"></div>
+                                                <div>락커</div>
+                                            </div>
+                                        </ng-template>
+                                    </rwa-icon-ghost-button>
+                                    <rwa-icon-ghost-button
+                                        borderColor="transparent"
+                                        borderWidth="2px"
+                                        width="235px"
+                                        height="''"
+                                        borderRadius="10px"
+                                        bgColor="transparent"
+                                        hoverBgColor="transparent"
+                                        [routerLink]="'/' + center.name + '/main/product/sportswear'"
+                                        tabindex="-1"
+                                        (onClick)="onRouteClick()"
+                                    >
+                                        <ng-template iconGhostBtIdleContent>
+                                            <div
+                                                class="group-navigation-button"
+                                                [class.selected]="
+                                                    isActive('/' + center.name + '/main/product/sportswear')
+                                                "
+                                            >
+                                                <div class="dot"></div>
+                                                <div>운동복</div>
+                                            </div>
+                                        </ng-template>
+                                    </rwa-icon-ghost-button>
                                 </div>
-                            </div>
-                            <div class="l-button-item" [class.open]="productOpen">
-                                <rwa-icon-ghost-button
-                                    borderColor="transparent"
-                                    borderWidth="2px"
-                                    width="235px"
-                                    height="''"
-                                    borderRadius="10px"
-                                    bgColor="transparent"
-                                    hoverBgColor="transparent"
-                                    routerLink="/main/product/membership"
-                                    tabindex="-1"
-                                    (onClick)="onRouteClick()"
-                                >
-                                    <ng-template iconGhostBtIdleContent>
-                                        <div
-                                            class="group-navigation-button"
-                                            [class.selected]="isActive('/main/product/membership')"
-                                        >
-                                            <div class="dot"></div>
-                                            <div>회원권</div>
-                                        </div>
-                                    </ng-template>
-                                </rwa-icon-ghost-button>
-                                <rwa-icon-ghost-button
-                                    borderColor="transparent"
-                                    borderWidth="2px"
-                                    width="235px"
-                                    height="''"
-                                    borderRadius="10px"
-                                    bgColor="transparent"
-                                    hoverBgColor="transparent"
-                                    routerLink="/main/product/locker"
-                                    tabindex="-1"
-                                    (onClick)="onRouteClick()"
-                                >
-                                    <ng-template iconGhostBtIdleContent>
-                                        <div
-                                            class="group-navigation-button"
-                                            [class.selected]="isActive('/main/product/locker')"
-                                        >
-                                            <div class="dot"></div>
-                                            <div>락커</div>
-                                        </div>
-                                    </ng-template>
-                                </rwa-icon-ghost-button>
-                                <rwa-icon-ghost-button
-                                    borderColor="transparent"
-                                    borderWidth="2px"
-                                    width="235px"
-                                    height="''"
-                                    borderRadius="10px"
-                                    bgColor="transparent"
-                                    hoverBgColor="transparent"
-                                    routerLink="/main/product/sportswear"
-                                    tabindex="-1"
-                                    (onClick)="onRouteClick()"
-                                >
-                                    <ng-template iconGhostBtIdleContent>
-                                        <div
-                                            class="group-navigation-button"
-                                            [class.selected]="isActive('/main/product/sportswear')"
-                                        >
-                                            <div class="dot"></div>
-                                            <div>운동복</div>
-                                        </div>
-                                    </ng-template>
-                                </rwa-icon-ghost-button>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="235px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        routerLink="/main/lesson"
-                        tabindex="-1"
-                        (onClick)="onRouteClick(); closeCategs()"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button wo-mb" [class.selected]="isActive('/main/lesson')">
-                                <div class="nb-left">
-                                    <div class="nb-icon lesson-icon"></div>
-                                    <span>수업</span>
+
+                    <div class="l-igb">
+                        <div class="l-group-navigation-button">
+                            <div class="l-group-navigation-button">
+                                <div
+                                    class="navigation-button"
+                                    (click)="onNoticeCategClick()"
+                                    [class.category-selected]="isActive('/' + center.name + '/main/notice')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon megaphone-icon"></div>
+                                        <span>공지</span>
+                                    </div>
+                                    <div class="nb-right">
+                                        <rwa-svg-caret-down [class.open]="noticeOpen"></rwa-svg-caret-down>
+                                    </div>
+                                </div>
+                                <div class="l-button-item" [class.open]="noticeOpen">
+                                    <rwa-icon-ghost-button
+                                        borderColor="transparent"
+                                        borderWidth="2px"
+                                        width="235px"
+                                        height="''"
+                                        borderRadius="10px"
+                                        bgColor="transparent"
+                                        hoverBgColor="transparent"
+                                        [routerLink]="'/' + center.name + '/main/notice/attendance'"
+                                        tabindex="-1"
+                                        (onClick)="onRouteClick()"
+                                    >
+                                        <ng-template iconGhostBtIdleContent>
+                                            <div
+                                                class="group-navigation-button"
+                                                [class.selected]="
+                                                    isActive('/' + center.name + '/main/notice/attendance')
+                                                "
+                                            >
+                                                <div class="dot"></div>
+                                                <div>출석 화면</div>
+                                            </div>
+                                        </ng-template>
+                                    </rwa-icon-ghost-button>
+                                    <rwa-icon-ghost-button
+                                        borderColor="transparent"
+                                        borderWidth="2px"
+                                        width="235px"
+                                        height="''"
+                                        borderRadius="10px"
+                                        bgColor="transparent"
+                                        hoverBgColor="transparent"
+                                        routerLink="/main/product/locker"
+                                        [routerLink]="'/' + center.name + '/main/notice/redwhale-app'"
+                                        tabindex="-1"
+                                        (onClick)="onRouteClick()"
+                                    >
+                                        <ng-template iconGhostBtIdleContent>
+                                            <div
+                                                class="group-navigation-button"
+                                                [class.selected]="
+                                                    isActive('/' + center.name + '/main/notice/redwhale-app')
+                                                "
+                                            >
+                                                <div class="dot"></div>
+                                                <div>레드웨일 앱</div>
+                                            </div>
+                                        </ng-template>
+                                    </rwa-icon-ghost-button>
                                 </div>
                             </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
+                        </div>
+                    </div>
+
+                    <div class="l-igb">
+                        <rwa-icon-ghost-button
+                            borderColor="transparent"
+                            borderWidth="2px"
+                            width="235px"
+                            height="''"
+                            borderRadius="10px"
+                            bgColor="transparent"
+                            hoverBgColor="transparent"
+                            routerLink="/main/sales"
+                            [routerLink]="'/' + center.name + '/main/sales'"
+                            tabindex="-1"
+                            (onClick)="onRouteClick(); closeCategs()"
+                        >
+                            <ng-template iconGhostBtIdleContent>
+                                <div
+                                    class="navigation-button"
+                                    [class.selected]="isActive('/' + center.name + '/main/sales')"
+                                >
+                                    <div class="nb-left">
+                                        <div class="nb-icon sale-icon"></div>
+                                        <span>매출</span>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </rwa-icon-ghost-button>
+                    </div>
                 </div>
             </div>
+
             <div class="bottom">
                 <div class="l-center-user">
-                    <div class="avatar" [class.picture-exist]="user.picture">
-                        <img *ngIf="user.picture"  [src]="user.picture" loading="lazy" alt="'user.picture'" />
+                    <div
+                        class="avatar"
+                        [style.background-color]="user.color ?? '#EB7C7C'"
+                        [class.picture-exist]="user.picture"
+                    >
+                        <img *ngIf="user.picture" [src]="user.picture" loading="lazy" alt="'user.picture'" />
                         <rwa-svg-avatar-smiley *ngIf="!user.picture"></rwa-svg-avatar-smiley>
                     </div>
                     <div class="l-user-info">
-                        <div class="user-name">
+                        <rwa-text-button
+                            [fontWeight]="'700'"
+                            [fontSize]="'1.7rem'"
+                            [lineHeight]="'28px'"
+                            (onClick)="openMyInfoModal()"
+                        >
                             {{ user.name }}
-                        </div>
+                        </rwa-text-button>
                         <div class="user-position">
-                            {{ centerUser?.role_name ?? '운영자' }}
+                            {{ center.role_name }}
                         </div>
                     </div>
-                    <rwa-icon-button
-                        [sizeType]="'md'"
-                        borderRadius="14px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                        (onClick)="openMyInfoModal()"
-                    >
-                        <ng-template iconBtIdleContent>
-                            <div class="three-dots-icon"></div>
-                        </ng-template>
-                    </rwa-icon-button>
                 </div>
-                <rwa-ghost-button
-                    class="lg-bt"
-                    [width]="'230px'"
-                    [height]="'45px'"
-                    borderRadius="14px"
-                    [bgColor]="'transparent'"
-                    [hoverBgColor]="'transparent'"
-                >
-                    <ng-template gbtIdleContent><div class="inquiry-text">문의하기</div></ng-template>
-                </rwa-ghost-button>
             </div>
         </div>
 
         <div class="small-menu">
             <div class="top">
-                <div class="center-avatar">
-                    <img *ngIf="center?.picture" [src]="center?.picture" loading="lazy" alt="center-picture" />
-                    <div *ngIf="!center?.picture" class="center-name">{{ center?.name ? center?.name[0] : '' }}</div>
+                <div class="center-small-avatar" [class.picture-exist]="!!center.picture">
+                    <img
+                        *ngIf="!!!center.picture"
+                        [src]="'/assets/icons/etc/muscle.svg'"
+                        class="default-image"
+                        loading="lazy"
+                        alt="muscle.svg"
+                    />
+                    <img
+                        *ngIf="!!center.picture"
+                        [src]="center.picture"
+                        class="center-image"
+                        loading="lazy"
+                        alt="user-picture.png"
+                    />
                 </div>
             </div>
             <div class="content menu-scroll-y-overlay">
@@ -383,9 +518,13 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/member-management'"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/member-management')">
+                            <div
+                                class="navigation-button"
+                                [class.selected]="isActive('/' + center.name + '/main/member-management')"
+                            >
                                 <div class="nb-left">
                                     <div class="nb-icon user-circle-icon"></div>
                                 </div>
@@ -393,6 +532,7 @@
                         </ng-template>
                     </rwa-icon-ghost-button>
                 </div>
+
                 <div class="l-igb">
                     <rwa-icon-ghost-button
                         borderColor="transparent"
@@ -402,28 +542,13 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/schedule'"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/sales')">
-                                <div class="nb-left">
-                                    <div class="nb-icon sale-icon"></div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
-                </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="46px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/schedule')">
+                            <div
+                                class="navigation-button"
+                                [class.selected]="isActive('/' + center.name + '/main/schedule')"
+                            >
                                 <div class="nb-left">
                                     <div class="nb-icon calendar-icon"></div>
                                 </div>
@@ -431,6 +556,46 @@
                         </ng-template>
                     </rwa-icon-ghost-button>
                 </div>
+
+                <!--                <div class="l-igb">-->
+                <!--                    <rwa-icon-ghost-button-->
+                <!--                        borderColor="transparent"-->
+                <!--                        borderWidth="2px"-->
+                <!--                        width="46px"-->
+                <!--                        height="''"-->
+                <!--                        borderRadius="10px"-->
+                <!--                        bgColor="transparent"-->
+                <!--                        hoverBgColor="transparent"-->
+                <!--                    >-->
+                <!--                        <ng-template iconGhostBtIdleContent>-->
+                <!--                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">-->
+                <!--                                <div class="nb-left">-->
+                <!--                                    <div class="nb-icon chatting-icon"></div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </ng-template>-->
+                <!--                    </rwa-icon-ghost-button>-->
+                <!--                </div>-->
+                <!--                <div class="l-igb">-->
+                <!--                    <rwa-icon-ghost-button-->
+                <!--                        borderColor="transparent"-->
+                <!--                        borderWidth="2px"-->
+                <!--                        width="46px"-->
+                <!--                        height="''"-->
+                <!--                        borderRadius="10px"-->
+                <!--                        bgColor="transparent"-->
+                <!--                        hoverBgColor="transparent"-->
+                <!--                    >-->
+                <!--                        <ng-template iconGhostBtIdleContent>-->
+                <!--                            <div class="navigation-button" [class.selected]="isActive('/main/sms')">-->
+                <!--                                <div class="nb-left">-->
+                <!--                                    <div class="nb-icon message-icon"></div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </ng-template>-->
+                <!--                    </rwa-icon-ghost-button>-->
+                <!--                </div>-->
+
                 <div class="l-igb">
                     <rwa-icon-ghost-button
                         borderColor="transparent"
@@ -440,16 +605,21 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/lesson'"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/chatting')">
+                            <div
+                                class="navigation-button wo-mb"
+                                [class.selected]="isActive('/' + center.name + '/main/lesson')"
+                            >
                                 <div class="nb-left">
-                                    <div class="nb-icon chatting-icon"></div>
+                                    <div class="nb-icon lesson-icon"></div>
                                 </div>
                             </div>
                         </ng-template>
                     </rwa-icon-ghost-button>
                 </div>
+
                 <div class="l-igb">
                     <rwa-icon-ghost-button
                         borderColor="transparent"
@@ -459,28 +629,13 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/product/membership'"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/sms')">
-                                <div class="nb-left">
-                                    <div class="nb-icon message-icon"></div>
-                                </div>
-                            </div>
-                        </ng-template>
-                    </rwa-icon-ghost-button>
-                </div>
-                <div class="l-igb">
-                    <rwa-icon-ghost-button
-                        borderColor="transparent"
-                        borderWidth="2px"
-                        width="46px"
-                        height="''"
-                        borderRadius="10px"
-                        bgColor="transparent"
-                        hoverBgColor="transparent"
-                    >
-                        <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button" [class.selected]="isActive('/main/product')">
+                            <div
+                                class="navigation-button"
+                                [class.selected]="isActive('/' + center.name + '/main/product')"
+                            >
                                 <div class="nb-left">
                                     <div class="nb-icon product-icon"></div>
                                 </div>
@@ -488,6 +643,7 @@
                         </ng-template>
                     </rwa-icon-ghost-button>
                 </div>
+
                 <div class="l-igb">
                     <rwa-icon-ghost-button
                         borderColor="transparent"
@@ -497,11 +653,39 @@
                         borderRadius="10px"
                         bgColor="transparent"
                         hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/notice/attendance'"
                     >
                         <ng-template iconGhostBtIdleContent>
-                            <div class="navigation-button wo-mb" [class.selected]="isActive('/main/lesson')">
+                            <div
+                                class="navigation-button"
+                                [class.selected]="isActive('/' + center.name + '/main/notice')"
+                            >
                                 <div class="nb-left">
-                                    <div class="nb-icon lesson-icon"></div>
+                                    <div class="nb-icon megaphone-icon"></div>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </rwa-icon-ghost-button>
+                </div>
+
+                <div class="l-igb">
+                    <rwa-icon-ghost-button
+                        borderColor="transparent"
+                        borderWidth="2px"
+                        width="46px"
+                        height="''"
+                        borderRadius="10px"
+                        bgColor="transparent"
+                        hoverBgColor="transparent"
+                        [routerLink]="'/' + center.name + '/main/sales'"
+                    >
+                        <ng-template iconGhostBtIdleContent>
+                            <div
+                                class="navigation-button"
+                                [class.selected]="isActive('/' + center.name + '/main/sales')"
+                            >
+                                <div class="nb-left">
+                                    <div class="nb-icon sale-icon"></div>
                                 </div>
                             </div>
                         </ng-template>
@@ -510,20 +694,15 @@
             </div>
             <div class="bottom">
                 <div class="l-center-user">
-                    <div class="avatar" [class.picture-exist]="user.picture">
+                    <div
+                        class="avatar"
+                        [style.background-color]="user.color ?? '#EB7C7C'"
+                        [class.picture-exist]="user.picture"
+                    >
                         <img *ngIf="user.picture" [src]="user.picture" loading="lazy" alt="'user.picture'" />
                         <rwa-svg-avatar-smiley *ngIf="!user.picture"></rwa-svg-avatar-smiley>
                     </div>
                 </div>
-                <rwa-ghost-button
-                    [width]="'45px'"
-                    [height]="'45px'"
-                    borderRadius="14px"
-                    [bgColor]="'transparent'"
-                    [hoverBgColor]="'transparent'"
-                >
-                    <ng-template gbtIdleContent><rwa-svg-question-duotone></rwa-svg-question-duotone></ng-template>
-                </rwa-ghost-button>
             </div>
         </div>
 

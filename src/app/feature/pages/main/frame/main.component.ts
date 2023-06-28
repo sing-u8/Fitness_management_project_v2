@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core'
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { CommonModule } from '@angular/common'
 
@@ -13,6 +13,9 @@ import { UsersCenterService } from '@services/users-center.service'
 import { User } from '@schemas/user'
 import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
 import { MainDrawerComponent } from '@feature/templates/main/main-drawer/main-drawer.component'
+import { Center } from '@schemas/center'
+import { takeUntil } from 'rxjs/operators'
+import { Subject } from 'rxjs'
 
 @Component({
     standalone: true,
@@ -28,8 +31,9 @@ import { MainDrawerComponent } from '@feature/templates/main/main-drawer/main-dr
         MainDrawerComponent,
     ],
 })
-export class MainComponent implements OnInit, AfterViewInit {
+export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     public user: User
+    public unDescriber$ = new Subject()
 
     public showPhoneVerifModal = false
     onPhoneVerifModalConfirm() {
@@ -38,7 +42,11 @@ export class MainComponent implements OnInit, AfterViewInit {
 
     constructor(private storageService: StorageService, private usersCenterService: UsersCenterService) {}
     ngOnInit() {
+        this.storageService.userChangeSubject
         this.user = this.storageService.getUser()
+        this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
+            this.user = this.storageService.getUser()
+        })
         // this.getCenterForTest()
     }
     ngAfterViewInit() {
@@ -51,6 +59,10 @@ export class MainComponent implements OnInit, AfterViewInit {
                 }
             }
         })
+    }
+    ngOnDestroy() {
+        this.unDescriber$.next(true)
+        this.unDescriber$.complete()
     }
 
     public showDrawer = false

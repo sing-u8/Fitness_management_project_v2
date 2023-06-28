@@ -1,5 +1,5 @@
 <div class="l-profile-photo">
-    <div class="profile-photo" [class.empty]="!!!user.picture">
+    <div class="profile-photo" [style.background-color]="user.color ?? '#EB7C7C'" [class.empty]="!!!user.picture">
         <img
             *ngIf="!!!user.picture"
             [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"

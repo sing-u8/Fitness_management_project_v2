@@ -1,0 +1,31 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-center-product-info-box {
+    border: 1px solid var(--gray-50);
+    border-radius: 12px;
+    padding: 14px 12px 14px 12px;
+    display: flex;
+    align-items: flex-start;
+    width: 241px;
+
+    .center-product-info {
+        display: flex;
+        flex-direction: column;
+        margin-left: 5px;
+        .info-title {
+            @include rw-type-b(1.5rem, 23px, var(--gray-100));
+        }
+        .info-desc {
+            white-space: pre-line;
+            @include rw-type-r(1.4rem, 18.8px, var(--gray-90));
+            margin: 3px 0 6px;
+        }
+    }
+}
+
+.tablet-center-product-info {
+
+}

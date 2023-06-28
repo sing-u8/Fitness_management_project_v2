@@ -14,6 +14,7 @@
     @include rw-type-r(1.5rem, 23px, var(--gray-100));
     background-color: transparent !important;
     cursor: pointer;
+    position: relative;
 
     &.focused {
         border-color: var(--font-color) !important;

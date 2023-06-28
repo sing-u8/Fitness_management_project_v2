@@ -18,7 +18,7 @@
                 (onClick)="openMyInfoModal()"
             >
                 <ng-template btIdleContent>
-                    <div class="l-user-picture" [style.background-color]="user.background ?? '#EB7C7C'">
+                    <div class="l-user-picture" [style.background-color]="user.color ?? '#EB7C7C'">
                         <img
                             *ngIf="user.picture"
                             [src]="user.picture"
@@ -60,7 +60,7 @@
                 >
                     <ng-template gbtIdleContent>
                         <rwa-svg-plus [margin]="'0 5px 1.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
-                        <span class="create-center-text">수업 추가</span></ng-template
+                        <span class="create-center-text">센터 만들기</span></ng-template
                     >
                 </rwa-ghost-button>
             </div>

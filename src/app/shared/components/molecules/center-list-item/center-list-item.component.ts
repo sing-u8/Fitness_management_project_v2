@@ -1,8 +1,11 @@
 import { Component, Input, OnChanges, AfterViewInit, SimpleChanges } from '@angular/core'
+import { Router } from '@angular/router'
 import { Center } from '@schemas/center'
 import dayjs from 'dayjs'
 import { detectChangesOn } from '@shared/helper/component-helper'
 import _ from 'lodash'
+
+import { StorageService } from '@services/storage.service'
 
 export type DetailInfo = { title: string; desc: string[] }
 
@@ -42,14 +45,14 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             bgColor: 'var(--state-warning-5)',
             color: 'var(--state-warning-100)',
             text1: '⏱ 체험 종료 ',
-            text2: ' 일 전',
+            text2: '일 전',
             day: 14,
         },
         expirationExpected: {
             bgColor: 'var(--state-warning-5)',
             color: 'var(--state-warning-100)',
             text1: '⏱ 만료 ',
-            text2: ' 일 전',
+            text2: '일 전',
             day: 10,
         },
         expired: {
@@ -65,7 +68,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
-    constructor() {}
+    constructor(private router: Router, private storageService: StorageService) {}
 
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'center', () => {
@@ -78,6 +81,11 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         this.getBadgeState()
         this.getHeaderState()
         this.getDetailModalData()
+    }
+
+    goCenter() {
+        this.storageService.setCenter(this.center)
+        this.router.navigate([`${this.center.name}`, 'main'])
     }
 
     getBadgeState() {

@@ -5,11 +5,12 @@ import { SharedModule } from '@shared/shared.module'
 import { StorageService } from '@services/storage.service'
 
 import { User } from '@schemas/user'
-import { CenterUser } from '@schemas/center-user'
 import { Center } from '@schemas/center'
 import { Router, RouterLink } from '@angular/router'
 import { takeUntil } from 'rxjs/operators'
-import { Subject } from 'rxjs'
+import { forkJoin, Subject } from 'rxjs'
+import { UsersCenterService } from '@services/users-center.service'
+import { Loading } from '@schemas/loading'
 
 @Component({
     selector: 'rwm-main-menu',
@@ -23,6 +24,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     onProductCategClick() {
         if (!this.productOpen) {
             this.smsOpen = false
+            this.noticeOpen = false
         }
         this.productOpen = !this.productOpen
     }
@@ -30,17 +32,28 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     onSmsCategClick() {
         if (!this.smsOpen) {
             this.productOpen = false
+            this.noticeOpen = false
         }
         this.smsOpen = !this.smsOpen
+    }
+    public noticeOpen = false
+    onNoticeCategClick() {
+        if (!this.noticeOpen) {
+            this.productOpen = false
+            this.smsOpen = false
+        }
+        this.noticeOpen = !this.noticeOpen
     }
     closeCategs() {
         this.smsOpen = false
         this.productOpen = false
+        this.noticeOpen = false
     }
 
     public user: User
-    public centerUser: CenterUser
     public center: Center
+
+    public showCenterDropdown = false
 
     public unDescriber$ = new Subject()
 
@@ -56,16 +69,23 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         }
     }
 
-    constructor(private renderer: Renderer2, private storageService: StorageService, public route: Router) {}
+    constructor(
+        private renderer: Renderer2,
+        private storageService: StorageService,
+        public route: Router,
+        private usersCenterService: UsersCenterService
+    ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
-        this.centerUser = this.storageService.getCenterUser()
+        // this.centerUser = this.storageService.getCenterUser()
         this.center = this.storageService.getCenter()
+
+        this.getCenterList()
 
         this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
             this.user = this.storageService.getUser()
-            this.centerUser = this.storageService.getCenterUser()
-            console.log('main-menu console in userChangeSubject : ', this.user, this.centerUser)
+            // this.centerUser = this.storageService.getCenterUser()
+            this.center = this.storageService.getCenter()
         })
     }
     ngAfterViewInit() {
@@ -104,5 +124,21 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     closeMyInfoModal() {
         this.showMyInformation = false
+    }
+
+    public centerLoading: Loading = 'idle'
+    public centerList: Center[] = []
+    getCenterList() {
+        this.centerLoading = 'pending'
+        this.usersCenterService.getCenterList(this.user.id).subscribe({
+            next: (centerList) => {
+                console.log('')
+                this.centerList = centerList
+                this.centerLoading = 'idle'
+            },
+            error: (err) => {
+                this.centerLoading = 'idle'
+            },
+        })
     }
 }

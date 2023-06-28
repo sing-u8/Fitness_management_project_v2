@@ -41,9 +41,14 @@ export class CenterListComponent implements OnInit, OnDestroy {
 
     getCenterList() {
         this.centerLoading = 'pending'
-        forkJoin([this.usersCenterService.getCenterList(this.user.id)]).subscribe(([centerList]) => {
-            this.centerList = centerList
-            this.centerLoading = 'idle'
+        forkJoin([this.usersCenterService.getCenterList(this.user.id)]).subscribe({
+            next: ([centerList]) => {
+                this.centerList = centerList
+                this.centerLoading = 'idle'
+            },
+            error: (err) => {
+                this.centerLoading = 'idle'
+            },
         })
     }
 

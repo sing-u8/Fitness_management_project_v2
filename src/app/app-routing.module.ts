@@ -5,6 +5,7 @@ import { AuthGuard } from '@guards/auth.guard'
 
 import { NotFoundComponent } from '@shared/route-components/not-found/not-found.component'
 import { ComponentComponent } from '@pages/component/component.component'
+import { CenterGuard } from '@guards/center.guard'
 
 const routes: Routes = [
     { path: '', redirectTo: 'auth/login', pathMatch: 'full' },

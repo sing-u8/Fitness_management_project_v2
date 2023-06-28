@@ -101,6 +101,20 @@ export const MainRoutes = [
                 loadComponent: () =>
                     import('../feature/pages/main/lesson/lesson.component').then((m) => m.LessonComponent),
             },
+            {
+                path: 'notice/attendance',
+                loadComponent: () =>
+                    import('../feature/pages/main/notice-attendance/notice-attendance.component').then(
+                        (m) => m.NoticeAttendanceComponent
+                    ),
+            },
+            {
+                path: 'notice/redwhale-app',
+                loadComponent: () =>
+                    import('../feature/pages/main/notice-redwhale-app/notice-redwhale-app.component').then(
+                        (m) => m.NoticeRedwhaleAppComponent
+                    ),
+            },
         ],
     },
 ] as Route[]

@@ -1,0 +1,99 @@
+<div class="l-center-info-dropdown">
+    <div class="center-info-dropdown__top-wrapper scroll-y-overlay">
+        <div class="center-info-dropdown__top">
+            <div class="l-center-profile">
+                <div class="center-avatar" [class.empty]="!!!center.picture">
+                    <img
+                        *ngIf="!!!center.picture"
+                        [src]="'/assets/icons/etc/muscle.svg'"
+                        class="default-image"
+                        loading="lazy"
+                        alt="muscle.svg"
+                    />
+                    <img
+                        *ngIf="!!center.picture"
+                        [src]="center.picture"
+                        class="center-image"
+                        loading="lazy"
+                        alt="user-picture.png"
+                    />
+                </div>
+                <span class="center-name">
+                    {{ center.name }}
+                </span>
+            </div>
+
+            <div class="l-center-info">
+                <div class="center-info-item">
+                    <div class="phone-icon"></div>
+                    <span class="center-info-item__text">
+                        {{ center.phone_number | phoneNumber }}
+                    </span>
+                </div>
+                <div class="center-info-item">
+                    <div class="signpost-duotone-icon"></div>
+                    <span class="center-info-item__text">
+                        {{ center.road_full_addr }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <ng-container *ngIf="centerList.length > 0">
+                <div class="other-center-title">다른 센터 입장하기</div>
+
+                <div class="other-center-list">
+                    <ng-container *ngIf="centerListLoading == 'idle'">
+                        <div class="other-center-item" *ngFor="let centerItem of centerList">
+                            <div class="center-avatar" [class.empty]="!!!centerItem.picture">
+                                <img
+                                    *ngIf="!!!centerItem.picture"
+                                    [src]="'/assets/icons/etc/muscle.svg'"
+                                    class="default-image"
+                                    loading="lazy"
+                                    alt="muscle.svg"
+                                />
+                                <img
+                                    *ngIf="!!centerItem.picture"
+                                    [src]="centerItem.picture"
+                                    class="center-image"
+                                    loading="lazy"
+                                    alt="user-picture.png"
+                                />
+                            </div>
+                            <div class="other-center-name line-ellipsis-one">{{ centerItem.name }}</div>
+                            <div class="caret-right-1-g80-icon"></div>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="centerListLoading == 'pending'">
+                        <ngx-skeleton-loader
+                            *ngFor="let i of [1, 2, 3]"
+                            count="1"
+                            appearance="line"
+                            [theme]="{ width: '210px', height: '48px', 'border-radius': '5px', margin: '0' }"
+                        ></ngx-skeleton-loader>
+                    </ng-container>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="center-info-dropdown__bottom">
+        <div class="l-text-button">
+            <rwa-tooltip
+                *ngIf="false"
+                class="cid-tooltip"
+                [textObj]="{ title: '💌 초대 도착' }"
+                colorType="red"
+                borderRadius="14px"
+                [type]="'normal'"
+                [tail]="'left'"
+                [movable]="true"
+            ></rwa-tooltip>
+            <rwa-text-button [fontWeight]="'700'" [fontSize]="'1.5rem'" [lineHeight]="'23px'" [showUnderLine]="true">
+                내 센터 모두 보기
+            </rwa-text-button>
+        </div>
+    </div>
+</div>

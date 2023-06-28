@@ -61,8 +61,7 @@
                 {{
                     badgeState == 'expirationExpected' || badgeState == 'freeTrialEndExpected'
                         ? badgeStateObj[badgeState]['text1'] +
-                          badgeStateObj[badgeState]['day'] +
-                          badgeStateObj[badgeState]['text2']
+                          badgeStateObj[badgeState]['day']+badgeStateObj[badgeState]['text2']
                         : badgeStateObj[badgeState]['text']
                 }}
             </rwa-badge>
@@ -109,7 +108,7 @@
             <ng-container
                 *ngIf="headerState == 'normal' || headerState == 'needToBuy' || headerState == 'subscribeFailed'"
             >
-                <rwa-ghost-button class="button" padding="7.5px 15px 5.5px">
+                <rwa-ghost-button class="button" padding="7.5px 14.62px 5.5px" (onClick)="goCenter()">
                     <ng-template gbtIdleContent>
                         <span class="button-text">입장하기</span>
                     </ng-template>
@@ -119,7 +118,7 @@
             <ng-container *ngIf="headerState == 'invite'">
                 <rwa-button
                     class="button"
-                    padding="7.5px 15px 5.5px"
+                    padding="7.5px 16.32px 5.5px"
                     [fontColor]="'var(--gray-90)'"
                     [bgColor]="'var(--white)'"
                     [hoverBgColor]="'var(--gray-30)'"
@@ -130,7 +129,7 @@
                         <span class="button-text">거절</span>
                     </ng-template>
                 </rwa-button>
-                <rwa-button class="button" padding="7.5px 15px 5.5px" (onClick)="showAgreeInviteModal = true">
+                <rwa-button class="button" padding="7.5px 16.32px 5.5px" (onClick)="showAgreeInviteModal = true">
                     <ng-template btIdleContent>
                         <span class="button-text white-text">초대 수락</span>
                     </ng-template>
@@ -140,7 +139,7 @@
             <rwa-button
                 *ngIf="headerState == 'needToBuy' || headerState == 'expired' || headerState == 'freeTrialEnd'"
                 class="button-margin button"
-                padding="7.5px 15px 5.5px"
+                padding="7.5px 16.32px 5.5px"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
             >
@@ -151,7 +150,7 @@
             <rwa-button
                 *ngIf="headerState == 'subscribeFailed'"
                 class="button-margin button"
-                padding="7.5px 15px 5.5px"
+                padding="7.5px 16.32px 5.5px"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
             >

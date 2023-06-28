@@ -26,8 +26,11 @@ import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal
 import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component'
 import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component'
 import { CenterPhotoComponent } from './center-photo/center-photo.component'
-import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component';
+import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component'
 import { CenterListItemComponent } from './center-list-item/center-list-item.component'
+import { CenterInfoDropdownComponent } from './center-info-dropdown/center-info-dropdown.component'
+import { CenterProductInfoBoxComponent } from './center-product-info-box/center-product-info-box.component'
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
 
 @NgModule({
     declarations: [
@@ -48,6 +51,8 @@ import { CenterListItemComponent } from './center-list-item/center-list-item.com
         CenterPhotoComponent,
         CreateCenterModalComponent,
         CenterListItemComponent,
+        CenterInfoDropdownComponent,
+        CenterProductInfoBoxComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -59,6 +64,7 @@ import { CenterListItemComponent } from './center-list-item/center-list-item.com
         AtomsModule,
         NgOptimizedImage,
         SharedTermsModule,
+        NgxSkeletonLoaderModule,
     ],
     exports: [
         DatepickerComponent,
@@ -77,7 +83,9 @@ import { CenterListItemComponent } from './center-list-item/center-list-item.com
         DeleteAccountModalComponent,
         CenterPhotoComponent,
         CreateCenterModalComponent,
-        CenterListItemComponent
+        CenterListItemComponent,
+        CenterInfoDropdownComponent,
+        CenterProductInfoBoxComponent,
     ],
     schemas: [],
 })

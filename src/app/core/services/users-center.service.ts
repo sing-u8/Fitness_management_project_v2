@@ -18,7 +18,11 @@ export class UsersCenterService {
     constructor(private http: HttpClient) {}
 
     getCenterList(userId: string, isApp = false, page = '', pageSize = ''): Observable<Array<Center>> {
-        const url = this.SERVER + `/${userId}/center?page=${page}&pageSize=${pageSize}&platform=${isApp ? 'app' : 'web'}`
+        const url =
+            this.SERVER +
+            `/${userId}/center?platform=${isApp ? 'app' : 'web'}` +
+            (page ? `&page=${page}` : '') +
+            (pageSize ? `&pageSize=${pageSize}` : '')
 
         const options = {
             headers: new HttpHeaders({

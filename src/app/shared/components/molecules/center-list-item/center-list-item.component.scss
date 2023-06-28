@@ -66,7 +66,7 @@
             display: flex;
             align-items: center;
             .center-name {
-                @include rw-type-b(1.7rem, 28px, var(--font-color));
+                @include rw-type-b(1.7rem, 29px, var(--font-color));
                 margin-right: 12px;
                 max-width: 428px;
                 &.badge-exist {
@@ -76,7 +76,7 @@
         }
         .center-list-item__body {
             display: flex;
-            margin: 15px 0;
+            margin: 16px 0 15px;
             &.invite-body {
                 margin: 15px 0 0 0;
             }
@@ -156,7 +156,7 @@
     background-size: contain;
     min-width: 18px;
     min-height: 18px;
-    margin: 2.5px 8px 0px 0;
+    margin: 3px 8px 3px 0;
 }
 .phone-number-icon {
     box-sizing: border-box;
@@ -165,7 +165,7 @@
     background-size: contain;
     min-width: 18px;
     min-height: 18px;
-    margin: 2.5px 8px 0px 0;
+    margin: 3px 8px 3px 0;
 }
 .address-icon {
     box-sizing: border-box;
@@ -174,7 +174,7 @@
     background-size: contain;
     min-width: 18px;
     min-height: 18px;
-    margin: 2.5px 8px 0px 0;
+    margin: 3px 8px 3px 0;
 }
 
 .l-detail-modal {

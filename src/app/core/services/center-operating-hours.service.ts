@@ -2,28 +2,23 @@ import { Injectable } from '@angular/core'
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { catchError, map } from 'rxjs/operators'
-
 import handleError from './handleError'
-import { environment } from '@environments/environment'
-import { Response } from '@schemas/response'
 
-import { Center } from '@schemas/center'
+import { environment } from '@environments/environment'
+import { StorageService } from '@services/storage.service'
+
+import { Response } from '@schemas/response'
+import { OperatingHours } from '@schemas/operating-hours'
 
 @Injectable({
     providedIn: 'root',
 })
-export class UsersCenterService {
-    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/users`
+export class CenterOperatingHoursService {
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
+    constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    constructor(private http: HttpClient) {}
-
-    getCenterList(userId: string, isApp = false, page = '', pageSize = ''): Observable<Array<Center>> {
-        const url =
-            this.SERVER +
-            `/${userId}/center?platform=${isApp ? 'app' : 'web'}` +
-            (page ? `&page=${page}` : '') +
-            (pageSize ? `&pageSize=${pageSize}` : '')
-
+    getCenterOperatingHours(centerId: string): Observable<OperatingHours[]> {
+        const url = this.SERVER + `/${centerId}/operating-hours`
         const options = {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
@@ -38,8 +33,8 @@ export class UsersCenterService {
         )
     }
 
-    leave(userId: string, centerId: string): Observable<Response> {
-        const url = this.SERVER + `/${userId}/center/${centerId}/leave`
+    updateCenterOperatingHours(centerId: string, reqBody: UpdateCenterOperatingHoursReqBody): Observable<Response> {
+        const url = this.SERVER + `/${centerId}/operating-hours`
 
         const options = {
             headers: new HttpHeaders({
@@ -47,7 +42,7 @@ export class UsersCenterService {
             }),
         }
 
-        return this.http.put<Response>(url, {}, options).pipe(
+        return this.http.put<Response>(url, reqBody, options).pipe(
             map((res) => {
                 return res
             }),
@@ -56,6 +51,6 @@ export class UsersCenterService {
     }
 }
 
-export interface AddCenterToUserReqBody {
-    center_id: string
+export interface UpdateCenterOperatingHoursReqBody {
+    operating_hours: OperatingHours[]
 }

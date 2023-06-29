@@ -8,19 +8,19 @@ import { environment } from '@environments/environment'
 import { StorageService } from '@services/storage.service'
 
 import { Response } from '@schemas/response'
-import { Center } from '@schemas/center'
-import { CenterUser } from '@schemas/center-user'
+import { PermissionCategory } from '@schemas/permission-category'
+import { PermissionItem } from '@schemas/permission-item'
+import { Role } from '@schemas/role'
 
 @Injectable({
     providedIn: 'root',
 })
-export class CenterService {
+export class CenterRolePermissionService {
     private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
-
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    createCenter(requestBody: CreateCenterRequestBody): Observable<Center> {
-        const url = this.SERVER
+    createRole(centerId: string, reqBody: CreateRoleReqBody): Observable<Role> {
+        const url = this.SERVER + `/${centerId}/role`
 
         const options = {
             headers: new HttpHeaders({
@@ -28,16 +28,15 @@ export class CenterService {
             }),
         }
 
-        return this.http.post<Response>(url, requestBody, options).pipe(
+        return this.http.post<Response>(url, reqBody, options).pipe(
             map((res) => {
                 return res.dataset[0]
             }),
             catchError(handleError)
         )
     }
-
-    getCenter(centerId: string): Observable<Center> {
-        const url = this.SERVER + `/${centerId}`
+    getRole(centerId: string): Observable<Role[]> {
+        const url = this.SERVER + `/${centerId}/role`
 
         const options = {
             headers: new HttpHeaders({
@@ -47,33 +46,13 @@ export class CenterService {
 
         return this.http.get<Response>(url, options).pipe(
             map((res) => {
-                return res.dataset[0]
+                return res.dataset
             }),
             catchError(handleError)
         )
     }
-
-    updateCenter(centerId: string, requestBody: UpdateCenterRequestBody): Observable<Center> {
-        const url = this.SERVER + `/${centerId}`
-
-        const options = {
-            headers: new HttpHeaders({
-                Accept: 'application/json',
-            }),
-        }
-
-        return this.http.put<Response>(url, requestBody, options).pipe(
-            map((res) => {
-                const center: Center = Object.assign({}, this.storageService.getCenter(), res.dataset[0])
-                this.storageService.setCenter(center)
-                return res.dataset[0]
-            }),
-            catchError(handleError)
-        )
-    }
-
-    delegate(centerId: string, requestBody: DelegateRequestBody): Observable<Response> {
-        const url = this.SERVER + `/${centerId}/transfer`
+    updateRole(centerId: string, roleCode: string, reqBody: UpdateRoleReqBody): Observable<Role> {
+        const url = this.SERVER + `/${centerId}/role/${roleCode}`
 
         const options = {
             headers: new HttpHeaders({
@@ -81,17 +60,15 @@ export class CenterService {
             }),
         }
 
-        return this.http.put<Response>(url, requestBody, options).pipe(
+        return this.http.put<Response>(url, reqBody, options).pipe(
             map((res) => {
-                return res
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
     }
-
-    // ------- 사용하지 않음
-    deleteCenter(centerId: string): Observable<Response> {
-        const url = this.SERVER + `/${centerId}`
+    deleteRole(centerId: string, roleCode: string): Observable<Response> {
+        const url = this.SERVER + `/${centerId}/role/${roleCode}`
 
         const options = {
             headers: new HttpHeaders({
@@ -106,9 +83,8 @@ export class CenterService {
             catchError(handleError)
         )
     }
-
-    checkMemeber(address: string): Observable<CenterUser> {
-        const url = this.SERVER + `/${address}/check-member`
+    getPermission(centerId: string, roleCode: string): Observable<PermissionCategory[]> {
+        const url = this.SERVER + `/${centerId}/role/${roleCode}/permission`
 
         const options = {
             headers: new HttpHeaders({
@@ -118,6 +94,27 @@ export class CenterService {
 
         return this.http.get<Response>(url, options).pipe(
             map((res) => {
+                return res.dataset
+            }),
+            catchError(handleError)
+        )
+    }
+    updatePermission(
+        centerId: string,
+        roleCode: string,
+        permissionCode: string,
+        reqBody: UpdatePermission
+    ): Observable<PermissionItem> {
+        const url = this.SERVER + `/${centerId}/role/${roleCode}/permission/${permissionCode}`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.put<Response>(url, reqBody, options).pipe(
+            map((res) => {
                 return res.dataset[0]
             }),
             catchError(handleError)
@@ -125,23 +122,15 @@ export class CenterService {
     }
 }
 
-export interface CreateCenterRequestBody {
+export interface CreateRoleReqBody {
+    code: string
     name: string
-    zip_no: string
-    road_full_addr: string
-    addr_detail: string
-    phone_number: string
-    free_trial_terms: boolean
 }
-
-export interface UpdateCenterRequestBody {
+export interface UpdateRoleReqBody {
+    code?: string
     name?: string
-    zip_no?: string
-    road_full_addr?: string
-    addr_detail?: string
-    phone_number?: string
 }
 
-export interface DelegateRequestBody {
-    center_user_id: string
+export interface UpdatePermission {
+    approved: boolean
 }

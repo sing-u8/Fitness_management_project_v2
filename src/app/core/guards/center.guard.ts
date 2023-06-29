@@ -42,31 +42,32 @@ export class CenterGuard implements CanActivate {
             // this.nxStore.dispatch(CenterCommonActions.startGetCenterPermission({ centerId: center.id }))
             return of(true)
         } else {
-            return this.CenterService.checkMemeber(address).pipe(
-                map((cu) => {
-                    this.storageService.setCenterUser(cu)
-                    this.addrData.addr = address
-                    this.addrData.isChecked = true
-
-                    // this.nxStore.dispatch(CenterCommonActions.setCurCenter({ center }))
-                    // this.nxStore.dispatch(CenterCommonActions.startGetInstructors({ centerId: center.id }))
-                    // this.nxStore.dispatch(CenterCommonActions.startGetMembers({ centerId: center.id }))
-                    // this.nxStore.dispatch(CenterCommonActions.startGetCenterPermission({ centerId: center.id }))
-                    //
-                    // this.nxStore.pipe(select(curCenterRefreshed), take(1)).subscribe((ccr) => {
-                    //     if (!ccr) {
-                    //         this.nxStore.dispatch(CenterCommonActions.startGetCurCenter({ centerId: center.id }))
-                    //     }
-                    // })
-                    return true
-                }),
-                catchError((error: any) => {
-                    this.addrData.addr = ''
-                    this.addrData.isChecked = false
-                    this.router.navigateByUrl('/redwhale-home')
-                    return of(false)
-                })
-            )
+            return of(true)
+            // return this.CenterService.checkMemeber(address).pipe(
+            //     map((cu) => {
+            //         this.storageService.setCenterUser(cu)
+            //         this.addrData.addr = address
+            //         this.addrData.isChecked = true
+            //
+            //         // this.nxStore.dispatch(CenterCommonActions.setCurCenter({ center }))
+            //         // this.nxStore.dispatch(CenterCommonActions.startGetInstructors({ centerId: center.id }))
+            //         // this.nxStore.dispatch(CenterCommonActions.startGetMembers({ centerId: center.id }))
+            //         // this.nxStore.dispatch(CenterCommonActions.startGetCenterPermission({ centerId: center.id }))
+            //         //
+            //         // this.nxStore.pipe(select(curCenterRefreshed), take(1)).subscribe((ccr) => {
+            //         //     if (!ccr) {
+            //         //         this.nxStore.dispatch(CenterCommonActions.startGetCurCenter({ centerId: center.id }))
+            //         //     }
+            //         // })
+            //         return true
+            //     }),
+            //     catchError((error: any) => {
+            //         this.addrData.addr = ''
+            //         this.addrData.isChecked = false
+            //         this.router.navigateByUrl('/redwhale-home')
+            //         return of(false)
+            //     })
+            // )
         }
     }
 }

@@ -31,6 +31,7 @@ import { CenterListItemComponent } from './center-list-item/center-list-item.com
 import { CenterInfoDropdownComponent } from './center-info-dropdown/center-info-dropdown.component'
 import { CenterProductInfoBoxComponent } from './center-product-info-box/center-product-info-box.component'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
+import { SetCenterModalComponent } from './set-center-modal/set-center-modal.component'
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
         CenterListItemComponent,
         CenterInfoDropdownComponent,
         CenterProductInfoBoxComponent,
+        SetCenterModalComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -86,6 +88,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
         CenterListItemComponent,
         CenterInfoDropdownComponent,
         CenterProductInfoBoxComponent,
+        SetCenterModalComponent,
     ],
     schemas: [],
 })

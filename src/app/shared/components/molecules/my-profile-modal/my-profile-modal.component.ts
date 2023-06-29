@@ -92,10 +92,10 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     constructor(
         private el: ElementRef,
         private renderer: Renderer2,
+        private storageService: StorageService,
         private spinner: NgxSpinnerService,
         private usersService: UsersService,
-        private nxStore: Store,
-        private storageService: StorageService
+        private nxStore: Store
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {

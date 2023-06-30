@@ -16,18 +16,19 @@ import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } f
 import { Loading } from '@schemas/loading'
 import { ModalOutPut } from '@schemas/components/modal'
 import { changesOn } from '@shared/helper/component-helper'
+import { ChangeUserNameOutput } from '@shared/components/molecules/change-user-name-modal/change-user-name-modal.component'
 
-export type ChangeUserNameOutput = {
+export type ChangeCenterNameOutput = {
     loadingFn: ModalOutPut
     value: string
 }
 
 @Component({
-    selector: 'rwm-change-user-name-modal',
-    templateUrl: './change-user-name-modal.component.html',
-    styleUrls: ['./change-user-name-modal.component.scss'],
+    selector: 'rwm-change-center-name-modal',
+    templateUrl: './change-center-name-modal.component.html',
+    styleUrls: ['./change-center-name-modal.component.scss'],
 })
-export class ChangeUserNameModalComponent implements OnChanges, AfterViewInit, AfterViewChecked {
+export class ChangeCenterNameModalComponent implements OnChanges, AfterViewInit, AfterViewChecked {
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 

@@ -51,7 +51,7 @@ export class PaymentService {
     }
 
     // 결제 정보 검증 및 저장하기
-    validatePaymentDataAndSave(reqBody: ValidatePaymentDataAndSaveReqBody): Observable<{ amount: number }> {
+    validatePaymentDataAndSave(reqBody: ValidatePaymentDataAndSaveReqBody): Observable<Response> {
         const url = this.SERVER + `/complete`
         return this.http.post<Response>(url, reqBody, this.options).pipe(
             map((res) => {
@@ -61,7 +61,7 @@ export class PaymentService {
         )
     }
 
-    // 결제 내역 조회   // 결제 내역 스키마 정리 필요
+    // 결제 내역 조회   // 결제 내역 스키마 정리 필요 -- 06/30
     getPaymentHistory(centerId: string, page?: number, pageSize?: number): Observable<Array<PaymentHistoryItem>> {
         const url =
             this.SERVER +
@@ -213,7 +213,7 @@ export interface CreatePaymentDataReqBody {
 }
 export interface PromotionReq {
     promotion_code: PromotionCode
-    center_address?: string
+    center_code?: string
 }
 
 export interface ValidatePaymentDataAndSaveReqBody {
@@ -231,7 +231,7 @@ export interface SubscribePaymentCustomersReqBody {
 
 export interface RefundPaymentDataReqBody {
     merchant_uid: string
-    amount: string
+    amount: number
 }
 
 export interface SubscribePayments {

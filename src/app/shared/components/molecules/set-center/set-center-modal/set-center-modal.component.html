@@ -1,0 +1,52 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose(false)"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="title">
+                <div class="title-left">
+                    <span>센터 설정</span>
+                    <div class="divider"></div>
+                    <span>{{ center.name }}</span>
+                </div>
+                <rwa-icon-ghost-button
+                    sizeType="md"
+                    borderRadius="14px"
+                    borderColor="var(--gray-60)"
+                    (onClick)="onClose(false)"
+                >
+                    <ng-template iconGhostBtIdleContent>
+                        <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                    </ng-template>
+                </rwa-icon-ghost-button>
+            </div>
+            <div class="category">
+                <rwa-tab-sm [tabs]="categoris" (onTabItemSelected)="categoris = $event"></rwa-tab-sm>
+                <div class="border-bottom"></div>
+            </div>
+        </div>
+
+        <div class="body scroll-y-overlay" #body>
+            <!-- 센터 정보 -->
+            <ng-container *ngIf="categoris[0].selected">
+                <rwm-set-center-info [center]="center"></rwm-set-center-info>
+            </ng-container>
+            <!-- 직원 관리 -->
+            <ng-container *ngIf="categoris[1].selected">
+                <rwm-set-center-employee-management></rwm-set-center-employee-management>
+            </ng-container>
+            <!-- 운영 정책 -->
+            <ng-container *ngIf="categoris[2].selected">
+                <rwm-set-center-policy-management></rwm-set-center-policy-management>
+            </ng-container>
+            <!-- 이용권 결제 관리 -->
+            <ng-container *ngIf="categoris[3].selected">
+                <rwm-set-center-payment-management></rwm-set-center-payment-management>
+            </ng-container>
+        </div>
+    </div>
+</div>

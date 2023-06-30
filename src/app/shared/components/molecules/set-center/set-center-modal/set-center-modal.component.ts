@@ -14,6 +14,8 @@ import {
 
 import { changesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
+import { Center } from '@schemas/center'
+import { TabInput } from '@schemas/components/tab'
 
 @Component({
     selector: 'rwm-set-center-modal',
@@ -21,6 +23,8 @@ import { StorageService } from '@services/storage.service'
     styleUrls: ['./set-center-modal.component.scss'],
 })
 export class SetCenterModalComponent implements OnChanges, AfterViewChecked, AfterViewInit {
+    @Input() center: Center
+
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
@@ -29,6 +33,13 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
     @ViewChild('modalBackgroundElement') modalBackgroundElement: ElementRef
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
+
+    public categoris: TabInput[] = [
+        { name: '센터 정보', selected: true },
+        { name: '직원 관리', selected: false },
+        { name: '운영 정책', selected: false },
+        { name: '이용권 결제 관리', selected: false },
+    ]
 
     constructor(private el: ElementRef, private renderer: Renderer2, private storageService: StorageService) {}
 
@@ -54,6 +65,9 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
+
+    // -----------------------------------------------------------------------------------------------------------
+
 
     // -----------------------------------------------------------------------------------------------------------
     @Output() close = new EventEmitter()

@@ -2338,6 +2338,14 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
+    <h1>센터 설정</h1>
+    <p class="v-padding"></p>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-button (onClick)="openSetCenter = true">
+            <ng-template btIdleContent>센터 설정</ng-template>
+        </rwa-button>
+    </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
 </div>
@@ -2379,3 +2387,9 @@
         </div>
     </div>
 </rwa-vacant-modal>
+
+<rwm-set-center-modal
+    [(visible)]="openSetCenter"
+    [center]="centers[1]"
+    (close)="openSetCenter = false"
+></rwm-set-center-modal>

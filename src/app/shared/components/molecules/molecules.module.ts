@@ -31,7 +31,13 @@ import { CenterListItemComponent } from './center-list-item/center-list-item.com
 import { CenterInfoDropdownComponent } from './center-info-dropdown/center-info-dropdown.component'
 import { CenterProductInfoBoxComponent } from './center-product-info-box/center-product-info-box.component'
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader'
-import { SetCenterModalComponent } from './set-center-modal/set-center-modal.component'
+import { SetCenterModalComponent } from '@shared/components/molecules/set-center/set-center-modal/set-center-modal.component'
+import { SetCenterPolicyManagementComponent } from './set-center/set-center-policy-management/set-center-policy-management.component'
+import { SetCenterPaymentManagementComponent } from './set-center/set-center-payment-management/set-center-payment-management.component'
+import { SetCenterInfoComponent } from './set-center/set-center-info/set-center-info.component'
+import { SetCenterEmployeeManagementComponent } from './set-center/set-center-employee-management/set-center-employee-management.component'
+import { ChangeCenterNameModalComponent } from './change-center-name-modal/change-center-name-modal.component'
+import { ChangeCenterPhoneNumberModalComponent } from './change-center-phone-number-modal/change-center-phone-number-modal.component'
 
 @NgModule({
     declarations: [
@@ -55,6 +61,12 @@ import { SetCenterModalComponent } from './set-center-modal/set-center-modal.com
         CenterInfoDropdownComponent,
         CenterProductInfoBoxComponent,
         SetCenterModalComponent,
+        SetCenterPolicyManagementComponent,
+        SetCenterPaymentManagementComponent,
+        SetCenterInfoComponent,
+        SetCenterEmployeeManagementComponent,
+        ChangeCenterNameModalComponent,
+        ChangeCenterPhoneNumberModalComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -89,6 +101,12 @@ import { SetCenterModalComponent } from './set-center-modal/set-center-modal.com
         CenterInfoDropdownComponent,
         CenterProductInfoBoxComponent,
         SetCenterModalComponent,
+        SetCenterPolicyManagementComponent,
+        SetCenterPaymentManagementComponent,
+        SetCenterInfoComponent,
+        SetCenterEmployeeManagementComponent,
+        ChangeCenterNameModalComponent,
+        ChangeCenterPhoneNumberModalComponent,
     ],
     schemas: [],
 })

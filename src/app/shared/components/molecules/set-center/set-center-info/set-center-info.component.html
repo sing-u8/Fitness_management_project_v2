@@ -1,0 +1,92 @@
+<div class="l-center-info">
+    <div class="l-center-avatar">
+        <rwm-center-photo
+            [pictureSrc]="centerPictureSrc"
+            (pictureChange)="onCenterPictureChange($event)"
+        ></rwm-center-photo>
+
+        <div class="l-center-code">
+            <div class="center-code">
+                <div class="title">센터 코드</div>
+                <div class="code">
+                    {{ center.code }}
+                </div>
+            </div>
+            <rwa-text-button
+                [showUnderLine]="true"
+                [fontWeight]="'700'"
+                [fontSize]="'1.5rem'"
+                [lineHeight]="'23px'"
+                [color]="'var(--gray-90)'"
+                (onClick)="copyCenterCode()"
+            >
+                복사하기
+            </rwa-text-button>
+        </div>
+
+        <rwa-text-button
+            class="leave-center"
+            [showUnderLine]="true"
+            [fontWeight]="'700'"
+            [fontSize]="'1.5rem'"
+            [lineHeight]="'23px'"
+            [color]="'var(--gray-90)'"
+            (onClick)="leaveCenter()"
+        >
+            이 센터에서 나가기
+        </rwa-text-button>
+    </div>
+
+    <div class="center-info">
+        <div class="center-info-header">
+            <div class="header-tag"></div>
+            <div class="header-title">기본 정보</div>
+            <div class="header-desc">
+                <div class="info-icon"></div>
+                <span>‘사진, 이름, 전화번호, 주소’는 회원에게 공개돼요.</span>
+            </div>
+        </div>
+        <div class="center-info-body">
+            <div class="center-info-body-item" *ngFor="let item of centerInfoList">
+                <div class="item-name">{{ item.name }}</div>
+                <div class="l-item-value">
+                    <div
+                        *ngIf="item.type == 'phone-number'"
+                        class="item-value"
+                        [class.change-button-exist]="item.changeAvailable"
+                    >
+                        {{ item.value | phoneNumber }}
+                    </div>
+                    <div
+                        *ngIf="item.type != 'phone-number'"
+                        class="item-value line-ellipsis"
+                        [class.change-button-exist]="item.changeAvailable"
+                    >
+                        {{ item.value }}
+                    </div>
+                    <rwa-ghost-button
+                        *ngIf="item.changeAvailable"
+                        height="37px"
+                        padding="5px 11px 3px"
+                        (onClick)="item.onChangeClick()"
+                    >
+                        <ng-template gbtIdleContent><span class="change-button-text">변경</span></ng-template>
+                    </rwa-ghost-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<rwm-change-center-name-modal
+    [(visible)]="showChangeNameModal"
+    (close)="showChangeNameModal = false"
+    (onNameConfirm)="onChangeName($event)"
+    [name]="center?.name"
+></rwm-change-center-name-modal>
+<rwm-change-center-phone-number-modal
+    [(visible)]="showChangePhoneNumberModal"
+    (close)="showChangePhoneNumberModal = false"
+    (onPhoneNumberConfirm)="onChangePhoneNumber($event)"
+    [phoneNumber]="center?.phone_number"
+></rwm-change-center-phone-number-modal>

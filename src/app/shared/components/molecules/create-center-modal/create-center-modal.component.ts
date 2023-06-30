@@ -29,8 +29,6 @@ import { Loading } from '@schemas/loading'
 import { changesOn } from '@shared/helper/component-helper'
 import { originalOrder } from '@shared/helper/pipe/keyvalue-helper'
 
-import { ChangeUserNameOutput } from '@shared/components/molecules/change-user-name-modal/change-user-name-modal.component'
-import dayjs from 'dayjs'
 import _ from 'lodash'
 
 import { showToast } from '@store/app/actions/toast.action'

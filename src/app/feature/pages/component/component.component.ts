@@ -841,4 +841,6 @@ export class ComponentComponent implements OnDestroy {
             zip_no: '46700',
         },
     ]
+
+    public openSetCenter = false
 }

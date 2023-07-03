@@ -1,10 +1,15 @@
-import { AfterViewInit, Component, Input, OnChanges, SimpleChanges } from '@angular/core'
+import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
 import { Center } from '@schemas/center'
 
 import _ from 'lodash'
 import { detectChangesOn } from '@shared/helper/component-helper'
 import { ChangeCenterNameOutput } from '@shared/components/molecules/change-center-name-modal/change-center-name-modal.component'
 import { ChangeCenterPhoneNumberOutput } from '@shared/components/molecules/change-center-phone-number-modal/change-center-phone-number-modal.component'
+
+import { FileService } from '@services/file.service'
+
+import { showToast } from '@store/app/actions/toast.action'
+import { Store } from '@ngrx/store'
 
 export type CenterInfo = 'name' | 'phoneNumber' | 'address'
 
@@ -16,6 +21,8 @@ export type CenterInfo = 'name' | 'phoneNumber' | 'address'
 export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     @Input() center: Center
 
+    @ViewChild('businessLicense') businessLicense_el: ElementRef
+
     public centerPicture: FileList = undefined
     public centerPictureSrc = ''
     onCenterPictureChange(res: { pictureFile: FileList; pictureSrc: string }) {
@@ -23,7 +30,11 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         this.centerPictureSrc = res.pictureSrc
     }
 
-    copyCenterCode() {}
+    copyCenterCode() {
+        window.navigator.clipboard.writeText(this.center.code).then(() => {
+            this.nxStore.dispatch(showToast({ text: '센터 코드가 복사되었어요.' }))
+        })
+    }
 
     leaveCenter() {}
 
@@ -54,7 +65,9 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             name: '사업자 등록증',
             value: '',
             changeAvailable: true,
-            onChangeClick: () => {},
+            onChangeClick: () => {
+                this.businessLicense_el.nativeElement.click()
+            },
         },
     ]
     centerInfoInit() {
@@ -87,7 +100,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         })
     }
 
-    constructor() {}
+    constructor(private fileService: FileService, private nxStore: Store) {}
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'center', (v) => {
             this.centerInfoInit()
@@ -95,6 +108,31 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     }
     ngAfterViewInit() {
         this.centerInfoInit()
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+    public businessLicenseFile: FileList = undefined
+    public businessLicenseFileName = ''
+
+    onBusinessLicenseClicked(event) {
+        event.target.value = null
+    }
+    setBusinessLicenseFile(file: any) {
+        if (this.fileService.checkFileSizeTooLarge(file.files[0], 2)) {
+            this.nxStore.dispatch(
+                showToast({
+                    text: '파일의 용량이 커서 업로드할 수 없어요. (최대 2MB)',
+                })
+            )
+            return
+        }
+
+        this.businessLicenseFile = file.files
+        const fileReader = new FileReader()
+        fileReader.onload = (e) => {
+            this.businessLicenseFileName = this.businessLicenseFile[0].name
+        }
+        fileReader.readAsDataURL(this.businessLicenseFile[0])
     }
 
     // -----------------------------------------------------------------------------------------------------------

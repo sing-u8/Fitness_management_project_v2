@@ -74,6 +74,14 @@
                     </rwa-ghost-button>
                 </div>
             </div>
+            <input
+                type="file"
+                accept="image/png, image/jpg, .pdf"
+                #businessLicense
+                (click)="onBusinessLicenseClicked($event)"
+                (change)="setBusinessLicenseFile(businessLicense)"
+                hidden
+            />
         </div>
     </div>
 </div>

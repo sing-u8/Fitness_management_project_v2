@@ -1,0 +1,32 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-flip {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    &.disable {
+        cursor: auto;
+    }
+
+    .content {
+        display: flex;
+        align-items: center;
+    }
+
+    .caret-down-1-icon {
+        margin-right: 10px;
+        transform: rotateX(0deg);
+        transition: transform 0.2s linear;
+        -moz-transition: transform 0.2s linear;
+        -webkit-transition: transform 0.2s linear;
+        -o-transition: transform 0.2s linear;
+
+        &.open {
+            transform: rotateX(180deg);
+        }
+    }
+}

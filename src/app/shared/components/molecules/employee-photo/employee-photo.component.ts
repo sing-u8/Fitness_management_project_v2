@@ -1,11 +1,11 @@
 import { Component, Input, Output, EventEmitter, OnChanges, SimpleChanges, ViewChild, ElementRef } from '@angular/core'
 
 @Component({
-    selector: 'rwm-center-photo',
-    templateUrl: './center-photo.component.html',
-    styleUrls: ['./center-photo.component.scss'],
+  selector: 'rwm-employee-photo',
+  templateUrl: './employee-photo.component.html',
+  styleUrls: ['./employee-photo.component.scss']
 })
-export class CenterPhotoComponent implements OnChanges {
+export class EmployeePhotoComponent implements OnChanges {
     @Input() pictureSrc = ''
     @Output() pictureChange = new EventEmitter<{
         pictureFile: FileList
@@ -39,8 +39,5 @@ export class CenterPhotoComponent implements OnChanges {
     }
     onPhotoClicked(event) {
         event.target.value = null
-    }
-    isFileExist(fileList: FileList) {
-        return !(fileList && fileList.length == 0)
     }
 }

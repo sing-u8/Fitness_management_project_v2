@@ -1,0 +1,6 @@
+<div class="l-flip" [class.disable]="disable" (click)="!disable && _onClick()">
+    <div class="caret-down-1-icon" [class.open]="open"></div>
+    <div class="content">
+        <ng-content></ng-content>
+    </div>
+</div>

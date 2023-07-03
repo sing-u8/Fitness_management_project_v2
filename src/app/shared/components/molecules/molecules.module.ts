@@ -38,6 +38,9 @@ import { SetCenterInfoComponent } from './set-center/set-center-info/set-center-
 import { SetCenterEmployeeManagementComponent } from './set-center/set-center-employee-management/set-center-employee-management.component'
 import { ChangeCenterNameModalComponent } from './change-center-name-modal/change-center-name-modal.component'
 import { ChangeCenterPhoneNumberModalComponent } from './change-center-phone-number-modal/change-center-phone-number-modal.component'
+import { SetCenterEmployeeCardComponent } from './set-center/set-center-employee-card/set-center-employee-card.component'
+import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component'
+import { EmployeePhotoComponent } from './employee-photo/employee-photo.component'
 
 @NgModule({
     declarations: [
@@ -67,6 +70,9 @@ import { ChangeCenterPhoneNumberModalComponent } from './change-center-phone-num
         SetCenterEmployeeManagementComponent,
         ChangeCenterNameModalComponent,
         ChangeCenterPhoneNumberModalComponent,
+        SetCenterEmployeeCardComponent,
+        CreateEmployeeModalComponent,
+        EmployeePhotoComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -107,6 +113,8 @@ import { ChangeCenterPhoneNumberModalComponent } from './change-center-phone-num
         SetCenterEmployeeManagementComponent,
         ChangeCenterNameModalComponent,
         ChangeCenterPhoneNumberModalComponent,
+        CreateEmployeeModalComponent,
+        EmployeePhotoComponent,
     ],
     schemas: [],
 })

@@ -37,9 +37,8 @@ export class UsersCenterService {
             catchError(handleError)
         )
     }
-
-    leave(userId: string, centerId: string): Observable<Response> {
-        const url = this.SERVER + `/${userId}/center/${centerId}/leave`
+    setCenterConnection(userId: string, centerId: string, reqBody: SetCenterConnectionReqBody): Observable<Center> {
+        const url = this.SERVER + `/${userId}/center/${centerId}/connection`
 
         const options = {
             headers: new HttpHeaders({
@@ -47,15 +46,32 @@ export class UsersCenterService {
             }),
         }
 
-        return this.http.put<Response>(url, {}, options).pipe(
+        return this.http.put<Response>(url, reqBody, options).pipe(
             map((res) => {
-                return res
+                return res.dataset[0]
             }),
             catchError(handleError)
         )
     }
+
+    // leave(userId: string, centerId: string): Observable<Response> {
+    //     const url = this.SERVER + `/${userId}/center/${centerId}/leave`
+    //
+    //     const options = {
+    //         headers: new HttpHeaders({
+    //             'Content-Type': 'application/json',
+    //         }),
+    //     }
+    //
+    //     return this.http.put<Response>(url, {}, options).pipe(
+    //         map((res) => {
+    //             return res
+    //         }),
+    //         catchError(handleError)
+    //     )
+    // }
 }
 
-export interface AddCenterToUserReqBody {
-    center_id: string
+export interface SetCenterConnectionReqBody {
+    connection: boolean
 }

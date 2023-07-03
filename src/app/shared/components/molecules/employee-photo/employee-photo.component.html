@@ -1,0 +1,44 @@
+<div class="l-profile-photo">
+    <div
+        class="profile-photo"
+        [style.background-color]="!!!pictureSrc ? '#6B9CB2' : 'var(--white)'"
+        [class.empty]="!!!pictureSrc"
+    >
+        <rwa-svg-avatar-smiley *ngIf="!!!pictureSrc" width="75px" height="75px"></rwa-svg-avatar-smiley>
+        <img class="employee-image" *ngIf="!!pictureSrc" [src]="pictureSrc" loading="lazy" alt="user-picture.png" />
+        <input
+            type="file"
+            accept="image/*"
+            #userProfile
+            (change)="setPhoto(userProfile)"
+            (click)="onPhotoClicked($event)"
+            hidden
+        />
+    </div>
+    <rwa-icon-ghost-button
+        class="add-picture"
+        [class.hide-icon]="!!pictureSrc"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="직원 사진 등록"
+    >
+        <ng-template iconGhostBtIdleContent>
+            <rwa-svg-plus [color]="'var(--gray-90)'" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
+        </ng-template>
+    </rwa-icon-ghost-button>
+    <rwa-icon-ghost-button
+        class="edit-picture"
+        [class.hide-icon]="!!!pictureSrc"
+        [sizeType]="'md'"
+        (onClick)="userProfile.click()"
+        rwTooltip
+        rwTooltipPlacement="bottom"
+        rwTooltipTitle="내 사진 등록"
+    >
+        <ng-template iconGhostBtIdleContent>
+            <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
+        </ng-template>
+    </rwa-icon-ghost-button>
+</div>

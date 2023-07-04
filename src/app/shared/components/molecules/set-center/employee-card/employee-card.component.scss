@@ -1,0 +1,94 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.at-icon,
+.user-circle-icon,
+.phone-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+}
+
+.l-employee-card {
+    width: 340px;
+    height: 155px;
+    padding: 18px;
+    border-radius: 20px;
+    border: 1px solid var(--gray-50);
+    background: var(--white);
+    display: flex;
+    position: relative;
+
+    .employee-avatar {
+        margin-right: 18px;
+        width: 75px;
+        height: 75px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 29px;
+        position: relative;
+        img {
+            object-fit: cover;
+            border-radius: 50px;
+        }
+    }
+    .employee-info {
+        width: calc(100% - 75px - 18px);
+        display: flex;
+        flex-direction: column;
+        position: relative;
+
+        .edit-employee-button {
+            position: absolute;
+            right: 0px;
+            top: 0px;
+        }
+
+        .employee-info__title {
+            width: calc(100% - 47px);
+            display: flex;
+            .employee-name {
+                @include rw-type-b(1.7rem, 28px, var(--font-color));
+            }
+            .tag {
+                margin-left: 6px;
+                display: inline-flex;
+                padding: 5px 9px 4px 9px;
+                justify-content: center;
+                align-items: center;
+                border-radius: 20px;
+                &.disconnected {
+                    background-color: var(--gray-50);
+                    @include rw-type-r(1.4rem, 18.8px, var(--font-color));
+                    min-width: 55px;
+                }
+                &.pending {
+                    background-color: var(--state-warning-5);
+                    @include rw-type-r(1.4rem, 18.8px, var(--state-warning-100));
+
+                    min-width: 83px;
+                }
+                &.connected {
+                    background-color: var(--red-5);
+                    @include rw-type-r(1.4rem, 18.8px, var(--red-100));
+                    min-width: 43px;
+                }
+            }
+        }
+        .employee-info__content {
+            display: flex;
+            flex-direction: column;
+            .employee-info__content-item {
+                display: flex;
+                align-items: center;
+                @include rw-type-r(1.5rem, 23px, var(--font-color));
+                &:not(:last-of-type) {
+                    margin-bottom: 6px;
+                }
+            }
+        }
+    }
+}

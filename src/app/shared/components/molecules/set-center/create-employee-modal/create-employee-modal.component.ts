@@ -23,6 +23,7 @@ import { StorageService } from '@services/storage.service'
 import { SearchAddressService } from '@services/search-address/search-address.service'
 import { CenterService } from '@services/center.service'
 import { FileService } from '@services/file.service'
+import { CenterEmployeeService, CreateEmployeeReqBody, RoleCode } from '@services/center-employee.service'
 
 import { Loading } from '@schemas/loading'
 
@@ -36,6 +37,9 @@ import { Store } from '@ngrx/store'
 import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { TabInput } from '@schemas/components/tab'
+import { Employee } from '@schemas/employee'
+import { Center } from '@schemas/center'
+import { Status } from '@schemas/components/status'
 
 @Component({
     selector: 'rwm-create-employee-modal',
@@ -43,6 +47,8 @@ import { TabInput } from '@schemas/components/tab'
     styleUrls: ['./create-employee-modal.component.scss'],
 })
 export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit, OnDestroy {
+    @Input() center: Center
+
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
@@ -83,22 +89,25 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     get email() {
         return this.centerForm.get('email')
     }
+    public emailStatus: Status = 'none'
 
-    public centerPicture: FileList = undefined
-    public centerPictureSrc = ''
+    public employeePicture: FileList = undefined
+    public employeePictureSrc = ''
     onCenterPictureChange(res: { pictureFile: FileList; pictureSrc: string }) {
-        this.centerPicture = res.pictureFile
-        this.centerPictureSrc = res.pictureSrc
+        this.employeePicture = res.pictureFile
+        this.employeePictureSrc = res.pictureSrc
     }
     public linkEmailAccount = false
 
     reset() {
         this.centerForm.reset()
 
-        this.centerPicture = undefined
-        this.centerPictureSrc = ''
+        this.employeePicture = undefined
+        this.employeePictureSrc = ''
 
         this.linkEmailAccount = false
+
+        this.emailStatus = 'none'
     }
 
     constructor(
@@ -113,7 +122,8 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         private fileService: FileService,
         public location: Location,
         public router: Router,
-        private fb: FormBuilder
+        private fb: FormBuilder,
+        private centerEmployeeService: CenterEmployeeService
     ) {}
 
     ngOnInit() {
@@ -129,7 +139,7 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             this.phoneNumber.setValue(value, { emitEvent: false })
         })
         this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-            this.linkEmailAccount = v.length != 0
+            this.linkEmailAccount = v?.length != 0
         })
     }
 
@@ -163,6 +173,43 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     // -----------------------------------------------------------------------------------------------------------
     createEmployee() {
         this.createButtonLoading = 'pending'
+        this.emailStatus = 'none'
+
+        const reqBody: CreateEmployeeReqBody = {
+            role_code: _.find(this.positionTabs, (v) => v.selected).value as RoleCode,
+            name: this.employeeName.value,
+            phone_number: _.replace(this.phoneNumber.value, /[^0-9]/gi, ''),
+            email: this.email.value ?? '',
+            connection: this.linkEmailAccount,
+        }
+
+        this.centerEmployeeService.createEmployee(this.center.id, reqBody).subscribe({
+            next: (emp) => {
+                const cb = (employee: Employee) => {
+                    this.createButtonLoading = 'idle'
+                    this.nxStore.dispatch(showToast({ text: '직원이 등록되었어요.' }))
+                    this.onEmployeeCreated.emit(employee)
+                }
+
+                if (!_.isEmpty(this.employeePicture)) {
+                    this.fileService
+                        .uploadFile('file_type_center_employee_picture', this.employeePicture, this.center.id, emp.id)
+                        .subscribe((files) => {
+                            const empCopy = _.cloneDeep(emp)
+                            empCopy.picture = files[0].url
+                            cb(empCopy)
+                        })
+                } else {
+                    cb(emp)
+                }
+            },
+            error: (err) => {
+                this.createButtonLoading = 'idle'
+                if (err.code == 'FUNCTION_CENTER_EMPLOYEE_001') {
+                    this.emailStatus = 'error'
+                }
+            },
+        })
     }
 
     // -----------------------------------------------------------------------------------------------------------
@@ -170,14 +217,11 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     // -----------------------------------------------------------------------------------------------------------
 
     @Output() close = new EventEmitter()
-    @Output() open = new EventEmitter()
+    @Output() onEmployeeCreated = new EventEmitter<Employee>()
     public scrollTop = 0
     onClose(keepScroll = true): void {
         this.scrollTop = keepScroll ? this.bodyElement.nativeElement.scrollTop : 0
         this.close.emit()
-    }
-    onOpen() {
-        this.open.emit()
     }
     // on mouse rw-modal down
     public isMouseModalDown = false

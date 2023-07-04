@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, Input, OnChanges, SimpleChanges, ViewChild } from '@angular/core'
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    ViewChild,
+} from '@angular/core'
 import { Center } from '@schemas/center'
 
 import _ from 'lodash'
@@ -20,6 +30,9 @@ export type CenterInfo = 'name' | 'phoneNumber' | 'address'
 })
 export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     @Input() center: Center
+
+    @Input() isInit: boolean
+    @Output() isInitChange = new EventEmitter<boolean>()
 
     @ViewChild('businessLicense') businessLicense_el: ElementRef
 

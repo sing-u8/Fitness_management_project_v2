@@ -1,0 +1,61 @@
+<div class="l-employee-card">
+    <div class="employee-avatar" [style.background-color]="employee.background ?? '#EB7C7C'">
+        <img
+            *ngIf="!!!employee.picture"
+            [src]="'/assets/icons/avatar/avatar-smiley-white.svg'"
+            loading="lazy"
+            [style.width]="'32px'"
+            [style.height]="'32px'"
+            alt="avatar-smiley-white.svg"
+        />
+        <img
+            *ngIf="!!employee.picture"
+            [src]="employee.picture"
+            loading="lazy"
+            [style.width]="'75px'"
+            [style.height]="'75px'"
+            alt="user-picture.png"
+        />
+    </div>
+
+    <div class="employee-info">
+        <rwa-icon-ghost-button class="edit-employee-button" [sizeType]="'sm'" borderRadius="12px">
+            <ng-template iconGhostBtIdleContent>
+                <rwa-svg-pencil width="19px" height="19px"></rwa-svg-pencil>
+            </ng-template>
+        </rwa-icon-ghost-button>
+
+        <div class="employee-info__title">
+            <div class="employee-name" rwEllipsisDropdown [lineClamp]="1" [edText]="employee.name">
+                {{ employee.name }}
+            </div>
+            <div
+                class="tag"
+                [ngClass]="
+                    employee.connection_status == 'employee_connection_status_connected'
+                        ? 'connected'
+                        : employee.connection_status == 'employee_connection_status_disconnected'
+                        ? 'connected'
+                        : 'pending'
+                "
+            >
+                {{ statusText }}
+            </div>
+        </div>
+
+        <div class="employee-info__content">
+            <div class="employee-info__content-item">
+                <div class="user-circle-icon"></div>
+                <span>{{ employee.role_name }}</span>
+            </div>
+            <div class="employee-info__content-item">
+                <div class="phone-icon"></div>
+                <span>{{ employee.phone_number | phoneNumber }}</span>
+            </div>
+            <div class="employee-info__content-item">
+                <div class="at-icon"></div>
+                <span>{{ employee.email }}</span>
+            </div>
+        </div>
+    </div>
+</div>

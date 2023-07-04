@@ -35,8 +35,7 @@ export class ProfilePhotoComponent {
         const files: FileList = picture.files
         if (!this.isFileExist(files)) return
 
-        const reqBody: UploadFileReqBody = { type_code: 'file_type_user_picture' }
-        this.fileService.uploadFile('', reqBody, files).subscribe((__) => {
+        this.fileService.uploadFile('file_type_user_picture', files).subscribe((__) => {
             console.log('resData - user uploadFile : ', __)
             this.usersService.getUser(this.user.id).subscribe({
                 next: (resData) => {

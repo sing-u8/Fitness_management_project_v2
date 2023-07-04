@@ -40,6 +40,7 @@
             *ngIf="!(headerState == 'freeTrialEnd' || headerState == 'expired')"
             [sizeType]="'md'"
             class="center-setting-icon"
+            (onClick)="setCenterModalVisible = true"
         >
             <ng-template iconGhostBtIdleContent>
                 <div class="gear-icon"></div>
@@ -61,7 +62,8 @@
                 {{
                     badgeState == 'expirationExpected' || badgeState == 'freeTrialEndExpected'
                         ? badgeStateObj[badgeState]['text1'] +
-                          badgeStateObj[badgeState]['day']+badgeStateObj[badgeState]['text2']
+                          badgeStateObj[badgeState]['day'] +
+                          badgeStateObj[badgeState]['text2']
                         : badgeStateObj[badgeState]['text']
                 }}
             </rwa-badge>
@@ -333,3 +335,9 @@
         </div>
     </div>
 </rwa-vacant-modal>
+
+<rwm-set-center-modal
+    [center]="center"
+    [(visible)]="setCenterModalVisible"
+    (close)="setCenterModalVisible = false"
+></rwm-set-center-modal>

@@ -1,9 +1,6 @@
 export interface Employee {
     id: string
-    connection_status:
-        | 'employee_connection_status_disconnected'
-        | 'employee_connection_status_pending'
-        | 'employee_connection_status_connected'
+    connection_status: EmployeeConnectionStatus
     membership_number: string
     name: string
     sex: string
@@ -17,3 +14,8 @@ export interface Employee {
     role_code: string
     role_name: string
 }
+
+export type EmployeeConnectionStatus =
+    | 'employee_connection_status_disconnected'
+    | 'employee_connection_status_pending'
+    | 'employee_connection_status_connected'

@@ -32,21 +32,29 @@
 
         <div class="body scroll-y-overlay" #body>
             <!-- 센터 정보 -->
-            <ng-container *ngIf="categoris[0].selected">
-                <rwm-set-center-info [center]="center"></rwm-set-center-info>
-            </ng-container>
+            <rwm-set-center-info
+                class="center-info"
+                [class.open]="categoris[0].selected"
+                [center]="center"
+            ></rwm-set-center-info>
             <!-- 직원 관리 -->
-            <ng-container *ngIf="categoris[1].selected">
-                <rwm-set-center-employee-management></rwm-set-center-employee-management>
-            </ng-container>
+            <rwm-set-center-employee-management
+                class="employee-management"
+                [class.open]="categoris[1].selected"
+                [center]="center"
+                [(isInit)]="categInitObj.employeeManagement"
+                [isOpen]="categoris[1].selected"
+            ></rwm-set-center-employee-management>
             <!-- 운영 정책 -->
-            <ng-container *ngIf="categoris[2].selected">
-                <rwm-set-center-policy-management></rwm-set-center-policy-management>
-            </ng-container>
+            <rwm-set-center-policy-management
+                class="policy-management"
+                [class.open]="categoris[2].selected"
+            ></rwm-set-center-policy-management>
             <!-- 이용권 결제 관리 -->
-            <ng-container *ngIf="categoris[3].selected">
-                <rwm-set-center-payment-management></rwm-set-center-payment-management>
-            </ng-container>
+            <rwm-set-center-payment-management
+                class="payment-management"
+                [class.open]="categoris[3].selected"
+            ></rwm-set-center-payment-management>
         </div>
     </div>
 </div>

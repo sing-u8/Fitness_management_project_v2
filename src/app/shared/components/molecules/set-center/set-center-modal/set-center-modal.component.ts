@@ -12,8 +12,9 @@ import {
     AfterViewInit,
 } from '@angular/core'
 
-import { changesOn } from '@shared/helper/component-helper'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
+import { CenterEmployeeService } from '@services/center-employee.service'
 import { Center } from '@schemas/center'
 import { TabInput } from '@schemas/components/tab'
 
@@ -41,7 +42,19 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
         { name: '이용권 결제 관리', selected: false },
     ]
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private storageService: StorageService) {}
+    public categInitObj = {
+        centerInfo: false,
+        employeeManagement: false,
+        centerPolicyManagement: false,
+        centerPaymentManagement: false,
+    }
+
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2,
+        private storageService: StorageService,
+        private centerEmployeeService: CenterEmployeeService
+    ) {}
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {
@@ -62,12 +75,12 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
                 }, 200)
             }
         })
+        detectChangesOn(changes, 'center', (v) => {})
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
 
     // -----------------------------------------------------------------------------------------------------------
-
 
     // -----------------------------------------------------------------------------------------------------------
     @Output() close = new EventEmitter()

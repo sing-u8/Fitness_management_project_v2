@@ -26,7 +26,7 @@ import { ChangeUserMarketingModalComponent } from './change-user-marketing-modal
 import { ChangeUserPasswordModalComponent } from './change-user-password-modal/change-user-password-modal.component'
 import { DeleteAccountModalComponent } from './delete-account-modal/delete-account-modal.component'
 import { CenterPhotoComponent } from './center-photo/center-photo.component'
-import { CreateCenterModalComponent } from './create-center-modal/create-center-modal.component'
+import { CreateCenterModalComponent } from '@shared/components/molecules/create-center-modal/create-center-modal.component'
 import { CenterListItemComponent } from './center-list-item/center-list-item.component'
 import { CenterInfoDropdownComponent } from './center-info-dropdown/center-info-dropdown.component'
 import { CenterProductInfoBoxComponent } from './center-product-info-box/center-product-info-box.component'
@@ -38,9 +38,10 @@ import { SetCenterInfoComponent } from './set-center/set-center-info/set-center-
 import { SetCenterEmployeeManagementComponent } from './set-center/set-center-employee-management/set-center-employee-management.component'
 import { ChangeCenterNameModalComponent } from './change-center-name-modal/change-center-name-modal.component'
 import { ChangeCenterPhoneNumberModalComponent } from './change-center-phone-number-modal/change-center-phone-number-modal.component'
-import { SetCenterEmployeeCardComponent } from './set-center/set-center-employee-card/set-center-employee-card.component'
-import { CreateEmployeeModalComponent } from './create-employee-modal/create-employee-modal.component'
+import { CreateEmployeeModalComponent } from '@shared/components/molecules/set-center/create-employee-modal/create-employee-modal.component'
 import { EmployeePhotoComponent } from './employee-photo/employee-photo.component'
+import { EmployeeCardComponent } from './set-center/employee-card/employee-card.component'
+import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal/update-employee-modal.component'
 
 @NgModule({
     declarations: [
@@ -70,9 +71,10 @@ import { EmployeePhotoComponent } from './employee-photo/employee-photo.componen
         SetCenterEmployeeManagementComponent,
         ChangeCenterNameModalComponent,
         ChangeCenterPhoneNumberModalComponent,
-        SetCenterEmployeeCardComponent,
         CreateEmployeeModalComponent,
         EmployeePhotoComponent,
+        EmployeeCardComponent,
+        UpdateEmployeeModalComponent,
     ],
     imports: [
         NgxSpinnerModule,
@@ -115,6 +117,8 @@ import { EmployeePhotoComponent } from './employee-photo/employee-photo.componen
         ChangeCenterPhoneNumberModalComponent,
         CreateEmployeeModalComponent,
         EmployeePhotoComponent,
+        EmployeeCardComponent,
+        UpdateEmployeeModalComponent,
     ],
     schemas: [],
 })

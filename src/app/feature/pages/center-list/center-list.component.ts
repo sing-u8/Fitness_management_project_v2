@@ -45,12 +45,15 @@ export class CenterListComponent implements OnInit, OnDestroy {
             next: ([centerList]) => {
                 this.centerList = centerList
                 this.centerLoading = 'idle'
+                console.log('center lsit : ', centerList)
             },
             error: (err) => {
                 this.centerLoading = 'idle'
             },
         })
     }
+
+    // --------------------------------------------------------------------------------------------------
 
     // --------------------------------------------------------------------------------------------------
 

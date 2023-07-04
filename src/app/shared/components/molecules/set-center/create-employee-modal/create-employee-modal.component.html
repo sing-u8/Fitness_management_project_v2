@@ -27,7 +27,7 @@
                 <div class="create-center-content__left">
                     <span class="tag"> 직원 사진 </span>
                     <rwm-employee-photo
-                        [pictureSrc]="centerPictureSrc"
+                        [pictureSrc]="employeePictureSrc"
                         (pictureChange)="onCenterPictureChange($event)"
                     ></rwm-employee-photo>
                 </div>
@@ -71,6 +71,8 @@
                             [type]="'normal'"
                             [inputLimit]="50"
                             [formControlName]="'email'"
+                            [status]="emailStatus"
+                            [statusText]="'이미 센터에 등록되어 있는 이메일 주소예요.'"
                         ></rwa-text-field>
                         <div class="email-terms">
                             <span class="terms-title"> ✨ 이메일 주소로 계정을 연동할 수 있어요! </span>
@@ -87,7 +89,7 @@
                     <div class="create-center-content__item">
                         <span class="tag">이메일 주소로 계정 연동</span>
                         <rwa-toggle-button
-                            [disable]="email.value.length == 0"
+                            [disable]="email.value?.length == 0"
                             [checked]="linkEmailAccount"
                             (onClick)="linkEmailAccount = !linkEmailAccount"
                             [label]="linkEmailAccount ? '직원 계정을 연동할게요.' : '직원 계정을 연동하지 않을게요.'"
@@ -97,7 +99,7 @@
                         padding="9px 25px 7px"
                         loadingName="create-center-button"
                         [status]="createButtonLoading"
-                        [disable]="centerForm.invalid"
+                        [disable]="phoneNumber.invalid || employeeName.invalid"
                         (onClick)="createEmployee()"
                     >
                         <ng-template btIdleContent>

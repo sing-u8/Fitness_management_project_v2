@@ -201,26 +201,18 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                 }
                 if (!_.isEmpty(this.centerPicture) && !_.isEmpty(this.businessLicenseFile)) {
                     forkJoin([
+                        this.fileService.uploadFile('file_type_center_picture', this.centerPicture, center.id),
                         this.fileService.uploadFile(
-                            center.id,
-                            { type_code: 'file_type_center_picture' },
-                            this.centerPicture
-                        ),
-                        this.fileService.uploadFile(
-                            center.id,
-                            { type_code: 'file_type_center_business_registration' },
-                            this.businessLicenseFile
+                            'file_type_center_business_registration',
+                            this.businessLicenseFile,
+                            center.id
                         ),
                     ]).subscribe(([centerPictureFile, businessLicenseFile]) => {
                         cb()
                     })
                 } else if (_.isEmpty(this.centerPicture) && !_.isEmpty(this.businessLicenseFile)) {
                     this.fileService
-                        .uploadFile(
-                            center.id,
-                            { type_code: 'file_type_center_business_registration' },
-                            this.businessLicenseFile
-                        )
+                        .uploadFile('file_type_center_business_registration', this.businessLicenseFile, center.id)
                         .subscribe((businessLicenseFile) => {
                             cb()
                         })

@@ -68,6 +68,8 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
+
+    public setCenterModalVisible = false
     constructor(private router: Router, private storageService: StorageService) {}
 
     ngOnChanges(changes: SimpleChanges) {

@@ -8,6 +8,7 @@ import { environment } from '@environments/environment'
 import { StorageService } from '@services/storage.service'
 import { CodeCategory } from '@schemas/code-category'
 import { Response } from '@schemas/response'
+import { File as _File } from '@schemas/file'
 import _ from 'lodash'
 
 @Injectable({
@@ -18,8 +19,8 @@ export class FileService {
 
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
-    uploadFile(centerId: string, reqBody: UploadFileReqBody, files: FileList): Observable<Array<File>> {
-        const url = this.SERVER + `?center_id=${centerId}&type_code=${reqBody.type_code}`
+    uploadFile(type_code: FileType, files: FileList, centerId = '', centerUserId = ''): Observable<Array<_File>> {
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}`
 
         const options = {
             headers: new HttpHeaders({
@@ -28,11 +29,6 @@ export class FileService {
         }
 
         const formData: FormData = new FormData()
-
-        // const keys = Object.keys(reqBody)
-        // keys.forEach((key) => {
-        //     formData.append(key, reqBody[key])
-        // })
 
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i])
@@ -46,15 +42,10 @@ export class FileService {
         )
     }
 
-    uploadFileWithReport(centerId: string, reqBody: UploadFileReqBody, files: FileList) {
-        const url = this.SERVER + `?center_id=${centerId}&type_code=${reqBody.type_code}`
+    uploadFileWithReport(type_code: FileType, files: FileList, centerId = '', centerUserId = '') {
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}`
 
         const formData: FormData = new FormData()
-
-        // const keys = Object.keys(reqBody)
-        // keys.forEach((key) => {
-        //     formData.append(key, reqBody[key])
-        // })
 
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i])
@@ -71,7 +62,7 @@ export class FileService {
             .pipe(catchError(handleError))
     }
 
-    getFile(param: GetFileParam): Observable<Array<File>> {
+    getFile(param: GetFileParam): Observable<Array<_File>> {
         const url =
             this.SERVER +
             `/files?type_code=${param.type_code}&center_id=${param.center_id}` +
@@ -157,6 +148,8 @@ export type FileType =
     | 'file_type_center_picture'
     | 'file_type_center_background'
     | 'file_type_center_business_registration'
+    | 'file_type_center_employee_picture'
+    | 'file_type_center_employee_background'
 export interface UploadFileReqBody {
     type_code: FileType
 }

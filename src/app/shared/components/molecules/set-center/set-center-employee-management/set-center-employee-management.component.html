@@ -35,7 +35,9 @@
                 <div class="position-name">강사</div>
                 <div class="position-length">{{ instructors.length }}명</div>
             </rwa-flip>
-            <div *ngIf="instructorFlipOpen" class="position-flip-content"></div>
+            <div *ngIf="instructorFlipOpen" class="position-flip-content">
+                <rwm-employee-card *ngFor="let emp of instructors" [employee]="emp"></rwm-employee-card>
+            </div>
         </div>
         <div class="l-administrator">
             <rwa-flip
@@ -46,19 +48,25 @@
                 <div class="position-name">관리자</div>
                 <div class="position-length">{{ administrators.length }}명</div>
             </rwa-flip>
-            <div *ngIf="administratorFlipOpen" class="position-flip-content"></div>
+            <div *ngIf="administratorFlipOpen" class="position-flip-content">
+                <rwm-employee-card *ngFor="let emp of administrators" [employee]="emp"></rwm-employee-card>
+            </div>
         </div>
         <div class="l-owner">
             <rwa-flip [open]="ownerFlipOpen" [disable]="owners.length == 0" (onClick)="ownerFlipOpen = !ownerFlipOpen">
                 <div class="position-name">운영자</div>
                 <div class="position-length">{{ owners.length }}명</div>
             </rwa-flip>
-            <div *ngIf="ownerFlipOpen" class="position-flip-content"></div>
+            <div *ngIf="ownerFlipOpen" class="position-flip-content">
+                <rwm-employee-card *ngFor="let emp of owners" [employee]="emp"></rwm-employee-card>
+            </div>
         </div>
     </div>
 </div>
 
 <rwm-create-employee-modal
+    [center]="center"
     [(visible)]="createEmployeeOpen"
     (close)="createEmployeeOpen = false"
+    (onEmployeeCreated)="onEmployeeCreated($event)"
 ></rwm-create-employee-modal>

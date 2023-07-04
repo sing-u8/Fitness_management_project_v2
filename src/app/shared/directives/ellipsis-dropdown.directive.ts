@@ -70,8 +70,7 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
 
         this.renderer.setStyle(element, 'position', 'relative')
         this.renderer.addClass(this.spanEl, 'line-ellipsis')
-        // this.renderer.setStyle(this.spanEl, '-webkit-line-clamp', `${this.lineClamp}`)
-
+        this.renderer.setStyle(this.spanEl, '-webkit-line-clamp', `${this.lineClamp}`)
 
         setTimeout(() => {
             if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {

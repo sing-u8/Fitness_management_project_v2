@@ -68,7 +68,7 @@
 
             .header-title {
                 display: flex;
-                align-items: flex-end;
+                align-items: baseline;
                 @include rw-type-b(2rem, 31px, var(--font-color));
             }
         }

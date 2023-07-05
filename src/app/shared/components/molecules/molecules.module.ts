@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core'
+import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core'
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
+import { NgScrollbar, ScrollViewport } from 'ngx-scrollbar'
 
 // modules
 import { DirectivesModule } from '@shared/directives/directives.module'
@@ -42,6 +44,7 @@ import { CreateEmployeeModalComponent } from '@shared/components/molecules/set-c
 import { EmployeePhotoComponent } from './employee-photo/employee-photo.component'
 import { EmployeeCardComponent } from './set-center/employee-card/employee-card.component'
 import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal/update-employee-modal.component'
+import { PermissionManagementModalComponent } from './set-center/permission-management-modal/permission-management-modal.component'
 
 @NgModule({
     declarations: [
@@ -75,8 +78,10 @@ import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal
         EmployeePhotoComponent,
         EmployeeCardComponent,
         UpdateEmployeeModalComponent,
+        PermissionManagementModalComponent,
     ],
     imports: [
+        NgScrollbar,
         NgxSpinnerModule,
         FormsModule,
         CommonModule,
@@ -87,6 +92,7 @@ import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal
         NgOptimizedImage,
         SharedTermsModule,
         NgxSkeletonLoaderModule,
+        ScrollViewport,
     ],
     exports: [
         DatepickerComponent,
@@ -120,6 +126,6 @@ import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal
         EmployeeCardComponent,
         UpdateEmployeeModalComponent,
     ],
-    schemas: [],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class MoleculesModule {}

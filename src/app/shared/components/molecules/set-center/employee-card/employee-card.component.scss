@@ -20,6 +20,7 @@
     background: var(--white);
     display: flex;
     position: relative;
+    box-sizing: border-box;
 
     .employee-avatar {
         margin-right: 18px;

@@ -1,0 +1,232 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose(false)"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">
+                <span>권한 관리</span>
+                <span class="header-title--desc"> 운영자는 모든 기능을 제한 없이 사용할 수 있어요. </span>
+            </div>
+            <rwa-icon-ghost-button
+                sizeType="md"
+                borderRadius="14px"
+                borderColor="var(--gray-60)"
+                (onClick)="onClose(false)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+
+        <div class="body-header">
+            <div class="body-header__left">
+                <span>기능</span>
+            </div>
+            <div class="body-header__right">
+                <span class="role-categ">관리자</span>
+                <span class="role-categ">강사</span>
+            </div>
+        </div>
+
+        <ng-scrollbar [track]="'vertical'" class="body rw-scroll">
+            <div scrollViewport #body>
+                <div class="body-content">
+                    <div class="permission-category">
+                        <div class="user-circle-icon"></div>
+                        <span>회원 관리</span>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>회원의 결제 내역을 삭제할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[0]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[0].approved =
+                                        !_rolePermission.administrator[0].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[0]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[0].approved = !_rolePermission.instructor[0].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="permission-category">
+                        <div class="arrow-fat-line-up-icon"></div>
+                        <span>매출</span>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>매출 페이지를 조회할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[1]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[1].approved =
+                                        !_rolePermission.administrator[1].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[1]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[1].approved = !_rolePermission.instructor[1].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="permission-category">
+                        <div class="gear-icon"></div>
+                        <span>센터 설정</span>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>센터 기본 정보를 수정할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[2]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[2].approved =
+                                        !_rolePermission.administrator[2].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[2]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[2].approved = !_rolePermission.instructor[2].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>직원을 수정, 삭제할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[3]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[3].approved =
+                                        !_rolePermission.administrator[3].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[3]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[3].approved = !_rolePermission.instructor[3].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>권한 관리를 수정할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[4]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[4].approved =
+                                        !_rolePermission.administrator[4].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[4]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[4].approved = !_rolePermission.instructor[4].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>운영 정책을 수정할 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[5]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[5].approved =
+                                        !_rolePermission.administrator[5].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[5]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[5].approved = !_rolePermission.instructor[5].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+
+                    <div class="permission-category">
+                        <div class="three-dots-icon"></div>
+                        <span>기타</span>
+                    </div>
+                    <div class="permission-value">
+                        <div class="permission-value__left">
+                            <span>표를 엑셀 파일로 다운로드 받을 수 있어요.</span>
+                        </div>
+                        <div class="permission-value__right">
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.administrator[6]?.approved"
+                                (onClick)="
+                                    _rolePermission.administrator[6].approved =
+                                        !_rolePermission.administrator[6].approved
+                                "
+                            ></rwa-checkbox>
+                            <rwa-checkbox
+                                class="role-categ"
+                                [checked]="_rolePermission?.instructor[6]?.approved"
+                                (onClick)="
+                                    _rolePermission.instructor[6].approved = !_rolePermission.instructor[6].approved
+                                "
+                            ></rwa-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ng-scrollbar>
+
+        <div class="footer">
+            <rwa-button
+                padding="9px 25px 7px"
+                loadingName="permission-management-button"
+                [status]="updateButtonLoading"
+                (onClick)="saveRolePermission()"
+            >
+                <ng-template btIdleContent>
+                    <span class="save-button-text">저장하기</span>
+                </ng-template>
+                <ng-template btPendingContent>
+                    <span class="save-button-text">저장하기</span>
+                </ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</div>

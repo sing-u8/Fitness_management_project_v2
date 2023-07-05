@@ -1,67 +1,75 @@
-<div class="l-employee-management scroll-y-overlay">
-    <div class="header">
-        <div class="header__left">
-            <span class="header__left-title">전체</span>
-            <span class="header__left-value">{{ employeeNumber }}명</span>
-        </div>
-        <div class="header__right">
-            <rwa-ghost-button
-                padding="7.5px 15px 5.5px 11px"
-                [height]="'42px'"
-                [borderColor]="'var(--red-100)'"
-                [hoverBorderColor]="'var(--red-100)'"
-                [fontColor]="'var(--red-100)'"
-                [hoverBgColor]="'var(--red-5)'"
-                (onClick)="createEmployeeOpen = true"
-            >
-                <ng-template gbtIdleContent>
-                    <rwa-svg-plus [margin]="'0 5px 0.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
-                    <span class="register-employee-text">직원 등록</span>
-                </ng-template>
-            </rwa-ghost-button>
-            <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px">
-                <ng-template gbtIdleContent><span class="set-permission-text">권한 설정</span></ng-template>
-            </rwa-ghost-button>
-        </div>
-    </div>
+<div class="l-employee-management">
+    <ng-scrollbar [track]="'vertical'" class="rw-scroll">
+        <div class="employee-management">
+            <div class="header">
+                <div class="header__left">
+                    <span class="header__left-title">전체</span>
+                    <span class="header__left-value">{{ employeeNumber }}명</span>
+                </div>
+                <div class="header__right">
+                    <rwa-ghost-button
+                        padding="7.5px 15px 5.5px 11px"
+                        [height]="'42px'"
+                        [borderColor]="'var(--red-100)'"
+                        [hoverBorderColor]="'var(--red-100)'"
+                        [fontColor]="'var(--red-100)'"
+                        [hoverBgColor]="'var(--red-5)'"
+                        (onClick)="createEmployeeOpen = true"
+                    >
+                        <ng-template gbtIdleContent>
+                            <rwa-svg-plus [margin]="'0 5px 0.5px 0'" [color]="'var(--red-100)'"></rwa-svg-plus>
+                            <span class="register-employee-text">직원 등록</span>
+                        </ng-template>
+                    </rwa-ghost-button>
+                    <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px" (onClick)="managePermissionOpen = true">
+                        <ng-template gbtIdleContent><span class="set-permission-text">권한 설정</span></ng-template>
+                    </rwa-ghost-button>
+                </div>
+            </div>
 
-    <div class="body">
-        <div class="l-instructor">
-            <rwa-flip
-                [open]="instructorFlipOpen"
-                [disable]="instructors.length == 0"
-                (onClick)="instructorFlipOpen = !instructorFlipOpen"
-            >
-                <div class="position-name">강사</div>
-                <div class="position-length">{{ instructors.length }}명</div>
-            </rwa-flip>
-            <div *ngIf="instructorFlipOpen" class="position-flip-content">
-                <rwm-employee-card *ngFor="let emp of instructors" [employee]="emp"></rwm-employee-card>
+            <div class="body">
+                <div class="l-instructor">
+                    <rwa-flip
+                        [open]="instructorFlipOpen"
+                        [disable]="instructors.length == 0"
+                        (onClick)="instructorFlipOpen = !instructorFlipOpen"
+                    >
+                        <div class="position-name">강사</div>
+                        <div class="position-length">{{ instructors.length }}명</div>
+                    </rwa-flip>
+                    <div *ngIf="instructorFlipOpen" class="position-flip-content">
+                        <rwm-employee-card *ngFor="let emp of instructors" [employee]="emp"></rwm-employee-card>
+                    </div>
+                </div>
+                <div class="l-administrator">
+                    <rwa-flip
+                        [open]="administratorFlipOpen"
+                        [disable]="administrators.length == 0"
+                        (onClick)="administratorFlipOpen = !administratorFlipOpen"
+                    >
+                        <div class="position-name">관리자</div>
+                        <div class="position-length">{{ administrators.length }}명</div>
+                    </rwa-flip>
+                    <div *ngIf="administratorFlipOpen" class="position-flip-content">
+                        <rwm-employee-card *ngFor="let emp of administrators" [employee]="emp"></rwm-employee-card>
+                    </div>
+                </div>
+                <div class="l-owner">
+                    <rwa-flip
+                        [open]="ownerFlipOpen"
+                        [disable]="owners.length == 0"
+                        (onClick)="ownerFlipOpen = !ownerFlipOpen"
+                    >
+                        <div class="position-name">운영자</div>
+                        <div class="position-length">{{ owners.length }}명</div>
+                    </rwa-flip>
+                    <div *ngIf="ownerFlipOpen" class="position-flip-content">
+                        <rwm-employee-card *ngFor="let emp of owners" [employee]="emp"></rwm-employee-card>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="l-administrator">
-            <rwa-flip
-                [open]="administratorFlipOpen"
-                [disable]="administrators.length == 0"
-                (onClick)="administratorFlipOpen = !administratorFlipOpen"
-            >
-                <div class="position-name">관리자</div>
-                <div class="position-length">{{ administrators.length }}명</div>
-            </rwa-flip>
-            <div *ngIf="administratorFlipOpen" class="position-flip-content">
-                <rwm-employee-card *ngFor="let emp of administrators" [employee]="emp"></rwm-employee-card>
-            </div>
-        </div>
-        <div class="l-owner">
-            <rwa-flip [open]="ownerFlipOpen" [disable]="owners.length == 0" (onClick)="ownerFlipOpen = !ownerFlipOpen">
-                <div class="position-name">운영자</div>
-                <div class="position-length">{{ owners.length }}명</div>
-            </rwa-flip>
-            <div *ngIf="ownerFlipOpen" class="position-flip-content">
-                <rwm-employee-card *ngFor="let emp of owners" [employee]="emp"></rwm-employee-card>
-            </div>
-        </div>
-    </div>
+    </ng-scrollbar>
 </div>
 
 <rwm-create-employee-modal
@@ -70,3 +78,11 @@
     (close)="createEmployeeOpen = false"
     (onEmployeeCreated)="onEmployeeCreated($event)"
 ></rwm-create-employee-modal>
+
+<rwm-permission-management-modal
+    [(visible)]="managePermissionOpen"
+    (close)="managePermissionOpen = false"
+    (onSave)="rolePermission = $event"
+    [rolePermission]="rolePermission"
+    [center]="center"
+></rwm-permission-management-modal>

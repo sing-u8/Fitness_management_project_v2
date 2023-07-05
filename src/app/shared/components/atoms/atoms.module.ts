@@ -1,6 +1,8 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core'
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
+
+import { NgScrollbar, ScrollViewport } from 'ngx-scrollbar'
 
 // modules
 import { DirectivesModule } from '@shared/directives/directives.module'
@@ -149,7 +151,16 @@ import { FlipComponent } from './flip/flip.component'
         BadgeComponent,
         FlipComponent,
     ],
-    imports: [NgxSpinnerModule, FormsModule, CommonModule, ReactiveFormsModule, DirectivesModule, PipesModule],
+    imports: [
+        ScrollViewport,
+        NgScrollbar,
+        NgxSpinnerModule,
+        FormsModule,
+        CommonModule,
+        ReactiveFormsModule,
+        DirectivesModule,
+        PipesModule,
+    ],
     exports: [
         // svg
         BallClipRotateComponent,
@@ -214,6 +225,6 @@ import { FlipComponent } from './flip/flip.component'
         BadgeComponent,
         FlipComponent,
     ],
-    schemas: [],
+    schemas: [NO_ERRORS_SCHEMA],
 })
 export class AtomsModule {}

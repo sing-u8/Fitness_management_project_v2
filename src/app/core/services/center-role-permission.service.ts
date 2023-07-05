@@ -10,7 +10,8 @@ import { StorageService } from '@services/storage.service'
 import { Response } from '@schemas/response'
 import { PermissionCategory } from '@schemas/permission-category'
 import { PermissionItem } from '@schemas/permission-item'
-import { Role } from '@schemas/role'
+import { Role } from '@schemas/role-permission'
+import { RolePermission } from '@schemas/role-permission'
 
 @Injectable({
     providedIn: 'root',
@@ -18,6 +19,37 @@ import { Role } from '@schemas/role'
 export class CenterRolePermissionService {
     private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
     constructor(private http: HttpClient, private storageService: StorageService) {}
+
+    getRolePermission(centerId: string): Observable<Record<Role, RolePermission[]>> {
+        const url = this.SERVER + `/${centerId}/role-permission`
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.get<Response>(url, options).pipe(
+            map((res) => {
+                return res.dataset[0]
+            }),
+            catchError(handleError)
+        )
+    }
+    updateRolePermission(centerId: string, reqBody: UpdateRolePermissionReqBody): Observable<Response> {
+        const url = this.SERVER + `/${centerId}/role-permission`
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.put<Response>(url, reqBody, options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
 
     createRole(centerId: string, reqBody: CreateRoleReqBody): Observable<Role> {
         const url = this.SERVER + `/${centerId}/role`
@@ -121,6 +153,8 @@ export class CenterRolePermissionService {
         )
     }
 }
+
+export type UpdateRolePermissionReqBody = Record<Role, Array<{ code: string; approved: boolean }>>
 
 export interface CreateRoleReqBody {
     code: string

@@ -46,15 +46,15 @@
         <div class="employee-info__content">
             <div class="employee-info__content-item">
                 <div class="user-circle-icon"></div>
-                <span>{{ employee.role_name }}</span>
+                <span>{{ employee.role_name ?? '-' }}</span>
             </div>
             <div class="employee-info__content-item">
                 <div class="phone-icon"></div>
-                <span>{{ employee.phone_number | phoneNumber }}</span>
+                <span>{{ (employee.phone_number | phoneNumber) ?? '-' }}</span>
             </div>
             <div class="employee-info__content-item">
                 <div class="at-icon"></div>
-                <span>{{ employee.email }}</span>
+                <span>{{ employee.email ?? '-' }}</span>
             </div>
         </div>
     </div>

@@ -86,6 +86,16 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     }
 
     // ---------------------------------------------------------------------------------------------------
+    public editEmployeeModalOpen = false
+    public editEmployee: Employee = undefined
+    onEditClick(emp: Employee) {
+        this.editEmployee = emp
+        this.editEmployeeModalOpen = true
+    }
+    onEmployeeEdited(emp: Employee) {
+        this.editEmployeeModalOpen = false
+    }
+    // ---------------------------------------------------------------------------------------------------
     onEmployeeCreated(emp: Employee) {
         this.createEmployeeOpen = false
         this.addCreatedEmployeeToList(emp)
@@ -98,5 +108,5 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         }
     }
 
-    protected readonly undefined = undefined;
+    protected readonly undefined = undefined
 }

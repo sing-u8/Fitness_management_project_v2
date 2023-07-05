@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { Employee } from '@schemas/employee'
 
 @Component({
@@ -8,6 +8,7 @@ import { Employee } from '@schemas/employee'
 })
 export class EmployeeCardComponent implements OnInit {
     @Input() employee: Employee
+    @Output() onEdit = new EventEmitter<Employee>()
     constructor() {}
     ngOnInit() {
         this.initStatus()
@@ -22,5 +23,6 @@ export class EmployeeCardComponent implements OnInit {
         } else {
             this.statusText = '연동 요청중'
         }
+        console.log('employee card : ', this.employee)
     }
 }

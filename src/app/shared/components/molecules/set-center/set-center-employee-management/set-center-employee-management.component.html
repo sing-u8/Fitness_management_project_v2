@@ -38,7 +38,11 @@
                         <div class="position-length">{{ instructors.length }}명</div>
                     </rwa-flip>
                     <div *ngIf="instructorFlipOpen" class="position-flip-content">
-                        <rwm-employee-card *ngFor="let emp of instructors" [employee]="emp"></rwm-employee-card>
+                        <rwm-employee-card
+                            *ngFor="let emp of instructors"
+                            [employee]="emp"
+                            (onEdit)="onEditClick($event)"
+                        ></rwm-employee-card>
                     </div>
                 </div>
                 <div class="l-administrator">
@@ -51,7 +55,11 @@
                         <div class="position-length">{{ administrators.length }}명</div>
                     </rwa-flip>
                     <div *ngIf="administratorFlipOpen" class="position-flip-content">
-                        <rwm-employee-card *ngFor="let emp of administrators" [employee]="emp"></rwm-employee-card>
+                        <rwm-employee-card
+                            *ngFor="let emp of administrators"
+                            [employee]="emp"
+                            (onEdit)="onEditClick($event)"
+                        ></rwm-employee-card>
                     </div>
                 </div>
                 <div class="l-owner">
@@ -64,7 +72,11 @@
                         <div class="position-length">{{ owners.length }}명</div>
                     </rwa-flip>
                     <div *ngIf="ownerFlipOpen" class="position-flip-content">
-                        <rwm-employee-card *ngFor="let emp of owners" [employee]="emp"></rwm-employee-card>
+                        <rwm-employee-card
+                            *ngFor="let emp of owners"
+                            [employee]="emp"
+                            (onEdit)="onEditClick($event)"
+                        ></rwm-employee-card>
                     </div>
                 </div>
             </div>
@@ -78,6 +90,13 @@
     (close)="createEmployeeOpen = false"
     (onEmployeeCreated)="onEmployeeCreated($event)"
 ></rwm-create-employee-modal>
+
+<rwm-update-employee-modal
+    [center]="center"
+    [(visible)]="editEmployeeModalOpen"
+    (close)="editEmployeeModalOpen = false"
+    (onEmployeeCreated)="onEmployeeEdited($event)"
+></rwm-update-employee-modal>
 
 <rwm-permission-management-modal
     [(visible)]="managePermissionOpen"

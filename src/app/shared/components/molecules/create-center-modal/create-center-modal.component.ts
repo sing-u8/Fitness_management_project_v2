@@ -35,6 +35,7 @@ import { showToast } from '@store/app/actions/toast.action'
 import { Store, select } from '@ngrx/store'
 import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
+import { Center } from "@schemas/center";
 
 @Component({
     selector: 'rwm-create-center-modal',
@@ -44,6 +45,8 @@ import { forkJoin, Subject } from 'rxjs'
 export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit, OnDestroy {
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
+
+    @Output() onCenterCreated = new EventEmitter<Center>()
 
     @Input() blockClickOutside = true
 
@@ -196,6 +199,7 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                 console.log('create center : ', center)
                 const cb = () => {
                     this.nxStore.dispatch(showToast({ text: '✨ 새로운 센터를 만들었어요.' }))
+                    this.onCenterCreated.emit(center)
                     this.onClose(false)
                     this.createButtonLoading = 'idle'
                 }

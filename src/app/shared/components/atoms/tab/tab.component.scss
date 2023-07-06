@@ -62,6 +62,9 @@ div.l-tap {
                 border-radius: 0 10px 10px 0;
                 border-right: 1px solid var(--gray-50);
             }
+            &.one-tab {
+                border-radius: 10px;
+            }
 
             &.selected {
                 border-color: var(--red-100);

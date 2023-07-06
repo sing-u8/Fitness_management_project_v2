@@ -1,3 +1,5 @@
+import { RoleCode } from "@schemas/center";
+
 export interface Employee {
     id: string
     connection_status: EmployeeConnectionStatus
@@ -11,7 +13,7 @@ export interface Employee {
     memo: string
     picture: string
     background: string
-    role_code: string
+    role_code: RoleCode
     role_name: string
 }
 

@@ -193,7 +193,7 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
 
                 if (!_.isEmpty(this.employeePicture)) {
                     this.fileService
-                        .uploadFile('file_type_center_employee_picture', this.employeePicture, this.center.id, emp.id)
+                        .uploadFile('file_type_user_picture', this.employeePicture, this.center.id, emp.id)
                         .subscribe((files) => {
                             const empCopy = _.cloneDeep(emp)
                             empCopy.picture = files[0].url

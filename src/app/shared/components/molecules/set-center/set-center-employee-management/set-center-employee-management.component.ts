@@ -9,6 +9,7 @@ import { Loading } from '@schemas/loading'
 import { detectChangesOn } from '@shared/helper/component-helper'
 import { forkJoin } from 'rxjs'
 import { Role, RolePermission } from '@schemas/role-permission'
+import _ from 'lodash'
 
 @Component({
     selector: 'rwm-set-center-employee-management',
@@ -93,7 +94,39 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         this.editEmployeeModalOpen = true
     }
     onEmployeeEdited(emp: Employee) {
+        if (this.editEmployee.role_code == 'instructor') {
+            _.remove(this.instructors, (v) => v.id == emp.id)
+        } else if (this.editEmployee.role_code == 'administrator') {
+            _.remove(this.administrators, (v) => v.id == emp.id)
+        } else {
+            _.remove(this.owners, (v) => v.id == emp.id)
+        }
+
+        if (emp.role_code == 'instructor') {
+            this.instructors.push(emp)
+        } else if (emp.role_code == 'administrator') {
+            this.administrators.push(emp)
+        } else {
+            this.owners.push(emp)
+        }
+
         this.editEmployeeModalOpen = false
+    }
+    onYieldOwner(emp: Employee) {
+        const preOwner = _.cloneDeep(this.owners[0])
+        this.owners = []
+        this.administrators.push(preOwner)
+        this.onEmployeeEdited(emp)
+    }
+    // ---------------------------------------------------------------------------------------------------
+    onEmployeeDeleted(emp: Employee) {
+        if (emp.role_code == 'instructor') {
+            _.remove(this.instructors, (v) => v.id == emp.id)
+        } else if (emp.role_code == 'administrator') {
+            _.remove(this.administrators, (v) => v.id == emp.id)
+        } else {
+            _.remove(this.owners, (v) => v.id == emp.id)
+        }
     }
     // ---------------------------------------------------------------------------------------------------
     onEmployeeCreated(emp: Employee) {

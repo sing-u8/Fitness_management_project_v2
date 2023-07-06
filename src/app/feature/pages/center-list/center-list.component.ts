@@ -22,6 +22,9 @@ export class CenterListComponent implements OnInit, OnDestroy {
     public unDescriber$ = new Subject()
 
     public showCreateCenterModal = false
+    onCreatedCenter(center: Center) {
+        this.centerList.unshift(center)
+    }
 
     public centerLoading: Loading = 'idle'
     public centerList: Center[] = []

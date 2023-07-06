@@ -183,6 +183,15 @@
                 color: var(--gray-80);
                 cursor: not-allowed;
                 box-shadow: none !important;
+                &:focus,
+                &.still-focus {
+                    box-sizing: border-box;
+                    border: 1px solid var(--gray-50);
+                    border-radius: 10px;
+                    outline: none;
+                    padding: 10px 14px 9px 14px;
+                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                }
             }
 
             &.warning {
@@ -250,7 +259,7 @@
                 margin-right: 3px;
             }
             .hint-text {
-                margin-top: 3px
+                margin-top: 3px;
             }
         }
         .status {

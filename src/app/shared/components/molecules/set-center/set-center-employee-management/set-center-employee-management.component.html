@@ -93,9 +93,13 @@
 
 <rwm-update-employee-modal
     [center]="center"
+    [employee]="editEmployee"
     [(visible)]="editEmployeeModalOpen"
     (close)="editEmployeeModalOpen = false"
-    (onEmployeeCreated)="onEmployeeEdited($event)"
+    (open)="editEmployeeModalOpen = true"
+    (onEmployeeUpdated)="onEmployeeEdited($event)"
+    (onYieldOwner)="onYieldOwner($event)"
+    (onEmployeeDeleted)="onEmployeeDeleted($event)"
 ></rwm-update-employee-modal>
 
 <rwm-permission-management-modal

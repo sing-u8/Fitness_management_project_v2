@@ -23,17 +23,17 @@
         </div>
         <ng-scrollbar class="rw-scroll body-height">
             <div class="body" #body>
-                <div class="create-center-desc">✋ 잠깐! 직원의 사진과 이름은 회원에게도 동일하게 보여져요.</div>
-                <div class="create-center-content">
-                    <div class="create-center-content__left">
+                <div class="create-employee-desc">✋ 잠깐! 직원의 사진과 이름은 회원에게도 동일하게 보여져요.</div>
+                <div class="create-employee-content">
+                    <div class="create-employee-content__left">
                         <span class="tag"> 직원 사진 </span>
                         <rwm-employee-photo
                             [pictureSrc]="employeePictureSrc"
                             (pictureChange)="onCenterPictureChange($event)"
                         ></rwm-employee-photo>
                     </div>
-                    <form [formGroup]="centerForm" class="create-center-content__right">
-                        <div class="create-center-content__item">
+                    <form [formGroup]="centerForm" class="create-employee-content__right">
+                        <div class="create-employee-content__item">
                             <span class="tag">권한<span class="required">*</span></span>
                             <rwa-tab
                                 [width]="308"
@@ -41,7 +41,7 @@
                                 (onTabItemSelected)="positionTabs = $event"
                             ></rwa-tab>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="create-employee-content__item">
                             <rwa-text-field
                                 [width]="'308px'"
                                 [label]="'이름'"
@@ -52,7 +52,7 @@
                                 [formControlName]="'employeeName'"
                             ></rwa-text-field>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="create-employee-content__item">
                             <rwa-text-field
                                 [width]="'308px'"
                                 [label]="'전화번호'"
@@ -63,7 +63,7 @@
                                 [formControlName]="'phoneNumber'"
                             ></rwa-text-field>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="create-employee-content__item">
                             <rwa-text-field
                                 [width]="'308px'"
                                 [label]="'이메일 주소'"
@@ -87,7 +87,7 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="create-employee-content__item">
                             <span class="tag">이메일 주소로 계정 연동</span>
                             <rwa-toggle-button
                                 [disable]="email.value?.length == 0"
@@ -100,16 +100,16 @@
                         </div>
                         <rwa-button
                             padding="9px 25px 7px"
-                            loadingName="create-center-button"
+                            loadingName="create-employee-button"
                             [status]="createButtonLoading"
                             [disable]="phoneNumber.invalid || employeeName.invalid"
                             (onClick)="createEmployee()"
                         >
                             <ng-template btIdleContent>
-                                <span class="create-center-button-text">입력 완료</span>
+                                <span class="create-employee-button-text">입력 완료</span>
                             </ng-template>
                             <ng-template btPendingContent>
-                                <span class="create-center-button-text">입력 완료</span>
+                                <span class="create-employee-button-text">입력 완료</span>
                             </ng-template>
                         </rwa-button>
                     </form>

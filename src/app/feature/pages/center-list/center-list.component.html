@@ -94,6 +94,7 @@
 <rwm-create-center-modal
     [(visible)]="showCreateCenterModal"
     (close)="showCreateCenterModal = false"
+    (onCenterCreated)="onCreatedCenter($event)"
 ></rwm-create-center-modal>
 
 <rwm-my-profile-modal

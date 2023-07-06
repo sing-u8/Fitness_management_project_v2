@@ -41,7 +41,8 @@
             text-align: right;
             @include rw-type-r(1.7rem, 28px, var(--font-color));
 
-            &:focus, &.still-focus  {
+            &:focus,
+            &.still-focus {
                 @include card-shadow();
                 border: 1px solid var(--gray-90);
                 @include rw-type-b(1.7rem, 28px, var(--font-color));
@@ -53,13 +54,15 @@
                 padding: 10px 65px 9px 14px;
             }
             &.in-type {
-                &:focus, &.still-focus  {
+                &:focus,
+                &.still-focus {
                     padding: 10px 65px 9px 14px;
                 }
                 &.warning,
                 &.error,
                 &.success {
-                    &:focus, &.still-focus  {
+                    &:focus,
+                    &.still-focus {
                         padding: 10px 100px 9px 14px;
                     }
                 }
@@ -95,6 +98,15 @@
                 color: var(--gray-80);
                 cursor: not-allowed;
                 box-shadow: none !important;
+                &:focus,
+                &.still-focus {
+                    box-sizing: border-box;
+                    border: 1px solid var(--gray-50);
+                    border-radius: 10px;
+                    outline: none;
+                    padding: 10px 14px 9px 14px;
+                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                }
             }
 
             &.warning {

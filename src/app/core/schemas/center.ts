@@ -17,7 +17,7 @@ export interface Center {
     end_date: string
     picture: string
     background: string
-    role_code: string
+    role_code: RoleCode
     role_name: string
     permissions: Array<PermissionCode> // 권한 코드 리스트
 

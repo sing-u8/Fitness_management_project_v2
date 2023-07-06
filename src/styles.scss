@@ -758,6 +758,14 @@ ng-scrollbar {
     width: 24px;
     height: 24px;
 }
+.trash-icon {
+    background-image: url('/assets/icons/etc/trash.svg');
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 22px;
+    height: 22px;
+}
 .user-list-icon {
     box-sizing: border-box;
     background-image: url('/assets/icons/side_bar/user-list.svg');

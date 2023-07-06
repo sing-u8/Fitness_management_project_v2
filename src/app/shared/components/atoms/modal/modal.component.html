@@ -25,7 +25,7 @@
                 <ng-template btIdleContent>
                     <span class="cancel-text">{{ data?.cancel || '취소' }}</span>
                 </ng-template>
-                <ng-template btPendingContent></ng-template>
+                <ng-template btPendingContent>{{ data?.cancel || '취소' }}</ng-template>
             </rwa-button>
 
             <rwa-button
@@ -38,7 +38,9 @@
                 <ng-template btIdleContent>
                     <span class="confirm-text">{{ data?.confirm || '확인' }}</span>
                 </ng-template>
-                <ng-template btPendingContent><span class="confirm-text"></span></ng-template>
+                <ng-template btPendingContent
+                    ><span class="confirm-text">{{ data?.confirm || '확인' }}</span></ng-template
+                >
             </rwa-button>
         </div>
     </div>

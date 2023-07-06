@@ -8,40 +8,72 @@
     <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
         <div class="header">
             <div class="header-title">
-                <span>직원 등록하기</span>
+                <span>직원 정보 수정</span>
+                <div class="title-divider"></div>
+                <span>{{ _employee?.name }}</span>
             </div>
-            <rwa-icon-ghost-button
-                sizeType="md"
-                borderRadius="14px"
-                borderColor="var(--gray-60)"
-                (onClick)="onClose(false)"
-            >
-                <ng-template iconGhostBtIdleContent>
-                    <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
-                </ng-template>
-            </rwa-icon-ghost-button>
+
+            <div class="header-button d-flex align-items-center">
+                <rwa-icon-ghost-button
+                    *ngIf="user?.email != _employee?.email && _employee.role_code != 'owner'"
+                    sizeType="md"
+                    borderRadius="14px"
+                    borderColor="var(--gray-60)"
+                    (onClick)="onDeleteClick()"
+                    rwTooltip
+                    rwTooltipPlacement="bottom"
+                    rwTooltipTitle="직원 삭제하기"
+                >
+                    <ng-template iconGhostBtIdleContent>
+                        <div class="trash-icon"></div>
+                    </ng-template>
+                </rwa-icon-ghost-button>
+                <rwa-icon-ghost-button
+                    sizeType="md"
+                    borderRadius="14px"
+                    borderColor="var(--gray-60)"
+                    (onClick)="onEditCancelClick()"
+                >
+                    <ng-template iconGhostBtIdleContent>
+                        <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                    </ng-template>
+                </rwa-icon-ghost-button>
+            </div>
         </div>
         <ng-scrollbar class="rw-scroll body-height">
             <div class="body" #body>
-                <div class="create-center-desc">✋ 잠깐! 직원의 사진과 이름은 회원에게도 동일하게 보여져요.</div>
-                <div class="create-center-content">
-                    <div class="create-center-content__left">
+                <div class="update-employee-desc">✋ 잠깐! 직원의 사진과 이름은 회원에게도 동일하게 보여져요.</div>
+                <div class="update-employee-content">
+                    <div class="update-employee-content__left">
                         <span class="tag"> 직원 사진 </span>
                         <rwm-employee-photo
                             [pictureSrc]="employeePictureSrc"
                             (pictureChange)="onCenterPictureChange($event)"
                         ></rwm-employee-photo>
                     </div>
-                    <form [formGroup]="centerForm" class="create-center-content__right">
-                        <div class="create-center-content__item">
+                    <form [formGroup]="centerForm" class="update-employee-content__right">
+                        <div class="update-employee-content__item">
                             <span class="tag">권한<span class="required">*</span></span>
                             <rwa-tab
+                                *ngIf="center.role_code == 'owner' && user?.email == _employee?.email"
+                                [width]="308"
+                                [tabs]="positionTabForSameOwner"
+                                (onTabItemSelected)="positionTabForSameOwner = $event"
+                            ></rwa-tab>
+                            <rwa-tab
+                                *ngIf="center.role_code == 'owner' && user?.email != _employee?.email"
+                                [width]="308"
+                                [tabs]="positionTabsForOwner"
+                                (onTabItemSelected)="positionTabsForOwner = $event"
+                            ></rwa-tab>
+                            <rwa-tab
+                                *ngIf="center.role_code != 'owner'"
                                 [width]="308"
                                 [tabs]="positionTabs"
                                 (onTabItemSelected)="positionTabs = $event"
                             ></rwa-tab>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="update-employee-content__item">
                             <rwa-text-field
                                 [width]="'308px'"
                                 [label]="'이름'"
@@ -52,7 +84,7 @@
                                 [formControlName]="'employeeName'"
                             ></rwa-text-field>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="update-employee-content__item">
                             <rwa-text-field
                                 [width]="'308px'"
                                 [label]="'전화번호'"
@@ -63,18 +95,33 @@
                                 [formControlName]="'phoneNumber'"
                             ></rwa-text-field>
                         </div>
-                        <div class="create-center-content__item">
-                            <rwa-text-field
-                                [width]="'308px'"
-                                [label]="'이메일 주소'"
-                                [placeholder]="'이메일 주소'"
-                                [isImportant]="false"
-                                [type]="'normal'"
-                                [inputLimit]="50"
-                                [formControlName]="'email'"
-                                [status]="emailStatus"
-                                [statusText]="'이미 센터에 등록되어 있는 이메일 주소예요.'"
-                            ></rwa-text-field>
+                        <div class="update-employee-content__item">
+                            <div class="l-email-field">
+                                <rwa-text-field
+                                    [width]="'308px'"
+                                    [label]="'이메일 주소'"
+                                    [placeholder]="'이메일 주소'"
+                                    [isImportant]="false"
+                                    [type]="'normal'"
+                                    [inputLimit]="50"
+                                    [formControlName]="'email'"
+                                    [status]="emailStatus"
+                                    [statusText]="'이미 센터에 등록되어 있는 이메일 주소예요.'"
+                                ></rwa-text-field>
+                                <div
+                                    *ngIf="showTag"
+                                    class="email-tag"
+                                    [ngClass]="
+                                        _employee?.connection_status == 'employee_connection_status_connected'
+                                            ? 'connected'
+                                            : _employee?.connection_status == 'employee_connection_status_disconnected'
+                                            ? 'disconnected'
+                                            : 'pending'
+                                    "
+                                >
+                                    {{ statusText }}
+                                </div>
+                            </div>
                             <div class="email-terms">
                                 <span class="terms-title"> ✨ 이메일 주소로 계정을 연동할 수 있어요! </span>
                                 <span class="terms-desc">
@@ -87,10 +134,10 @@
                                 </span>
                             </div>
                         </div>
-                        <div class="create-center-content__item">
+                        <div class="update-employee-content__item">
                             <span class="tag">이메일 주소로 계정 연동</span>
                             <rwa-toggle-button
-                                [disable]="email.value?.length == 0"
+                                [disable]="!email.value || email.disabled"
                                 [checked]="linkEmailAccount"
                                 (onClick)="linkEmailAccount = !linkEmailAccount"
                                 [label]="
@@ -100,16 +147,16 @@
                         </div>
                         <rwa-button
                             padding="9px 25px 7px"
-                            loadingName="create-center-button"
-                            [status]="createButtonLoading"
+                            loadingName="update-employee-button"
+                            [status]="updateButtonLoading"
                             [disable]="phoneNumber.invalid || employeeName.invalid"
-                            (onClick)="createEmployee()"
+                            (onClick)="checkYieldOwner()"
                         >
                             <ng-template btIdleContent>
-                                <span class="create-center-button-text">입력 완료</span>
+                                <span class="update-employee-button-text">저장하기</span>
                             </ng-template>
                             <ng-template btPendingContent>
-                                <span class="create-center-button-text">입력 완료</span>
+                                <span class="update-employee-button-text">저장하기</span>
                             </ng-template>
                         </rwa-button>
                     </form>
@@ -118,3 +165,35 @@
         </ng-scrollbar>
     </div>
 </div>
+
+<rwa-modal
+    [(visible)]="deleteEmployeeOpen"
+    [data]="deleteEmployeeData"
+    [blockClickOutside]="true"
+    (cancel)="onDeleteCancel()"
+    (confirm)="onDeleteConfirm($event)"
+></rwa-modal>
+
+<rwa-modal
+    [(visible)]="cancelEditEmployeeOpen"
+    [data]="cancelEditEmplyeeData"
+    [blockClickOutside]="true"
+    (cancel)="onCancelModalCancel()"
+    (confirm)="onCancelConfirm()"
+></rwa-modal>
+
+<rwa-modal
+    [(visible)]="yieldOwnerOpen"
+    [data]="yieldOwnerData"
+    [blockClickOutside]="true"
+    (cancel)="onYieldCancel()"
+    (confirm)="onYieldConfirm($event)"
+></rwa-modal>
+
+<rwa-modal
+    [type]="'oneButton'"
+    [(visible)]="disableToYieldModalOpen"
+    [data]="disableToYieldModalData"
+    [blockClickOutside]="true"
+    (confirm)="onDisableToYieldCancel()"
+></rwa-modal>

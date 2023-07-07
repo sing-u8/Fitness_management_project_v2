@@ -44,7 +44,10 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
 
     public categInitObj = {
         centerInfo: false,
-        employeeManagement: false,
+        employeeManagement: {
+            employeeListInit: false,
+            rolePermissionInit: false,
+        },
         centerPolicyManagement: false,
         centerPaymentManagement: false,
     }

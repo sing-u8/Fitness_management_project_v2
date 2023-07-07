@@ -41,7 +41,8 @@
                 class="employee-management"
                 [class.open]="categoris[1].selected"
                 [center]="center"
-                [(isInit)]="categInitObj.employeeManagement"
+                [(isEmpInit)]="categInitObj.employeeManagement.employeeListInit"
+                [(isRpsInit)]="categInitObj.employeeManagement.rolePermissionInit"
                 [isOpen]="categoris[1].selected"
             ></rwm-set-center-employee-management>
             <!-- 운영 정책 -->

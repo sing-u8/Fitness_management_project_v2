@@ -7,6 +7,7 @@ import { Employee } from '@schemas/employee'
     styleUrls: ['./employee-card.component.scss'],
 })
 export class EmployeeCardComponent implements OnInit {
+    @Input() editVisible = false
     @Input() employee: Employee
     @Output() onEdit = new EventEmitter<Employee>()
     constructor() {}

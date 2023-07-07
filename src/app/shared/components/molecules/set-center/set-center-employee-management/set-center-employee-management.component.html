@@ -21,7 +21,12 @@
                             <span class="register-employee-text">직원 등록</span>
                         </ng-template>
                     </rwa-ghost-button>
-                    <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px" (onClick)="managePermissionOpen = true">
+                    <rwa-ghost-button
+                        *ngIf="permissionObj.settings_update_employee"
+                        height="42px"
+                        padding="7.5px 15px 5.5px"
+                        (onClick)="managePermissionOpen = true"
+                    >
                         <ng-template gbtIdleContent><span class="set-permission-text">권한 설정</span></ng-template>
                     </rwa-ghost-button>
                 </div>
@@ -41,6 +46,7 @@
                         <rwm-employee-card
                             *ngFor="let emp of instructors"
                             [employee]="emp"
+                            [editVisible]="permissionObj.settings_update_employee"
                             (onEdit)="onEditClick($event)"
                         ></rwm-employee-card>
                     </div>
@@ -58,6 +64,7 @@
                         <rwm-employee-card
                             *ngFor="let emp of administrators"
                             [employee]="emp"
+                            [editVisible]="permissionObj.settings_update_employee"
                             (onEdit)="onEditClick($event)"
                         ></rwm-employee-card>
                     </div>
@@ -75,6 +82,7 @@
                         <rwm-employee-card
                             *ngFor="let emp of owners"
                             [employee]="emp"
+                            [editVisible]="permissionObj.settings_update_employee"
                             (onEdit)="onEditClick($event)"
                         ></rwm-employee-card>
                     </div>

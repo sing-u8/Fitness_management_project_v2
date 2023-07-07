@@ -19,7 +19,7 @@ export interface Center {
     background: string
     role_code: RoleCode
     role_name: string
-    permissions: Array<PermissionCode> // 권한 코드 리스트
+    permissions: Array<{ permission_code: string }> // 권한 코드 리스트
 
     // 아래 삭제 예정
     // id: string

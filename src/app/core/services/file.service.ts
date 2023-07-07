@@ -20,7 +20,7 @@ export class FileService {
     constructor(private http: HttpClient, private storageService: StorageService) {}
 
     uploadFile(type_code: FileType, files: FileList, centerId = '', centerUserId = ''): Observable<Array<_File>> {
-        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}`
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}&center_user_id=${centerUserId}`
 
         const options = {
             headers: new HttpHeaders({
@@ -43,7 +43,7 @@ export class FileService {
     }
 
     uploadFileWithReport(type_code: FileType, files: FileList, centerId = '', centerUserId = '') {
-        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}`
+        const url = this.SERVER + `?center_id=${centerId}&type_code=${type_code}&center_user_id=${centerUserId}`
 
         const formData: FormData = new FormData()
 

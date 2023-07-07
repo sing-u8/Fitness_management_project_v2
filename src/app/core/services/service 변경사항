@@ -1,8 +1,0 @@
--API v3 적용되어야 할 service
-
-
--API v3 적용된 service
-    - auth.service
-    - code.service
-    - files.service
-    - users.service

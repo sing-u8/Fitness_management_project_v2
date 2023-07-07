@@ -21,6 +21,7 @@
     <div class="employee-info">
         <rwa-icon-ghost-button
             class="edit-employee-button"
+            [class.visible]="editVisible"
             [sizeType]="'sm'"
             borderRadius="12px"
             (onClick)="onEdit.emit(employee)"
@@ -30,7 +31,7 @@
             </ng-template>
         </rwa-icon-ghost-button>
 
-        <div class="employee-info__title">
+        <div class="employee-info__title" [class.edit-employee-button-visible]="editVisible">
             <div class="employee-name" rwEllipsisDropdown [lineClamp]="1" [edText]="employee.name">
                 {{ employee.name }}
             </div>

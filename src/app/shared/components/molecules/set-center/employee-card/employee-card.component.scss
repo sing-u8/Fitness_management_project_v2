@@ -43,14 +43,21 @@
         position: relative;
 
         .edit-employee-button {
+            display: none;
             position: absolute;
-            right: 0px;
-            top: 0px;
+            right: 0;
+            top: 0;
+            &.visible {
+                display: initial;
+            }
         }
 
         .employee-info__title {
-            width: calc(100% - 47px);
+            width: calc(100%);
             display: flex;
+            &.edit-employee-button-visible {
+                width: calc(100% - 47px);
+            }
             .employee-name {
                 @include rw-type-b(1.7rem, 28px, var(--font-color));
             }

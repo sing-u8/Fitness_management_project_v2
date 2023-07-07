@@ -1,5 +1,5 @@
 import { Route } from '@angular/router'
-import { MainComponent } from '@feature/pages/main/frame/main.component'
+import { MainComponent } from '@feature/templates/main/main-template/main.component'
 import { importProvidersFrom } from '@angular/core'
 
 import _ from 'lodash'

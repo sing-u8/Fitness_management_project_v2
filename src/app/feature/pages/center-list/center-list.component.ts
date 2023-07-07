@@ -4,6 +4,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
+import { CenterListService } from '@services/center-list/center-list.service'
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Center } from '@schemas/center'
@@ -31,11 +32,18 @@ export class CenterListComponent implements OnInit, OnDestroy {
     public centerLoading: Loading = 'idle'
     public centerList: Center[] = []
     public invitedCenterList: Center[] = []
-    constructor(private storageService: StorageService, private usersCenterService: UsersCenterService) {}
+    constructor(
+        private storageService: StorageService,
+        private usersCenterService: UsersCenterService,
+        private centerListService: CenterListService
+    ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
         this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
             this.user = this.storageService.getUser()
+        })
+        this.centerListService.centerChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe((center) => {
+            this.onCenterChanged(center)
         })
         this.getCenterList()
     }
@@ -64,6 +72,13 @@ export class CenterListComponent implements OnInit, OnDestroy {
     }
     onRefuseInvite(center: Center) {
         _.remove(this.centerList, (v) => v.id == center.id)
+    }
+
+    onCenterChanged(center: Center) {
+        const curCenterIdx = _.findIndex(this.centerList, (v) => v.id == center.id)
+        _.forEach(_.keys(center), (key) => {
+            this.centerList[curCenterIdx][key] = center[key]
+        })
     }
 
     // --------------------------------------------------------------------------------------------------

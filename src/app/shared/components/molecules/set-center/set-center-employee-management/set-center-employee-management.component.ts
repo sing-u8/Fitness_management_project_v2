@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { StorageService } from '@services/storage.service'
 import { CenterEmployeeService } from '@services/center-employee.service'
 import { CenterRolePermissionService } from '@services/center-role-permission.service'
+import { CenterListService } from '@services/center-list/center-list.service'
 import { Center } from '@schemas/center'
 import { Employee } from '@schemas/employee'
 import { Loading } from '@schemas/loading'
@@ -17,9 +18,9 @@ import _ from 'lodash'
     styleUrls: ['./set-center-employee-management.component.scss'],
 })
 export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
-    public instructors = []
-    public administrators = []
-    public owners = []
+    public instructors: Employee[] = []
+    public administrators: Employee[] = []
+    public owners: Employee[] = []
     public employeeNumber = 0
 
     public instructorFlipOpen = true
@@ -102,7 +103,8 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     constructor(
         private storageService: StorageService,
         private centerEmployeeService: CenterEmployeeService,
-        private centerRolePermissionService: CenterRolePermissionService
+        private centerRolePermissionService: CenterRolePermissionService,
+        private centerListService: CenterListService
     ) {}
     ngOnInit() {
         console.log('ngOnInit -- set center employee management ')
@@ -143,9 +145,16 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     }
     onYieldOwner(emp: Employee) {
         const preOwner = _.cloneDeep(this.owners[0])
+        preOwner.role_code = 'administrator'
+        preOwner.role_name = '관리자'
         this.owners = []
         this.administrators.push(preOwner)
         this.onEmployeeEdited(emp)
+
+        const changedCenter = _.cloneDeep(this.center)
+        changedCenter.role_code = 'administrator'
+        changedCenter.role_name = '관리자'
+        this.centerListService.setChangedCenter(changedCenter)
     }
     // ---------------------------------------------------------------------------------------------------
     onEmployeeDeleted(emp: Employee) {

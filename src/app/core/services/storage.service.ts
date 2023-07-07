@@ -20,7 +20,7 @@ export class StorageService {
     private storage = localStorage // sessionStorage
     private userKey = 'redwhale:authUser'
 
-    public userChangeSubject = new Subject()
+    public readonly userChangeSubject = new Subject()
 
     constructor(private fireAuth: Auth, private router: Router) {}
 

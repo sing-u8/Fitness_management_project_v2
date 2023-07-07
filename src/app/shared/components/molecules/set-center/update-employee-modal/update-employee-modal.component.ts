@@ -352,6 +352,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                                 employee.role_code = 'owner'
                                 employee.role_name = '운영자'
                                 mo.hideLoading()
+                                this.yieldOwnerOpen = false
                                 this.onYieldOwner.emit(employee)
                             })
                     }

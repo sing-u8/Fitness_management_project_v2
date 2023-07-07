@@ -22,7 +22,7 @@
                         </ng-template>
                     </rwa-ghost-button>
                     <rwa-ghost-button
-                        *ngIf="permissionObj.settings_update_employee"
+                        *ngIf="permissionObj.settings_update_permission"
                         height="42px"
                         padding="7.5px 15px 5.5px"
                         (onClick)="managePermissionOpen = true"
@@ -33,60 +33,88 @@
             </div>
 
             <div class="body">
-                <div class="l-instructor">
-                    <rwa-flip
-                        [open]="instructorFlipOpen"
-                        [disable]="instructors.length == 0"
-                        (onClick)="instructorFlipOpen = !instructorFlipOpen"
-                    >
-                        <div class="position-name">강사</div>
-                        <div class="position-length">{{ instructors.length }}명</div>
-                    </rwa-flip>
-                    <div *ngIf="instructorFlipOpen" class="position-flip-content">
-                        <rwm-employee-card
-                            *ngFor="let emp of instructors"
-                            [employee]="emp"
-                            [editVisible]="permissionObj.settings_update_employee"
-                            (onEdit)="onEditClick($event)"
-                        ></rwm-employee-card>
+                <ng-container *ngIf="empLoading == 'idle'">
+                    <div class="l-instructor">
+                        <rwa-flip
+                            [open]="instructorFlipOpen"
+                            [disable]="instructors.length == 0"
+                            (onClick)="instructorFlipOpen = !instructorFlipOpen"
+                        >
+                            <div class="position-name">강사</div>
+                            <div class="position-length">{{ instructors.length }}명</div>
+                        </rwa-flip>
+                        <div *ngIf="instructorFlipOpen" class="position-flip-content">
+                            <rwm-employee-card
+                                *ngFor="let emp of instructors"
+                                [employee]="emp"
+                                [editVisible]="permissionObj.settings_update_employee"
+                                (onEdit)="onEditClick($event)"
+                            ></rwm-employee-card>
+                        </div>
                     </div>
-                </div>
-                <div class="l-administrator">
-                    <rwa-flip
-                        [open]="administratorFlipOpen"
-                        [disable]="administrators.length == 0"
-                        (onClick)="administratorFlipOpen = !administratorFlipOpen"
-                    >
-                        <div class="position-name">관리자</div>
-                        <div class="position-length">{{ administrators.length }}명</div>
-                    </rwa-flip>
-                    <div *ngIf="administratorFlipOpen" class="position-flip-content">
-                        <rwm-employee-card
-                            *ngFor="let emp of administrators"
-                            [employee]="emp"
-                            [editVisible]="permissionObj.settings_update_employee"
-                            (onEdit)="onEditClick($event)"
-                        ></rwm-employee-card>
+                    <div class="l-administrator">
+                        <rwa-flip
+                            [open]="administratorFlipOpen"
+                            [disable]="administrators.length == 0"
+                            (onClick)="administratorFlipOpen = !administratorFlipOpen"
+                        >
+                            <div class="position-name">관리자</div>
+                            <div class="position-length">{{ administrators.length }}명</div>
+                        </rwa-flip>
+                        <div *ngIf="administratorFlipOpen" class="position-flip-content">
+                            <rwm-employee-card
+                                *ngFor="let emp of administrators"
+                                [employee]="emp"
+                                [editVisible]="permissionObj.settings_update_employee"
+                                (onEdit)="onEditClick($event)"
+                            ></rwm-employee-card>
+                        </div>
                     </div>
-                </div>
-                <div class="l-owner">
-                    <rwa-flip
-                        [open]="ownerFlipOpen"
-                        [disable]="owners.length == 0"
-                        (onClick)="ownerFlipOpen = !ownerFlipOpen"
-                    >
-                        <div class="position-name">운영자</div>
-                        <div class="position-length">{{ owners.length }}명</div>
-                    </rwa-flip>
-                    <div *ngIf="ownerFlipOpen" class="position-flip-content">
-                        <rwm-employee-card
-                            *ngFor="let emp of owners"
-                            [employee]="emp"
-                            [editVisible]="permissionObj.settings_update_employee"
-                            (onEdit)="onEditClick($event)"
-                        ></rwm-employee-card>
+                    <div class="l-owner">
+                        <rwa-flip
+                            [open]="ownerFlipOpen"
+                            [disable]="owners.length == 0"
+                            (onClick)="ownerFlipOpen = !ownerFlipOpen"
+                        >
+                            <div class="position-name">운영자</div>
+                            <div class="position-length">{{ owners.length }}명</div>
+                        </rwa-flip>
+                        <div *ngIf="ownerFlipOpen" class="position-flip-content">
+                            <rwm-employee-card
+                                *ngFor="let emp of owners"
+                                [employee]="emp"
+                                [editVisible]="permissionObj.settings_update_employee"
+                                (onEdit)="onEditClick($event)"
+                            ></rwm-employee-card>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-container *ngIf="empLoading == 'pending'">
+                    <div class="d-flex flex-column">
+                        <ngx-skeleton-loader
+                            count="1"
+                            appearance="line"
+                            [theme]="{ width: '82px', height: '23px', 'border-radius': '5px', margin: '0 0 10px 0' }"
+                        ></ngx-skeleton-loader>
+                        <div class="d-flex">
+                            <ngx-skeleton-loader
+                                count="1"
+                                appearance="line"
+                                [theme]="{
+                                    width: '340px',
+                                    height: '155px',
+                                    'border-radius': '20px',
+                                    margin: '0 20px 0 0'
+                                }"
+                            ></ngx-skeleton-loader>
+                            <ngx-skeleton-loader
+                                count="1"
+                                appearance="line"
+                                [theme]="{ width: '340px', height: '155px', 'border-radius': '20px', margin: '0' }"
+                            ></ngx-skeleton-loader>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
         </div>
     </ng-scrollbar>
@@ -111,6 +139,7 @@
 ></rwm-update-employee-modal>
 
 <rwm-permission-management-modal
+    [loading]="rpsLoading"
     [(visible)]="managePermissionOpen"
     (close)="managePermissionOpen = false"
     (onSave)="rolePermission = $event"

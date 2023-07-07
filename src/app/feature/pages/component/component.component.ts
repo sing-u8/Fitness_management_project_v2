@@ -571,6 +571,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '92935fb0-101a-11ee-b649-e7ce3f70618f',
@@ -591,6 +592,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: 'f0878e30-1014-11ee-969e-97775ce42bd9',
@@ -611,6 +613,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         // 1년 구독 / 2년 구독
         {
@@ -632,6 +635,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '7c9eb960-1002-11ee-8738-519eacfd4dd1',
@@ -653,6 +657,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '09c25840-1000-11ee-89b9-d37e549b2780',
@@ -673,6 +678,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '09c25840-1000-11ee-89b9-d37e549b2780',
@@ -693,6 +699,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
 
         // 월 구독
@@ -715,6 +722,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '09c25840-1000-11ee-89b9-d37e549b2780',
@@ -735,6 +743,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '09c25840-1000-11ee-89b9-d37e549b2780',
@@ -755,6 +764,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
         {
             id: '09c25840-1000-11ee-89b9-d37e549b2780',
@@ -775,6 +785,7 @@ export class ComponentComponent implements OnDestroy {
             role_code: 'owner',
             role_name: '운영자',
             permissions: [],
+            connection_status: 'employee_connection_status_connected',
         },
     ]
 
@@ -798,6 +809,7 @@ export class ComponentComponent implements OnDestroy {
             start_date: '2023-06-21',
             timezone: 'Asia/Seoul',
             zip_no: '05237',
+            connection_status: 'employee_connection_status_connected',
         },
         {
             addr_detail: '.',
@@ -819,6 +831,7 @@ export class ComponentComponent implements OnDestroy {
             start_date: '2023-06-21',
             timezone: 'Asia/Seoul',
             zip_no: '46700',
+            connection_status: 'employee_connection_status_connected',
         },
         {
             addr_detail: '.',
@@ -839,6 +852,7 @@ export class ComponentComponent implements OnDestroy {
             start_date: '2023-06-21',
             timezone: 'Asia/Seoul',
             zip_no: '46700',
+            connection_status: 'employee_connection_status_connected',
         },
     ]
 

@@ -22,9 +22,9 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     public owners = []
     public employeeNumber = 0
 
-    public instructorFlipOpen = false
-    public administratorFlipOpen = false
-    public ownerFlipOpen = false
+    public instructorFlipOpen = true
+    public administratorFlipOpen = true
+    public ownerFlipOpen = true
 
     public rolePermission: Record<Role, RolePermission[]> = undefined
 
@@ -89,14 +89,14 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         settings_update_permission: false,
     }
     initPermission() {
-        this.permissionObj.settings_update_permission = !!_.find(
-            this.center.permissions,
-            (v) => v.permission_code == 'settings_update_permission'
-        )
-        this.permissionObj.settings_update_employee = !!_.find(
-            this.center.permissions,
-            (v) => v.permission_code == 'settings_update_employee'
-        )
+        this.permissionObj = {
+            settings_update_employee:
+                !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_employee') ||
+                this.center.role_code == 'owner',
+            settings_update_permission:
+                !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_permission') ||
+                this.center.role_code == 'owner',
+        }
     }
 
     constructor(

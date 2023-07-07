@@ -255,43 +255,9 @@
             >
                 <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
             </rwa-button>
-            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
+            <rwa-button [status]="agreeLoading" [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onAgreeCenter()">
                 <ng-template btIdleContent><span class="white-button-text">수락하기</span></ng-template>
-            </rwa-button>
-        </div>
-    </div>
-</rwa-vacant-modal>
-
-<rwa-vacant-modal
-    [(visible)]="showAgreeInviteModal"
-    [blockClickOutside]="true"
-    [width]="'345px'"
-    [padding]="'30px 25px 25px'"
->
-    <div class="l-invite-modal">
-        <div class="invite-title">초대를 수락하시겠어요?</div>
-        <div class="invite-desc">초대를 수락하면 센터에 입장할 수 있어요.</div>
-        <div class="invite-content">
-            <div class="invite-content-item__title">센터 이름</div>
-            <div class="invite-content-item__content">
-                {{ center.name }}
-            </div>
-        </div>
-        <div class="l-button">
-            <rwa-button
-                [width]="'80px'"
-                [padding]="'9px 25px 7px'"
-                [height]="'45px'"
-                [fontColor]="'var(--gray-90)'"
-                [bgColor]="'var(--white)'"
-                [hoverBgColor]="'var(--gray-30)'"
-                [loadingColor]="'var(--font-color)'"
-                (onClick)="showAgreeInviteModal = false"
-            >
-                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
-            </rwa-button>
-            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
-                <ng-template btIdleContent><span class="white-button-text">수락하기</span></ng-template>
+                <ng-template btPendingContent><span class="white-button-text">수락하기</span></ng-template>
             </rwa-button>
         </div>
     </div>
@@ -329,8 +295,9 @@
             >
                 <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
             </rwa-button>
-            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="(false)">
+            <rwa-button [status]="agreeLoading" [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onRefuseCenter()">
                 <ng-template btIdleContent><span class="white-button-text">거절하기</span></ng-template>
+                <ng-template btPendingContent><span class="white-button-text">거절하기</span></ng-template>
             </rwa-button>
         </div>
     </div>

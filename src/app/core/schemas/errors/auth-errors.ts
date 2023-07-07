@@ -14,6 +14,18 @@ export const AuthErrors = {
     AUTHENTICATION_005: {
         message: '이미 등록된 이메일입니다.',
     },
+    AUTHORIZATION_002: {
+        message: '센터 아이디가 필요합니다.',
+    },
+    AUTHORIZATION_003: {
+        message: '존재하지 않는 센터입니다.',
+    },
+    AUTHORIZATION_004: {
+        message: '해당 센터의 직원이 아닙니다.',
+    },
+    AUTHORIZATION_006: {
+        message: '해당 작업의 권한이 없습니다.',
+    },
     FUNCTION_AUTH_006: {
         message: '인증 코드가 일치하지 않습니다.',
     },

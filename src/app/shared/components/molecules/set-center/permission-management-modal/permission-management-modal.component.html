@@ -45,21 +45,37 @@
                             <span>회원의 결제 내역을 삭제할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[0]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[0].approved =
-                                        !_rolePermission.administrator[0].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[0]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[0].approved = !_rolePermission.instructor[0].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[0]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[0].approved =
+                                            !_rolePermission.administrator[0].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[0]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[0].approved = !_rolePermission.instructor[0].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -72,21 +88,37 @@
                             <span>매출 페이지를 조회할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[1]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[1].approved =
-                                        !_rolePermission.administrator[1].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[1]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[1].approved = !_rolePermission.instructor[1].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[1]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[1].approved =
+                                            !_rolePermission.administrator[1].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[1]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[1].approved = !_rolePermission.instructor[1].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -99,21 +131,37 @@
                             <span>센터 기본 정보를 수정할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[2]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[2].approved =
-                                        !_rolePermission.administrator[2].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[2]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[2].approved = !_rolePermission.instructor[2].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[2]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[2].approved =
+                                            !_rolePermission.administrator[2].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[2]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[2].approved = !_rolePermission.instructor[2].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="permission-value">
@@ -121,21 +169,37 @@
                             <span>직원을 수정, 삭제할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[3]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[3].approved =
-                                        !_rolePermission.administrator[3].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[3]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[3].approved = !_rolePermission.instructor[3].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[3]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[3].approved =
+                                            !_rolePermission.administrator[3].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[3]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[3].approved = !_rolePermission.instructor[3].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="permission-value">
@@ -143,21 +207,37 @@
                             <span>권한 관리를 수정할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[4]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[4].approved =
-                                        !_rolePermission.administrator[4].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[4]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[4].approved = !_rolePermission.instructor[4].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[4]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[4].approved =
+                                            !_rolePermission.administrator[4].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[4]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[4].approved = !_rolePermission.instructor[4].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
                     <div class="permission-value">
@@ -165,21 +245,37 @@
                             <span>운영 정책을 수정할 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[5]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[5].approved =
-                                        !_rolePermission.administrator[5].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[5]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[5].approved = !_rolePermission.instructor[5].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[5]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[5].approved =
+                                            !_rolePermission.administrator[5].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[5]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[5].approved = !_rolePermission.instructor[5].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
 
@@ -192,21 +288,37 @@
                             <span>표를 엑셀 파일로 다운로드 받을 수 있어요.</span>
                         </div>
                         <div class="permission-value__right">
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.administrator[6]?.approved"
-                                (onClick)="
-                                    _rolePermission.administrator[6].approved =
-                                        !_rolePermission.administrator[6].approved
-                                "
-                            ></rwa-checkbox>
-                            <rwa-checkbox
-                                class="role-categ"
-                                [checked]="_rolePermission?.instructor[6]?.approved"
-                                (onClick)="
-                                    _rolePermission.instructor[6].approved = !_rolePermission.instructor[6].approved
-                                "
-                            ></rwa-checkbox>
+                            <ng-container *ngIf="loading == 'idle'">
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.administrator[6]?.approved"
+                                    (onClick)="
+                                        _rolePermission.administrator[6].approved =
+                                            !_rolePermission.administrator[6].approved
+                                    "
+                                ></rwa-checkbox>
+                                <rwa-checkbox
+                                    class="role-categ"
+                                    [checked]="_rolePermission?.instructor[6]?.approved"
+                                    (onClick)="
+                                        _rolePermission.instructor[6].approved = !_rolePermission.instructor[6].approved
+                                    "
+                                ></rwa-checkbox>
+                            </ng-container>
+                            <ng-container *ngIf="loading == 'pending'">
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    class="role-skeleton"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '34px', height: '34px', 'border-radius': '8px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
                         </div>
                     </div>
                 </div>

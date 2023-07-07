@@ -109,7 +109,6 @@
             flex-direction: column;
             height: calc(100% - 70px - 75px - 50px);
 
-
             .body-content {
                 .permission-category {
                     display: flex;
@@ -147,6 +146,11 @@
                         .role-categ {
                             &:not(:last-of-type) {
                                 width: 84px;
+                            }
+                        }
+                        .role-skeleton {
+                            &:not(:last-of-type) {
+                                margin-right: 50px;
                             }
                         }
                     }

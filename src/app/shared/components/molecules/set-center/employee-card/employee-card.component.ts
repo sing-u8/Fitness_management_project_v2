@@ -24,6 +24,5 @@ export class EmployeeCardComponent implements OnInit {
         } else {
             this.statusText = '연동 요청중'
         }
-        console.log('employee card : ', this.employee)
     }
 }

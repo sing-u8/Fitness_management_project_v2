@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, AfterViewInit, SimpleChanges } from '@angular/core'
+import { Component, Input, Output, OnChanges, AfterViewInit, SimpleChanges, EventEmitter } from '@angular/core'
 import { Router } from '@angular/router'
 import { Center } from '@schemas/center'
 import dayjs from 'dayjs'
@@ -6,6 +6,11 @@ import { detectChangesOn } from '@shared/helper/component-helper'
 import _ from 'lodash'
 
 import { StorageService } from '@services/storage.service'
+import { UsersCenterService } from '@services/users-center.service'
+import { User } from '@schemas/user'
+import { Loading } from '@schemas/loading'
+import { Store } from '@ngrx/store'
+import { showToast } from '@store/app/actions/toast.action'
 
 export type DetailInfo = { title: string; desc: string[] }
 
@@ -16,6 +21,8 @@ export type DetailInfo = { title: string; desc: string[] }
 })
 export class CenterListItemComponent implements AfterViewInit, OnChanges {
     @Input() center: Center
+
+    public user: User
 
     public badgeState:
         | 'normal'
@@ -70,7 +77,14 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
 
     public setCenterModalVisible = false
-    constructor(private router: Router, private storageService: StorageService) {}
+    constructor(
+        private router: Router,
+        private storageService: StorageService,
+        private usersCenterService: UsersCenterService,
+        private nxStore: Store
+    ) {
+        this.user = this.storageService.getUser()
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'center', () => {
@@ -92,7 +106,9 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     getBadgeState() {
         const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        if (this.center.product_code == 'free_trial_membership') {
+        if (this.center.connection_status == 'employee_connection_status_pending') {
+            this.badgeState = 'normal'
+        } else if (this.center.product_code == 'free_trial_membership') {
             if (dayRemains > 14) {
                 this.badgeState = 'normal'
             } else if (dayRemains <= 14 && dayRemains > 1) {
@@ -130,9 +146,9 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     getHeaderState() {
-        // invite의 경우를 나중에 추가해야함
-
-        if (this.center.product_code == 'free_trial_membership') {
+        if (this.center.connection_status == 'employee_connection_status_pending') {
+            this.headerState = 'invite'
+        } else if (this.center.product_code == 'free_trial_membership') {
             if (this.badgeState == 'freeTrialEnd') {
                 this.headerState = 'freeTrialEnd'
             } else {
@@ -237,4 +253,35 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     public showAgreeInviteModal = false
     public showRefuseInviteModal = false
+
+    public agreeLoading: Loading = 'idle'
+
+    @Output() onAgreeInvite = new EventEmitter<Center>()
+    @Output() onRefuseInvite = new EventEmitter<Center>()
+    onAgreeCenter() {
+        this.agreeLoading = 'pending'
+        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: true }).subscribe({
+            next: (center) => {
+                this.agreeLoading = 'idle'
+                this.nxStore.dispatch(showToast({ text: '센터의 초대를 수락했어요.' }))
+                this.onAgreeInvite.emit(center)
+            },
+            error: (err) => {
+                this.agreeLoading = 'idle'
+            },
+        })
+    }
+    onRefuseCenter() {
+        this.agreeLoading = 'pending'
+        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: false }).subscribe({
+            next: () => {
+                this.agreeLoading = 'idle'
+                this.nxStore.dispatch(showToast({ text: '센터의 초대를 거절했어요.' }))
+                this.onRefuseInvite.emit(this.center)
+            },
+            error: (err) => {
+                this.agreeLoading = 'idle'
+            },
+        })
+    }
 }

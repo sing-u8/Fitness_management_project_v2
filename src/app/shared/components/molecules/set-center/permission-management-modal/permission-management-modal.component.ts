@@ -13,7 +13,6 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { NgxSpinnerService } from 'ngx-spinner'
@@ -21,23 +20,20 @@ import { NgxSpinnerService } from 'ngx-spinner'
 import { UsersService } from '@services/users.service'
 import { StorageService } from '@services/storage.service'
 import { CenterRolePermissionService, UpdateRolePermissionReqBody } from '@services/center-role-permission.service'
-import { SearchAddressService } from '@services/search-address/search-address.service'
-import { CenterService } from '@services/center.service'
 
 import { Loading } from '@schemas/loading'
 
 import { changesOn } from '@shared/helper/component-helper'
-import { originalOrder } from '@shared/helper/pipe/keyvalue-helper'
 
 import _ from 'lodash'
 
 import { showToast } from '@store/app/actions/toast.action'
 import { Store, select } from '@ngrx/store'
 import { takeUntil } from 'rxjs/operators'
-import { forkJoin, Subject } from 'rxjs'
-import { FileService } from '@services/file.service'
+import { Subject } from 'rxjs'
 import { Role, RolePermission } from '@schemas/role-permission'
 import { Center } from '@schemas/center'
+import { AuthErrors } from '@schemas/errors/auth-errors'
 
 @Component({
     selector: 'rwm-permission-management-modal',
@@ -47,6 +43,7 @@ import { Center } from '@schemas/center'
 export class PermissionManagementModalComponent
     implements OnInit, OnChanges, AfterViewChecked, AfterViewInit, OnDestroy
 {
+    @Input() loading: Loading = 'idle'
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
@@ -72,7 +69,6 @@ export class PermissionManagementModalComponent
         private spinner: NgxSpinnerService,
         private usersService: UsersService,
         private nxStore: Store,
-        private storageService: StorageService,
         public location: Location,
         public router: Router
     ) {}
@@ -132,6 +128,7 @@ export class PermissionManagementModalComponent
             },
             error: (err) => {
                 this.updateButtonLoading = 'idle'
+                if (!_.isEmpty(AuthErrors[err.code])) this.nxStore.dispatch(showToast({ text: AuthErrors[err.code] }))
             },
         })
     }

@@ -10,6 +10,8 @@ import { Center } from '@schemas/center'
 import { forkJoin, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
+import _ from 'lodash'
+
 @Component({
     selector: 'rwp-center-list',
     standalone: true,
@@ -54,6 +56,14 @@ export class CenterListComponent implements OnInit, OnDestroy {
                 this.centerLoading = 'idle'
             },
         })
+    }
+
+    onAgreeInvite(center: Center) {
+        const idx = _.findIndex(this.centerList, (v) => v.id == center.id)
+        this.centerList[idx] = center
+    }
+    onRefuseInvite(center: Center) {
+        _.remove(this.centerList, (v) => v.id == center.id)
     }
 
     // --------------------------------------------------------------------------------------------------

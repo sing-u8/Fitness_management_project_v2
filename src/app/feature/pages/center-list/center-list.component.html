@@ -75,7 +75,11 @@
                         </span>
                     </div>
                     <ng-container *ngFor="let centerItem of centerList">
-                        <rwm-center-list-item [center]="centerItem"></rwm-center-list-item>
+                        <rwm-center-list-item
+                            [center]="centerItem"
+                            (onAgreeInvite)="onAgreeInvite($event)"
+                            (onRefuseInvite)="onRefuseInvite($event)"
+                        ></rwm-center-list-item>
                     </ng-container>
                 </ng-container>
                 <ng-container *ngIf="centerLoading == 'pending'">

@@ -47,6 +47,7 @@ import { Center } from '@schemas/center'
 import { Status } from '@schemas/components/status'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { User } from '@schemas/user'
+import { AuthErrors } from '@schemas/errors/auth-errors'
 
 @Component({
     selector: 'rwm-update-employee-modal',
@@ -286,6 +287,9 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                 this.updateButtonLoading = 'idle'
                 if (err.code == 'FUNCTION_CENTER_EMPLOYEE_001') {
                     this.emailStatus = 'error'
+                } else {
+                    if (!_.isEmpty(AuthErrors[err.code]))
+                        this.nxStore.dispatch(showToast({ text: AuthErrors[err.code] }))
                 }
             },
         })
@@ -373,6 +377,9 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                     mo.hideLoading()
                     if (err.code == 'FUNCTION_CENTER_EMPLOYEE_001') {
                         this.emailStatus = 'error'
+                    } else {
+                        if (!_.isEmpty(AuthErrors[err.code]))
+                            this.nxStore.dispatch(showToast({ text: AuthErrors[err.code] }))
                     }
                 },
             })
@@ -427,6 +434,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                 mo.hideLoading()
                 this.deleteEmployeeOpen = false
                 this.open.emit()
+                if (!_.isEmpty(AuthErrors[err.code])) this.nxStore.dispatch(showToast({ text: AuthErrors[err.code] }))
             },
         })
     }

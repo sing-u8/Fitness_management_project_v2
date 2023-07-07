@@ -11,12 +11,16 @@ export interface Center {
     phone_number: string
     color: string
     timezone: string
-    product_code: 'free_trial_membership' | '1_years_membership' | '2_years_membership' | 'subscription_membership'
     free_trial_terms: boolean
+    product_code: 'free_trial_membership' | '1_years_membership' | '2_years_membership' | 'subscription_membership'
     start_date: string
     end_date: string
     picture: string
     background: string
+    connection_status:
+        | 'employee_connection_status_disconnected'
+        | 'employee_connection_status_pending'
+        | 'employee_connection_status_connected'
     role_code: RoleCode
     role_name: string
     permissions: Array<{ permission_code: string }> // 권한 코드 리스트

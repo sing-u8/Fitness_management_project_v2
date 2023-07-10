@@ -5,7 +5,9 @@
 
 .l-profile-photo {
     position: relative;
+
     .profile-photo {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -34,6 +36,18 @@
         position: absolute;
         bottom: 0;
         right: -10px;
+    }
+    .remove-picture {
+        display: none;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    &:hover {
+        .remove-picture {
+            display: initial;
+        }
     }
 }
 .hide-icon {

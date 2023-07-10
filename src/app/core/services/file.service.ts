@@ -65,7 +65,7 @@ export class FileService {
     getFile(param: GetFileParam): Observable<Array<_File>> {
         const url =
             this.SERVER +
-            `/files?type_code=${param.type_code}&center_id=${param.center_id}` +
+            `?type_code=${param.type_code}&center_id=${param.center_id}` +
             (param.page ? `&page=${param.page}` : ``) +
             (param.pageSize ? `&pageSize=${param.pageSize}` : ``)
 

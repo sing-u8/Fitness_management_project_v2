@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core'
 import { User } from '@schemas/user'
 import { Center } from '@schemas/center'
-import { UploadFileReqBody } from '@services/file.service'
 
 import { FileService } from '@services/file.service'
 import { UsersService } from '@services/users.service'
@@ -35,46 +34,27 @@ export class ProfilePhotoComponent {
         const files: FileList = picture.files
         if (!this.isFileExist(files)) return
 
-        this.fileService.uploadFile('file_type_user_picture', files).subscribe((__) => {
-            console.log('resData - user uploadFile : ', __)
-            this.usersService.getUser(this.user.id).subscribe({
-                next: (resData) => {
-                    console.log('resData - user : ', resData)
-                    this.user.picture = resData['picture']
-                    this.storageService.setUser({
-                        ...this.user,
-                        picture: resData['picture'],
-                    })
-                    this.user = this.storageService.getUser()
-                    this.storageService.userChangeSubject.next(true)
-                    this.nxStore.dispatch(showToast({ text: '내 사진이 등록되었어요.' }))
-                },
-                error: (err) => {
-                    console.log('create account avatar file err: ', err)
-                },
+        this.fileService.uploadFile('file_type_user_picture', files).subscribe((files) => {
+            this.user.picture = files[0].url
+            this.storageService.setUser({
+                ...this.user,
             })
+            this.user = this.storageService.getUser()
+            this.storageService.userChangeSubject.next(true)
+            this.nxStore.dispatch(showToast({ text: '내 사진이 등록되었어요.' }))
         })
     }
     removePhoto() {
         const prevPicture = this.user.picture
-        console.log('removePhoto -- ', this.user)
         this.fileService.deleteFile(prevPicture).subscribe({
             next: (__) => {
-                this.usersService.getUser(this.user.id).subscribe({
-                    next: (resData) => {
-                        this.storageService.setUser({
-                            ...this.user,
-                            picture: resData['picture'],
-                        })
-                        this.user = this.storageService.getUser()
-                        this.storageService.userChangeSubject.next(true)
-                        // this.globalSettingAccountService.setUserAvatar(this.user.picture)
-                        this.nxStore.dispatch(showToast({ text: '내 사진이 삭제되었어요.' }))
-                    },
-                    error: (err) => {
-                        console.log('get user error :', err)
-                    },
+                this.storageService.setUser({
+                    ...this.user,
+                    picture: null,
                 })
+                this.user = this.storageService.getUser()
+                this.storageService.userChangeSubject.next(true)
+                this.nxStore.dispatch(showToast({ text: '내 사진이 삭제되었어요.' }))
             },
             error: (err) => {
                 console.log('remove file err: ', err)

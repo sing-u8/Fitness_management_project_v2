@@ -85,6 +85,11 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
 
     // -----------------------------------------------------------------------------------------------------------
 
+    goEmployeeManagement() {
+        this.categoris[0].selected = false
+        this.categoris[1].selected = true
+    }
+
     // -----------------------------------------------------------------------------------------------------------
     @Output() close = new EventEmitter()
     @Output() open = new EventEmitter()

@@ -45,9 +45,6 @@ export class AppComponent {
         this.unSubscriber$.complete()
     }
 
-    hideModal() {
-        this.nxStore.dispatch(hideModal())
-    }
     hideToast() {
         this.nxStore.dispatch(hideToast())
     }

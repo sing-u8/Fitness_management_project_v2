@@ -1,0 +1,62 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="header-title">주소</div>
+            <rwa-icon-ghost-button sizeType="md" borderRadius="14px" borderColor="var(--gray-60)" (onClick)="onClose()">
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                </ng-template>
+            </rwa-icon-ghost-button>
+        </div>
+        <form [formGroup]="centerForm" class="body">
+            <div class="d-flex align-items-center justify-content-between w-100 item-margin">
+                <rwa-text-field
+                    [labelVisible]="false"
+                    [width]="'210px'"
+                    [placeholder]="'우편 번호'"
+                    [formControlName]="'zonecode'"
+                ></rwa-text-field>
+                <rwa-button
+                    [padding]="'7.5px 16px 5.5px'"
+                    [bgColor]="'#2F2D2D'"
+                    [hoverBgColor]="'#141517'"
+                    (onClick)="openSearchAddressPopup()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="search-address-text"> 주소 검색 </span>
+                    </ng-template>
+                </rwa-button>
+            </div>
+            <rwa-text-field
+                class="item-margin"
+                [labelVisible]="false"
+                [width]="'320px'"
+                [placeholder]="'주소'"
+                [formControlName]="'roadAddress'"
+            ></rwa-text-field>
+            <rwa-text-field
+                [labelVisible]="false"
+                [width]="'320px'"
+                [placeholder]="'상세 주소'"
+                [formControlName]="'detailedAddress'"
+            ></rwa-text-field>
+            <rwa-button
+                [disable]="centerForm.invalid"
+                class="save-button"
+                padding="9px 25px 7px"
+                (onClick)="changeAddress()"
+                [status]="confirmButtonLoading"
+                [loadingName]="'name-save'"
+            >
+                <ng-template btIdleContent><span class="save-button-text">저장하기</span></ng-template>
+                <ng-template btPendingContent><span class="save-button-text">저장하기</span></ng-template>
+            </rwa-button>
+        </form>
+    </div>
+</div>

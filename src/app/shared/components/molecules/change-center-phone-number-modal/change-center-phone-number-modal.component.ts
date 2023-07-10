@@ -51,7 +51,7 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
-            value: this.phoneNumberForm.value,
+            value: _.replace(this.phoneNumberForm.value, /[^0-9]/gi, ''),
         })
     }
 

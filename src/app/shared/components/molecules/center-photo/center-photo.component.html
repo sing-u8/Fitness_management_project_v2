@@ -25,7 +25,7 @@
         (onClick)="userProfile.click()"
         rwTooltip
         rwTooltipPlacement="bottom"
-        rwTooltipTitle="내 사진 등록"
+        rwTooltipTitle="센터 사진 등록"
     >
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-plus [color]="'var(--gray-90)'" [width]="'22px'" [height]="'22px'"></rwa-svg-plus>
@@ -38,10 +38,21 @@
         (onClick)="userProfile.click()"
         rwTooltip
         rwTooltipPlacement="bottom"
-        rwTooltipTitle="내 사진 등록"
+        rwTooltipTitle="센터 사진 변경"
     >
         <ng-template iconGhostBtIdleContent>
             <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
         </ng-template>
     </rwa-icon-ghost-button>
+    <rwa-xs-icon-button
+        *ngIf="!!pictureSrc"
+        class="remove-picture"
+        [type]="'fill'"
+        width="27px"
+        height="27px"
+        borderRadius="12px"
+        (onClick)="pictureRemove.emit(pictureSrc)"
+    >
+        <rwa-svg-close color="var(--white)" [width]="'15px'" [height]="'15px'"></rwa-svg-close>
+    </rwa-xs-icon-button>
 </div>

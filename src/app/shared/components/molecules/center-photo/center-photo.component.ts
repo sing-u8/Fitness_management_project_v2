@@ -11,26 +11,19 @@ export class CenterPhotoComponent implements OnChanges {
         pictureFile: FileList
         pictureSrc: string
     }>()
+    @Output() pictureRemove = new EventEmitter<string>()
 
     @ViewChild('userProfile') userProfile_el: ElementRef
 
     public pictureName = ''
 
-    ngOnChanges(changes: SimpleChanges) {
-        // changesOn(changes, 'pictureSrc', (v) => {
-        //     if (_.isEmpty(v)) {
-        //         this.userProfile_el.nativeElement.files = undefined
-        //     }
-        // })
-    }
+    ngOnChanges(changes: SimpleChanges) {}
 
     setPhoto(picture: any) {
         const files: FileList = picture.files
-        // console.log('set photo : ', files, picture)
 
         const fileReader = new FileReader()
         fileReader.onload = (e) => {
-            // console.log('setPhoto in onload : ', e)
             this.pictureName = files[0].name
             this.pictureChange.emit({ pictureFile: files, pictureSrc: e.target.result as string })
         }
@@ -39,8 +32,5 @@ export class CenterPhotoComponent implements OnChanges {
     }
     onPhotoClicked(event) {
         event.target.value = null
-    }
-    isFileExist(fileList: FileList) {
-        return !(fileList && fileList.length == 0)
     }
 }

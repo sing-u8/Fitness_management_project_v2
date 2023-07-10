@@ -1,7 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { ModalData, Permission } from '../../../core/schemas/appStore/modal.interface'
-import { Center } from '../../../core/schemas/center'
-import { ButtonEmit } from '../../../core/schemas/components/button'
+import { ModalData, Permission } from '@schemas/appStore/modal.interface'
 
 export const featureKey = `[App/Modal]`
 

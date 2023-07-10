@@ -1,8 +1,9 @@
 <div class="l-center-info">
     <div class="l-center-avatar">
         <rwm-center-photo
-            [pictureSrc]="centerPictureSrc"
+            [pictureSrc]="center?.picture"
             (pictureChange)="onCenterPictureChange($event)"
+            (pictureRemove)="onCenterPictureRemove($event)"
         ></rwm-center-photo>
 
         <div class="l-center-code">
@@ -31,7 +32,7 @@
             [fontSize]="'1.5rem'"
             [lineHeight]="'23px'"
             [color]="'var(--gray-90)'"
-            (onClick)="leaveCenter()"
+            (onClick)="openLeaveCenterModal()"
         >
             이 센터에서 나가기
         </rwa-text-button>
@@ -62,7 +63,7 @@
                         class="item-value line-ellipsis"
                         [class.change-button-exist]="item.changeAvailable"
                     >
-                        {{ item.value }}
+                        {{ item.value ?? '-' }}
                     </div>
                     <rwa-ghost-button
                         *ngIf="item.changeAvailable"
@@ -98,3 +99,24 @@
     (onPhoneNumberConfirm)="onChangePhoneNumber($event)"
     [phoneNumber]="center?.phone_number"
 ></rwm-change-center-phone-number-modal>
+<rwm-change-center-address-modal
+    [zoneCode]="center?.zip_no"
+    [detailedAddress]="center?.addr_detail"
+    [roadAddress]="center?.road_full_addr"
+    [(visible)]="showChangeAddressModal"
+    (close)="showChangeAddressModal = false"
+    (onAddressConfirm)="onAddressConfirm($event)"
+></rwm-change-center-address-modal>
+
+<rwa-modal
+    [(visible)]="showLeaveCenterModal"
+    [data]="leaveCenterModaData"
+    (cancel)="showLeaveCenterModal = false"
+    (confirm)="onLeaveCenterConfirm($event)"
+></rwa-modal>
+<rwa-modal
+    [(visible)]="showLeaveCenterFailedModal"
+    [data]="leaveCenterFailedModalData"
+    (cancel)="onYieldCenterClick()"
+    (confirm)="showLeaveCenterFailedModal = false"
+></rwa-modal>

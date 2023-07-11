@@ -9,8 +9,10 @@ import { PaymentCard } from '@schemas/payment/payment-card'
 })
 export class PaymentCardComponent implements OnInit {
     @Input() cardData: PaymentCard = {
+        id: '',
         card_number: '',
         card_name: '',
+        checked: false,
     }
     @Input() showBottom = false
     constructor() {}

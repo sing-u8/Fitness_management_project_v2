@@ -22,5 +22,3 @@ export type PromotionCode =
     | '1_years_friend_event_2023'
     | '2_years_launch_event_2023'
     | '2_years_friend_event_2023'
-    | 'lifetime_launch_event_2023'
-    | 'lifetime_friend_event_2023'

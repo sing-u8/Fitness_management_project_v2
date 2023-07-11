@@ -72,8 +72,7 @@ export function getRefundLimit(paymentHistoryItem: PaymentHistoryItem) {
         return 7
     } else if (
         paymentHistoryItem.product_code == '1_years_membership' ||
-        paymentHistoryItem.product_code == '2_years_membership' ||
-        paymentHistoryItem.product_code == 'lifetime_membership'
+        paymentHistoryItem.product_code == '2_years_membership'
     ) {
         return 30
     } else {

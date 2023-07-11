@@ -361,13 +361,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     }
                 }
                 break
-            case 'lifetime_membership':
-                this.paymentItemInfo.period = {
-                    startDate: undefined,
-                    endDate: undefined,
-                    dateStr: `평생 이용`,
-                }
-                break
+
             default:
                 if (
                     !_.isEmpty(this.center.product_code) &&
@@ -421,11 +415,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
             .subscribe({
                 next: (promotions) => {
                     this.paymentItemInfo.promotions = _.map(promotions, (value) => {
-                        if (
-                            value.code == '2_years_friend_event_2023' ||
-                            value.code == '1_years_friend_event_2023' ||
-                            value.code == 'lifetime_friend_event_2023'
-                        ) {
+                        if (value.code == '2_years_friend_event_2023' || value.code == '1_years_friend_event_2023') {
                             value.isFriendPromotion = true
                             value.friend_event_valid = false
                             value.friend_event_error = ''

@@ -14,7 +14,8 @@ const routes: Routes = [
         loadChildren: () => import('@routes/auth.routes').then((r) => r.AuthRoutes),
     },
     {
-        path: 'payment',
+        path: ':center-name/payment',
+        canActivate: [AuthGuard],
         loadComponent: () => import('@pages/payment/payment.component').then((m) => m.PaymentComponent),
     },
     {

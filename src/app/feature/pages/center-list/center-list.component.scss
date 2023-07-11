@@ -102,3 +102,45 @@
         }
     }
 }
+
+.invite-agreement-modal {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    .igm-title {
+        @include rw-type-b(2rem, 31px, var(--font-color));
+    }
+    .igm-desc {
+        @include rw-type-r(1.7rem, 28px, var(--gray-90));
+        margin-top: 8px;
+    }
+    .igm-content {
+        display: flex;
+        flex-direction: column;
+        padding: 17px 0;
+        border-top: 1px solid var(--gray-100);
+        border-bottom: 1px solid var(--gray-60);
+        .igm-content__title {
+            @include rw-type-r(1.5rem, 23px, var(--gray-90));
+        }
+        .igm-content__value {
+            @include rw-type-r(1.7rem, 28px, var(--font-color));
+            white-space: pre-line;
+        }
+    }
+    .igm-button {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .cancel-button {
+            margin-right: 10px;
+        }
+        .cancel-button-text {
+            @include rw-type-b(1.7rem, 28px, var(--gray-90));
+        }
+        .confirm-button-text {
+            @include rw-type-b(1.7rem, 28px, var(--white));
+        }
+    }
+}

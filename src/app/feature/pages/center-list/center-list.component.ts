@@ -70,14 +70,6 @@ export class CenterListComponent implements OnInit, OnDestroy {
         })
     }
 
-    onAgreeInvite(center: Center) {
-        const idx = _.findIndex(this.centerList, (v) => v.id == center.id)
-        this.centerList[idx] = center
-    }
-    onRefuseInvite(center: Center) {
-        _.remove(this.centerList, (v) => v.id == center.id)
-    }
-
     onCenterChanged(center: Center) {
         const curCenterIdx = _.findIndex(this.centerList, (v) => v.id == center.id)
         _.forEach(_.keys(center), (key) => {
@@ -89,6 +81,14 @@ export class CenterListComponent implements OnInit, OnDestroy {
     }
 
     // --------------------------------------------------------------------------------------------------
+
+    onAgreeInvite(center: Center) {
+        const idx = _.findIndex(this.centerList, (v) => v.id == center.id)
+        this.centerList[idx] = center
+    }
+    onRefuseInvite(center: Center) {
+        _.remove(this.centerList, (v) => v.id == center.id)
+    }
 
     // --------------------------------------------------------------------------------------------------
 

@@ -42,8 +42,12 @@ export class CenterListComponent implements OnInit, OnDestroy {
         this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
             this.user = this.storageService.getUser()
         })
-        this.centerListService.centerChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe((center) => {
-            this.onCenterChanged(center)
+        this.centerListService.centerChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe((cc) => {
+            if (cc.type == 'change') {
+                this.onCenterChanged(cc.center)
+            } else if (cc.type == 'remove') {
+                this.onCenterRemoved(cc.center)
+            }
         })
         this.getCenterList()
     }
@@ -79,6 +83,9 @@ export class CenterListComponent implements OnInit, OnDestroy {
         _.forEach(_.keys(center), (key) => {
             this.centerList[curCenterIdx][key] = center[key]
         })
+    }
+    onCenterRemoved(center: Center) {
+        _.remove(this.centerList, (v) => v.id == center.id)
     }
 
     // --------------------------------------------------------------------------------------------------

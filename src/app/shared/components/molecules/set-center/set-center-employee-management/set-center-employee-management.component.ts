@@ -154,7 +154,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         const changedCenter = _.cloneDeep(this.center)
         changedCenter.role_code = 'administrator'
         changedCenter.role_name = '관리자'
-        this.centerListService.setChangedCenter(changedCenter)
+        this.centerListService.setChangedCenter(changedCenter, 'change')
     }
     // ---------------------------------------------------------------------------------------------------
     onEmployeeDeleted(emp: Employee) {

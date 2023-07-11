@@ -20,6 +20,8 @@ import { ChangeCenterPhoneNumberOutput } from '@shared/components/molecules/chan
 import { CenterService } from '@services/center.service'
 import { FileService } from '@services/file.service'
 import { CenterListService } from '@services/center-list/center-list.service'
+import { UsersCenterService } from '@services/users-center.service'
+import { StorageService } from '@services/storage.service'
 
 import { showToast } from '@store/app/actions/toast.action'
 import { Store } from '@ngrx/store'
@@ -27,6 +29,7 @@ import { Loading } from '@schemas/loading'
 import { ChangeAddressOutput } from '@shared/components/molecules/change-center-address-modal/change-center-address-modal.component'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
 import { WordService } from '@services/helper/word.service'
+import { User } from '@schemas/user'
 
 export type CenterInfo = 'name' | 'phoneNumber' | 'address'
 
@@ -53,7 +56,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             next: (v) => {
                 this.nxStore.dispatch(showToast({ text: '센터 사진이 등록되었어요.' }))
                 this.center.picture = v[0].url
-                this.centerListService.setChangedCenter(this.center)
+                this.centerListService.setChangedCenter(this.center, 'change')
             },
             error: () => {},
         })
@@ -64,7 +67,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             next: () => {
                 this.nxStore.dispatch(showToast({ text: '센터 사진이 삭제되었어요.' }))
                 this.center.picture = null
-                this.centerListService.setChangedCenter(this.center)
+                this.centerListService.setChangedCenter(this.center, 'change')
             },
             error: () => {},
         })
@@ -174,6 +177,8 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private centerService: CenterService,
         private centerListService: CenterListService,
         private wordService: WordService,
+        private usersCenterService: UsersCenterService,
+        private storageService: StorageService,
         private cd: ChangeDetectorRef
     ) {}
     ngOnChanges(changes: SimpleChanges) {
@@ -236,7 +241,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.nxStore.dispatch(showToast({ text: '센터 이름이 변경되었어요.' }))
                     this.centerInfoList[0].value = center.name
                     this.center = center
-                    this.centerListService.setChangedCenter(center)
+                    this.centerListService.setChangedCenter(center, 'change')
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -258,7 +263,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.nxStore.dispatch(showToast({ text: '센터 이름이 변경되었어요.' }))
                     this.centerInfoList[1].value = center.phone_number
                     this.center = center
-                    this.centerListService.setChangedCenter(center)
+                    this.centerListService.setChangedCenter(center, 'change')
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -282,7 +287,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.nxStore.dispatch(showToast({ text: '주소가 변경되었어요.' }))
                     this.centerInfoList[2].value = `(${center.zip_no}) ${center.road_full_addr}, ${center.addr_detail}`
                     this.center = center
-                    this.centerListService.setChangedCenter(center)
+                    this.centerListService.setChangedCenter(center, 'change')
                 },
                 error: (err) => {
                     res.loadingFn.hideLoading()
@@ -313,7 +318,19 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             this.showLeaveCenterModal = false
         } else {
             // ????
-            this.showLeaveCenterModal = false
+            res.showLoading()
+            const user: User = this.storageService.getUser()
+            this.usersCenterService.leaveCenter(user.id, this.center.id).subscribe({
+                next: () => {
+                    this.showLeaveCenterModal = false
+                    this.nxStore.dispatch(showToast({ text: '센터 나가기가 완료되었어요.' }))
+                    this.centerListService.setChangedCenter(this.center, 'remove')
+                    res.hideLoading()
+                },
+                error: () => {
+                    res.hideLoading()
+                },
+            })
         }
     }
 

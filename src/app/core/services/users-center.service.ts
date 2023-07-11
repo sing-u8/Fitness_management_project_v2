@@ -54,22 +54,22 @@ export class UsersCenterService {
         )
     }
 
-    // leave(userId: string, centerId: string): Observable<Response> {
-    //     const url = this.SERVER + `/${userId}/center/${centerId}/leave`
-    //
-    //     const options = {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json',
-    //         }),
-    //     }
-    //
-    //     return this.http.put<Response>(url, {}, options).pipe(
-    //         map((res) => {
-    //             return res
-    //         }),
-    //         catchError(handleError)
-    //     )
-    // }
+    leaveCenter(userId: string, centerId: string): Observable<Response> {
+        const url = this.SERVER + `/${userId}/center/${centerId}`
+
+        const options = {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+            }),
+        }
+
+        return this.http.delete<Response>(url, options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
 }
 
 export interface SetCenterConnectionReqBody {

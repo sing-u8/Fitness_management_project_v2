@@ -63,8 +63,18 @@
                         class="item-value line-ellipsis"
                         [class.change-button-exist]="item.changeAvailable"
                     >
-                        {{ item.value ?? '-' }}
+                        <span *ngIf="item.type != 'business-license'">{{ item.value ?? '-' }}</span>
+                        <span *ngIf="item.type == 'business-license' && businessLicenseLoading != 'pending'">
+                            {{ item.value ?? '-' }}
+                        </span>
+                        <ngx-skeleton-loader
+                            *ngIf="item.type == 'business-license' && businessLicenseLoading == 'pending'"
+                            count="1"
+                            appearance="line"
+                            [theme]="{ width: '120px', height: '28px', 'border-radius': '5px', margin: '8px 0 0' }"
+                        ></ngx-skeleton-loader>
                     </div>
+
                     <rwa-ghost-button
                         *ngIf="item.changeAvailable"
                         height="37px"

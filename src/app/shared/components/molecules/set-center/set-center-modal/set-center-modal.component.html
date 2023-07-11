@@ -34,6 +34,7 @@
             <rwm-set-center-info
                 class="center-info"
                 [class.open]="categoris[0].selected"
+                [isOpen]="categoris[0].selected && visible"
                 [center]="center"
                 (goEmployeeManagement)="goEmployeeManagement()"
             ></rwm-set-center-info>

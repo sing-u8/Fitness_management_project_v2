@@ -8,11 +8,12 @@ import {
     Output,
     SimpleChanges,
     ViewChild,
+    ChangeDetectorRef,
 } from '@angular/core'
 import { Center } from '@schemas/center'
 
 import _ from 'lodash'
-import { detectChangesOn } from '@shared/helper/component-helper'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { ChangeCenterNameOutput } from '@shared/components/molecules/change-center-name-modal/change-center-name-modal.component'
 import { ChangeCenterPhoneNumberOutput } from '@shared/components/molecules/change-center-phone-number-modal/change-center-phone-number-modal.component'
 
@@ -36,6 +37,7 @@ export type CenterInfo = 'name' | 'phoneNumber' | 'address'
 })
 export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     @Input() center: Center
+    @Input() isOpen = false
 
     @Input() isInit: boolean
     @Output() isInitChange = new EventEmitter<boolean>()
@@ -109,6 +111,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     ]
     public businessLicenseLoading: Loading = 'idle'
     centerInfoInit() {
+        this.initPermission()
         _.forEach(this.centerInfoList, (v, idx) => {
             switch (v.type) {
                 case 'center-name':
@@ -116,12 +119,14 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.centerInfoList[idx].onChangeClick = () => {
                         this.showChangeNameModal = true
                     }
+                    this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
                     break
                 case 'phone-number':
                     this.centerInfoList[idx].value = this.center.phone_number
                     this.centerInfoList[idx].onChangeClick = () => {
                         this.showChangePhoneNumberModal = true
                     }
+                    this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
                     break
                 case 'center-address':
                     this.centerInfoList[
@@ -130,9 +135,12 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.centerInfoList[idx].onChangeClick = () => {
                         this.showChangeAddressModal = true
                     }
+                    this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
                     break
                 case 'business-license':
-                    if (!_.isObject(this.centerInfoList[idx].file)) this.businessLicenseLoading = 'pending'
+                    this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
+                    if (!_.isEmpty(this.centerInfoList[idx].value)) break
+                    this.businessLicenseLoading = 'pending'
                     this.fileService
                         .getFile({ center_id: this.center.id, type_code: 'file_type_center_business_registration' })
                         .subscribe((files) => {
@@ -148,6 +156,16 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     break
             }
         })
+        console.log('set info init : ', this.permissionObj, this.centerInfoList)
+    }
+
+    public permissionObj = {
+        settings_update_center: false,
+    }
+    initPermission() {
+        this.permissionObj.settings_update_center =
+            !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_center') ||
+            this.center.role_code == 'owner'
     }
 
     constructor(
@@ -155,15 +173,18 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private nxStore: Store,
         private centerService: CenterService,
         private centerListService: CenterListService,
-        private wordService: WordService
+        private wordService: WordService,
+        private cd: ChangeDetectorRef
     ) {}
     ngOnChanges(changes: SimpleChanges) {
-        detectChangesOn(changes, 'center', (v) => {
-            this.centerInfoInit()
+        changesOn(changes, 'isOpen', (v) => {
+            if (v) {
+                this.centerInfoInit()
+            }
         })
     }
     ngAfterViewInit() {
-        this.centerInfoInit()
+        this.cd.detectChanges()
     }
 
     // -----------------------------------------------------------------------------------------------------------

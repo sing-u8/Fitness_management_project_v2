@@ -5,7 +5,7 @@ import { SharedModule } from '@shared/shared.module'
 import { Promotion } from '@schemas/payment/promotion'
 import { PaymentItemInfoProp } from '@schemas/payment/payment-item'
 
-import { PaymentService } from '@services/payment.service'
+import { ProductsService } from '@services/products.service'
 
 import _ from 'lodash'
 import { Center } from '@schemas/center'
@@ -25,7 +25,7 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
 
     @Output() onPromotionChanged = new EventEmitter<Array<Promotion>>()
     public totalDiscountPrice = 0
-    constructor(private paymentApi: PaymentService) {}
+    constructor(private productApi: ProductsService) {}
 
     ngOnInit(): void {}
     ngOnChanges(changes: SimpleChanges) {
@@ -50,12 +50,12 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
     }
 
     checkFriendPromotion(idx: number) {
-        this.paymentApi
-            .checkPaymentPromotion(
+        this.productApi
+            .checkProductPromotion(
                 this.center.id,
                 this.itemInfo.productCode,
                 this.promotions[idx].code,
-                this.promotions[idx].friend_event_center_url
+                this.center.code
             )
             .subscribe({
                 next: (res) => {

@@ -11,13 +11,13 @@ import {
     ViewChild,
     ChangeDetectorRef,
 } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 
 import { InputHelperService } from '@services/helper/input-helper.service'
-import { PaymentService, SubscribePaymentCustomersReqBody } from '@services/payment.service'
 
 import { ButtonEmit } from '@schemas/components/button'
 import { Loading } from '@schemas/loading'
+import { CreatePaymentCustomerReqBody } from '@services/users-payments-customers.service'
 
 @Component({
     selector: 'rwm-register-card-modal',
@@ -36,7 +36,7 @@ export class RegisterCardModalComponent implements OnChanges, AfterViewChecked {
     @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<{
         btLoading: ButtonEmit
-        reqBody: SubscribePaymentCustomersReqBody
+        reqBody: CreatePaymentCustomerReqBody
     }>()
 
     public changed: boolean

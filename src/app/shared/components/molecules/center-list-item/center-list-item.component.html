@@ -144,6 +144,7 @@
                 padding="7.5px 16.32px 5.5px"
                 [bgColor]="'#2F2D2D'"
                 [hoverBgColor]="'#141517'"
+                (onClick)="goPayment()"
             >
                 <ng-template btIdleContent>
                     <span class="button-text white-text">이용권 구매</span>
@@ -211,7 +212,7 @@
                 *ngIf="detailModalMode != 'subscriptionFailed'"
                 [padding]="'9px 25px 7px'"
                 [height]="'45px'"
-                (onClick)="(false)"
+                (onClick)="goPayment()"
             >
                 <ng-template btIdleContent><span class="white-button-text">이용권 구매</span></ng-template>
             </rwa-button>
@@ -255,7 +256,12 @@
             >
                 <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
             </rwa-button>
-            <rwa-button [status]="agreeLoading" [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onAgreeCenter()">
+            <rwa-button
+                [status]="agreeLoading"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                (onClick)="onAgreeCenter()"
+            >
                 <ng-template btIdleContent><span class="white-button-text">수락하기</span></ng-template>
                 <ng-template btPendingContent><span class="white-button-text">수락하기</span></ng-template>
             </rwa-button>
@@ -295,7 +301,12 @@
             >
                 <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
             </rwa-button>
-            <rwa-button [status]="agreeLoading" [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onRefuseCenter()">
+            <rwa-button
+                [status]="agreeLoading"
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                (onClick)="onRefuseCenter()"
+            >
                 <ng-template btIdleContent><span class="white-button-text">거절하기</span></ng-template>
                 <ng-template btPendingContent><span class="white-button-text">거절하기</span></ng-template>
             </rwa-button>

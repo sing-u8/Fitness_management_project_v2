@@ -99,9 +99,48 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         this.getDetailModalData()
     }
 
+    goPayment() {
+        this.storageService.setCenter(this.center)
+        this.router.navigate([`${this.center.name}`, 'payment'])
+    }
+
     goCenter() {
         this.storageService.setCenter(this.center)
         this.router.navigate([`${this.center.name}`, 'main'])
+    }
+
+    public showAgreeInviteModal = false
+    public showRefuseInviteModal = false
+
+    public agreeLoading: Loading = 'idle'
+
+    @Output() onAgreeInvite = new EventEmitter<Center>()
+    @Output() onRefuseInvite = new EventEmitter<Center>()
+    onAgreeCenter() {
+        this.agreeLoading = 'pending'
+        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: true }).subscribe({
+            next: (center) => {
+                this.agreeLoading = 'idle'
+                this.nxStore.dispatch(showToast({ text: '센터의 초대를 수락했어요.' }))
+                this.onAgreeInvite.emit(center)
+            },
+            error: (err) => {
+                this.agreeLoading = 'idle'
+            },
+        })
+    }
+    onRefuseCenter() {
+        this.agreeLoading = 'pending'
+        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: false }).subscribe({
+            next: () => {
+                this.agreeLoading = 'idle'
+                this.nxStore.dispatch(showToast({ text: '센터의 초대를 거절했어요.' }))
+                this.onRefuseInvite.emit(this.center)
+            },
+            error: (err) => {
+                this.agreeLoading = 'idle'
+            },
+        })
     }
 
     getBadgeState() {
@@ -249,39 +288,5 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             '카드 잔액 부족, 카드 정보 오류, 결제 시스템 장애 등으로 결제에 실패했어요. 문제가 계속되면 카드사로 문의해 주시기 바랍니다.',
             '할인을 받는 경우 이용권 기간 내에 결제가 이루어진 경우에만 할인 혜택이 유지되며, 기간 만료 후부터는 할인 혜택이 적용되지 않아요.',
         ],
-    }
-
-    public showAgreeInviteModal = false
-    public showRefuseInviteModal = false
-
-    public agreeLoading: Loading = 'idle'
-
-    @Output() onAgreeInvite = new EventEmitter<Center>()
-    @Output() onRefuseInvite = new EventEmitter<Center>()
-    onAgreeCenter() {
-        this.agreeLoading = 'pending'
-        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: true }).subscribe({
-            next: (center) => {
-                this.agreeLoading = 'idle'
-                this.nxStore.dispatch(showToast({ text: '센터의 초대를 수락했어요.' }))
-                this.onAgreeInvite.emit(center)
-            },
-            error: (err) => {
-                this.agreeLoading = 'idle'
-            },
-        })
-    }
-    onRefuseCenter() {
-        this.agreeLoading = 'pending'
-        this.usersCenterService.setCenterConnection(this.user.id, this.center.id, { connection: false }).subscribe({
-            next: () => {
-                this.agreeLoading = 'idle'
-                this.nxStore.dispatch(showToast({ text: '센터의 초대를 거절했어요.' }))
-                this.onRefuseInvite.emit(this.center)
-            },
-            error: (err) => {
-                this.agreeLoading = 'idle'
-            },
-        })
     }
 }

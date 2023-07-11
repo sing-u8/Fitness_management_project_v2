@@ -4,10 +4,11 @@ export type Promotion = {
     code: PromotionCode
     title: string
     description: string | SafeHtml
-    start: string // YYYY-MM-DD HH:mm:ss
-    end: string
+    start_datetime: string // YYYY-MM-DD HH:mm:ss
+    end_datetime: string
     discount_unit_code: 'promotion_discount_unit_percent' | 'promotion_discount_unit_won'
     discount: number
+
     // only for front end
     discount_price_for_percent?: number
     discount_price_for_money?: number

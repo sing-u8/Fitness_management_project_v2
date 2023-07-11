@@ -11,7 +11,10 @@ import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-prod
 import { PaymentProductInfoComponent } from '@feature/atoms/payment/payment-product-info/payment-product-info.component'
 
 import { StorageService } from '@services/storage.service'
-import { PaymentService } from '@services/payment.service'
+import { CreatePaymentReqBody, UsersPaymentsService } from '@services/users-payments.service'
+import { UsersPaymentsCustomersService } from '@services/users-payments-customers.service'
+import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
+import { ProductsService } from '@services/products.service'
 import { CenterService } from '@services/center.service'
 
 import { paymentItemList } from '@shared/helper/center-payment'
@@ -29,6 +32,7 @@ import { PaymentDiscountBenefitComponent } from '@feature/atoms/payment/payment-
 import { PaymentMethodComponent } from '@feature/atoms/payment/payment-method/payment-method.component'
 import { PaymentInformationComponent } from '@feature/atoms/payment/payment-information/payment-information.component'
 import { PaymentResultModalComponent } from '@feature/molecules/payment/payment-result-modal/payment-result-modal.component'
+import { User } from '@schemas/user'
 
 type Progress = 'one' | 'two'
 
@@ -50,17 +54,22 @@ type Progress = 'one' | 'two'
 })
 export class PaymentComponent implements OnDestroy, OnInit {
     public center: Center
+    public user: User
 
     constructor(
         private storageService: StorageService,
-        private paymentService: PaymentService,
         private domSanitizer: DomSanitizer,
         private centerService: CenterService,
+        private usersPaymentsService: UsersPaymentsService,
+        private usersPaymentsCustomersService: UsersPaymentsCustomersService,
+        private usersPaymentsSubscribeService: UsersPaymentsSubscribeService,
+        private productsService: ProductsService,
         private router: Router,
         private activatedRoute: ActivatedRoute
     ) {}
     ngOnInit() {
         this.center = this.storageService.getCenter()
+        this.user = this.storageService.getUser()
         this.stepBS.pipe(takeUntil(this.unSubscriber$)).subscribe((progress) => {
             switch (progress) {
                 case 'one':
@@ -157,7 +166,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
         this.isPurchaseInProcess = true
         this.purchaseButtonLoading = 'pending'
         if (this.paymentItemInfo.itemInfo.productCode != 'subscribe_membership' && this.paymentAgree) {
-            const reqBody = {
+            const reqBody: CreatePaymentReqBody = {
                 center_id: this.center.id,
                 product_code: this.paymentItemInfo.itemInfo.productCode,
                 amount: this.totalTax + this.totalPay,
@@ -168,7 +177,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     if (val.isFriendPromotion && val.friend_event_valid) {
                         reqBody['promotion'].push({
                             promotion_code: val.code,
-                            center_address: val.friend_event_center_url,
+                            center_code: this.center.code,
                         })
                     } else if (!val.isFriendPromotion && val.code) {
                         reqBody['promotion'].push({
@@ -177,7 +186,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     }
                 })
             }
-            this.paymentService.createPaymentData(reqBody).subscribe((v) => {
+            this.usersPaymentsService.createPayment(this.user.id, reqBody).subscribe((v) => {
                 const user = this.storageService.getUser()
                 const IMP = window['IMP']
 
@@ -198,17 +207,17 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     },
                     (rsp) => {
                         if (rsp.success) {
-                            this.paymentService
-                                .validatePaymentDataAndSave({
-                                    imp_uid: rsp.imp_uid,
-                                    merchant_uid: rsp.merchant_uid,
-                                })
-                                .subscribe(() => {
-                                    this.setCurCenter(() => {
-                                        this.showPaymentResultModal = true
-                                        this.isPurchaseInProcess = false
-                                    })
-                                })
+                            // this.paymentService
+                            //     .validatePaymentDataAndSave({
+                            //         imp_uid: rsp.imp_uid,
+                            //         merchant_uid: rsp.merchant_uid,
+                            //     })
+                            //     .subscribe(() => {
+                            //         this.setCurCenter(() => {
+                            //             this.showPaymentResultModal = true
+                            //             this.isPurchaseInProcess = false
+                            //         })
+                            //     })
                         } else {
                             this.openPaymentErrorModal()
                             this.isPurchaseInProcess = false
@@ -217,7 +226,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 )
             })
         } else if (this.paymentItemInfo.itemInfo.productCode == 'subscribe_membership' && this.paymentAgree) {
-            this.paymentService.subscribePayments({ center_id: this.center.id }).subscribe(() => {
+            this.usersPaymentsSubscribeService.subscribePayment(this.user.id, this.center.id).subscribe(() => {
                 this.setCurCenter(() => {
                     this.showPaymentResultModal = true
                     this.isPurchaseInProcess = false
@@ -399,8 +408,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     title: '런칭 이벤트',
                     description: '레드웨일 런칭 기념, 6개월간 5% 할인 자동 적용',
                     code: undefined,
-                    start: undefined,
-                    end: undefined,
+                    start_datetime: undefined,
+                    end_datetime: undefined,
                     discount_unit_code: 'promotion_discount_unit_percent',
                     discount: 5,
                     discount_price_for_percent: _.ceil(this.paymentItemInfo.itemInfo.originalPrice * 5 * 0.01, -3),
@@ -409,8 +418,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
             this.paymentItemLoading.promotion = 'done'
             return
         }
-        this.paymentService
-            .getPaymentPromotion(this.center.id, this.selectedPaymentItem.type)
+        this.productsService
+            .getProductPromotion(this.center.id, this.selectedPaymentItem.type)
             .pipe()
             .subscribe({
                 next: (promotions) => {
@@ -480,21 +489,18 @@ export class PaymentComponent implements OnDestroy, OnInit {
     public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
-        this.paymentService
-            .getSubscribedPaymentCustomers()
-            .pipe()
-            .subscribe({
-                next: (paymentCards) => {
-                    this.paymentCardList = paymentCards
-                    this.paymentCard = paymentCards[0]
-                    this.paymentItemLoading.paymentMethod = 'done'
-                    this.getTotalDiscountPrice()
-                    console.log('getPaymentMethod - ', paymentCards)
-                },
-                error: () => {
-                    this.paymentItemLoading.paymentMethod = 'done'
-                },
-            })
+        this.usersPaymentsCustomersService.getPaymentCustomer(this.user.id).subscribe({
+            next: (paymentCards) => {
+                this.paymentCardList = paymentCards
+                this.paymentCard = paymentCards[0]
+                this.paymentItemLoading.paymentMethod = 'done'
+                this.getTotalDiscountPrice()
+                console.log('getPaymentMethod - ', paymentCards)
+            },
+            error: () => {
+                this.paymentItemLoading.paymentMethod = 'done'
+            },
+        })
     }
     resetPaymentMethod() {
         this.paymentCard = undefined

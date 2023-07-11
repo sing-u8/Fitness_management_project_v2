@@ -3,9 +3,11 @@ import { SharedModule } from '@shared/shared.module'
 import { CommonModule } from '@angular/common'
 
 import { PaymentCard } from '@schemas/payment/payment-card'
-import { PaymentService, SubscribePaymentCustomersReqBody } from '@services/payment.service'
+import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
 
 import { ButtonEmit } from '@schemas/components/button'
+import { CreatePaymentCustomerReqBody, UsersPaymentsCustomersService } from '@services/users-payments-customers.service'
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'rwa-payment-method',
@@ -15,6 +17,7 @@ import { ButtonEmit } from '@schemas/components/button'
     styleUrls: ['./payment-method.component.scss'],
 })
 export class PaymentMethodComponent implements OnInit {
+    @Input() user: User = undefined
     @Input() paymentCard: PaymentCard = undefined
     @Input() paymentCardList: PaymentCard[] = []
     @Output() registeredPaymentCard = new EventEmitter<PaymentCard>()
@@ -27,16 +30,20 @@ export class PaymentMethodComponent implements OnInit {
         this.registeredPaymentCard.emit(this.paymentCard)
         console.log('onSlideButtonClick - ', slide, this.paymentCard, this.paymentCardList[slide - 1])
     }
-    constructor(private paymentApi: PaymentService, private renderer: Renderer2) {}
+    constructor(
+        private renderer: Renderer2,
+        private usersPaymentsSubscribeApi: UsersPaymentsSubscribeService,
+        private usersPaymentsCustomersService: UsersPaymentsCustomersService
+    ) {}
 
     ngOnInit(): void {}
 
     // register card vars and funcs
     public showRegisterCardModal = false
     public isRegisterCardError = false
-    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: SubscribePaymentCustomersReqBody }) {
+    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreatePaymentCustomerReqBody }) {
         res.btLoading.showLoading()
-        this.paymentApi.subscribePaymentCustomers(res.reqBody).subscribe({
+        this.usersPaymentsCustomersService.createPaymentCustomer(this.user.id, res.reqBody).subscribe({
             next: (paymentCard) => {
                 this.registerCardData = paymentCard
                 this.registeredPaymentCard.emit(paymentCard)

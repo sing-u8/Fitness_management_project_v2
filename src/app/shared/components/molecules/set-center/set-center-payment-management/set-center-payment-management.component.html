@@ -1,1 +1,23 @@
-<p>set-center-payment-management works!</p>
+<div class="l-payment-management">
+    <div class="l-pm-button">
+        <rwa-ghost-button
+            class="purchase-membership-button"
+            height="42px"
+            padding="7.5px 15px 5.5px 11px"
+            [borderColor]="'var(--red-100)'"
+            [hoverBorderColor]="'var(--red-100)'"
+            [fontColor]="'var(--red-100)'"
+            [hoverBgColor]="'var(--red-5)'"
+        >
+            <ng-template gbtIdleContent>
+                <rwa-svg-coin [color]="'var(--red-100)'"></rwa-svg-coin>
+                <span class="text">이용권 구매</span>
+            </ng-template>
+        </rwa-ghost-button>
+        <rwa-ghost-button class="payment-management-button" height="42px" padding="7.5px 15px 5.5px">
+            <ng-template gbtIdleContent><span class="text">결제 수단 관리</span></ng-template>
+        </rwa-ghost-button>
+    </div>
+
+    <div class="l-pm-items"></div>
+</div>

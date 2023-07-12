@@ -34,6 +34,7 @@ import { CaretDownComponent } from './svg/caret-down/caret-down.component'
 import { AvatarSmileyComponent } from './svg/avatar-smiley/avatar-smiley.component'
 import { QuestionDuotoneComponent } from './svg/question-duotone/question-duotone.component'
 import { CaretUpComponent } from './svg/caret-up/caret-up.component'
+import { CoinComponent } from '@shared/components/atoms/svg/coin/coin.component'
 
 // comp
 import {
@@ -109,6 +110,7 @@ import { FlipComponent } from './flip/flip.component'
         AvatarSmileyComponent,
         QuestionDuotoneComponent,
         CaretUpComponent,
+        CoinComponent,
         // etc
         // components
         ButtonComponent,
@@ -183,6 +185,7 @@ import { FlipComponent } from './flip/flip.component'
         AvatarSmileyComponent,
         QuestionDuotoneComponent,
         CaretUpComponent,
+        CoinComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,

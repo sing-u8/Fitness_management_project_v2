@@ -121,6 +121,8 @@
                 flex-direction: column;
                 .payment-method-card-list {
                     margin-top: 8px;
+                    display: grid;
+                    gap: 10px;
                 }
             }
         }

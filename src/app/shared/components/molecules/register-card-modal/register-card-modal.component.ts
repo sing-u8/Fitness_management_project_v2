@@ -17,7 +17,7 @@ import { InputHelperService } from '@services/helper/input-helper.service'
 
 import { ButtonEmit } from '@schemas/components/button'
 import { Loading } from '@schemas/loading'
-import { CreatePaymentCustomerReqBody } from '@services/users-payments-customers.service'
+import { CreateCustomerReqBody } from "@services/users-customers.service";
 
 @Component({
     selector: 'rwm-register-card-modal',
@@ -36,7 +36,7 @@ export class RegisterCardModalComponent implements OnChanges, AfterViewChecked {
     @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<{
         btLoading: ButtonEmit
-        reqBody: CreatePaymentCustomerReqBody
+        reqBody: CreateCustomerReqBody
     }>()
 
     public changed: boolean

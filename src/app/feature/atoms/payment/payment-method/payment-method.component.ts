@@ -4,9 +4,9 @@ import { CommonModule } from '@angular/common'
 
 import { PaymentCard } from '@schemas/payment/payment-card'
 import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
+import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
 
 import { ButtonEmit } from '@schemas/components/button'
-import { CreatePaymentCustomerReqBody, UsersPaymentsCustomersService } from '@services/users-payments-customers.service'
 import { User } from '@schemas/user'
 
 @Component({
@@ -33,7 +33,7 @@ export class PaymentMethodComponent implements OnInit {
     constructor(
         private renderer: Renderer2,
         private usersPaymentsSubscribeApi: UsersPaymentsSubscribeService,
-        private usersPaymentsCustomersService: UsersPaymentsCustomersService
+        private usersCustomersService: UsersCustomersService
     ) {}
 
     ngOnInit(): void {}
@@ -41,9 +41,9 @@ export class PaymentMethodComponent implements OnInit {
     // register card vars and funcs
     public showRegisterCardModal = false
     public isRegisterCardError = false
-    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreatePaymentCustomerReqBody }) {
+    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreateCustomerReqBody }) {
         res.btLoading.showLoading()
-        this.usersPaymentsCustomersService.createPaymentCustomer(this.user.id, res.reqBody).subscribe({
+        this.usersCustomersService.createCustomer(this.user.id, res.reqBody).subscribe({
             next: (paymentCard) => {
                 this.registerCardData = paymentCard
                 this.registeredPaymentCard.emit(paymentCard)

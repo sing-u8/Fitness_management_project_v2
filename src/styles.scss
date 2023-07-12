@@ -950,6 +950,16 @@ ng-scrollbar {
     width: 20px;
     height: 20px;
 }
+.card-icon {
+    background-image: url('/assets/icons/etc/card.svg');
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 43px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+}
 
 // Tooltip
 .rw-tooltip {

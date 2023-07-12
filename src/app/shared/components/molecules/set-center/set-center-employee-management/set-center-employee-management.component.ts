@@ -111,9 +111,11 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     }
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'isOpen', (v) => {
-            this.initPermission()
-            this.rpsInit()
-            this.empInit()
+            if (v) {
+                this.initPermission()
+                this.rpsInit()
+                this.empInit()
+            }
         })
     }
 

@@ -1,0 +1,15 @@
+<div class="l-payment-card-list-item">
+    <div class="d-flex align-items-center">
+        <div class="card-icon"></div>
+        <span class="card-name">{{ paymentCard.card_name }}</span>
+        <span class="card-name"> ({{ cardNumber }}) </span>
+    </div>
+    <rwa-ghost-button
+        height="37px"
+        padding="5px 11px 3px"
+        [disable]="paymentCard?.checked"
+        (onClick)="onClick.emit(paymentCard)"
+    >
+        <ng-template gbtIdleContent><span class="button-text">자동 결제 등록</span></ng-template>
+    </rwa-ghost-button>
+</div>

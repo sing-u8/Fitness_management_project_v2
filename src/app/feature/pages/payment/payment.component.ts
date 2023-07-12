@@ -12,7 +12,6 @@ import { PaymentProductInfoComponent } from '@feature/atoms/payment/payment-prod
 
 import { StorageService } from '@services/storage.service'
 import { CreatePaymentReqBody, UsersPaymentsService } from '@services/users-payments.service'
-import { UsersPaymentsCustomersService } from '@services/users-payments-customers.service'
 import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
 import { ProductsService } from '@services/products.service'
 import { CenterService } from '@services/center.service'
@@ -33,6 +32,7 @@ import { PaymentMethodComponent } from '@feature/atoms/payment/payment-method/pa
 import { PaymentInformationComponent } from '@feature/atoms/payment/payment-information/payment-information.component'
 import { PaymentResultModalComponent } from '@feature/molecules/payment/payment-result-modal/payment-result-modal.component'
 import { User } from '@schemas/user'
+import { UsersCustomersService } from '@services/users-customers.service'
 
 type Progress = 'one' | 'two'
 
@@ -61,9 +61,9 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private domSanitizer: DomSanitizer,
         private centerService: CenterService,
         private usersPaymentsService: UsersPaymentsService,
-        private usersPaymentsCustomersService: UsersPaymentsCustomersService,
         private usersPaymentsSubscribeService: UsersPaymentsSubscribeService,
         private productsService: ProductsService,
+        private usersCustomersService: UsersCustomersService,
         private router: Router,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -489,16 +489,16 @@ export class PaymentComponent implements OnDestroy, OnInit {
     public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
-        this.usersPaymentsCustomersService.getPaymentCustomer(this.user.id).subscribe({
+        this.usersCustomersService.getCustomer(this.user.id).subscribe({
             next: (paymentCards) => {
                 this.paymentCardList = paymentCards
                 this.paymentCard = paymentCards[0]
-                this.paymentItemLoading.paymentMethod = 'done'
+                this.paymentItemLoading.paymentMethod = 'idle'
                 this.getTotalDiscountPrice()
                 console.log('getPaymentMethod - ', paymentCards)
             },
             error: () => {
-                this.paymentItemLoading.paymentMethod = 'done'
+                this.paymentItemLoading.paymentMethod = 'idle'
             },
         })
     }

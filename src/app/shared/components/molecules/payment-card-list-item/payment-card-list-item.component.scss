@@ -1,0 +1,33 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.l-payment-card-list-item {
+    width: 450px;
+    height: 75px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 14px;
+
+    border: 1px solid var(--gray-50);
+    padding: 19px 15px 19px;
+
+    .card-name,
+    .card-number {
+        @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
+    }
+
+    .card-icon {
+        margin-right: 10px;
+    }
+
+    .button {
+        margin-left: 13px;
+    }
+    .button-text {
+        @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
+    }
+}

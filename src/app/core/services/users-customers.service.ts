@@ -11,8 +11,8 @@ import { PaymentCard } from '@schemas/payment/payment-card'
 @Injectable({
     providedIn: 'root',
 })
-export class UsersPaymentsCustomersService {
-    private SERVER = `${environment.protocol}${environment.subDomain}${environment.domain}${environment.port}${environment.version}/users`
+export class UsersCustomersService {
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/users`
 
     private options = {
         headers: new HttpHeaders({
@@ -21,8 +21,8 @@ export class UsersPaymentsCustomersService {
     }
     constructor(private http: HttpClient) {}
 
-    createPaymentCustomer(userId: string, reqBody: CreatePaymentCustomerReqBody): Observable<PaymentCard> {
-        const url = this.SERVER + `/${userId}/payments/customers`
+    createCustomer(userId: string, reqBody: CreateCustomerReqBody): Observable<PaymentCard> {
+        const url = this.SERVER + `/${userId}/customers`
         return this.http.post<Response>(url, reqBody, this.options).pipe(
             map((res) => {
                 return res.dataset[0]
@@ -30,17 +30,17 @@ export class UsersPaymentsCustomersService {
             catchError(handleError)
         )
     }
-    getPaymentCustomer(userId: string): Observable<PaymentCard[]> {
-        const url = this.SERVER + `/${userId}/payments/customers`
+    getCustomer(userId: string): Observable<PaymentCard[]> {
+        const url = this.SERVER + `/${userId}/customers`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
-                return res.dataset[0]
+                return res.dataset
             }),
             catchError(handleError)
         )
     }
-    selectPaymentCustomer(userId: string, customerId: string): Observable<any> {
-        const url = this.SERVER + `/${userId}/payments/customers/${customerId}`
+    selectCustomer(userId: string, customerId: string): Observable<any> {
+        const url = this.SERVER + `/${userId}/customers/${customerId}`
         return this.http.put<Response>(url, {}, this.options).pipe(
             map((res) => {
                 return res
@@ -48,8 +48,8 @@ export class UsersPaymentsCustomersService {
             catchError(handleError)
         )
     }
-    deletePaymentCustomer(userId: string, customerId: string): Observable<any> {
-        const url = this.SERVER + `/${userId}/payments/customers/${customerId}`
+    deleteCustomer(userId: string, customerId: string): Observable<any> {
+        const url = this.SERVER + `/${userId}/customers/${customerId}`
         return this.http.delete<Response>(url, this.options).pipe(
             map((res) => {
                 return res
@@ -59,7 +59,7 @@ export class UsersPaymentsCustomersService {
     }
 }
 
-export interface CreatePaymentCustomerReqBody {
+export interface CreateCustomerReqBody {
     card_number: string // "카드번호(dddd-dddd-dddd-dddd)",
     expiry: string // "카드 유효기간(YYYY-MM)",
     birth: string // "생년월일6자리(법인카드의 경우 사업자등록번호10자리)",

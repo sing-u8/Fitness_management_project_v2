@@ -45,7 +45,7 @@
                 [center]="center"
                 [(isEmpInit)]="categInitObj.employeeManagement.employeeListInit"
                 [(isRpsInit)]="categInitObj.employeeManagement.rolePermissionInit"
-                [isOpen]="categoris[1].selected"
+                [isOpen]="categoris[1].selected && visible"
             ></rwm-set-center-employee-management>
             <!-- 운영 정책 -->
             <rwm-set-center-policy-management
@@ -56,6 +56,9 @@
             <rwm-set-center-payment-management
                 class="payment-management"
                 [class.open]="categoris[3].selected"
+                [(isInit)]="categInitObj.centerPaymentManagement"
+                [center]="center"
+                [isOpen]="categoris[3].selected && visible"
             ></rwm-set-center-payment-management>
         </div>
     </div>

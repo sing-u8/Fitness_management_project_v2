@@ -38,6 +38,11 @@
             <div class="l-payment-method-card-list">
                 <span class="small-title">내가 추가한 결제 수단</span>
                 <div class="payment-method-card-list">
+                    <rwm-payment-card-list-item
+                        *ngFor="let item of cardList"
+                        [paymentCard]="item"
+                        (onClick)="onSelectPaymentCard($event)"
+                    ></rwm-payment-card-list-item>
                     <rwa-add-card-button (onClick)="addPaymentMethod.emit()"></rwa-add-card-button>
                 </div>
             </div>

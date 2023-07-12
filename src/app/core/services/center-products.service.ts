@@ -12,8 +12,8 @@ import { Promotion, PromotionCode } from '@schemas/payment/promotion'
 @Injectable({
     providedIn: 'root',
 })
-export class ProductsService {
-    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/products`
+export class CenterProductsService {
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
 
     private options = {
         headers: new HttpHeaders({
@@ -22,22 +22,11 @@ export class ProductsService {
     }
     constructor(private http: HttpClient) {}
 
-    getProduct(): Observable<Product[]> {
-        const url = this.SERVER
-        return this.http.get<Response>(url, this.options).pipe(
-            map((res) => {
-                return res.dataset
-            }),
-            catchError(handleError)
-        )
-    }
-
-    // 밑에 코드 삭제 필요
-    getProductPromotion(
+    getPromotion(
         centerId: string,
         productCode: string // '1_years_membership' | '2_years_membership'
     ): Observable<Promotion[]> {
-        const url = this.SERVER + `/promotion?center_id=${centerId}&product_code=${productCode}`
+        const url = this.SERVER + `/${centerId}/products/${productCode}/promotion`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
                 return res.dataset
@@ -54,7 +43,7 @@ export class ProductsService {
     ): Observable<any> {
         const url =
             this.SERVER +
-            `/check-promotion?center_id=${centerId}&product_code=${productCode}&promotion_code=${promotionCode}` +
+            `/${centerId}/products/${productCode}/promotion/${promotionCode}?center_code=${centerCode}` +
             centerCode
                 ? `&center_code=${centerCode}`
                 : ''

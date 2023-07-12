@@ -16,6 +16,7 @@ import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
 import { Center } from '@schemas/center'
 import { PaymentCard } from '@schemas/payment/payment-card'
+import _ from 'lodash'
 
 @Component({
     selector: 'rwm-payment-method-management-modal',
@@ -35,6 +36,11 @@ export class PaymentMethodManagementModalComponent {
     @ViewChild('modalBackgroundElement') modalBackgroundElement: ElementRef
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
+
+    public selectedCard: PaymentCard = undefined
+    initSelectedCard(cardList: PaymentCard[]) {
+        this.selectedCard = _.find(cardList, (v) => v.checked)
+    }
 
     constructor(private el: ElementRef, private renderer: Renderer2) {}
 
@@ -57,10 +63,16 @@ export class PaymentMethodManagementModalComponent {
                 }, 200)
             }
         })
-        detectChangesOn(changes, 'center', (v) => {})
+        detectChangesOn(changes, 'cardList', (cardList) => {
+            this.initSelectedCard(cardList)
+        })
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
+
+    onSelectPaymentCard(paymentCard: PaymentCard) {
+
+    }
 
     // -----------------------------------------------------------------------------------------------------------
     @Output() close = new EventEmitter()

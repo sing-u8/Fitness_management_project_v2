@@ -53,7 +53,7 @@
             margin-top: 8px;
             white-space: pre-line;
             text-align: left;
-            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+            @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
         }
 
         .button-group {
@@ -65,10 +65,10 @@
                 }
             }
             .cancel-text {
-                @include rw-type-b(1.7rem, 28px, var(--gray-90));
+                @include rw-type-b(1.7rem, 28.3px, var(--gray-90));
             }
             .confirm-text {
-                @include rw-type-b(1.7rem, 28px, var(--white));
+                @include rw-type-b(1.7rem, 28.3px, var(--white));
             }
         }
     }

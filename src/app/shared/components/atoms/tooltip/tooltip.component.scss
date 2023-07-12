@@ -107,7 +107,7 @@
         &.black,
         &.red {
             .title {
-                @include rw-type-b(1.7rem, 28px, var(--white));
+                @include rw-type-b(1.7rem, 28.3px, var(--white));
             }
 
             .detail {

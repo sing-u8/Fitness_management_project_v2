@@ -14,10 +14,30 @@
                 <span class="text">이용권 구매</span>
             </ng-template>
         </rwa-ghost-button>
-        <rwa-ghost-button class="payment-management-button" height="42px" padding="7.5px 15px 5.5px">
+        <rwa-ghost-button
+            class="payment-management-button"
+            height="42px"
+            padding="7.5px 15px 5.5px"
+            (onClick)="openPaymentMethodManagement = true"
+        >
             <ng-template gbtIdleContent><span class="text">결제 수단 관리</span></ng-template>
         </rwa-ghost-button>
     </div>
 
     <div class="l-pm-items"></div>
 </div>
+
+<rwm-payment-method-management-modal
+    [center]="center"
+    [cardList]="cardList"
+    [(visible)]="openPaymentMethodManagement"
+    (close)="openPaymentMethodManagement = false"
+    (addPaymentMethod)="openRegisterCardModal()"
+></rwm-payment-method-management-modal>
+
+<rwm-register-card-modal
+    [(visible)]="showRegisterCardModal"
+    [isError]="isRegisterCardError"
+    (confirm)="onRegisterCardConfirm($event)"
+    (cancel)="showRegisterCardModal = false"
+></rwm-register-card-modal>

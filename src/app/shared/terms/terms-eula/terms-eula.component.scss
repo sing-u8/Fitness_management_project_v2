@@ -84,7 +84,7 @@
 
 .text {
     &__title_large_chap {
-        @include rw-type-b(1.7rem, 28px, var(--font-color));
+        @include rw-type-b(1.7rem, 28.3px, var(--font-color));
         margin-bottom: 30px;
     }
     &__title_small_chap {

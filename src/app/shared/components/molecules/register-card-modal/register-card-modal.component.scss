@@ -98,7 +98,7 @@
                     display: flex;
                     flex-direction: column;
                     .error-title {
-                        @include rw-type-b(1.7rem, 28px, var(--state-error-100));
+                        @include rw-type-b(1.7rem, 28.3px, var(--state-error-100));
                     }
                     .error-desc {
                         @include rw-type-r(1.5rem, 23px, var(--state-error-100));
@@ -158,11 +158,11 @@
             }
 
             .card-number-dash {
-                @include rw-type-r(1.7rem, 28px, var(--font-color));
+                @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                 margin: 0 5px;
             }
             .card-slash {
-                @include rw-type-r(1.7rem, 28px, var(--font-color));
+                @include rw-type-r(1.7rem, 28.3px, var(--font-color));
             }
 
             .l-button {
@@ -172,25 +172,25 @@
                 margin-top: 25px;
 
                 .button-text {
-                    @include rw-type-b(1.7rem, 28px, var(--white));
+                    @include rw-type-b(1.7rem, 28.3px, var(--white));
                 }
             }
 
             input {
                 padding: 10px 14px 9px;
                 outline: none;
-                @include rw-type-r(1.7rem, 28px, var(--font-color));
+                @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                 &::placeholder {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-80));
                 }
                 &::-webkit-input-placeholder {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-80));
                 }
                 &:-ms-input-placeholder {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-80));
                 }
                 &:focus::placeholder {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-80));
                 }
                 &:focus::-webkit-input-placeholder {
                     @include rw-type-r(1.7rem, 28px, var(--gray-80));

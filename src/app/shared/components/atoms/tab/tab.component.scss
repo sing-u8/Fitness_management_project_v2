@@ -36,7 +36,7 @@ div.l-tap {
             cursor: pointer;
             position: relative;
 
-            @include rw-type-r(1.7rem, 28px, var(--gray-100));
+            @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
 
             div.divider {
                 position: absolute;
@@ -68,7 +68,7 @@ div.l-tap {
 
             &.selected {
                 border-color: var(--red-100);
-                @include rw-type-b(1.7rem, 28px, var(--red-100));
+                @include rw-type-b(1.7rem, 28.3px, var(--red-100));
                 border: 1px solid var(--red-100);
                 &:hover,
                 &:active {

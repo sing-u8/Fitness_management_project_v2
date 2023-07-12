@@ -49,7 +49,7 @@
             @include rw-type-b(2rem, 31px, var(--font-color));
         }
         .sub-text {
-            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+            @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
         }
 
         .l-card-info {
@@ -65,7 +65,7 @@
                 @include rw-type-r(1.5rem, 23px, var(--gray-90));
             }
             .card-name {
-                @include rw-type-r(1.7rem, 28px, var(--gray-100));
+                @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
             }
         }
         .button-group {
@@ -75,7 +75,7 @@
             justify-content: flex-end;
 
             .button-text {
-                @include rw-type-b(1.7rem, 28px, var(--white));
+                @include rw-type-b(1.7rem, 28.3px, var(--white));
             }
         }
     }

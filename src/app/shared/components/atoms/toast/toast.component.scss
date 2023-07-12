@@ -20,7 +20,7 @@
     z-index: 2000;
 
     .toast-text {
-        @include rw-type-r(1.7rem, 28px, var(--white));
+        @include rw-type-r(1.7rem, 28.3px, var(--white));
     }
 
     .close-icon {

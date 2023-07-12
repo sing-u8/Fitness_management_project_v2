@@ -1,0 +1,128 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.rw-modal-background {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: var(--gray-90);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -moz-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -webkit-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    -o-transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
+    z-index: 999;
+}
+
+.rw-modal-background-show {
+    opacity: 0.5;
+}
+.rw-modal-wrapper-show {
+    .rw-modal {
+        opacity: 1 !important;
+    }
+}
+
+.rw-modal-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+
+    .rw-modal {
+        width: 500px;
+        height: 648px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        border-radius: 20px;
+        position: relative;
+        background-color: var(--white);
+        @include modal-shadow();
+        opacity: 0;
+        transition: opacity 0s;
+        -moz-transition: opacity 0s;
+        -webkit-transition: opacity 0s;
+        -o-transition: opacity 0s;
+
+        .small-title {
+            @include rw-type-r(1.5rem, 23px, var(--gray-100));
+        }
+        .small-title-number {
+            @include rw-type-r(1.5rem, 23px, var(--gray-80));
+            margin-left: 6px;
+        }
+
+        .header {
+            width: 100%;
+            height: 70px;
+            .title {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                @include rw-type-b(2rem, 31px, var(--font-color));
+                padding: 14px 25px;
+                box-sizing: border-box;
+                border-bottom: 1px solid var(--gray-50);
+
+                .divider {
+                    height: 25px;
+                    width: 1px;
+                    border-right: 1px solid var(--gray-60);
+                    margin: 0 20px;
+                }
+
+                .title-left {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+        }
+
+        .body {
+            width: 100%;
+            height: calc(100% - 70px);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            padding: 25px 25px 10px;
+            .l-selected-method-card {
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 30px;
+                .selected-card-box {
+                    margin-top: 8px;
+                    padding: 20px 20px 15px 20px;
+                    width: 450px;
+                    height: 233px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 20px;
+                    background-color: var(--gray-30);
+                    .selected-card__empty {
+                        @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                    }
+                }
+            }
+            .l-payment-method-card-list {
+                display: flex;
+                flex-direction: column;
+                .payment-method-card-list {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+}

@@ -54,7 +54,7 @@
             margin: 8px 0 25px;
             white-space: pre-line;
             text-align: left;
-            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+            @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
         }
 
         .l-phone-field {
@@ -64,7 +64,7 @@
             margin-bottom: 28px;
 
             .phone-button {
-                @include rw-type-b(1.7rem, 28px, var(--white));
+                @include rw-type-b(1.7rem, 28.3px, var(--white));
             }
             rwa-button {
                 margin-bottom: 3.5px;
@@ -77,7 +77,7 @@
             align-items: center;
             justify-content: flex-end;
             .next-text {
-                @include rw-type-b(1.7rem, 28px, var(--white));
+                @include rw-type-b(1.7rem, 28.3px, var(--white));
             }
         }
     }

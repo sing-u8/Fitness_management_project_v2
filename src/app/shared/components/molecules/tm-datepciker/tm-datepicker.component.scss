@@ -94,7 +94,7 @@ $additional_width: 7px;
         justify-content: space-between;
         align-items: center;
         .month-day {
-            @include rw-type-b(1.7rem, 28px, var(--font-color));
+            @include rw-type-b(1.7rem, 28.3px, var(--font-color));
             padding-top: 1px;
         }
 

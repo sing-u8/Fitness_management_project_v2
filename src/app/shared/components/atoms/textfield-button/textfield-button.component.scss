@@ -41,7 +41,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            @include rw-type-r(1.7rem, 28px, var(--font-color));
+            @include rw-type-r(1.7rem, 28.3px, var(--font-color));
 
             &.focused {
                 &:focus {

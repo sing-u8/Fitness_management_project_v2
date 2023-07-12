@@ -83,7 +83,7 @@
                     max-width: 455px;
                 }
                 .logout-text {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
                 }
             }
 
@@ -124,7 +124,7 @@
                         justify-content: flex-start;
                         min-width: 137px;
                         max-width: 137px;
-                        @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                        @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
                     }
                     .basic-info__item-value {
                         display: flex;
@@ -132,9 +132,9 @@
                         justify-content: flex-start;
                         min-width: 251px;
                         max-width: 251px;
-                        @include rw-type-r(1.7rem, 28px, var(--font-color));
+                        @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                         &.gray-value {
-                            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                            @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
                         }
                     }
                     .basic-info__item-button {
@@ -143,7 +143,7 @@
                         top: 16px;
                     }
                     .basic-info__button-text {
-                        @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                        @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
                     }
                 }
             }
@@ -187,7 +187,7 @@
                         justify-content: flex-start;
                         min-width: 251px;
                         max-width: 251px;
-                        @include rw-type-r(1.7rem, 28px, var(--font-color));
+                        @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                     }
                     .caret-icon {
                         background-image: url('/assets/icons/arrow/caret-right-1-g90.svg');

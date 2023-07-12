@@ -43,7 +43,7 @@
             position: relative;
 
             .value {
-                @include rw-type-r(1.7rem, 28px, var(--font-color));
+                @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                 &.placeholder {
                     color: var(--gray-80) !important;
                 }
@@ -60,7 +60,7 @@
 
             &.is-open {
                 .value {
-                    @include rw-type-b(1.7rem, 28px, var(--font-color));
+                    @include rw-type-b(1.7rem, 28.3px, var(--font-color));
                 }
                 .caret-arrow {
                     transform: rotateX(180deg);
@@ -113,10 +113,10 @@
                     align-items: center;
                     justify-content: space-between;
                     .item-value {
-                        @include rw-type-r(1.7rem, 28px, var(--font-color));
+                        @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                     }
                     .selected {
-                        @include rw-type-b(1.7rem, 28px, var(--font-color));
+                        @include rw-type-b(1.7rem, 28.3px, var(--font-color));
                     }
                     &:hover {
                         background-color: var(--gray-30);
@@ -141,7 +141,7 @@
                     border: 1px solid var(--gray-50);
                 }
                 .value {
-                    @include rw-type-r(1.7rem, 28px, var(--gray-80));
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-80));
                 }
             }
         }

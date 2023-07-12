@@ -33,7 +33,7 @@ section.l-payment-card {
             .card-number {
                 display: flex;
                 flex-direction: column;
-                @include rw-type-r(1.7rem, 28px, var(--white));
+                @include rw-type-r(1.7rem, 28.3px, var(--white));
 
                 .card-icon {
                     background-repeat: no-repeat;

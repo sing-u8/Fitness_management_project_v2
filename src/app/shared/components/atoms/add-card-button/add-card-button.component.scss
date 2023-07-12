@@ -1,0 +1,43 @@
+@import './src/styles.scss';
+* {
+    @include css-init;
+}
+
+.add-card-button {
+    width: 450px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    outline: none;
+
+    border-radius: 14px;
+    border: 1px dashed var(--red-100);
+    background-color: var(--white);
+
+    &:hover,
+    &:active {
+        background-color: var(--red-5);
+    }
+
+    &.focused {
+        border: 2px solid var(--font-color);
+        &:focus {
+            border-width: 2px !important;
+            border-style: solid !important;
+        }
+    }
+
+    .large-text {
+        @include rw-type-b(1.7rem, 28.3px, var(--red-100));
+        margin: 0 10px 0 5px;
+    }
+    .small-text {
+        @include rw-type-r(1.4rem, 18.8px, var(--gray-90));
+    }
+}

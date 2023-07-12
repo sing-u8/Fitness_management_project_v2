@@ -1,0 +1,15 @@
+<button
+    #l_button
+    class="add-card-button"
+    (mouseenter)="onHover()"
+    (mouseleave)="onHoverOut()"
+    (click)="_onClick()"
+    (mousedown)="onMouseDown()"
+    (mouseup)="onMouseUp()"
+    (focusin)="onFocus()"
+    (focusout)="onFocusOut()"
+>
+    <rwa-svg-plus width="22px" height="22px" color="var(--red-100)"></rwa-svg-plus>
+    <span class="large-text">카드 추가하기</span>
+    <span class="small-text">본인 명의의 카드를 등록해 주세요.</span>
+</button>

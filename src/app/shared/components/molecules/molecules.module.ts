@@ -45,7 +45,8 @@ import { EmployeePhotoComponent } from './employee-photo/employee-photo.componen
 import { EmployeeCardComponent } from './set-center/employee-card/employee-card.component'
 import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal/update-employee-modal.component'
 import { PermissionManagementModalComponent } from './set-center/permission-management-modal/permission-management-modal.component'
-import { ChangeCenterAddressModalComponent } from './change-center-address-modal/change-center-address-modal.component'
+import { ChangeCenterAddressModalComponent } from './change-center-address-modal/change-center-address-modal.component';
+import { PaymentMethodManagementModalComponent } from './payment-method-management-modal/payment-method-management-modal.component'
 
 @NgModule({
     declarations: [
@@ -81,6 +82,7 @@ import { ChangeCenterAddressModalComponent } from './change-center-address-modal
         UpdateEmployeeModalComponent,
         PermissionManagementModalComponent,
         ChangeCenterAddressModalComponent,
+        PaymentMethodManagementModalComponent,
     ],
     imports: [
         NgScrollbar,
@@ -128,6 +130,7 @@ import { ChangeCenterAddressModalComponent } from './change-center-address-modal
         EmployeeCardComponent,
         UpdateEmployeeModalComponent,
         ChangeCenterAddressModalComponent,
+        PaymentMethodManagementModalComponent
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

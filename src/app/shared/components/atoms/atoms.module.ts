@@ -85,6 +85,7 @@ import { PaymentCardComponent } from './payment-card/payment-card.component'
 import { TooltipComponent } from './tooltip/tooltip.component'
 import { BadgeComponent } from './badge/badge.component'
 import { FlipComponent } from './flip/flip.component'
+import { AddCardButtonComponent } from './add-card-button/add-card-button.component'
 
 @NgModule({
     declarations: [
@@ -152,6 +153,7 @@ import { FlipComponent } from './flip/flip.component'
         TooltipComponent,
         BadgeComponent,
         FlipComponent,
+        AddCardButtonComponent,
     ],
     imports: [
         ScrollViewport,
@@ -227,6 +229,7 @@ import { FlipComponent } from './flip/flip.component'
         TooltipComponent,
         BadgeComponent,
         FlipComponent,
+        AddCardButtonComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

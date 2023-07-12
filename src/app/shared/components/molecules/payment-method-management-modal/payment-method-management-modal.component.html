@@ -1,0 +1,46 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose(false)"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+        <div class="header">
+            <div class="title">
+                <div class="title-left">
+                    <span>결제 수단 관리</span>
+                </div>
+                <rwa-icon-ghost-button
+                    sizeType="md"
+                    borderRadius="14px"
+                    borderColor="var(--gray-60)"
+                    (onClick)="onClose(false)"
+                >
+                    <ng-template iconGhostBtIdleContent>
+                        <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                    </ng-template>
+                </rwa-icon-ghost-button>
+            </div>
+        </div>
+
+        <div class="body" #body>
+            <div class="l-selected-method-card">
+                <span class="small-title">자동 결제 수단</span>
+                <div class="selected-card-box">
+                    <ng-container *ngIf="true">
+                        <span class="selected-card__empty">👀 자동 결제 수단이 없어요.</span>
+                    </ng-container>
+                    <ng-container *ngIf="false"></ng-container>
+                </div>
+            </div>
+
+            <div class="l-payment-method-card-list">
+                <span class="small-title">내가 추가한 결제 수단</span>
+                <div class="payment-method-card-list">
+                    <rwa-add-card-button (onClick)="addPaymentMethod.emit()"></rwa-add-card-button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

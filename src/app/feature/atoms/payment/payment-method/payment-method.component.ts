@@ -61,5 +61,4 @@ export class PaymentMethodComponent implements OnInit {
 
     public showRegisterCardResultModal = false
     public registerCardData: PaymentCard = undefined
-    protected readonly undefined = undefined
 }

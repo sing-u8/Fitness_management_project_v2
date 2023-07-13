@@ -93,36 +93,39 @@
             width: 100%;
             height: calc(100% - 70px);
             position: relative;
-            display: flex;
-            flex-direction: column;
-            padding: 25px 25px 10px;
-            .l-selected-method-card {
+            .body-content {
                 display: flex;
                 flex-direction: column;
-                margin-bottom: 30px;
-                .selected-card-box {
-                    margin-top: 8px;
-                    padding: 20px 20px 15px 20px;
-                    width: 450px;
-                    height: 233px;
+                padding: 25px 25px;
+                box-sizing: border-box;
+                .l-selected-method-card {
                     display: flex;
                     flex-direction: column;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 20px;
-                    background-color: var(--gray-30);
-                    .selected-card__empty {
-                        @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                    margin-bottom: 30px;
+                    .selected-card-box {
+                        margin-top: 8px;
+                        padding: 20px 20px 15px 20px;
+                        width: 450px;
+                        height: 233px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        border-radius: 20px;
+                        background-color: var(--gray-30);
+                        .selected-card__empty {
+                            @include rw-type-r(1.7rem, 28px, var(--gray-90));
+                        }
                     }
                 }
-            }
-            .l-payment-method-card-list {
-                display: flex;
-                flex-direction: column;
-                .payment-method-card-list {
-                    margin-top: 8px;
-                    display: grid;
-                    gap: 10px;
+                .l-payment-method-card-list {
+                    display: flex;
+                    flex-direction: column;
+                    .payment-method-card-list {
+                        margin-top: 8px;
+                        display: grid;
+                        gap: 10px;
+                    }
                 }
             }
         }

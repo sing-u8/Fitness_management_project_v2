@@ -7,7 +7,8 @@ import { NumberWithCommasPipe } from './numberWithCommas.pipe'
 import { AbsNumberPipe } from './abs-number.pipe'
 import { RateOfChangePipe } from './rate-of-change.pipe'
 import { DateFormatPipe } from './date-format.pipe'
-import { PhoneNumberPipe } from './phone-number.pipe'
+import { PhoneNumberPipe } from './phone-number.pipe';
+import { WordSlicePipe } from './word-slice.pipe'
 
 @NgModule({
     declarations: [
@@ -18,6 +19,7 @@ import { PhoneNumberPipe } from './phone-number.pipe'
         RateOfChangePipe,
         DateFormatPipe,
         PhoneNumberPipe,
+        WordSlicePipe,
     ],
     imports: [CommonModule],
     exports: [
@@ -28,6 +30,7 @@ import { PhoneNumberPipe } from './phone-number.pipe'
         RateOfChangePipe,
         DateFormatPipe,
         PhoneNumberPipe,
+        WordSlicePipe
     ],
 })
 export class PipesModule {}

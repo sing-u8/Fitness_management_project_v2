@@ -51,4 +51,8 @@ section.l-payment-card {
             background-color: var(--gray-90);
         }
     }
+    .payment-card-bottom {
+        margin-top: 10px;
+        @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
+    }
 }

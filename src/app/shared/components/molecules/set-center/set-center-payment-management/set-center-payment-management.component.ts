@@ -11,6 +11,7 @@ import {
     ChangeDetectorRef,
 } from '@angular/core'
 import { Center } from '@schemas/center'
+import { Router } from '@angular/router'
 
 import { StorageService } from '@services/storage.service'
 import { CenterListService } from '@services/center-list/center-list.service'
@@ -20,7 +21,6 @@ import { Store } from '@ngrx/store'
 import { Loading } from '@schemas/loading'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import { User } from '@schemas/user'
-import { ButtonEmit } from '@schemas/components/button'
 import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
 import { detectChangesOn } from '@shared/helper/component-helper'
 
@@ -42,31 +42,15 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
         private centerListService: CenterListService,
         private storageService: StorageService,
         private cd: ChangeDetectorRef,
-        private nxStore: Store
+        private nxStore: Store,
+        private router: Router
     ) {
         this.user = this.storageService.getUser()
     }
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'isOpen', (v) => {
             if (v && !this.isInit) {
-                this.initPaymentMethods()
             }
-        })
-    }
-
-    initPaymentMethods() {
-        this.cardListLoading = 'pending'
-        this.usersCustomersService.getCustomer(this.user.id).subscribe({
-            next: (cards) => {
-                this.cardListLoading = 'idle'
-                this.isInit = true
-                this.isInitChange.emit(this.isInit)
-                this.cardList = cards
-                console.log('initPaymentMethods - ', this.cardList)
-            },
-            error: (err) => {
-                this.cardListLoading = 'idle'
-            },
         })
     }
 
@@ -74,32 +58,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
 
     public openPaymentMethodManagement = false
 
-    public cardList: PaymentCard[] = []
-    public cardListLoading: Loading = 'idle'
-
-    // register card vars and funcs
-    public showRegisterCardModal = false
-    public isRegisterCardError = false
-    openRegisterCardModal() {
-        this.openPaymentMethodManagement = false
-        this.showRegisterCardModal = true
-    }
-    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreateCustomerReqBody }) {
-        res.btLoading.showLoading()
-        this.usersCustomersService.createCustomer(this.user.id, res.reqBody).subscribe({
-            next: (paymentCard) => {
-                console.log('register card : ', paymentCard)
-                this.isRegisterCardError = false
-                this.showRegisterCardModal = false
-                this.openPaymentMethodManagement = true
-                res.btLoading.hideLoading()
-                this.cardList.unshift(paymentCard)
-                this.nxStore.dispatch(showToast({ text: '결제 수단이 추가되었어요.' }))
-            },
-            error: () => {
-                this.isRegisterCardError = true
-                res.btLoading.hideLoading()
-            },
-        })
+    goPayment() {
+        this.router.navigate([`${this.center.name}`, 'payment'])
     }
 }

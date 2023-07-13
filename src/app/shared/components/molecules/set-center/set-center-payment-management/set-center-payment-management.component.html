@@ -8,6 +8,7 @@
             [hoverBorderColor]="'var(--red-100)'"
             [fontColor]="'var(--red-100)'"
             [hoverBgColor]="'var(--red-5)'"
+            (onClick)="goPayment()"
         >
             <ng-template gbtIdleContent>
                 <rwa-svg-coin [color]="'var(--red-100)'"></rwa-svg-coin>
@@ -29,15 +30,14 @@
 
 <rwm-payment-method-management-modal
     [center]="center"
-    [cardList]="cardList"
     [(visible)]="openPaymentMethodManagement"
     (close)="openPaymentMethodManagement = false"
-    (addPaymentMethod)="openRegisterCardModal()"
+    (open)="openPaymentMethodManagement = true"
 ></rwm-payment-method-management-modal>
 
-<rwm-register-card-modal
-    [(visible)]="showRegisterCardModal"
-    [isError]="isRegisterCardError"
-    (confirm)="onRegisterCardConfirm($event)"
-    (cancel)="showRegisterCardModal = false"
-></rwm-register-card-modal>
+<!--<rwm-register-card-modal-->
+<!--    [(visible)]="showRegisterCardModal"-->
+<!--    [isError]="isRegisterCardError"-->
+<!--    (confirm)="onRegisterCardConfirm($event)"-->
+<!--    (cancel)="showRegisterCardModal = false"-->
+<!--&gt;</rwm-register-card-modal>-->

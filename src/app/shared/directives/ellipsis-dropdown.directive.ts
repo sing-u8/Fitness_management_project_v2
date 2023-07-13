@@ -64,7 +64,7 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
         this.dropdownEl.innerText = innerText
         this.renderer.appendChild(element, this.dropdownEl)
         this.renderer.addClass(this.dropdownEl, 'ellipsis-dropdown')
-        this.renderer.setStyle(this.dropdownEl, 'bottom', `-${this.dropdownEl.offsetHeight + 5}px`)
+        // this.renderer.setStyle(this.dropdownEl, 'bottom', `-${this.dropdownEl.offsetHeight + 5}px`)
         this.renderer.setStyle(this.dropdownEl, 'z-index', `5`)
         this.renderer.setStyle(this.dropdownEl, 'display', 'none')
 

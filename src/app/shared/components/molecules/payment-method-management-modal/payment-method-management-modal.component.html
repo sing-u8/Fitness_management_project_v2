@@ -24,28 +24,72 @@
             </div>
         </div>
 
-        <div class="body" #body>
-            <div class="l-selected-method-card">
-                <span class="small-title">자동 결제 수단</span>
-                <div class="selected-card-box">
-                    <ng-container *ngIf="true">
-                        <span class="selected-card__empty">👀 자동 결제 수단이 없어요.</span>
-                    </ng-container>
-                    <ng-container *ngIf="false"></ng-container>
-                </div>
-            </div>
+        <ng-scrollbar [track]="'vertical'" class="body rw-scroll">
+            <div scrollViewport #body>
+                <div class="body-content">
+                    <div class="l-selected-method-card">
+                        <span class="small-title">자동 결제 수단</span>
+                        <div class="selected-card-box">
+                            <ng-container *ngIf="cardListLoading == 'pending'">
+                                <ngx-skeleton-loader
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{
+                                        width: '250px',
+                                        height: '159px',
+                                        'border-radius': '14px',
+                                        margin: '0 0 7px 0'
+                                    }"
+                                ></ngx-skeleton-loader>
+                                <ngx-skeleton-loader
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '130px', height: '28.3px', 'border-radius': '14px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
+                            <ng-container *ngIf="cardListLoading != 'pending'">
+                                <ng-container *ngIf="!!!selectedCard">
+                                    <span class="selected-card__empty">👀 자동 결제 수단이 없어요.</span>
+                                </ng-container>
+                                <ng-container *ngIf="!!selectedCard">
+                                    <rwa-payment-card [cardData]="selectedCard" [showBottom]="true"></rwa-payment-card>
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </div>
 
-            <div class="l-payment-method-card-list">
-                <span class="small-title">내가 추가한 결제 수단</span>
-                <div class="payment-method-card-list">
-                    <rwm-payment-card-list-item
-                        *ngFor="let item of cardList"
-                        [paymentCard]="item"
-                        (onClick)="onSelectPaymentCard($event)"
-                    ></rwm-payment-card-list-item>
-                    <rwa-add-card-button (onClick)="addPaymentMethod.emit()"></rwa-add-card-button>
+                    <div class="l-payment-method-card-list">
+                        <span class="small-title">내가 추가한 결제 수단</span>
+                        <div class="payment-method-card-list">
+                            <ng-container *ngIf="cardListLoading != 'pending'">
+                                <rwm-payment-card-list-item
+                                    *ngFor="let item of cardList"
+                                    [paymentCard]="item"
+                                    (onRegister)="onSelectPaymentCard($event)"
+                                    (onRemove)="onRemovePaymentCard($event)"
+                                ></rwm-payment-card-list-item>
+                            </ng-container>
+                            <ng-container *ngIf="cardListLoading == 'pending'">
+                                <ngx-skeleton-loader
+                                    *ngFor="let i of [1]"
+                                    count="1"
+                                    appearance="line"
+                                    [theme]="{ width: '450px', height: '72px', 'border-radius': '14px', margin: '0' }"
+                                ></ngx-skeleton-loader>
+                            </ng-container>
+
+                            <rwa-add-card-button (onClick)="openRegisterCardModal()"></rwa-add-card-button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </ng-scrollbar>
     </div>
 </div>
+
+<rwm-register-card-modal
+    [(visible)]="showRegisterCardModal"
+    [isError]="isRegisterCardError"
+    (confirm)="onRegisterCardConfirm($event)"
+    (cancel)="onRegisterCardCancel()"
+></rwm-register-card-modal>

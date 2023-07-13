@@ -1,15 +1,42 @@
-<div class="l-payment-card-list-item">
+<div class="l-payment-card-list-item" [class.is-desktop]="isDeskTop">
     <div class="d-flex align-items-center">
         <div class="card-icon"></div>
-        <span class="card-name">{{ paymentCard.card_name }}</span>
-        <span class="card-name"> ({{ cardNumber }}) </span>
+        <span
+            class="card-name"
+            rwEllipsisDropdown
+            [lineClamp]="1"
+            [edText]="paymentCard.card_name + '(' + cardNumber + ')'"
+        >
+            {{ paymentCard.card_name }}
+        </span>
     </div>
-    <rwa-ghost-button
-        height="37px"
-        padding="5px 11px 3px"
-        [disable]="paymentCard?.checked"
-        (onClick)="onClick.emit(paymentCard)"
-    >
-        <ng-template gbtIdleContent><span class="button-text">자동 결제 등록</span></ng-template>
-    </rwa-ghost-button>
+
+    <div class="d-flex align-items-center">
+        <rwa-ghost-button
+            height="37px"
+            padding="5px 11px 3px"
+            disableBorderColor="var(--gray-50)"
+            disableFontColor="var(--gray-60)"
+            fontColor="var(--gray-90)"
+            [disable]="paymentCard?.checked"
+            (onClick)="onRegister.emit(paymentCard)"
+        >
+            <ng-template gbtIdleContent><span class="button-text">자동 결제 등록</span></ng-template>
+        </rwa-ghost-button>
+        <rwa-icon-button
+            class="pci-remove-icon"
+            rwTooltip
+            rwTooltipPlacement="bottom"
+            rwTooltipTitle="카드 삭제하기"
+            [sizeType]="'sm'"
+            borderRadius="12px"
+            bgColor="var(--white)"
+            hoverBgColor="var(--gray-30)"
+            (onClick)="onRemove.emit(paymentCard)"
+        >
+            <ng-template iconBtIdleContent>
+                <div class="trash-icon"></div>
+            </ng-template>
+        </rwa-icon-button>
+    </div>
 </div>

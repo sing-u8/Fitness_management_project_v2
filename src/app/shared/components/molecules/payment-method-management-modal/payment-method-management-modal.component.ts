@@ -14,9 +14,16 @@ import {
 
 import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
+import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
 import { Center } from '@schemas/center'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import _ from 'lodash'
+import { User } from '@schemas/user'
+import { Loading } from '@schemas/loading'
+
+import { Store } from '@ngrx/store'
+import { showToast } from '@store/app/actions/toast.action'
+import { ButtonEmit } from '@schemas/components/button'
 
 @Component({
     selector: 'rwm-payment-method-management-modal',
@@ -25,24 +32,53 @@ import _ from 'lodash'
 })
 export class PaymentMethodManagementModalComponent {
     @Input() center: Center
-    @Input() cardList: PaymentCard[] = []
 
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
     @Input() blockClickOutside = true
 
-    @Output() addPaymentMethod = new EventEmitter<any>()
-
     @ViewChild('modalBackgroundElement') modalBackgroundElement: ElementRef
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
+
+    public user: User
+    public cardList: PaymentCard[] = []
+    public cardListLoading: Loading = 'idle'
+
+    initPaymentMethods() {
+        this.cardListLoading = 'pending'
+        this.usersCustomersService.getCustomer(this.user.id).subscribe({
+            next: (cards) => {
+                this.cardListLoading = 'done'
+                this.cardList = cards
+                this.initSelectedCard(this.cardList)
+                console.log('initPaymentMethods - ', this.cardList)
+            },
+            error: (err) => {
+                this.cardListLoading = 'idle'
+            },
+        })
+    }
 
     public selectedCard: PaymentCard = undefined
     initSelectedCard(cardList: PaymentCard[]) {
         this.selectedCard = _.find(cardList, (v) => v.checked)
     }
+    setCardSelect(paymentCard: PaymentCard) {
+        _.forEach(this.cardList, (v, idx) => {
+            this.cardList[idx].checked = v.id == paymentCard.id
+        })
+    }
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {}
+    constructor(
+        private el: ElementRef,
+        private renderer: Renderer2,
+        private usersCustomersService: UsersCustomersService,
+        private storageService: StorageService,
+        private nxStore: Store
+    ) {
+        this.user = this.storageService.getUser()
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {
@@ -54,6 +90,9 @@ export class PaymentMethodManagementModalComponent {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
+                if (this.cardListLoading == 'idle') {
+                    this.initPaymentMethods()
+                }
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
@@ -63,19 +102,60 @@ export class PaymentMethodManagementModalComponent {
                 }, 200)
             }
         })
-        detectChangesOn(changes, 'cardList', (cardList) => {
-            this.initSelectedCard(cardList)
-        })
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
 
     onSelectPaymentCard(paymentCard: PaymentCard) {
+        this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe((v) => {
+            console.log('onSelectPaymentCard -- ', v)
+            this.setCardSelect(paymentCard)
 
+            this.nxStore.dispatch(showToast({ text: '자동 결제 수단이 변경되었어요.' }))
+        })
+    }
+    onRemovePaymentCard(paymentCard: PaymentCard) {
+        // 월 이용권에 따른 분기 설정 필요
+        this.usersCustomersService.deleteCustomer(this.user.id, paymentCard.id).subscribe((v) => {
+            _.remove(this.cardList, (v) => v.id == paymentCard.id)
+            this.nxStore.dispatch(showToast({ text: '선택한 결제 수단이 삭제되었어요.' }))
+        })
+    }
+
+    // -----------------------------------------------------------------------------------------------------------
+    // register card vars and funcs
+    public showRegisterCardModal = false
+    public isRegisterCardError = false
+    openRegisterCardModal() {
+        this.close.emit()
+        this.showRegisterCardModal = true
+    }
+    onRegisterCardCancel() {
+        this.showRegisterCardModal = false
+        this.open.emit()
+    }
+    onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreateCustomerReqBody }) {
+        res.btLoading.showLoading()
+        this.usersCustomersService.createCustomer(this.user.id, res.reqBody).subscribe({
+            next: (paymentCard) => {
+                this.isRegisterCardError = false
+                this.showRegisterCardModal = false
+                this.open.emit()
+                res.btLoading.hideLoading()
+                this.cardList.unshift(paymentCard)
+                this.setCardSelect(paymentCard)
+                this.nxStore.dispatch(showToast({ text: '결제 수단이 추가되었어요.' }))
+            },
+            error: () => {
+                this.isRegisterCardError = true
+                res.btLoading.hideLoading()
+            },
+        })
     }
 
     // -----------------------------------------------------------------------------------------------------------
     @Output() close = new EventEmitter()
+    @Output() open = new EventEmitter()
     public scrollTop = 0
     onClose(keepScroll = true): void {
         this.scrollTop = keepScroll ? this.bodyElement.nativeElement.scrollTop : 0
@@ -90,4 +170,6 @@ export class PaymentMethodManagementModalComponent {
     resetMouseModalDown() {
         this.isMouseModalDown = false
     }
+
+    protected readonly undefined = undefined
 }

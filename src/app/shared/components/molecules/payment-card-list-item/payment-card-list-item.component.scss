@@ -19,6 +19,9 @@
     .card-number {
         @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
     }
+    .card-name {
+        max-width: calc(193px);
+    }
 
     .card-icon {
         margin-right: 10px;
@@ -28,6 +31,34 @@
         margin-left: 13px;
     }
     .button-text {
-        @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
+        font-size: 1.7rem;
+        line-height: 28.3px;
     }
+
+    .pci-remove-icon {
+        margin-left: 8px;
+    }
+
+    &.is-desktop {
+        .card-name {
+            max-width: calc(235px);
+        }
+
+        .pci-remove-icon {
+            display: none;
+        }
+        &:hover {
+            .pci-remove-icon {
+                display: flex;
+            }
+            .card-name {
+                max-width: calc(193px);
+            }
+        }
+    }
+}
+
+.trash-icon {
+    width: 24px;
+    height: 24px;
 }

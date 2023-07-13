@@ -6,7 +6,6 @@ import { catchError, map } from 'rxjs/operators'
 import handleError from './handleError'
 import { Response } from '@schemas/response'
 import { environment } from '@environments/environment'
-import { Product } from '@schemas/product'
 import { Promotion, PromotionCode } from '@schemas/payment/promotion'
 
 @Injectable({
@@ -43,10 +42,8 @@ export class CenterProductsService {
     ): Observable<any> {
         const url =
             this.SERVER +
-            `/${centerId}/products/${productCode}/promotion/${promotionCode}?center_code=${centerCode}` +
-            centerCode
-                ? `&center_code=${centerCode}`
-                : ''
+            `/${centerId}/products/${productCode}/promotion/${promotionCode}` +
+            (centerCode ? `?center_code=${centerCode}` : '')
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
                 return res.dataset

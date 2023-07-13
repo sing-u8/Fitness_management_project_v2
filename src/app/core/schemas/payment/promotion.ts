@@ -15,11 +15,11 @@ export type Promotion = {
     isFriendPromotion?: boolean
     friend_event_valid?: boolean
     friend_event_error?: string
-    friend_event_center_url?: string
+    friend_event_center_code?: string
 }
 
 export type PromotionCode =
     | '1_years_launch_event_2023'
-    | '1_years_friend_event_2023'
+    | '1_years_friend_event'
     | '2_years_launch_event_2023'
-    | '2_years_friend_event_2023'
+    | '2_years_friend_event'

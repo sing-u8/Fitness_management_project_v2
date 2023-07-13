@@ -17,7 +17,7 @@ import { InputHelperService } from '@services/helper/input-helper.service'
 
 import { ButtonEmit } from '@schemas/components/button'
 import { Loading } from '@schemas/loading'
-import { CreateCustomerReqBody } from "@services/users-customers.service";
+import { CreateCustomerReqBody } from '@services/users-customers.service'
 
 @Component({
     selector: 'rwm-register-card-modal',

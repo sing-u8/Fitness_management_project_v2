@@ -11,9 +11,9 @@ import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-prod
 import { PaymentProductInfoComponent } from '@feature/atoms/payment/payment-product-info/payment-product-info.component'
 
 import { StorageService } from '@services/storage.service'
-import { CreatePaymentReqBody, UsersPaymentsService } from '@services/users-payments.service'
 import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
-import { ProductsService } from '@services/products.service'
+import { CenterProductsService } from '@services/center-products.service'
+import { CenterPaymentsService, CreatePaymentReqBody } from '@services/center-payments.service'
 import { CenterService } from '@services/center.service'
 
 import { paymentItemList } from '@shared/helper/center-payment'
@@ -60,10 +60,10 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private storageService: StorageService,
         private domSanitizer: DomSanitizer,
         private centerService: CenterService,
-        private usersPaymentsService: UsersPaymentsService,
         private usersPaymentsSubscribeService: UsersPaymentsSubscribeService,
-        private productsService: ProductsService,
+        private centerProductsService: CenterProductsService,
         private usersCustomersService: UsersCustomersService,
+        private centerPaymentsService: CenterPaymentsService,
         private router: Router,
         private activatedRoute: ActivatedRoute
     ) {}
@@ -167,7 +167,6 @@ export class PaymentComponent implements OnDestroy, OnInit {
         this.purchaseButtonLoading = 'pending'
         if (this.paymentItemInfo.itemInfo.productCode != 'subscribe_membership' && this.paymentAgree) {
             const reqBody: CreatePaymentReqBody = {
-                center_id: this.center.id,
                 product_code: this.paymentItemInfo.itemInfo.productCode,
                 amount: this.totalTax + this.totalPay,
             }
@@ -186,7 +185,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     }
                 })
             }
-            this.usersPaymentsService.createPayment(this.user.id, reqBody).subscribe((v) => {
+            console.log('purchaseItems -- reqBody : ', reqBody)
+            this.centerPaymentsService.createPayment(this.center.id, reqBody).subscribe((v) => {
                 const user = this.storageService.getUser()
                 const IMP = window['IMP']
 
@@ -207,6 +207,11 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     },
                     (rsp) => {
                         if (rsp.success) {
+                            this.setCurCenter(() => {
+                                this.showPaymentResultModal = true
+                                this.isPurchaseInProcess = false
+                            })
+
                             // this.paymentService
                             //     .validatePaymentDataAndSave({
                             //         imp_uid: rsp.imp_uid,
@@ -418,41 +423,42 @@ export class PaymentComponent implements OnDestroy, OnInit {
             this.paymentItemLoading.promotion = 'done'
             return
         }
-        this.productsService
-            .getProductPromotion(this.center.id, this.selectedPaymentItem.type)
-            .pipe()
-            .subscribe({
-                next: (promotions) => {
-                    this.paymentItemInfo.promotions = _.map(promotions, (value) => {
-                        if (value.code == '2_years_friend_event_2023' || value.code == '1_years_friend_event_2023') {
-                            value.isFriendPromotion = true
-                            value.friend_event_valid = false
-                            value.friend_event_error = ''
-                            value.friend_event_center_url = ''
-                        }
-                        if (value.discount_unit_code == 'promotion_discount_unit_percent') {
-                            value.discount_price_for_percent = _.ceil(
-                                this.paymentItemInfo.itemInfo.originalPrice - this.paymentItemInfo.itemInfo.price,
-                                -3
-                            )
-                            return value
-                        } else {
-                            value.discount_price_for_money = value.discount
-                            return value
-                        }
-                    })
-                    _.forEach(this.paymentItemInfo.promotions, (v) => {
-                        v.description = this.domSanitizer.bypassSecurityTrustHtml(
-                            _.replace(v.description as string, /(\r\n|\r|\n)/g, '<br />')
+        this.centerProductsService.getPromotion(this.center.id, this.selectedPaymentItem.type).subscribe({
+            next: (promotions) => {
+                this.paymentItemInfo.promotions = _.map(promotions, (value) => {
+                    value.description = this.domSanitizer.bypassSecurityTrustHtml(
+                        _.replace(value.description as string, /(\r\n|\r|\n)/g, '<br />')
+                    )
+                    if (value.code == '2_years_friend_event' || value.code == '1_years_friend_event') {
+                        value.isFriendPromotion = true
+                        value.friend_event_valid = false
+                        value.friend_event_error = ''
+                        value.friend_event_center_code = ''
+                    }
+                    if (value.discount_unit_code == 'promotion_discount_unit_percent') {
+                        value.discount_price_for_percent = _.ceil(
+                            this.paymentItemInfo.itemInfo.originalPrice - this.paymentItemInfo.itemInfo.price,
+                            -3
                         )
-                    })
-                    this.getTotalDiscountPrice()
-                    this.paymentItemLoading.promotion = 'done'
-                },
-                error: (err) => {
-                    this.paymentItemLoading.promotion = 'done'
-                },
-            })
+                        return value
+                    } else {
+                        value.discount_price_for_money = value.discount
+                        return value
+                    }
+                })
+                // _.forEach(this.paymentItemInfo.promotions, (v) => {
+                //     v.description = this.domSanitizer.bypassSecurityTrustHtml(
+                //         _.replace(v.description as string, /(\r\n|\r|\n)/g, '<br />')
+                //     )
+                // })
+                this.getTotalDiscountPrice()
+                this.paymentItemLoading.promotion = 'done'
+                console.log('centerProductsService.getPromotion -- ', this.paymentItemInfo)
+            },
+            error: (err) => {
+                this.paymentItemLoading.promotion = 'done'
+            },
+        })
     }
 
     // ------------------------------------------------------------------------------------

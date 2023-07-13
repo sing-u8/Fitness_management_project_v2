@@ -5,7 +5,7 @@ import { SharedModule } from '@shared/shared.module'
 import { Promotion } from '@schemas/payment/promotion'
 import { PaymentItemInfoProp } from '@schemas/payment/payment-item'
 
-import { ProductsService } from '@services/products.service'
+import { CenterProductsService } from '@services/center-products.service'
 
 import _ from 'lodash'
 import { Center } from '@schemas/center'
@@ -25,7 +25,7 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
 
     @Output() onPromotionChanged = new EventEmitter<Array<Promotion>>()
     public totalDiscountPrice = 0
-    constructor(private productApi: ProductsService) {}
+    constructor(private centerProductsApi: CenterProductsService) {}
 
     ngOnInit(): void {}
     ngOnChanges(changes: SimpleChanges) {
@@ -50,7 +50,8 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
     }
 
     checkFriendPromotion(idx: number) {
-        this.productApi
+        console.log('checkFriendPromotion -- ', this.center, this.itemInfo, this.promotions[idx])
+        this.centerProductsApi
             .checkProductPromotion(
                 this.center.id,
                 this.itemInfo.productCode,
@@ -65,8 +66,11 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
                     this.onPromotionChanged.emit(this.promotions)
                 },
                 error: (err) => {
-                    if (err.code == 'FUNCTION_IAMPORT_PAYMENT_004') {
-                        this.promotions[idx].friend_event_error = '존재하지 않는 URL 주소입니다.'
+                    console.log('checkFriendPromotion -- ', err)
+                    if (err.code == 'FUNCTION_CENTER_PRODUCTS_004') {
+                        this.promotions[idx].friend_event_error = '이미 참여한 이벤트입니다.'
+                    } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_003') {
+                        this.promotions[idx].friend_event_error = '존재하지 않는 센터 코드입니다.'
                     } else if (err.code == 'FUNCTION_IAMPORT_PAYMENT_005') {
                         this.promotions[idx].friend_event_error = '본인 센터의 URL 주소는 입력하실 수 없어요.'
                     }

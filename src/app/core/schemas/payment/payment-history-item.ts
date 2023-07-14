@@ -8,6 +8,7 @@ export type PaymentHistoryItem = {
     sms_point: number
     start_date: string // YYYY-MM-DD
     end_date: string
+    product_price: number
     amount: number
     apply_num: string
     bank_code: string

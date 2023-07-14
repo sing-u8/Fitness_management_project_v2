@@ -97,35 +97,16 @@ section#l-discount-benefit-wrapper {
 
                         .center-url {
                             display: flex;
-                            align-items: center;
-                            justify-content: space-between;
+                            align-items: flex-start;
                             width: 100%;
+
+                            rwa-button {
+                                margin-top: 1.5px;
+                                margin-left: 15px;
+                            }
 
                             .button-text {
                                 @include rw-type-b(1.7rem, 28px, var(--white));
-                            }
-                        }
-
-                        .center-url-error {
-                            display: flex;
-                            align-items: center;
-                            justify-content: flex-end;
-                            width: 342px;
-                            height: 17px;
-                            margin: 2px 0 0 0;
-                            font-weight: 400;
-                            font-size: 12px;
-                            line-height: 17px;
-                            letter-spacing: -0.144px;
-                            color: var(--red);
-                            text-align: end;
-                            .error-icon {
-                                width: 14px;
-                                height: 14px;
-                                margin-right: 4px;
-                                background-size: contain;
-                                background-repeat: no-repeat;
-                                background-image: url('/assets/icons/etc/warning-red.svg');
                             }
                         }
                     }
@@ -143,21 +124,12 @@ section#l-discount-benefit-wrapper {
                             display: flex;
                             flex-direction: column;
                             .md-item-text {
-                                font-weight: 400;
-                                font-size: 13px;
-                                line-height: 19px;
-                                letter-spacing: -0.17px;
-                                color: var(--darkgrey);
+                                @include rw-type-r(1.5rem, 23.1px, var(--gray-90));
                                 text-align: center;
-                                margin-bottom: 3px;
                             }
                             .md-item-price {
-                                font-weight: 500;
-                                font-size: 14px;
-                                line-height: 20px;
+                                @include rw-type-b(1.7rem, 28.3px, var(--font-color));
                                 text-align: center;
-                                letter-spacing: -0.196px;
-                                color: var(--font-color);
                             }
                         }
                         .right-arrow {

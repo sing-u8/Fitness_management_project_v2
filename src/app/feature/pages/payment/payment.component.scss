@@ -229,11 +229,14 @@
             .l-footer-button {
                 display: flex;
                 align-items: center;
+                .button-text {
+                    @include rw-type-b(1.7rem, 28.3px, var(--gray-90));
+                }
                 .button-text--red {
-                    @include rw-type-b(1.7rem, 28px, var(--red-100));
+                    @include rw-type-b(1.7rem, 28.3px, var(--red-100));
                 }
                 .button-text--white {
-                    @include rw-type-b(1.7rem, 28px, var(--white));
+                    @include rw-type-b(1.7rem, 28.3px, var(--white));
                 }
                 rwa-button {
                     &:first-of-type {

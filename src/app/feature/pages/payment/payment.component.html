@@ -58,23 +58,16 @@
                 </div>
                 <div class="l-footer-button">
                     <rwa-button
-                        width="134px"
                         height="45px"
-                        [padding]="'9px 20px 7px 25px'"
-                        [bgColor]="'var(--red-5)'"
-                        [hoverBgColor]="'var(--red-10)'"
-                        [fontColor]="'var(--red-100)'"
-                        [progressBgColor]="'var(--red-10)'"
-                        [loadingColor]="'var(--red-100)'"
+                        [padding]="'9px 25px 7px'"
+                        [fontColor]="'var(--gray-90)'"
+                        [bgColor]="'var(--white)'"
+                        [hoverBgColor]="'var(--gray-30)'"
+                        [loadingColor]="'var(--font-color)'"
+                        (onClick)="onCancelPayment()"
                     >
                         <ng-template btIdleContent>
-                            <rwa-svg-arrow-left-bold
-                                width="20px"
-                                height="20px"
-                                [color]="'var(--red-100)'"
-                                [style.margin-right]="'10px'"
-                            ></rwa-svg-arrow-left-bold>
-                            <span class="button-text--red">이전으로</span>
+                            <span class="button-text">취소</span>
                         </ng-template>
                     </rwa-button>
                     <rwa-button

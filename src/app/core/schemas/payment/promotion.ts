@@ -1,4 +1,5 @@
 import { SafeHtml } from '@angular/platform-browser'
+import { Loading } from '@schemas/loading'
 
 export type Promotion = {
     code: PromotionCode
@@ -14,6 +15,7 @@ export type Promotion = {
     discount_price_for_money?: number
     isFriendPromotion?: boolean
     friend_event_valid?: boolean
+    friend_event_loading?: Loading
     friend_event_error?: string
     friend_event_center_code?: string
 }

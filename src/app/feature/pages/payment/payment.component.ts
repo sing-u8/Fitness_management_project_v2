@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
-import { CommonModule } from '@angular/common'
+import { CommonModule, Location } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { DomSanitizer } from '@angular/platform-browser'
 
@@ -15,6 +15,7 @@ import { UsersPaymentsSubscribeService } from '@services/users-payments-subscrib
 import { CenterProductsService } from '@services/center-products.service'
 import { CenterPaymentsService, CreatePaymentReqBody } from '@services/center-payments.service'
 import { CenterService } from '@services/center.service'
+import { CallbackService } from '@services/callback.service'
 
 import { paymentItemList } from '@shared/helper/center-payment'
 
@@ -64,7 +65,9 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private centerProductsService: CenterProductsService,
         private usersCustomersService: UsersCustomersService,
         private centerPaymentsService: CenterPaymentsService,
+        private callbackService: CallbackService,
         private router: Router,
+        private location: Location,
         private activatedRoute: ActivatedRoute
     ) {}
     ngOnInit() {
@@ -76,6 +79,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     this.resetPaymentItemInfo()
                     this.resetPaymentItem()
                     this.resetPaymentMethod()
+                    this.paymentAgree = false
                     // this.resetAgreeObj()
                     break
                 case 'two':
@@ -207,22 +211,18 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     },
                     (rsp) => {
                         if (rsp.success) {
-                            this.setCurCenter(() => {
-                                this.showPaymentResultModal = true
-                                this.isPurchaseInProcess = false
-                            })
-
-                            // this.paymentService
-                            //     .validatePaymentDataAndSave({
-                            //         imp_uid: rsp.imp_uid,
-                            //         merchant_uid: rsp.merchant_uid,
-                            //     })
-                            //     .subscribe(() => {
-                            //         this.setCurCenter(() => {
-                            //             this.showPaymentResultModal = true
-                            //             this.isPurchaseInProcess = false
-                            //         })
-                            //     })
+                            this.callbackService
+                                .checkAndSavePayment({
+                                    imp_uid: rsp.imp_uid,
+                                    merchant_uid: rsp.merchant_uid,
+                                })
+                                .subscribe(() => {
+                                    this.setCurCenter(() => {
+                                        this.showPaymentResultModal = true
+                                        this.isPurchaseInProcess = false
+                                        this.router.navigate([`${this.center.name}`, 'main'])
+                                    })
+                                })
                         } else {
                             this.openPaymentErrorModal()
                             this.isPurchaseInProcess = false
@@ -246,6 +246,11 @@ export class PaymentComponent implements OnDestroy, OnInit {
             this.storageService.setCenter(v)
             cb ? cb() : null
         })
+    }
+
+    onCancelPayment() {
+        console.log('on cancel payment : ', this.router, this.location)
+        this.router.navigate(['redwhale-home'])
     }
 
     // ------------------------------------------------------------------------------------
@@ -434,6 +439,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         value.friend_event_valid = false
                         value.friend_event_error = ''
                         value.friend_event_center_code = ''
+                        value.friend_event_loading = 'idle'
                     }
                     if (value.discount_unit_code == 'promotion_discount_unit_percent') {
                         value.discount_price_for_percent = _.ceil(
@@ -511,6 +517,4 @@ export class PaymentComponent implements OnDestroy, OnInit {
     resetPaymentMethod() {
         this.paymentCard = undefined
     }
-
-    protected readonly undefined = undefined
 }

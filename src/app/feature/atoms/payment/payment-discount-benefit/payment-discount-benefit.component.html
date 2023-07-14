@@ -33,9 +33,11 @@
                                             [height]="'48px'"
                                             [disabled]="item.friend_event_valid"
                                             [(ngModel)]="item.friend_event_center_code"
+                                            [status]="item.friend_event_error ? 'error' : 'none'"
+                                            [statusText]="item.friend_event_error"
                                         />
                                         <rwa-button
-                                            [width]="'113px'"
+                                            [padding]="'9px 25px 7px'"
                                             [height]="'45px'"
                                             [bgColor]="'#2F2D2D'"
                                             [hoverBgColor]="'#141517'"
@@ -46,11 +48,10 @@
                                             <ng-template btIdleContent>
                                                 <span class="button-text">입력 완료</span>
                                             </ng-template>
+                                            <ng-template btPendingContent>
+                                                <span class="button-text">입력 완료</span>
+                                            </ng-template>
                                         </rwa-button>
-                                    </div>
-                                    <div *ngIf="item.friend_event_error" class="center-url-error">
-                                        <div class="error-icon"></div>
-                                        {{ item.friend_event_error }}
                                     </div>
                                 </div>
                             </ng-container>

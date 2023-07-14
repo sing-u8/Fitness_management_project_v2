@@ -51,28 +51,32 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
 
     checkFriendPromotion(idx: number) {
         console.log('checkFriendPromotion -- ', this.center, this.itemInfo, this.promotions[idx])
+        this.promotions[idx].friend_event_loading = 'pending'
         this.centerProductsApi
             .checkProductPromotion(
                 this.center.id,
                 this.itemInfo.productCode,
                 this.promotions[idx].code,
-                this.center.code
+                this.promotions[idx].friend_event_center_code
             )
             .subscribe({
                 next: (res) => {
                     this.promotions[idx].friend_event_error = ''
                     this.promotions[idx].friend_event_valid = true
+                    this.promotions[idx].friend_event_loading = 'idle'
                     this.totalDiscountPrice = this.getDiscountPrice(this.promotions)
                     this.onPromotionChanged.emit(this.promotions)
                 },
                 error: (err) => {
-                    console.log('checkFriendPromotion -- ', err)
+                    this.promotions[idx].friend_event_loading = 'idle'
                     if (err.code == 'FUNCTION_CENTER_PRODUCTS_004') {
                         this.promotions[idx].friend_event_error = '이미 참여한 이벤트입니다.'
                     } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_003') {
                         this.promotions[idx].friend_event_error = '존재하지 않는 센터 코드입니다.'
                     } else if (err.code == 'FUNCTION_IAMPORT_PAYMENT_005') {
-                        this.promotions[idx].friend_event_error = '본인 센터의 URL 주소는 입력하실 수 없어요.'
+                        this.promotions[idx].friend_event_error = '본인 센터의 코드는 입력하실 수 없어요.'
+                    } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_005') {
+                        this.promotions[idx].friend_event_error = '본인 센터의 코드는 입력하실 수 없어요.'
                     }
                 },
             })

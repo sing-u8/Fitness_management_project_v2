@@ -44,7 +44,13 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
         this.renderer.setStyle(this.card_slide_el.nativeElement, 'transform', `translateX(-${(slide - 1) * 270}px)`)
         this.paymentCard = this.paymentCardList.length + 1 == slide ? undefined : this.paymentCardList[slide - 1]
         this.paymentCardChange.emit(this.paymentCard)
-        console.log('onSlideButtonClick - ', slide, this.paymentCard, this.paymentCardList[slide - 1])
+        console.log(
+            'onSlideButtonClick - ',
+            slide,
+            this.paymentCard,
+            this.paymentCardList[slide - 1],
+            _.isObject(this.paymentCard)
+        )
     }
     setCardSlide(slide: number) {
         this.renderer.setStyle(this.card_slide_el.nativeElement, 'transform', `translateX(-${(slide - 1) * 270}px)`)

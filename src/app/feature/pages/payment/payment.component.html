@@ -233,7 +233,7 @@
                         [status]="purchaseButtonLoading"
                         [disable]="
                             paymentItemInfo.itemInfo.productCode == 'subscribe_membership'
-                                ? !paymentAgree
+                                ? !paymentAgree || !selectedPaymentCard
                                 : !paymentAgree
                         "
                         (onClick)="purchaseItems()"

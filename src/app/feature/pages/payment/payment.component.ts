@@ -90,17 +90,27 @@ export class PaymentComponent implements OnDestroy, OnInit {
         })
 
         this.paymentCardSubject
-            .pipe(distinctUntilChanged(), debounceTime(300), takeUntil(this.unSubscriber$))
+            .asObservable()
+            .pipe(distinctUntilChanged(), debounceTime(500), takeUntil(this.unSubscriber$))
             .subscribe((paymentCard) => {
-                this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe({
-                    next: () => {
-                        _.forEach(this.paymentCardList, (v, idx) => {
-                            this.paymentCardList[idx].checked = v.id == paymentCard.id
-                        })
-                        console.log('paymentCardSubject value change complete : ', this.paymentCardList, paymentCard)
-                    },
-                    error: (err) => {},
-                })
+                if (_.isObject(paymentCard)) {
+                    this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe({
+                        next: () => {
+                            _.forEach(this.paymentCardList, (v, idx) => {
+                                this.paymentCardList[idx].checked = v.id == paymentCard.id
+                            })
+                            this.selectedPaymentCard = paymentCard
+                            console.log(
+                                'paymentCardSubject value change complete : ',
+                                this.paymentCardList,
+                                paymentCard
+                            )
+                        },
+                        error: (err) => {},
+                    })
+                } else {
+                    this.selectedPaymentCard = paymentCard
+                }
             })
     }
 
@@ -510,6 +520,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
     // ------------------------------------------------------------------------------------
 
     public paymentCardSubject = new Subject<PaymentCard>()
+    public selectedPaymentCard: PaymentCard = undefined
     public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
@@ -517,7 +528,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
             next: (paymentCards) => {
                 if (paymentCards.length > 0) {
                     const checkIdx = _.findIndex(paymentCards, (v) => v.checked)
-                    // this.paymentCard = paymentCards[checkIdx]
+                    this.selectedPaymentCard = paymentCards[checkIdx]
                 }
                 this.paymentCardList = paymentCards
                 this.paymentItemLoading.paymentMethod = 'idle'

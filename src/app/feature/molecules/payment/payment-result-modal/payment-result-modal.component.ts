@@ -43,7 +43,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
     changed: boolean
 
     public isMouseModalDown: boolean
-    public day = dayjs().format('dd')
+    public day = dayjs().format('D')
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
         this.isMouseModalDown = false
@@ -68,7 +68,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
-                this.day = dayjs().format('dd')
+                this.day = dayjs().format('D')
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')

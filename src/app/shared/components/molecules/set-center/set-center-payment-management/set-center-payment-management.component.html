@@ -1,34 +1,42 @@
-<div class="l-payment-management">
-    <div class="l-pm-button">
-        <rwa-ghost-button
-            class="purchase-membership-button"
-            height="42px"
-            padding="7.5px 15px 5.5px 11px"
-            [borderColor]="'var(--red-100)'"
-            [hoverBorderColor]="'var(--red-100)'"
-            [fontColor]="'var(--red-100)'"
-            [hoverBgColor]="'var(--red-5)'"
-            (onClick)="goPayment()"
-        >
-            <ng-template gbtIdleContent>
-                <rwa-svg-coin [color]="'var(--red-100)'"></rwa-svg-coin>
-                <span class="text">이용권 구매</span>
-            </ng-template>
-        </rwa-ghost-button>
-        <rwa-ghost-button
-            class="payment-management-button"
-            height="42px"
-            padding="7.5px 15px 5.5px"
-            (onClick)="openPaymentMethodManagement = true"
-        >
-            <ng-template gbtIdleContent><span class="text">결제 수단 관리</span></ng-template>
-        </rwa-ghost-button>
-    </div>
+<ng-scrollbar [track]="'vertical'" class="rw-scroll">
+    <div scrollViewport>
+        <div class="l-payment-management">
+            <div class="l-pm-button">
+                <rwa-ghost-button
+                    class="purchase-membership-button"
+                    height="42px"
+                    padding="7.5px 15px 5.5px 11px"
+                    [borderColor]="'var(--red-100)'"
+                    [hoverBorderColor]="'var(--red-100)'"
+                    [fontColor]="'var(--red-100)'"
+                    [hoverBgColor]="'var(--red-5)'"
+                    (onClick)="goPayment()"
+                >
+                    <ng-template gbtIdleContent>
+                        <rwa-svg-coin [color]="'var(--red-100)'"></rwa-svg-coin>
+                        <span class="text">이용권 구매</span>
+                    </ng-template>
+                </rwa-ghost-button>
+                <rwa-ghost-button
+                    class="payment-management-button"
+                    height="42px"
+                    padding="7.5px 15px 5.5px"
+                    (onClick)="openPaymentMethodManagement = true"
+                >
+                    <ng-template gbtIdleContent><span class="text">결제 수단 관리</span></ng-template>
+                </rwa-ghost-button>
+            </div>
 
-    <div class="l-pm-items">
-        <rwm-center-membership-card></rwm-center-membership-card>
+            <div class="l-pm-items">
+                <rwm-center-membership-card
+                    *ngFor="let item of paymentItemList; let isLast = last; let isFirst = first"
+                    [isLast]="isLast"
+                    [paymentItem]="item"
+                ></rwm-center-membership-card>
+            </div>
+        </div>
     </div>
-</div>
+</ng-scrollbar>
 
 <rwm-payment-method-management-modal
     [center]="center"

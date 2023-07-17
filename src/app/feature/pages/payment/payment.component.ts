@@ -11,7 +11,6 @@ import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-prod
 import { PaymentProductInfoComponent } from '@feature/atoms/payment/payment-product-info/payment-product-info.component'
 
 import { StorageService } from '@services/storage.service'
-import { UsersPaymentsSubscribeService } from '@services/users-payments-subscribe.service'
 import { CenterProductsService } from '@services/center-products.service'
 import { CenterPaymentsService, CreatePaymentReqBody } from '@services/center-payments.service'
 import { CenterService } from '@services/center.service'
@@ -26,7 +25,7 @@ import { Loading } from '@schemas/loading'
 import { ProductCode } from '@schemas/payment/product-code'
 import { Promotion } from '@schemas/payment/promotion'
 import { BehaviorSubject, Subject } from 'rxjs'
-import { takeUntil } from 'rxjs/operators'
+import { debounceTime, distinctUntilChanged, takeUntil } from 'rxjs/operators'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import { PaymentDiscountBenefitComponent } from '@feature/atoms/payment/payment-discount-benefit/payment-discount-benefit.component'
 import { PaymentMethodComponent } from '@feature/atoms/payment/payment-method/payment-method.component'
@@ -61,7 +60,6 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private storageService: StorageService,
         private domSanitizer: DomSanitizer,
         private centerService: CenterService,
-        private usersPaymentsSubscribeService: UsersPaymentsSubscribeService,
         private centerProductsService: CenterProductsService,
         private usersCustomersService: UsersCustomersService,
         private centerPaymentsService: CenterPaymentsService,
@@ -78,7 +76,6 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 case 'one':
                     this.resetPaymentItemInfo()
                     this.resetPaymentItem()
-                    this.resetPaymentMethod()
                     this.paymentAgree = false
                     // this.resetAgreeObj()
                     break
@@ -91,6 +88,20 @@ export class PaymentComponent implements OnDestroy, OnInit {
             }
             this.step = progress
         })
+
+        this.paymentCardSubject
+            .pipe(distinctUntilChanged(), debounceTime(300), takeUntil(this.unSubscriber$))
+            .subscribe((paymentCard) => {
+                this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe({
+                    next: () => {
+                        _.forEach(this.paymentCardList, (v, idx) => {
+                            this.paymentCardList[idx].checked = v.id == paymentCard.id
+                        })
+                        console.log('paymentCardSubject value change complete : ', this.paymentCardList, paymentCard)
+                    },
+                    error: (err) => {},
+                })
+            })
     }
 
     ngOnDestroy() {
@@ -231,7 +242,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 )
             })
         } else if (this.paymentItemInfo.itemInfo.productCode == 'subscribe_membership' && this.paymentAgree) {
-            this.usersPaymentsSubscribeService.subscribePayment(this.user.id, this.center.id).subscribe(() => {
+            this.centerPaymentsService.createPaymentSubscribe(this.center.id).subscribe((v) => {
+                console.log('centerPaymentsService.createPaymentSubscribe return : ', v)
                 this.setCurCenter(() => {
                     this.showPaymentResultModal = true
                     this.isPurchaseInProcess = false
@@ -497,24 +509,26 @@ export class PaymentComponent implements OnDestroy, OnInit {
 
     // ------------------------------------------------------------------------------------
 
-    public paymentCard: PaymentCard = undefined
+    public paymentCardSubject = new Subject<PaymentCard>()
     public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
         this.usersCustomersService.getCustomer(this.user.id).subscribe({
             next: (paymentCards) => {
+                if (paymentCards.length > 0) {
+                    const checkIdx = _.findIndex(paymentCards, (v) => v.checked)
+                    // this.paymentCard = paymentCards[checkIdx]
+                }
                 this.paymentCardList = paymentCards
-                this.paymentCard = paymentCards[0]
                 this.paymentItemLoading.paymentMethod = 'idle'
                 this.getTotalDiscountPrice()
-                console.log('getPaymentMethod - ', paymentCards)
             },
             error: () => {
                 this.paymentItemLoading.paymentMethod = 'idle'
             },
         })
     }
-    resetPaymentMethod() {
-        this.paymentCard = undefined
+    onPaymentCardChanged(card: PaymentCard) {
+        this.paymentCardSubject.next(card)
     }
 }

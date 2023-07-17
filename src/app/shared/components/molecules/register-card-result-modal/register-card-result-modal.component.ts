@@ -20,7 +20,12 @@ import { PaymentCard } from '@schemas/payment/payment-card'
 })
 export class RegisterCardResultModalComponent implements OnChanges, AfterViewChecked {
     @Input() visible: boolean
-    @Input() cardData: PaymentCard
+    @Input() cardData: PaymentCard = {
+        id: '',
+        card_name: '',
+        card_number: '',
+        checked: true,
+    }
 
     @Input() blockClickOutside = false
 

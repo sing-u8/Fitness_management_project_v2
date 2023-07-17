@@ -22,6 +22,7 @@ import { paymentItemList } from '@shared/helper/center-payment'
 import { PaymentProductItemComponent } from '@feature/atoms/payment/payment-product-item/payment-product-item.component'
 import { User } from '@schemas/user'
 import { Center } from '@schemas/center'
+import { PaymentCard } from '@schemas/payment/payment-card'
 
 @Component({
     selector: 'rwp-component',
@@ -857,4 +858,19 @@ export class ComponentComponent implements OnDestroy {
     ]
 
     public openSetCenter = false
+
+    public showCardRegisterModal1 = false
+    public registeredCard1: PaymentCard = {
+        card_name: 'BC카드',
+        card_number: '97003950****505*',
+        checked: true,
+        id: '7bd61030-212f-11ee-a834-f74d69c5cc9f',
+    }
+    public showCardRegisterModal2 = false
+    public registeredCard2: PaymentCard = {
+        card_name: 'BC카드BC카드BC카드BC카드BC카드BC카드BC카드BC카드BC카드',
+        card_number: '97003950****505*',
+        checked: true,
+        id: '7bd61030-212f-11ee-a834-f74d69c5cc9f',
+    }
 }

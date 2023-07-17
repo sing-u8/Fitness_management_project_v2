@@ -24,7 +24,11 @@
         <ng-container *ngIf="paymentCardList.length > 0">
             <div class="l-payment-card-slide">
                 <div class="payment-card-slide" #card_slide>
-                    <rwa-payment-card [cardData]="paymentCard"></rwa-payment-card>
+                    <rwa-payment-card
+                        *ngFor="let item of paymentCardList"
+                        [cardData]="item"
+                        [showBottom]="true"
+                    ></rwa-payment-card>
                     <div class="add-payment-method" (click)="showRegisterCardModal = true">
                         <div class="add-payment-title">
                             <div class="plus-icon"></div>

@@ -68,8 +68,24 @@ export class CenterPaymentsService {
     }
 
     // 나중에 추가 필요
-    createPaymentSubscribe(centerId: string) {}
-    cancelSubscribePayment(centerId: string) {}
+    createPaymentSubscribe(centerId: string) {
+        const url = this.SERVER + `/${centerId}/payments/subscribe`
+        return this.http.post<Response>(url, {}, this.options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
+    cancelSubscribePayment(centerId: string) {
+        const url = this.SERVER + `/${centerId}/payments/unsubscribe`
+        return this.http.post<Response>(url, {}, this.options).pipe(
+            map((res) => {
+                return res
+            }),
+            catchError(handleError)
+        )
+    }
 }
 
 export interface CreatePaymentReqBody {

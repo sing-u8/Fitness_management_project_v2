@@ -139,9 +139,10 @@
                     ></rwa-payment-product-info>
                     <rwa-payment-method
                         *ngIf="paymentItemInfo.itemInfo.productCode == 'subscribe_membership'"
-                        [paymentCard]="paymentCard"
+                        [user]="user"
                         [paymentCardList]="paymentCardList"
-                        (registeredPaymentCard)="paymentCard = $event"
+                        (paymentCardChange)="onPaymentCardChanged($event)"
+                        (paymentCardListChange)="paymentCardList = $event"
                     ></rwa-payment-method>
                     <rwa-payment-discount-benefit
                         [center]="center"
@@ -232,7 +233,7 @@
                         [status]="purchaseButtonLoading"
                         [disable]="
                             paymentItemInfo.itemInfo.productCode == 'subscribe_membership'
-                                ? !(paymentAgree && !!paymentCard)
+                                ? !paymentAgree
                                 : !paymentAgree
                         "
                         (onClick)="purchaseItems()"
@@ -257,7 +258,6 @@
 
 <rwm-payment-result-modal
     [paymentItem]="paymentItemInfo"
-    [paymentCard]="paymentCard"
     [totalDiscountPrice]="totalDiscountPrice"
     [totalTax]="totalTax"
     [totalPay]="totalPay"

@@ -10,7 +10,9 @@
         <div class="sub-text d-flex">등록한 카드의 정보는 [결제 수단 관리]에서 변경하실 수 있어요.</div>
         <div class="l-card-info">
             <div class="card-title">등록한 카드</div>
-            <div class="card-name">{{ cardData?.card_name }}</div>
+            <div class="card-name">
+                {{ cardData?.card_name + ' ' }} ({{ cardData?.card_number | wordSlice : 0 : 4 }})
+            </div>
         </div>
         <div class="button-group">
             <rwa-button width="80px" height="45px" (click)="onConfirm(); $event.stopPropagation()">

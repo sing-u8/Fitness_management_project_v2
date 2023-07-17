@@ -92,13 +92,13 @@
                     background-repeat: no-repeat;
                     width: 24px;
                     height: 24px;
-                    margin-right: 10px;
+                    margin: 2.5px 10px 0 0;
                 }
                 .error-box {
                     display: flex;
                     flex-direction: column;
                     .error-title {
-                        @include rw-type-b(1.7rem, 28.3px, var(--state-error-100));
+                        @include rw-type-b(1.7rem, 29px, var(--state-error-100));
                     }
                     .error-desc {
                         @include rw-type-r(1.5rem, 23px, var(--state-error-100));

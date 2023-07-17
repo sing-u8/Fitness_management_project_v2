@@ -1,17 +1,28 @@
 <div class="l-center-membership-card">
+    <div class="l-indicator">
+        <rwa-svg-circle-bold width="15px" height="15px" color="var(--red-100)"></rwa-svg-circle-bold>
+        <div class="l-line" [class.is-last]="isLast">
+            <div class="line"></div>
+        </div>
+    </div>
+
     <div class="tag" *ngIf="false">
         <span class="tag-text">{{ '자동 결제에 실패했어요! 결제 수단을 확인해 주세요.' }}</span>
         <rwa-text-button fontWeight="700" [showUnderLine]="false"> 자세히 보기 </rwa-text-button>
     </div>
+
     <div class="center-membership-card">
         <div class="cmc-top">
             <div class="cmc-top__left">
                 <div class="membership-name">
-                    <span>{{ '월 이용권' }}</span>
+                    <span>{{ membershipName }}</span>
                     <span class="number-of-times"> ({{ '0회차' }}) </span>
                 </div>
 
-                <div class="membership-duration">{{ '23년 0월 0일' }} ~ {{ '24년 00월 00일' }} {{ '사용 예정' }}</div>
+                <div class="membership-duration">
+                    {{ paymentItem?.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
+                    {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }} {{ '사용 예정' }}
+                </div>
             </div>
 
             <div class="cmc-top__right">

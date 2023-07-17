@@ -15,6 +15,35 @@
     position: relative;
     border-radius: 20px;
 
+    .l-indicator {
+        position: absolute;
+        left: -33px;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        width: 33px;
+        height: 100%;
+        padding: 25px 18px 0 0;
+
+        .l-line {
+            min-height: 182px;
+            // min-height 226px  -- with tag
+            width: 15px;
+            display: flex;
+            justify-content: center;
+            &.is-last {
+                display: none;
+            }
+            .line {
+                margin-top: 2px;
+                width: 1px;
+                height: 100%;
+                border-right: 1px solid var(--gray-50);
+            }
+        }
+    }
+
     .tag {
         display: inline-flex;
         width: 100%;
@@ -116,6 +145,14 @@
                         }
                     }
                 }
+            }
+            .l-payment-date {
+                min-width: 101px;
+            }
+            .l-payment-method {
+                min-width: 213px;
+            }
+            .l-payment-price {
             }
         }
     }

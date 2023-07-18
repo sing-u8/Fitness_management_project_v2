@@ -20,6 +20,8 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
     @Input() lineClamp = 1
     @Input() deviation = 0
     @Input() edText = ''
+    @Input() additionalEdText = ''
+    @Input() additionalDropDownWidth = ''
 
     public spanEl: HTMLSpanElement = undefined
     public dropdownEl: HTMLDivElement = undefined
@@ -34,7 +36,10 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
             if (_.isElement(this.spanEl) && _.isElement(this.dropdownEl)) {
                 const element = this.elementRef.nativeElement
                 this.spanEl.innerText = this.edText
-                this.dropdownEl.innerText = this.edText
+                this.dropdownEl.innerText = this.edText + this.additionalEdText
+                if (this.additionalDropDownWidth) {
+                    this.renderer.setStyle(this.dropdownEl, 'width', `calc(100% + ${this.additionalDropDownWidth})`)
+                }
                 if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
                     this.renderer.addClass(this.spanEl, 'cursor-pointer')
                     if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
@@ -53,17 +58,19 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
     ngAfterViewInit(): void {
         const element = this.elementRef.nativeElement
         this.renderer.setStyle(element, 'position', 'relative')
-        const innerText = this.edText
 
         this.spanEl = this.renderer.createElement('span')
         element.innerText = ''
-        this.spanEl.innerText = innerText
+        this.spanEl.innerText = this.edText
         this.renderer.appendChild(element, this.spanEl)
 
         this.dropdownEl = this.renderer.createElement('div')
-        this.dropdownEl.innerText = innerText
+        this.dropdownEl.innerText = this.edText + this.additionalEdText
         this.renderer.appendChild(element, this.dropdownEl)
         this.renderer.addClass(this.dropdownEl, 'ellipsis-dropdown')
+        if (this.additionalDropDownWidth) {
+            this.renderer.setStyle(this.dropdownEl, 'width', `calc(100% + ${this.additionalDropDownWidth})`)
+        }
         // this.renderer.setStyle(this.dropdownEl, 'bottom', `-${this.dropdownEl.offsetHeight + 5}px`)
         this.renderer.setStyle(this.dropdownEl, 'z-index', `5`)
         this.renderer.setStyle(this.dropdownEl, 'display', 'none')
@@ -97,15 +104,6 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
     }
     checkIsOverFlow(element, line: number, deviation: number) {
         const elementStyles = getComputedStyle(element)
-        return Number(elementStyles.lineHeight.replace(/[^0-9]/gi, '')) * line < element.scrollHeight - deviation
+        return Number(elementStyles.lineHeight.replace(/[^0-9.]/gi, '')) * line < element.scrollHeight - deviation
     }
 }
-
-// console.log(
-//     'checkIsOverFlow - ',
-//     element.innerText,
-//     Number(elementStyles.lineHeight.replace(/[^0-9]/gi, '')) * line,
-//     element.offsetHeight - deviation,
-//     Number(elementStyles.lineHeight.replace(/[^0-9]/gi, '')) * line <= element.offsetHeight - deviation,
-//     element.clientHeight
-// )

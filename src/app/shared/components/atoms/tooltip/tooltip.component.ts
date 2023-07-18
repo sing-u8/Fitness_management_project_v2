@@ -1,15 +1,4 @@
-import {
-    ChangeDetectorRef,
-    Component,
-    Input,
-    Renderer2,
-    ViewChild,
-    ElementRef,
-    AfterViewInit,
-    OnChanges,
-    SimpleChanges,
-} from '@angular/core'
-import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
+import { ChangeDetectorRef, Component, Input, Renderer2 } from '@angular/core'
 
 @Component({
     selector: 'rwa-tooltip',

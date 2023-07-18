@@ -37,13 +37,14 @@ export class CenterMembershipCardComponent implements AfterViewInit, OnInit {
         }
     }
 
-    public cardName = ''
-    initCardName() {
-        this.cardName = this.paymentItem.card_name
+    public cardNumber = ''
+    initCardNumber() {
+        this.cardNumber = `(${this.paymentItem.card_number.slice(0, 4)})`
     }
 
     initPaymentItemInfo() {
         this.initMembershipName()
+        this.initCardNumber()
         console.log('started at : ', dayjs(this.paymentItem.started_at).format('YYYY MM DD'))
     }
 }

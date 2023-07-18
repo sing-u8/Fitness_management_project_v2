@@ -16,7 +16,6 @@
             <div class="cmc-top__left">
                 <div class="membership-name">
                     <span>{{ membershipName }}</span>
-                    <span class="number-of-times"> ({{ '0회차' }}) </span>
                 </div>
 
                 <div class="membership-duration">
@@ -35,12 +34,24 @@
         <div class="cmc-bottom">
             <div class="l-payment-date">
                 <div class="payment-category-name">결제일</div>
-                <div class="payment-category-value">{{ '23년 0월 00일' }}</div>
+                <div class="payment-category-value">{{ '23년 00월 00일' }}</div>
             </div>
             <div class="divider"></div>
             <div class="l-payment-method">
                 <div class="payment-category-name">결제 수단</div>
-                <div class="payment-category-value">{{ '하나카카오페이하나카카오...(0000)' }}</div>
+                <div class="payment-category-value">
+                    <span
+                        class="payment-method-text"
+                        rwEllipsisDropdown
+                        [lineClamp]="1"
+                        [edText]="paymentItem.card_name"
+                        [additionalEdText]="cardNumber"
+                        [additionalDropDownWidth]="'50px'"
+                    ></span>
+                    <span>
+                        {{ cardNumber }}
+                    </span>
+                </div>
             </div>
             <div class="divider"></div>
             <div class="l-payment-price">

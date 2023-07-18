@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, OnInit } from '@angular/core'
+import { Component, Input, AfterViewInit, OnInit, ChangeDetectorRef } from '@angular/core'
 
 import { CenterPaymentsService } from '@services/center-payments.service'
 import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
@@ -14,16 +14,16 @@ export class CenterMembershipCardComponent implements AfterViewInit, OnInit {
     @Input() isLast = false
     @Input() paymentItem: PaymentHistoryItem
 
-    constructor(private centerPaymentApi: CenterPaymentsService) {}
+    constructor(private centerPaymentApi: CenterPaymentsService, private cd: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
     ngAfterViewInit() {
         this.initPaymentItemInfo()
+        this.cd.detectChanges()
     }
 
     public showPriceDropdown = false
-
 
     // --------------------------------------------------------------------------------------------------
     public membershipName = ''

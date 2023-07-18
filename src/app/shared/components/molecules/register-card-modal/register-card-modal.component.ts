@@ -159,4 +159,10 @@ export class RegisterCardModalComponent implements OnChanges, AfterViewChecked {
         birthDate: ['', { validators: this.commonValidators(6, 6) }],
         password: ['', { validators: this.commonValidators(2, 2) }],
     })
+
+    public infoTooltipText = {
+        title: `카드 등록 후 해당 카드는 자동 결제 수단으로 지정되며,
+                [센터 설정 > 이용권 결제 관리 > 결제 수단 관리]에서
+                등록한 결제 수단을 관리하실 수 있어요.`,
+    }
 }

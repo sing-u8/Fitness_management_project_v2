@@ -66,7 +66,33 @@
             border-bottom: 1px solid var(--gray-50);
 
             .header-title {
+                display: flex;
+                align-items: center;
                 @include rw-type-b(2rem, 31px, var(--font-color));
+
+                .l-info-icon {
+                    display: flex;
+                    align-items: center;
+                    position: relative;
+                    rwa-tooltip {
+                        display: none;
+                        opacity: 0;
+                        position: absolute;
+                        top: 30px;
+                        left: -151px;
+                        @include opacity-ani-modal();
+                    }
+                    rwa-svg-info {
+                        margin-left: 6px;
+                        cursor: pointer;
+                        &:hover {
+                            & + rwa-tooltip {
+                                display: initial !important;
+                                opacity: 1 !important;
+                            }
+                        }
+                    }
+                }
             }
         }
 

@@ -14,7 +14,7 @@ export class PaymentCardListItemComponent implements OnInit, OnChanges {
     @Output() onRemove = new EventEmitter<PaymentCard>()
     constructor(private deviceDetector: DeviceDetectorService) {}
 
-    public cardNumber = '0000'
+    public cardNumber = '(0000)'
 
     public isDeskTop = false
     ngOnInit() {
@@ -23,7 +23,7 @@ export class PaymentCardListItemComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'paymentCard', (v) => {
-            this.cardNumber = this.paymentCard.card_number.slice(0, 4)
+            this.cardNumber = `(${this.paymentCard.card_number.slice(0, 4)})`
         })
     }
 }

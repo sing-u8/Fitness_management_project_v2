@@ -32,7 +32,7 @@
                 {{ paymentItemInfo.period.endDate | dateFormat : 'YY년 M월 D일' }}
             </div>
         </div>
-        <div class="info-item" *ngIf="paymentItem.type == 'subscribe_membership'">
+        <div class="info-item" *ngIf="paymentItem.type == 'subscription_membership'">
             <div class="info-item__name">결제일</div>
             <div class="info-item__value">
                 매월 {{ paymentItemInfo.period.startDate | dateFormat : 'D' }}일마다 자동 결제

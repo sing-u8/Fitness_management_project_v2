@@ -2,7 +2,7 @@
     <div id="l-discount-benefit">
         <p class="discount-benefit-title">할인 혜택</p>
         <div id="discount-benefit">
-            <ng-container *ngIf="itemInfo.productCode != 'subscribe_membership'">
+            <ng-container *ngIf="itemInfo.productCode != 'subscription_membership'">
                 <ng-container *ngFor="let item of promotions; let idx = index; let isLast = last">
                     <div class="db-item">
                         <div class="key">할인 {{ idx + 1 }}</div>
@@ -60,33 +60,35 @@
                     <div *ngIf="!isLast" class="db-divider"></div>
                 </ng-container>
             </ng-container>
-            <ng-container *ngIf="itemInfo.productCode == 'subscribe_membership'">
-                <div class="db-item">
-                    <div class="key">할인 1</div>
-                    <div class="l-db-item-value">
-                        <div class="value-main">
-                            <span class="value-bold1">{{ promotions[0].title }}</span>
-                            <span class="value-bold1">- {{ promotions[0].discount_price_for_percent }}원</span>
-                        </div>
-                        <div class="value-desc">{{ promotions[0].description }}</div>
-                        <div class="l-month-detail">
-                            <div class="month-detail-item">
-                                <div class="md-item-text">1회 (1개월)</div>
-                                <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
+            <ng-container *ngIf="itemInfo.productCode == 'subscription_membership'">
+                <ng-container *ngFor="let item of promotions; let idx = index">
+                    <div class="db-item">
+                        <div class="key">할인 {{ idx + 1 }}</div>
+                        <div class="l-db-item-value">
+                            <div class="value-main">
+                                <span class="value-bold1">{{ promotions[0].title }}</span>
+                                <span class="value-bold1">- {{ promotions[0].discount_price_for_money }}원</span>
                             </div>
-                            <div class="right-arrow"></div>
-                            <div class="month-detail-item">
-                                <div class="md-item-text">2회 ~ 6회</div>
-                                <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
-                            </div>
-                            <div class="right-arrow"></div>
-                            <div class="month-detail-item">
-                                <div class="md-item-text">7회 ~</div>
-                                <div class="md-item-price">{{ itemInfo.originalPrice | numberWithCommas }}원</div>
+                            <div class="value-desc" [innerHTML]="promotions[0].description"></div>
+                            <div class="l-month-detail">
+                                <div class="month-detail-item">
+                                    <div class="md-item-text">1회 (1개월)</div>
+                                    <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
+                                </div>
+                                <div class="right-arrow"></div>
+                                <div class="month-detail-item">
+                                    <div class="md-item-text">2회 ~ 6회</div>
+                                    <div class="md-item-price">{{ itemInfo.price | numberWithCommas }}원</div>
+                                </div>
+                                <div class="right-arrow"></div>
+                                <div class="month-detail-item">
+                                    <div class="md-item-text">7회 ~</div>
+                                    <div class="md-item-price">{{ itemInfo.originalPrice | numberWithCommas }}원</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </ng-container>
             </ng-container>
 
             <div class="db-divider--full"></div>
@@ -94,7 +96,7 @@
                 <div class="price-text">총 할인 금액</div>
                 <div class="price-value">
                     {{ totalDiscountPrice != 0 ? '- ' + (totalDiscountPrice | numberWithCommas) : 0 }}원
-                    {{ itemInfo.productCode == 'subscribe_membership' ? '(6회차까지)' : '' }}
+                    {{ itemInfo.productCode == 'subscription_membership' ? '(6회차까지)' : '' }}
                 </div>
             </div>
         </div>

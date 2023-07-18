@@ -14,10 +14,20 @@
             <div class="duration">기간 : {{ paymentItem.period.dateStr }}</div>
         </div>
 
-        <div *ngIf="paymentItem.itemInfo.productCode == 'subscribe_membership'" class="l-self-clearing">
+        <div *ngIf="paymentItem.itemInfo.productCode == 'subscription_membership'" class="l-self-clearing">
             <div class="sc-item">
                 <div class="key">결제 수단</div>
-                <div class="value">{{ paymentCard?.card_name }}</div>
+                <div class="d-flex align-items-center">
+                    <div
+                        class="value payment-method-name"
+                        rwEllipsisDropdown
+                        [lineClamp]="1"
+                        [edText]="paymentCard?.card_name"
+                        [additionalEdText]="cardNumber"
+                        [additionalDropDownWidth]="'50px'"
+                    ></div>
+                    <span class="value">{{ cardNumber }}</span>
+                </div>
             </div>
             <div class="sc-item">
                 <div class="key">자동 결제일</div>
@@ -72,10 +82,7 @@
         </div>
 
         <div class="button-group">
-            <rwa-button
-                width="80px" height="45px"
-                (click)="onConfirm(); $event.stopPropagation()"
-            >
+            <rwa-button width="80px" height="45px" (click)="onConfirm(); $event.stopPropagation()">
                 <ng-template btIdleContent><span class="confirm">확인</span></ng-template>
             </rwa-button>
         </div>

@@ -1,253 +1,272 @@
-<section class="l-payment scroll-y-overlay">
-    <div class="l-step-one" *ngIf="step == 'one'">
-        <div class="header">
-            <div class="payment__title">상품 결제하기</div>
-            <div class="l-payment__step">
-                <div class="payment__step selected">
-                    <div class="step-icon">1</div>
-                    <span>상품 선택</span>
+<ng-scrollbar [track]="'vertical'" class="rw-scroll">
+    <div scrollViewport>
+        <section class="l-payment">
+            <div class="l-step-one" *ngIf="step == 'one'">
+                <div class="header">
+                    <div class="payment__title">상품 결제하기</div>
+                    <div class="l-payment__step">
+                        <div class="payment__step selected">
+                            <div class="step-icon">1</div>
+                            <span>상품 선택</span>
+                        </div>
+                        <div class="caret-right-1-g60-icon"></div>
+                        <div class="payment__step">
+                            <div class="step-icon">2</div>
+                            <span>결제 정보 입력</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="caret-right-1-g60-icon"></div>
-                <div class="payment__step">
-                    <div class="step-icon">2</div>
-                    <span>결제 정보 입력</span>
+                <div class="body">
+                    <div class="l-payment-item--tablet">
+                        <span class="body-title">결제할 상품을 선택해 주세요.</span>
+                        <ng-container *ngFor="let item of paymentItemList; let idx = index">
+                            <rwa-payment-product-item
+                                [mode]="'tablet'"
+                                [paymentItem]="item"
+                                [(selected)]="paymentItemList[idx].selected"
+                                (onClick)="selectPaymentItem(idx)"
+                            ></rwa-payment-product-item>
+                        </ng-container>
+                    </div>
+                    <div class="l-payment-item--pc">
+                        <span class="body-title">결제할 상품을 선택해 주세요.</span>
+                        <div class="d-flex align-items-center justify-content-between">
+                            <ng-container *ngFor="let item of paymentItemList; let idx = index">
+                                <rwa-payment-product-item
+                                    [mode]="'pc'"
+                                    [paymentItem]="item"
+                                    [(selected)]="paymentItemList[idx].selected"
+                                    (onClick)="selectPaymentItem(idx)"
+                                ></rwa-payment-product-item>
+                            </ng-container>
+                        </div>
+                    </div>
+                    <div class="l-payment-info">
+                        <span class="info-title">결제 및 할인 안내사항</span>
+                        <span class="info-desc"
+                            >부가가치세 10%와 문자 요금(단문 12원, 장문 32원, 사진 90원)은 별도입니다.</span
+                        >
+                        <span class="info-desc"
+                            >런칭 기념 할인은 각 상품별로 첫 결제 시에만 적용됩니다.<br />동일한 상품을 재결제하는
+                            경우에는 런칭 기념 할인이 적용되지 않으며, 구매 이력이 없는<br class="tablet-break" />다른
+                            상품을 첫 결제하는 경우에는 할인 혜택이 적용됩니다.
+                        </span>
+                    </div>
+                </div>
+
+                <div class="footer-bg"></div>
+                <div class="footer">
+                    <div class="footer-content">
+                        <div class="selected-payment-item">
+                            <span *ngIf="selectedPaymentItem">{{ selectedPaymentItem.top.title }}</span>
+                        </div>
+                        <div class="l-footer-button">
+                            <rwa-button
+                                height="45px"
+                                [padding]="'9px 25px 7px'"
+                                [fontColor]="'var(--gray-90)'"
+                                [bgColor]="'var(--white)'"
+                                [hoverBgColor]="'var(--gray-30)'"
+                                [loadingColor]="'var(--font-color)'"
+                                (onClick)="onCancelPayment()"
+                            >
+                                <ng-template btIdleContent>
+                                    <span class="button-text">취소</span>
+                                </ng-template>
+                            </rwa-button>
+                            <rwa-button
+                                width="134px"
+                                height="45px"
+                                [padding]="'9px 20px 7px 25px'"
+                                [disable]="!selectedPaymentItem"
+                                (onClick)="onNextInTheFirstStep()"
+                            >
+                                <ng-template btIdleContent>
+                                    <span class="button-text--white">다음으로</span>
+                                    <rwa-svg-arrow-right-bold
+                                        width="20px"
+                                        height="20px"
+                                        [color]="'var(--white)'"
+                                        [style.margin-left]="'10px'"
+                                    ></rwa-svg-arrow-right-bold>
+                                </ng-template>
+                            </rwa-button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="body">
-            <div class="l-payment-item--tablet">
-                <span class="body-title">결제할 상품을 선택해 주세요.</span>
-                <ng-container *ngFor="let item of paymentItemList; let idx = index">
-                    <rwa-payment-product-item
-                        [mode]="'tablet'"
-                        [paymentItem]="item"
-                        [(selected)]="paymentItemList[idx].selected"
-                        (onClick)="selectPaymentItem(idx)"
-                    ></rwa-payment-product-item>
-                </ng-container>
-            </div>
-            <div class="l-payment-item--pc">
-                <span class="body-title">결제할 상품을 선택해 주세요.</span>
-                <div class="d-flex align-items-center justify-content-between">
-                    <ng-container *ngFor="let item of paymentItemList; let idx = index">
-                        <rwa-payment-product-item
-                            [mode]="'pc'"
-                            [paymentItem]="item"
-                            [(selected)]="paymentItemList[idx].selected"
-                            (onClick)="selectPaymentItem(idx)"
-                        ></rwa-payment-product-item>
+
+            <!----------------------------------------------------------    ---------------------------------------------------------->
+
+            <div class="l-step-two" *ngIf="step == 'two'">
+                <div class="header">
+                    <div class="payment__title">상품 결제하기</div>
+                    <div class="l-payment__step">
+                        <div class="payment__step">
+                            <div class="step-icon">1</div>
+                            <span>상품 선택</span>
+                        </div>
+                        <div class="caret-right-1-g60-icon"></div>
+                        <div class="payment__step selected">
+                            <div class="step-icon">2</div>
+                            <span>결제 정보 입력</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="body">
+                    <ng-container
+                        *ngIf="
+                            paymentItemLoading.paymentMethod == 'pending' || paymentItemLoading.promotion == 'pending'
+                        "
+                    >
+                        <div class="body-left">
+                            <ngx-skeleton-loader
+                                *ngFor="let _ of [1, 2]"
+                                count="1"
+                                appearance="line"
+                                [theme]="{
+                                    width: '635px',
+                                    height: '334px',
+                                    'border-radius': '20px',
+                                    margin: '0 0 3px 0'
+                                }"
+                            ></ngx-skeleton-loader>
+                        </div>
+                        <div class="body-right">
+                            <ngx-skeleton-loader
+                                count="1"
+                                appearance="line"
+                                [theme]="{ width: '300px', height: '240px', 'border-radius': '20px' }"
+                            ></ngx-skeleton-loader>
+                        </div>
+                    </ng-container>
+                    <ng-container
+                        *ngIf="
+                            paymentItemLoading.paymentMethod != 'pending' && paymentItemLoading.promotion != 'pending'
+                        "
+                    >
+                        <div class="body-left">
+                            <rwa-payment-product-info
+                                [paymentItem]="selectedPaymentItem"
+                                [paymentItemInfo]="paymentItemInfo"
+                            ></rwa-payment-product-info>
+                            <rwa-payment-method
+                                *ngIf="paymentItemInfo.itemInfo.productCode == 'subscription_membership'"
+                                [user]="user"
+                                [paymentCardList]="paymentCardList"
+                                (paymentCardChange)="onPaymentCardChanged($event)"
+                                (paymentCardListChange)="paymentCardList = $event"
+                            ></rwa-payment-method>
+                            <rwa-payment-discount-benefit
+                                *ngIf="paymentItemInfo.promotions.length > 0"
+                                [center]="center"
+                                [promotions]="paymentItemInfo.promotions"
+                                [itemInfo]="paymentItemInfo.itemInfo"
+                                (onPromotionChanged)="onPromotionChanged($event)"
+                            ></rwa-payment-discount-benefit>
+                            <rwa-payment-information
+                                class="tablet-payment-info"
+                                [paymentItemInfo]="paymentItemInfo"
+                                [totalDiscountPrice]="totalDiscountPrice"
+                                [totalPay]="totalPay"
+                                [totalTax]="totalTax"
+                                [mode]="'tablet'"
+                            ></rwa-payment-information>
+
+                            <div
+                                *ngIf="paymentItemInfo.itemInfo.productCode == 'subscription_membership'"
+                                class="l-payment-note"
+                            >
+                                <p class="payment-note-title">정기 결제 유의사항</p>
+                                <ul class="payment-note">
+                                    <li>등록하신 결제 수단으로 매월 자동 결제됩니다.</li>
+                                    <li>
+                                        6회차 동안 할인 금액으로 결제되며, 7회차부터 월
+                                        {{ paymentItemInfo.itemInfo.originalPrice }}(부가세 별도)으로 자동 결제됩니다.
+                                    </li>
+                                    <li>자동 결제는 [결제 관리] 메뉴에서 언제든지 해지하실 수 있습니다.</li>
+                                    <li>결제 수단 변경은 [결제 관리] 메뉴에서 설정하실 수 있습니다.</li>
+                                </ul>
+                            </div>
+
+                            <div class="payment-agree__tablet">
+                                <rwa-checkbox
+                                    [checked]="paymentAgree"
+                                    (onClick)="paymentAgree = !paymentAgree"
+                                    [label]="'(필수) 모든 정보를 확인했으며, 매월 자동 결제 진행에 동의합니다.'"
+                                ></rwa-checkbox>
+                            </div>
+                        </div>
+                        <aside class="body-right">
+                            <div class="body-right__inner">
+                                <rwa-payment-information
+                                    [paymentItemInfo]="paymentItemInfo"
+                                    [totalDiscountPrice]="totalDiscountPrice"
+                                    [totalPay]="totalPay"
+                                    [totalTax]="totalTax"
+                                ></rwa-payment-information>
+                            </div>
+                        </aside>
                     </ng-container>
                 </div>
-            </div>
-            <div class="l-payment-info">
-                <span class="info-title">결제 및 할인 안내사항</span>
-                <span class="info-desc">부가가치세 10%와 문자 요금(단문 12원, 장문 32원, 사진 90원)은 별도입니다.</span>
-                <span class="info-desc"
-                    >런칭 기념 할인은 각 상품별로 첫 결제 시에만 적용됩니다.<br />동일한 상품을 재결제하는 경우에는 런칭
-                    기념 할인이 적용되지 않으며, 구매 이력이 없는<br class="tablet-break" />다른 상품을 첫 결제하는
-                    경우에는 할인 혜택이 적용됩니다.
-                </span>
-            </div>
-        </div>
 
-        <div class="footer-bg"></div>
-        <div class="footer">
-            <div class="footer-content">
-                <div class="selected-payment-item">
-                    <span *ngIf="selectedPaymentItem">{{ selectedPaymentItem.top.title }}</span>
-                </div>
-                <div class="l-footer-button">
-                    <rwa-button
-                        height="45px"
-                        [padding]="'9px 25px 7px'"
-                        [fontColor]="'var(--gray-90)'"
-                        [bgColor]="'var(--white)'"
-                        [hoverBgColor]="'var(--gray-30)'"
-                        [loadingColor]="'var(--font-color)'"
-                        (onClick)="onCancelPayment()"
-                    >
-                        <ng-template btIdleContent>
-                            <span class="button-text">취소</span>
-                        </ng-template>
-                    </rwa-button>
-                    <rwa-button
-                        width="134px"
-                        height="45px"
-                        [padding]="'9px 20px 7px 25px'"
-                        [disable]="!selectedPaymentItem"
-                        (onClick)="onNextInTheFirstStep()"
-                    >
-                        <ng-template btIdleContent>
-                            <span class="button-text--white">다음으로</span>
-                            <rwa-svg-arrow-right-bold
-                                width="20px"
-                                height="20px"
-                                [color]="'var(--white)'"
-                                [style.margin-left]="'10px'"
-                            ></rwa-svg-arrow-right-bold>
-                        </ng-template>
-                    </rwa-button>
+                <div class="footer-bg"></div>
+                <div class="footer">
+                    <div class="footer-content">
+                        <div class="l-purchase-agree">
+                            <rwa-checkbox
+                                [checked]="paymentAgree"
+                                (onClick)="paymentAgree = !paymentAgree"
+                                [label]="'(필수) 모든 정보를 확인했으며, 매월 자동 결제 진행에 동의합니다.'"
+                            ></rwa-checkbox>
+                        </div>
+                        <div class="l-footer-button">
+                            <rwa-button
+                                width="134px"
+                                height="45px"
+                                [padding]="'9px 20px 7px 25px'"
+                                [bgColor]="'var(--red-5)'"
+                                [hoverBgColor]="'var(--red-10)'"
+                                [fontColor]="'var(--red-100)'"
+                                [progressBgColor]="'var(--red-10)'"
+                                [loadingColor]="'var(--red-100)'"
+                                (onClick)="backToStepOneModal = true"
+                            >
+                                <ng-template btIdleContent>
+                                    <rwa-svg-arrow-left-bold
+                                        width="20px"
+                                        height="20px"
+                                        [color]="'var(--red-100)'"
+                                        [style.margin-right]="'10px'"
+                                    ></rwa-svg-arrow-left-bold>
+                                    <span class="button-text--red">이전으로</span>
+                                </ng-template>
+                            </rwa-button>
+                            <rwa-button
+                                height="45px"
+                                [padding]="'9px 20px 7px 25px'"
+                                [loadingName]="'pay-product'"
+                                [status]="purchaseButtonLoading"
+                                [disable]="
+                                    paymentItemInfo.itemInfo.productCode == 'subscription_membership'
+                                        ? !paymentAgree || !selectedPaymentCard
+                                        : !paymentAgree
+                                "
+                                (onClick)="purchaseItems()"
+                            >
+                                <ng-template btIdleContent>
+                                    <span class="button-text--white">결제하기</span> </ng-template
+                                ><ng-template btPendingContent>
+                                    <span class="button-text--white">결제하기</span>
+                                </ng-template>
+                            </rwa-button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-
-    <!----------------------------------------------------------    ---------------------------------------------------------->
-
-    <div class="l-step-two" *ngIf="step == 'two'">
-        <div class="header">
-            <div class="payment__title">상품 결제하기</div>
-            <div class="l-payment__step">
-                <div class="payment__step">
-                    <div class="step-icon">1</div>
-                    <span>상품 선택</span>
-                </div>
-                <div class="caret-right-1-g60-icon"></div>
-                <div class="payment__step selected">
-                    <div class="step-icon">2</div>
-                    <span>결제 정보 입력</span>
-                </div>
-            </div>
-        </div>
-        <div class="body">
-            <ng-container
-                *ngIf="paymentItemLoading.paymentMethod == 'pending' || paymentItemLoading.promotion == 'pending'"
-            >
-                <div class="body-left">
-                    <ngx-skeleton-loader
-                        *ngFor="let _ of [1, 2]"
-                        count="1"
-                        appearance="line"
-                        [theme]="{ width: '635px', height: '334px', 'border-radius': '20px', margin: '0 0 3px 0' }"
-                    ></ngx-skeleton-loader>
-                </div>
-                <div class="body-right">
-                    <ngx-skeleton-loader
-                        count="1"
-                        appearance="line"
-                        [theme]="{ width: '300px', height: '240px', 'border-radius': '20px' }"
-                    ></ngx-skeleton-loader>
-                </div>
-            </ng-container>
-            <ng-container
-                *ngIf="paymentItemLoading.paymentMethod != 'pending' && paymentItemLoading.promotion != 'pending'"
-            >
-                <div class="body-left">
-                    <rwa-payment-product-info
-                        [paymentItem]="selectedPaymentItem"
-                        [paymentItemInfo]="paymentItemInfo"
-                    ></rwa-payment-product-info>
-                    <rwa-payment-method
-                        *ngIf="paymentItemInfo.itemInfo.productCode == 'subscribe_membership'"
-                        [user]="user"
-                        [paymentCardList]="paymentCardList"
-                        (paymentCardChange)="onPaymentCardChanged($event)"
-                        (paymentCardListChange)="paymentCardList = $event"
-                    ></rwa-payment-method>
-                    <rwa-payment-discount-benefit
-                        [center]="center"
-                        [promotions]="paymentItemInfo.promotions"
-                        [itemInfo]="paymentItemInfo.itemInfo"
-                        (onPromotionChanged)="onPromotionChanged($event)"
-                    ></rwa-payment-discount-benefit>
-
-                    <rwa-payment-information
-                        class="tablet-payment-info"
-                        [paymentItemInfo]="paymentItemInfo"
-                        [totalDiscountPrice]="totalDiscountPrice"
-                        [totalPay]="totalPay"
-                        [totalTax]="totalTax"
-                        [mode]="'tablet'"
-                    ></rwa-payment-information>
-
-                    <div *ngIf="paymentItemInfo.itemInfo.productCode == 'subscribe_membership'" class="l-payment-note">
-                        <p class="payment-note-title">정기 결제 유의사항</p>
-                        <ul class="payment-note">
-                            <li>등록하신 결제 수단으로 매월 자동 결제됩니다.</li>
-                            <li>
-                                6회차 동안 할인 금액으로 결제되며, 7회차부터 월
-                                {{ paymentItemInfo.itemInfo.originalPrice }}(부가세 별도)으로 자동 결제됩니다.
-                            </li>
-                            <li>자동 결제는 [결제 관리] 메뉴에서 언제든지 해지하실 수 있습니다.</li>
-                            <li>결제 수단 변경은 [결제 관리] 메뉴에서 설정하실 수 있습니다.</li>
-                        </ul>
-                    </div>
-
-                    <div class="payment-agree__tablet">
-                        <rwa-checkbox
-                            [checked]="paymentAgree"
-                            (onClick)="paymentAgree = !paymentAgree"
-                            [label]="'(필수) 모든 정보를 확인했으며, 매월 자동 결제 진행에 동의합니다.'"
-                        ></rwa-checkbox>
-                    </div>
-                </div>
-                <aside class="body-right">
-                    <div class="body-right__inner">
-                        <rwa-payment-information
-                            [paymentItemInfo]="paymentItemInfo"
-                            [totalDiscountPrice]="totalDiscountPrice"
-                            [totalPay]="totalPay"
-                            [totalTax]="totalTax"
-                        ></rwa-payment-information>
-                    </div>
-                </aside>
-            </ng-container>
-        </div>
-
-        <div class="footer-bg"></div>
-        <div class="footer">
-            <div class="footer-content">
-                <div class="l-purchase-agree">
-                    <rwa-checkbox
-                        [checked]="paymentAgree"
-                        (onClick)="paymentAgree = !paymentAgree"
-                        [label]="'(필수) 모든 정보를 확인했으며, 매월 자동 결제 진행에 동의합니다.'"
-                    ></rwa-checkbox>
-                </div>
-                <div class="l-footer-button">
-                    <rwa-button
-                        width="134px"
-                        height="45px"
-                        [padding]="'9px 20px 7px 25px'"
-                        [bgColor]="'var(--red-5)'"
-                        [hoverBgColor]="'var(--red-10)'"
-                        [fontColor]="'var(--red-100)'"
-                        [progressBgColor]="'var(--red-10)'"
-                        [loadingColor]="'var(--red-100)'"
-                        (onClick)="backToStepOneModal = true"
-                    >
-                        <ng-template btIdleContent>
-                            <rwa-svg-arrow-left-bold
-                                width="20px"
-                                height="20px"
-                                [color]="'var(--red-100)'"
-                                [style.margin-right]="'10px'"
-                            ></rwa-svg-arrow-left-bold>
-                            <span class="button-text--red">이전으로</span>
-                        </ng-template>
-                    </rwa-button>
-                    <rwa-button
-                        height="45px"
-                        [padding]="'9px 20px 7px 25px'"
-                        [loadingName]="'pay-product'"
-                        [status]="purchaseButtonLoading"
-                        [disable]="
-                            paymentItemInfo.itemInfo.productCode == 'subscribe_membership'
-                                ? !paymentAgree || !selectedPaymentCard
-                                : !paymentAgree
-                        "
-                        (onClick)="purchaseItems()"
-                    >
-                        <ng-template btIdleContent> <span class="button-text--white">결제하기</span> </ng-template
-                        ><ng-template btPendingContent>
-                            <span class="button-text--white">결제하기</span>
-                        </ng-template>
-                    </rwa-button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+</ng-scrollbar>
 
 <rwa-modal
     [(visible)]="backToStepOneModal"
@@ -257,6 +276,7 @@
 ></rwa-modal>
 
 <rwm-payment-result-modal
+    [paymentCard]="selectedPaymentCard"
     [paymentItem]="paymentItemInfo"
     [totalDiscountPrice]="totalDiscountPrice"
     [totalTax]="totalTax"

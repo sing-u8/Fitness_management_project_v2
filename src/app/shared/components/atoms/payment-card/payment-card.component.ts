@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core'
+import { Component, Input, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core'
 
 import { PaymentCard } from '@schemas/payment/payment-card'
 
@@ -7,7 +7,7 @@ import { PaymentCard } from '@schemas/payment/payment-card'
     templateUrl: './payment-card.component.html',
     styleUrls: ['./payment-card.component.scss'],
 })
-export class PaymentCardComponent implements OnInit {
+export class PaymentCardComponent implements OnInit, AfterViewInit {
     @Input() cardData: PaymentCard = {
         id: '',
         card_number: '',
@@ -15,7 +15,10 @@ export class PaymentCardComponent implements OnInit {
         checked: false,
     }
     @Input() showBottom = false
-    constructor() {}
+    constructor(private cd: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
+    ngAfterViewInit() {
+        this.cd.detectChanges()
+    }
 }

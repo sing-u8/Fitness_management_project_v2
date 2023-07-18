@@ -73,12 +73,12 @@ export class ComponentComponent implements OnDestroy {
         //     this.textInput3.setValue(value, { emitEvent: false })
         //     // console.log('textInput3 -- value change : ', this.textInput3.value, ' -- ', v)
         // })
-        this.verifForm.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            console.log('value change verifForm : ', v)
-        })
-        this.verifForm1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
-            console.log('value change verifForm1 : ', v)
-        })
+        // this.verifForm.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     console.log('value change verifForm : ', v)
+        // })
+        // this.verifForm1.valueChanges.pipe(takeUntil(this.subject)).subscribe((v) => {
+        //     console.log('value change verifForm1 : ', v)
+        // })
     }
 
     public tooltip1 = { title: '수정하기' }

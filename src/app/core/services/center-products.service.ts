@@ -23,7 +23,7 @@ export class CenterProductsService {
 
     getPromotion(
         centerId: string,
-        productCode: string // '1_years_membership' | '2_years_membership'
+        productCode: '1_years_membership' | '2_years_membership' | 'subscription_membership'
     ): Observable<Promotion[]> {
         const url = this.SERVER + `/${centerId}/products/${productCode}/promotion`
         return this.http.get<Response>(url, this.options).pipe(
@@ -36,7 +36,7 @@ export class CenterProductsService {
 
     checkProductPromotion(
         centerId: string,
-        productCode: string, // '1_years_membership' | '2_years_membership',
+        productCode: '1_years_membership' | '2_years_membership' | 'subscription_membership',
         promotionCode: PromotionCode,
         centerCode?: string
     ): Observable<any> {

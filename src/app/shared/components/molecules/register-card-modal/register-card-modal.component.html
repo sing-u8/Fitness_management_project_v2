@@ -7,7 +7,19 @@
 >
     <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
         <div class="header">
-            <div class="header-title">카드 정보를 입력해 주세요.</div>
+            <div class="header-title">
+                <span>카드 정보를 입력해 주세요.</span>
+                <div class="l-info-icon">
+                    <rwa-svg-info></rwa-svg-info>
+                    <rwa-tooltip
+                        padding="6px 9px 5px"
+                        width="338px"
+                        height="81px"
+                        [textObj]="infoTooltipText"
+                        tail="bottom"
+                    ></rwa-tooltip>
+                </div>
+            </div>
             <rwa-icon-ghost-button
                 sizeType="md"
                 borderRadius="14px"

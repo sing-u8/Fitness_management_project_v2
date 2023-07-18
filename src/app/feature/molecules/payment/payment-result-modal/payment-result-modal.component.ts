@@ -16,6 +16,8 @@ import dayjs from 'dayjs'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 
+import _ from 'lodash'
+
 @Component({
     selector: 'rwm-payment-result-modal',
     standalone: true,
@@ -39,6 +41,11 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
     @Output() visibleChange = new EventEmitter<boolean>()
     @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<any>()
+
+    public cardNumber = '(0000)'
+    getCardNumber() {
+        if (_.isObject(this.paymentCard)) this.cardNumber = `(${this.paymentCard.card_number.slice(0, 4)})`
+    }
 
     changed: boolean
 
@@ -69,6 +76,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
                 this.day = dayjs().format('D')
+                this.getCardNumber()
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')

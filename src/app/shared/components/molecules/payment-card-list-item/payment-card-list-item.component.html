@@ -1,17 +1,19 @@
 <div class="l-payment-card-list-item" [class.is-desktop]="isDeskTop">
-    <div class="d-flex align-items-center">
+    <div class="card-left">
         <div class="card-icon"></div>
         <span
             class="card-name"
             rwEllipsisDropdown
             [lineClamp]="1"
-            [edText]="paymentCard.card_name + '(' + cardNumber + ')'"
+            [edText]="paymentCard.card_name"
+            [additionalEdText]="cardNumber"
+            [additionalDropDownWidth]="'50px'"
         >
-            {{ paymentCard.card_name }}
         </span>
+        <span class="card-number">{{ cardNumber }}</span>
     </div>
 
-    <div class="d-flex align-items-center">
+    <div class="card-right">
         <rwa-ghost-button
             height="37px"
             padding="5px 11px 3px"

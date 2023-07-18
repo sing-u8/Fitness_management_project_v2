@@ -20,7 +20,7 @@ export const paymentItemList: PaymentItem[] = [
             { left: '상품 금액', right: '37,000원 / 월' },
             { left: '환불 정책', right: '결제일로부터\n' + '7일 내 환불 가능' },
         ],
-        type: 'subscribe_membership',
+        type: 'subscription_membership',
         selected: false,
     },
     {
@@ -68,7 +68,7 @@ export const paymentItemList: PaymentItem[] = [
 ]
 
 export function getRefundLimit(paymentHistoryItem: PaymentHistoryItem) {
-    if (paymentHistoryItem.product_code == 'subscribe_membership') {
+    if (paymentHistoryItem.product_code == 'subscription_membership') {
         return 7
     } else if (
         paymentHistoryItem.product_code == '1_years_membership' ||

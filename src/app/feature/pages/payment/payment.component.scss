@@ -3,15 +3,21 @@
     @include css-init;
 }
 
+.rw-scroll {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+}
+
 .l-payment {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 70px 0 74px;
     width: 100%;
-    height: 100vh;
     position: relative;
     background-color: var(--gray-30);
+    box-sizing: border-box;
 
     .header {
         .payment__title {
@@ -157,7 +163,6 @@
             .l-payment-note {
                 display: flex;
                 flex-direction: column;
-                margin-top: 40px;
                 width: 100%;
                 .payment-note-title {
                     @include rw-type-b(1.5rem, 23px, var(--gray-90));

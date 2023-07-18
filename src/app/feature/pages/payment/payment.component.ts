@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core'
+import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild, NO_ERRORS_SCHEMA } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CommonModule, Location } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
@@ -33,6 +33,7 @@ import { PaymentInformationComponent } from '@feature/atoms/payment/payment-info
 import { PaymentResultModalComponent } from '@feature/molecules/payment/payment-result-modal/payment-result-modal.component'
 import { User } from '@schemas/user'
 import { UsersCustomersService } from '@services/users-customers.service'
+import { NgScrollbar, ScrollViewport } from 'ngx-scrollbar'
 
 type Progress = 'one' | 'two'
 
@@ -48,7 +49,10 @@ type Progress = 'one' | 'two'
         PaymentMethodComponent,
         PaymentInformationComponent,
         PaymentResultModalComponent,
+        NgScrollbar,
+        ScrollViewport,
     ],
+    schemas: [NO_ERRORS_SCHEMA],
     templateUrl: './payment.component.html',
     styleUrls: ['./payment.component.scss'],
 })
@@ -81,7 +85,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     break
                 case 'two':
                     this.setPaymentItemInfo()
-                    if (this.selectedPaymentItem.type == 'subscribe_membership') {
+                    if (this.selectedPaymentItem.type == 'subscription_membership') {
                         this.getPaymentMethod()
                     }
                     break
@@ -179,9 +183,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
     public showPaymentResultModal = false
     onPaymentResultModalConfirm() {
         this.showPaymentResultModal = false
-        // this.router.navigate(['..'], {
-        //     relativeTo: this.activatedRoute,
-        // })
+        this.router.navigate(['redwhale-home'])
     }
 
     public isPurchaseInProcess = false
@@ -190,7 +192,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
 
         this.isPurchaseInProcess = true
         this.purchaseButtonLoading = 'pending'
-        if (this.paymentItemInfo.itemInfo.productCode != 'subscribe_membership' && this.paymentAgree) {
+        if (this.paymentItemInfo.itemInfo.productCode != 'subscription_membership' && this.paymentAgree) {
             const reqBody: CreatePaymentReqBody = {
                 product_code: this.paymentItemInfo.itemInfo.productCode,
                 amount: this.totalTax + this.totalPay,
@@ -251,7 +253,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     }
                 )
             })
-        } else if (this.paymentItemInfo.itemInfo.productCode == 'subscribe_membership' && this.paymentAgree) {
+        } else if (this.paymentItemInfo.itemInfo.productCode == 'subscription_membership' && this.paymentAgree) {
             this.centerPaymentsService.createPaymentSubscribe(this.center.id).subscribe((v) => {
                 console.log('centerPaymentsService.createPaymentSubscribe return : ', v)
                 this.setCurCenter(() => {
@@ -434,22 +436,6 @@ export class PaymentComponent implements OnDestroy, OnInit {
     }
     getPaymentPromotion(centerId: string, productCode: ProductCode) {
         this.paymentItemLoading.promotion = 'pending'
-        if (productCode == 'subscribe_membership') {
-            this.paymentItemInfo.promotions = [
-                {
-                    title: '런칭 이벤트',
-                    description: '레드웨일 런칭 기념, 6개월간 5% 할인 자동 적용',
-                    code: undefined,
-                    start_datetime: undefined,
-                    end_datetime: undefined,
-                    discount_unit_code: 'promotion_discount_unit_percent',
-                    discount: 5,
-                    discount_price_for_percent: _.ceil(this.paymentItemInfo.itemInfo.originalPrice * 5 * 0.01, -3),
-                },
-            ]
-            this.paymentItemLoading.promotion = 'done'
-            return
-        }
         this.centerProductsService.getPromotion(this.center.id, this.selectedPaymentItem.type).subscribe({
             next: (promotions) => {
                 this.paymentItemInfo.promotions = _.map(promotions, (value) => {
@@ -474,11 +460,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         return value
                     }
                 })
-                // _.forEach(this.paymentItemInfo.promotions, (v) => {
-                //     v.description = this.domSanitizer.bypassSecurityTrustHtml(
-                //         _.replace(v.description as string, /(\r\n|\r|\n)/g, '<br />')
-                //     )
-                // })
+
                 this.getTotalDiscountPrice()
                 this.paymentItemLoading.promotion = 'done'
                 console.log('centerProductsService.getPromotion -- ', this.paymentItemInfo)
@@ -542,4 +524,6 @@ export class PaymentComponent implements OnDestroy, OnInit {
     onPaymentCardChanged(card: PaymentCard) {
         this.paymentCardSubject.next(card)
     }
+
+    protected readonly undefined = undefined
 }

@@ -87,6 +87,10 @@
                 &:not(:last-of-type) {
                     margin-bottom: 15px;
                 }
+
+                .payment-method-name {
+                    max-width: 140px;
+                }
             }
         }
 

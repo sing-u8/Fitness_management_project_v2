@@ -105,7 +105,7 @@
                                             </div>
                                         </ng-container>
                                         <ng-container *ngIf="promotionLoading == 'idle'">
-                                            <ng-container>
+                                            <ng-container *ngIf="paymentItem['status'] == 'cancelled'">
                                                 <div class="tooltip__item">
                                                     <span class="category">환불 금액</span>
                                                     <span class="value">
@@ -127,7 +127,7 @@
                                                     {{ paymentItem.product_price | numberWithCommas }}원
                                                 </span>
                                             </div>
-                                            <div class="d-flex flex-column">
+                                            <div class="d-flex flex-column" *ngIf="totalDiscount > 0">
                                                 <div class="tooltip__item">
                                                     <span class="category"> 할인 금액 </span>
                                                     <span class="value"

@@ -25,7 +25,7 @@ import { BasePaymentItem } from '@schemas/base-payment-item'
 import { User } from '@schemas/user'
 
 import { detectChangesOn } from '@shared/helper/component-helper'
-import { OnCancelPayment } from '@shared/components/molecules/center-membership-card/center-membership-card.component'
+import { OnCancelPayment } from '@shared/components/molecules/center-payment-card/center-payment-card.component'
 import { forkJoin } from 'rxjs'
 
 import _ from 'lodash'

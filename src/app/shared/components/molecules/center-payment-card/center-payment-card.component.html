@@ -6,7 +6,7 @@
         </div>
     </div>
 
-    <div class="tag" *ngIf="false">
+    <div class="tag" *ngIf="showTag">
         <span class="tag-text">{{ '자동 결제에 실패했어요! 결제 수단을 확인해 주세요.' }}</span>
         <rwa-text-button fontWeight="700" [showUnderLine]="false"> 자세히 보기 </rwa-text-button>
     </div>
@@ -19,16 +19,32 @@
                 </div>
 
                 <div class="membership-duration">
-                    {{ paymentItem?.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
-                    {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }}
-                    {{ paymentItem['schedule_at'] ? '사용 예정' : '' }}
+                    <span>
+                        {{ paymentItem?.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
+                        {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }}
+                        {{ paymentItem['schedule_at'] ? '사용 예정' : '' }}
+                    </span>
+                    <rwa-badge
+                        class="badge"
+                        *ngIf="badgeState != 'normal'"
+                        [color]="badgeStateObj[badgeState].color"
+                        [bgColor]="badgeStateObj[badgeState].bgColor"
+                    >
+                        {{
+                            badgeState == 'expirationExpected'
+                                ? badgeStateObj[badgeState]['text1'] +
+                                  badgeStateObj[badgeState]['day'] +
+                                  badgeStateObj[badgeState]['text2']
+                                : badgeStateObj[badgeState]['text']
+                        }}
+                    </rwa-badge>
                 </div>
             </div>
 
             <div class="cmc-top__right">
                 <ng-container *ngIf="paymentItem['status'] == 'cancelled'">
                     <div class="cmc-top__right-cancelled">
-                        {{ paymentItem.product_code == 'subscription_membership' ? '해지 완료' : '환불 완료' }}
+                        {{ '환불 완료' }}
                     </div>
                 </ng-container>
                 <ng-container *ngIf="paymentItem['status'] == 'paid'">
@@ -53,14 +69,19 @@
 
         <div class="cmc-bottom">
             <div class="l-payment-date">
-                <div class="payment-category-name">결제일</div>
+                <div class="payment-category-name">{{ paidDateText }}</div>
                 <div class="payment-category-value">
-                    {{ paymentItem['schedule_at'] || paymentItem['paid_at'] | dateFormat : 'YY년 MM월 DD일' }}
+                    <span *ngIf="paymentItem['status'] == 'cancelled'">
+                        {{ paymentItem['cancelled_at'] | dateFormat : 'YY년 MM월 DD일' }}
+                    </span>
+                    <span *ngIf="paymentItem['status'] != 'cancelled'">
+                        {{ paymentItem['schedule_at'] || paymentItem['paid_at'] | dateFormat : 'YY년 MM월 DD일' }}
+                    </span>
                 </div>
             </div>
             <div class="divider"></div>
             <div class="l-payment-method">
-                <div class="payment-category-name">결제 수단</div>
+                <div class="payment-category-name">{{ paymentMethodText }}</div>
                 <div class="payment-category-value">
                     <span
                         class="payment-method-text"
@@ -77,7 +98,7 @@
             </div>
             <div class="divider"></div>
             <div class="l-payment-price">
-                <div class="payment-category-name">결제 금액</div>
+                <div class="payment-category-name">{{ priceText }}</div>
                 <div class="payment-category-value">
                     <span *ngIf="paymentItem.amount != paymentItem.product_price" class="origin-price">
                         {{ paymentItem.product_price | numberWithCommas }}원

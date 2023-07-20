@@ -47,8 +47,8 @@ import { UpdateEmployeeModalComponent } from './set-center/update-employee-modal
 import { PermissionManagementModalComponent } from './set-center/permission-management-modal/permission-management-modal.component'
 import { ChangeCenterAddressModalComponent } from './change-center-address-modal/change-center-address-modal.component'
 import { PaymentMethodManagementModalComponent } from './payment-method-management-modal/payment-method-management-modal.component'
-import { PaymentCardListItemComponent } from '@shared/components/molecules/payment-card-list-item/payment-card-list-item.component';
-import { CenterMembershipCardComponent } from './center-membership-card/center-membership-card.component'
+import { PaymentCardListItemComponent } from '@shared/components/molecules/payment-card-list-item/payment-card-list-item.component'
+import { CenterPaymentCardComponent } from '@shared/components/molecules/center-payment-card/center-payment-card.component'
 
 @NgModule({
     declarations: [
@@ -86,7 +86,7 @@ import { CenterMembershipCardComponent } from './center-membership-card/center-m
         ChangeCenterAddressModalComponent,
         PaymentMethodManagementModalComponent,
         PaymentCardListItemComponent,
-        CenterMembershipCardComponent,
+        CenterPaymentCardComponent,
     ],
     imports: [
         NgScrollbar,
@@ -136,6 +136,7 @@ import { CenterMembershipCardComponent } from './center-membership-card/center-m
         ChangeCenterAddressModalComponent,
         PaymentMethodManagementModalComponent,
         PaymentCardListItemComponent,
+        CenterPaymentCardComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

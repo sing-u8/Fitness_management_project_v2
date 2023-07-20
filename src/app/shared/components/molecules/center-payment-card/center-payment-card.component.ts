@@ -12,6 +12,7 @@ import {
 } from '@angular/core'
 
 import { CenterPaymentsService } from '@services/center-payments.service'
+import { PaymentStatusHelperService } from '@services/helper/payment-status-helper.service'
 import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
 
 import dayjs from 'dayjs'
@@ -20,6 +21,7 @@ import { Center } from '@schemas/center'
 import { PaymentPromotion } from '@schemas/payment/promotion'
 import _ from 'lodash'
 import { BasePaymentItem } from '@schemas/base-payment-item'
+import { PaymentBadge, PaymentBadgeKey } from '@schemas/payment/payment-badge-state'
 
 export interface OnCancelPayment {
     paymentItem: BasePaymentItem //  PaymentHistoryItem
@@ -30,11 +32,11 @@ export interface OnCancelPayment {
 }
 
 @Component({
-    selector: 'rwm-center-membership-card',
-    templateUrl: './center-membership-card.component.html',
-    styleUrls: ['./center-membership-card.component.scss'],
+    selector: 'rwm-center-payment-card',
+    templateUrl: './center-payment-card.component.html',
+    styleUrls: ['./center-payment-card.component.scss'],
 })
-export class CenterMembershipCardComponent implements AfterViewInit, OnInit {
+export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
     @Input() isLast = false
     @Input() paymentItem: BasePaymentItem // PaymentHistoryItem
     @Input() center: Center
@@ -58,23 +60,64 @@ export class CenterMembershipCardComponent implements AfterViewInit, OnInit {
         }
     }
 
+    public badgeState: PaymentBadgeKey = 'normal'
+    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
+    getBadgeState() {
+        const badgeStatus = this.paymentStatusHelperService.getCenterBadgeStatus(this.center)
+        this.badgeState = badgeStatus.paymentBadgeKey
+        this.badgeStateObj = badgeStatus.paymentBadge
+    }
+
     constructor(
         private centerPaymentApi: CenterPaymentsService,
+        private paymentStatusHelperService: PaymentStatusHelperService,
         private cd: ChangeDetectorRef,
         private renderer: Renderer2
     ) {}
 
     ngOnInit() {
         this.initPaymentItemInfo()
+        this.getBadgeState()
+        this.initPaidDateText()
+        this.initPriceText()
+        this.initPaymentMethodText()
     }
 
     ngAfterViewInit() {
         this.cd.detectChanges()
     }
 
-    public showPriceDropdown = false
+    // --------------------------------------------------------------------------------------------------
+    public paidDateText = '결제일'
+    public priceText = '결제 금액'
+    public paymentMethodText = '결제 수단'
+    initPaidDateText() {
+        if (this.paymentItem['status'] == 'paid') {
+            this.paidDateText = '결제일'
+        } else if (this.paymentItem['status'] == 'cancelled') {
+            this.paidDateText = '환불 신청일'
+        } else if (this.paymentItem['schedule_at']) {
+            this.paidDateText = '결제 예정일'
+        }
+    }
+    initPriceText() {
+        if (this.paymentItem['status'] == 'paid' || this.paymentItem['schedule_at']) {
+            this.priceText = '결제 금액'
+        } else {
+            this.priceText = '환불 수단'
+        }
+    }
+    initPaymentMethodText() {
+        if (this.paymentItem['status'] == 'paid' || this.paymentItem['schedule_at']) {
+            this.paymentMethodText = '결제 수단'
+        } else {
+            this.paymentMethodText = '환불 금액'
+        }
+    }
 
     // --------------------------------------------------------------------------------------------------
+    public showTag = false
+
     public membershipName = ''
     initMembershipName() {
         if (this.paymentItem.product_code == '1_years_membership') {

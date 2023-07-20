@@ -79,7 +79,12 @@
                     margin-bottom: 2px;
                 }
                 .membership-duration {
+                    display: flex;
+                    align-items: center;
                     @include rw-type-r(1.5rem, 23.1px, var(--font-color));
+                    .badge {
+                        margin-left: 8px;
+                    }
                 }
             }
             .cmc-top__right {

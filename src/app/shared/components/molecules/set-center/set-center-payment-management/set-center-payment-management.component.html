@@ -30,13 +30,13 @@
             <div class="l-pm-items">
                 <ng-container *ngIf="paymentLoading == 'pending'"></ng-container>
                 <ng-container *ngIf="paymentLoading == 'idle'">
-                    <rwm-center-membership-card
+                    <rwm-center-payment-card
                         *ngFor="let item of paymentItemList; let isLast = last; let isFirst = first"
                         [center]="center"
                         [isLast]="isLast"
                         [paymentItem]="item"
                         (onCancelPayment)="onCancelPayment($event)"
-                    ></rwm-center-membership-card>
+                    ></rwm-center-payment-card>
                 </ng-container>
             </div>
         </div>

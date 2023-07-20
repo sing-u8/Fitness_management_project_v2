@@ -27,10 +27,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     public user: User
 
-    public badgeState: PaymentBadgeKey = 'normal'
-    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
 
-    public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
 
     public setCenterModalVisible = false
     constructor(
@@ -100,12 +97,14 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         })
     }
 
+    // -------------------------------------------------------------------------------------------------------------------
+
+    public badgeState: PaymentBadgeKey = 'normal'
+    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
+
+    public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
     getBadgeState() {
-        const badgeStatus = this.paymentStatusHelperService.getBadgeStatus(
-            this.center,
-            this.badgeState,
-            this.badgeStateObj
-        )
+        const badgeStatus = this.paymentStatusHelperService.getCenterBadgeStatus(this.center)
         this.badgeState = badgeStatus.paymentBadgeKey
         this.badgeStateObj = badgeStatus.paymentBadge
     }
@@ -144,6 +143,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         }
     }
 
+    // -------------------------------------------------------------------------------------------------------------------
     // detail modal vars and funcs
     public showDetailModal = false
     public detailModalMode:

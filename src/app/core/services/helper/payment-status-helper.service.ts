@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core'
 import { PaymentBadge, PaymentBadgeKey } from '@schemas/payment/payment-badge-state'
 import { Center } from '@schemas/center'
 import dayjs from 'dayjs'
+import _ from 'lodash'
+import { BasePaymentItem } from '@schemas/base-payment-item'
 
 @Injectable({
     providedIn: 'root',
@@ -51,11 +53,10 @@ export class PaymentStatusHelperService {
         },
     }
 
-    getBadgeStatus(
-        center: Center,
-        paymentBadgeKey: PaymentBadgeKey,
-        paymentBadge: PaymentBadge
-    ): { paymentBadgeKey: PaymentBadgeKey; paymentBadge: PaymentBadge } {
+    getCenterBadgeStatus(center: Center): { paymentBadgeKey: PaymentBadgeKey; paymentBadge: PaymentBadge } {
+        let paymentBadgeKey: PaymentBadgeKey = 'normal'
+        const paymentBadge: PaymentBadge = _.cloneDeep(this.stateBadge)
+
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (center.connection_status == 'employee_connection_status_pending') {
             paymentBadgeKey = 'normal'
@@ -96,8 +97,40 @@ export class PaymentStatusHelperService {
         }
 
         return {
-            paymentBadgeKey: paymentBadgeKey,
-            paymentBadge: paymentBadge,
+            paymentBadgeKey,
+            paymentBadge,
+        }
+    }
+
+    getCenterPaymentCardBadge(paymentCard: BasePaymentItem) {
+        let paymentBadgeKey: PaymentBadgeKey = 'normal'
+        const paymentBadge: PaymentBadge = _.cloneDeep(this.stateBadge)
+
+        const dayRemains = dayjs(paymentCard.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
+
+        if (paymentCard.product_code == 'subscription_membership') {
+            if (dayRemains > 14) {
+                paymentBadgeKey = 'normal'
+            } else if (dayRemains <= 14 && dayRemains > 1) {
+                paymentBadge.expirationExpected.day = dayRemains
+                paymentBadgeKey = 'expirationExpected'
+            } else if (dayRemains == 1) {
+                paymentBadgeKey = 'expiredToday'
+            } else {
+                paymentBadgeKey = 'expired'
+            }
+        } else {
+            // 1, 2년 구독
+            if (dayRemains > 14) {
+                paymentBadgeKey = 'normal'
+            } else if (dayRemains <= 14 && dayRemains > 1) {
+                paymentBadge.expirationExpected.day = dayRemains
+                paymentBadgeKey = 'expirationExpected'
+            } else if (dayRemains == 1) {
+                paymentBadgeKey = 'expiredToday'
+            } else {
+                paymentBadgeKey = 'expired'
+            }
         }
     }
 }

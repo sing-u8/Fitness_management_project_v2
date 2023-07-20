@@ -88,6 +88,7 @@ import { BadgeComponent } from './badge/badge.component'
 import { FlipComponent } from './flip/flip.component'
 import { AddCardButtonComponent } from './add-card-button/add-card-button.component'
 import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
+import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.component'
 
 @NgModule({
     declarations: [
@@ -115,6 +116,7 @@ import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
         CaretUpComponent,
         CoinComponent,
         InfoComponent,
+        CircleBoldComponent,
         // etc
         // components
         ButtonComponent,
@@ -157,7 +159,8 @@ import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
         BadgeComponent,
         FlipComponent,
         AddCardButtonComponent,
-        CircleBoldComponent,
+
+        VacantTooltipComponent,
     ],
     imports: [
         ScrollViewport,
@@ -193,6 +196,7 @@ import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
         CaretUpComponent,
         CoinComponent,
         InfoComponent,
+        CircleBoldComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,
@@ -235,7 +239,8 @@ import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
         BadgeComponent,
         FlipComponent,
         AddCardButtonComponent,
-        CircleBoldComponent,
+
+        VacantTooltipComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

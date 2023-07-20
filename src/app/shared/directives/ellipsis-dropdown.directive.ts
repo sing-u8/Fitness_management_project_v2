@@ -29,6 +29,8 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
     public dropDownMouseOverUnlistener: () => void = () => {}
     public dropDownMouseLeaveUnlistener: () => void = () => {}
 
+    public resizeListener: () => void = () => {}
+
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -36,21 +38,22 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
             if (_.isElement(this.spanEl) && _.isElement(this.dropdownEl)) {
                 const element = this.elementRef.nativeElement
                 this.spanEl.innerText = this.edText
-                this.dropdownEl.innerText = this.edText + this.additionalEdText
+                this.dropdownEl.innerHTML = this.edText + this.additionalEdText
                 if (this.additionalDropDownWidth) {
                     this.renderer.setStyle(this.dropdownEl, 'width', `calc(100% + ${this.additionalDropDownWidth})`)
                 }
-                if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
-                    this.renderer.addClass(this.spanEl, 'cursor-pointer')
-                    if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
-                    this.dropDownMouseOverUnlistener = this.renderer.listen(element, 'mouseover', (e) => {
-                        this.renderer.setStyle(this.dropdownEl, 'display', 'flex')
-                    })
-                    if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
-                    this.dropDownMouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', (e) => {
-                        this.renderer.setStyle(this.dropdownEl, 'display', 'none')
-                    })
+                this.initDropDownListener(element)
+            }
+        })
+        detectChangesOn(changes, 'additionalEdText', (v) => {
+            if (_.isElement(this.spanEl) && _.isElement(this.dropdownEl)) {
+                const element = this.elementRef.nativeElement
+                this.spanEl.innerText = this.edText
+                this.dropdownEl.innerHTML = this.edText + this.additionalEdText
+                if (this.additionalDropDownWidth) {
+                    this.renderer.setStyle(this.dropdownEl, 'width', `calc(100% + ${this.additionalDropDownWidth})`)
                 }
+                this.initDropDownListener(element)
             }
         })
     }
@@ -65,7 +68,7 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
         this.renderer.appendChild(element, this.spanEl)
 
         this.dropdownEl = this.renderer.createElement('div')
-        this.dropdownEl.innerText = this.edText + this.additionalEdText
+        this.dropdownEl.innerHTML = this.edText + this.additionalEdText
         this.renderer.appendChild(element, this.dropdownEl)
         this.renderer.addClass(this.dropdownEl, 'ellipsis-dropdown')
         if (this.additionalDropDownWidth) {
@@ -80,19 +83,31 @@ export class EllipsisDropdownDirective implements AfterViewInit, OnDestroy, OnCh
         this.renderer.setStyle(this.spanEl, '-webkit-line-clamp', `${this.lineClamp}`)
 
         setTimeout(() => {
-            if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
-                this.renderer.addClass(this.spanEl, 'cursor-pointer')
-                if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
-                this.dropDownMouseOverUnlistener = this.renderer.listen(element, 'mouseover', (e) => {
-                    this.renderer.setStyle(this.dropdownEl, 'display', 'flex')
-                })
-                if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
-                this.dropDownMouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', (e) => {
-                    this.renderer.setStyle(this.dropdownEl, 'display', 'none')
-                })
-            }
+            this.initDropDownListener(element)
         }, 10)
+
+        this.resizeListener = this.renderer.listen(window, 'resize', (e) => {
+            this.initDropDownListener(element)
+        })
     }
+
+    initDropDownListener(element) {
+        if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
+        if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
+
+        if (this.checkIsOverFlow(this.spanEl, this.lineClamp, this.deviation)) {
+            this.renderer.addClass(this.spanEl, 'cursor-pointer')
+            if (_.isFunction(this.dropDownMouseOverUnlistener)) this.dropDownMouseOverUnlistener()
+            this.dropDownMouseOverUnlistener = this.renderer.listen(element, 'mouseover', (e) => {
+                this.renderer.setStyle(this.dropdownEl, 'display', 'flex')
+            })
+            if (_.isFunction(this.dropDownMouseLeaveUnlistener)) this.dropDownMouseLeaveUnlistener()
+            this.dropDownMouseLeaveUnlistener = this.renderer.listen(element, 'mouseleave', (e) => {
+                this.renderer.setStyle(this.dropdownEl, 'display', 'none')
+            })
+        }
+    }
+
     ngOnDestroy(): void {
         this.dropDownMouseOverUnlistener()
         this.dropDownMouseLeaveUnlistener()

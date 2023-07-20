@@ -28,11 +28,16 @@
             </div>
 
             <div class="l-pm-items">
-                <rwm-center-membership-card
-                    *ngFor="let item of paymentItemList; let isLast = last; let isFirst = first"
-                    [isLast]="isLast"
-                    [paymentItem]="item"
-                ></rwm-center-membership-card>
+                <ng-container *ngIf="paymentLoading == 'pending'"></ng-container>
+                <ng-container *ngIf="paymentLoading == 'idle'">
+                    <rwm-center-membership-card
+                        *ngFor="let item of paymentItemList; let isLast = last; let isFirst = first"
+                        [center]="center"
+                        [isLast]="isLast"
+                        [paymentItem]="item"
+                        (onCancelPayment)="onCancelPayment($event)"
+                    ></rwm-center-membership-card>
+                </ng-container>
             </div>
         </div>
     </div>

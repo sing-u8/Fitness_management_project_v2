@@ -532,7 +532,6 @@ ng-scrollbar {
         --scrollbar-track-transition: height ease-out 0ms, width ease-out 0ms;
         //border: 1px solid gray;
     }
-
 }
 
 .w-100 {
@@ -960,6 +959,14 @@ ng-scrollbar {
     height: 30px;
     overflow: hidden;
     border-radius: 5px;
+}
+.ellipse-icon {
+    background-image: url('/assets/icons/etc/ellipse.svg');
+    box-sizing: border-box;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 4.3px;
+    height: 4px;
 }
 
 // Tooltip

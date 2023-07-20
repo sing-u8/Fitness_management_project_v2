@@ -7,10 +7,13 @@ import _ from 'lodash'
 
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
+import { PaymentStatusHelperService } from '@services/helper/payment-status-helper.service'
+
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
+import { PaymentBadgeKey, PaymentBadge } from '@schemas/payment/payment-badge-state'
 
 export type DetailInfo = { title: string; desc: string[] }
 
@@ -24,55 +27,8 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     public user: User
 
-    public badgeState:
-        | 'normal'
-        | 'freeTrialEndToday'
-        | 'freeTrialEnd'
-        | 'freeTrialEndExpected'
-        | 'expirationExpected'
-        | 'expired'
-        | 'expiredToday' = 'normal' // test용으로 Input으로 설정
-    public badgeStateObj = {
-        normal: {
-            bgColor: '',
-            color: '',
-            text: '',
-        },
-        freeTrialEndToday: {
-            bgColor: 'var(--state-error-5)',
-            color: 'var(--state-error-100)',
-            text: '⏱ 오늘 무료 체험이 종료돼요!',
-        },
-        freeTrialEnd: {
-            bgColor: 'var(--gray-50)',
-            color: 'var(--font-color)',
-            text: '체험 종료',
-        },
-        freeTrialEndExpected: {
-            bgColor: 'var(--state-warning-5)',
-            color: 'var(--state-warning-100)',
-            text1: '⏱ 체험 종료 ',
-            text2: '일 전',
-            day: 14,
-        },
-        expirationExpected: {
-            bgColor: 'var(--state-warning-5)',
-            color: 'var(--state-warning-100)',
-            text1: '⏱ 만료 ',
-            text2: '일 전',
-            day: 10,
-        },
-        expired: {
-            bgColor: 'var(--gray-50)',
-            color: 'var(--font-color)',
-            text: '이용권 만료',
-        },
-        expiredToday: {
-            bgColor: 'var(--state-error-5)',
-            color: 'var(--state-error-100)',
-            text: '⏱ 오늘 이용권이 만료돼요!',
-        },
-    }
+    public badgeState: PaymentBadgeKey = 'normal'
+    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
 
     public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
 
@@ -81,6 +37,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         private router: Router,
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
+        private paymentStatusHelperService: PaymentStatusHelperService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
@@ -144,44 +101,13 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     getBadgeState() {
-        const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        if (this.center.connection_status == 'employee_connection_status_pending') {
-            this.badgeState = 'normal'
-        } else if (this.center.product_code == 'free_trial_membership') {
-            if (dayRemains > 14) {
-                this.badgeState = 'normal'
-            } else if (dayRemains <= 14 && dayRemains > 1) {
-                this.badgeStateObj.freeTrialEndExpected.day = dayRemains
-                this.badgeState = 'freeTrialEndExpected'
-            } else if (dayRemains == 1) {
-                this.badgeState = 'freeTrialEndToday'
-            } else {
-                this.badgeState = 'freeTrialEnd'
-            }
-        } else if (this.center.product_code == 'subscription_membership') {
-            if (dayRemains > 14) {
-                this.badgeState = 'normal'
-            } else if (dayRemains <= 14 && dayRemains > 1) {
-                this.badgeStateObj.expirationExpected.day = dayRemains
-                this.badgeState = 'expirationExpected'
-            } else if (dayRemains == 1) {
-                this.badgeState = 'expiredToday'
-            } else {
-                this.badgeState = 'expired'
-            }
-        } else {
-            // 1, 2년 구독
-            if (dayRemains > 14) {
-                this.badgeState = 'normal'
-            } else if (dayRemains <= 14 && dayRemains > 1) {
-                this.badgeStateObj.expirationExpected.day = dayRemains
-                this.badgeState = 'expirationExpected'
-            } else if (dayRemains == 1) {
-                this.badgeState = 'expiredToday'
-            } else {
-                this.badgeState = 'expired'
-            }
-        }
+        const badgeStatus = this.paymentStatusHelperService.getBadgeStatus(
+            this.center,
+            this.badgeState,
+            this.badgeStateObj
+        )
+        this.badgeState = badgeStatus.paymentBadgeKey
+        this.badgeStateObj = badgeStatus.paymentBadge
     }
 
     getHeaderState() {

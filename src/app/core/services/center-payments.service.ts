@@ -7,8 +7,10 @@ import handleError from './handleError'
 import { Response } from '@schemas/response'
 import { environment } from '@environments/environment'
 import { ProductCode } from '@schemas/payment/product-code'
-import { PromotionCode } from '@schemas/payment/promotion'
+import { PaymentPromotion, PromotionCode } from '@schemas/payment/promotion'
 import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
+import { Center } from '@schemas/center'
+import { ScheduleResult } from '@schemas/schedule-result'
 
 @Injectable({
     providedIn: 'root',
@@ -47,7 +49,7 @@ export class CenterPaymentsService {
         )
     }
 
-    getPaymentPromotion(centerId: string, merchantUid: string): Observable<any> {
+    getPaymentPromotion(centerId: string, merchantUid: string): Observable<PaymentPromotion[]> {
         const url = this.SERVER + `/${centerId}/payments/${merchantUid}/promotion`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
@@ -77,11 +79,22 @@ export class CenterPaymentsService {
             catchError(handleError)
         )
     }
-    cancelSubscribePayment(centerId: string) {
+    cancelSubscribePayment(centerId: string): Observable<Center> {
         const url = this.SERVER + `/${centerId}/payments/unsubscribe`
         return this.http.post<Response>(url, {}, this.options).pipe(
             map((res) => {
-                return res
+                return res.dataset[0]
+            }),
+            catchError(handleError)
+        )
+    }
+
+    getReservedPayment(centerId: string): Observable<ScheduleResult> {
+        const url = this.SERVER + `/${centerId}/payments/schedule`
+
+        return this.http.get<Response>(url, this.options).pipe(
+            map((res) => {
+                return res.dataset[0]
             }),
             catchError(handleError)
         )

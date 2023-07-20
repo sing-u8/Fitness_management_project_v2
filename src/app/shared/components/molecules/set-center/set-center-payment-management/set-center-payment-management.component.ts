@@ -16,15 +16,19 @@ import { Router } from '@angular/router'
 import { StorageService } from '@services/storage.service'
 import { CenterListService } from '@services/center-list/center-list.service'
 import { CenterPaymentsService } from '@services/center-payments.service'
+import { UsersCustomersService } from '@services/users-customers.service'
 
 import { showToast } from '@store/app/actions/toast.action'
 import { Store } from '@ngrx/store'
 import { Loading } from '@schemas/loading'
-import { PaymentCard } from '@schemas/payment/payment-card'
+import { BasePaymentItem } from '@schemas/base-payment-item'
 import { User } from '@schemas/user'
-import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
+
 import { detectChangesOn } from '@shared/helper/component-helper'
-import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
+import { OnCancelPayment } from '@shared/components/molecules/center-membership-card/center-membership-card.component'
+import { forkJoin } from 'rxjs'
+
+import _ from 'lodash'
 
 @Component({
     selector: 'rwm-set-center-payment-management',
@@ -67,18 +71,56 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     }
 
     public paymentLoading: Loading = 'idle'
-    public paymentItemList: PaymentHistoryItem[] = []
+    public paymentItemList: BasePaymentItem[] = []
     getPaymentItems() {
         this.paymentLoading = 'pending'
-        this.centerPaymentsService.getPaymentHistory(this.center.id).subscribe({
-            next: (paymentItemList) => {
+        forkJoin([
+            this.centerPaymentsService.getPaymentHistory(this.center.id),
+            this.centerPaymentsService.getReservedPayment(this.center.id),
+        ]).subscribe({
+            next: ([paymentItemList, reservedPayment]) => {
                 this.paymentLoading = 'idle'
-                this.paymentItemList = paymentItemList
+                this.paymentItemList = _.reverse(paymentItemList)
+                if (_.isObject(reservedPayment)) this.paymentItemList.unshift(reservedPayment)
                 console.log('getPaymentItems -- ', this.paymentItemList)
             },
             error: (err) => {
                 this.paymentLoading = 'idle'
             },
         })
+    }
+
+    cancelPaymentData: OnCancelPayment = undefined
+
+    onCancelPayment(value: OnCancelPayment) {
+        value.btLoadingFn.showLoading()
+        if (value.paymentItem.product_code == 'subscription_membership') {
+            this.centerPaymentsService.cancelSubscribePayment(this.center.id).subscribe({
+                next: (res) => {
+                    value.btLoadingFn.hideLoading()
+                    this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
+                    console.log('cancelSubscribePayment -- ', res)
+                },
+                error: (err) => {
+                    value.btLoadingFn.hideLoading()
+                },
+            })
+        } else {
+            this.centerPaymentsService
+                .cancelPayment(this.center.id, {
+                    merchant_uid: value.paymentItem.merchant_uid,
+                    amount: value.paymentItem.amount,
+                })
+                .subscribe({
+                    next: (res) => {
+                        value.btLoadingFn.hideLoading()
+                        this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
+                        console.log('cancelPayment -- ', res)
+                    },
+                    error: (err) => {
+                        value.btLoadingFn.hideLoading()
+                    },
+                })
+        }
     }
 }

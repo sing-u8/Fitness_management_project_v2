@@ -9,6 +9,7 @@ import {
     SimpleChanges,
     AfterViewChecked,
     ViewChild,
+    ChangeDetectorRef,
 } from '@angular/core'
 import { PaymentItemInfo } from '@schemas/payment/payment-item'
 import { PaymentCard } from '@schemas/payment/payment-card'
@@ -52,7 +53,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
     public isMouseModalDown: boolean
     public day = dayjs().format('D')
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(private el: ElementRef, private renderer: Renderer2, private cd: ChangeDetectorRef) {
         this.isMouseModalDown = false
     }
 
@@ -86,6 +87,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
                 }, 200)
             }
         }
+        this.cd.detectChanges()
     }
 
     onCancel(): void {

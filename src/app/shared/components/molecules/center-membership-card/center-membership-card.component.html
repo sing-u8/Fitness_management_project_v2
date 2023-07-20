@@ -1,4 +1,4 @@
-<div class="l-center-membership-card">
+<div class="l-center-membership-card" [class.cancelled]="paymentItem['status'] == 'cancelled'">
     <div class="l-indicator">
         <rwa-svg-circle-bold width="15px" height="15px" color="var(--red-100)"></rwa-svg-circle-bold>
         <div class="l-line" [class.is-last]="isLast">
@@ -20,21 +20,43 @@
 
                 <div class="membership-duration">
                     {{ paymentItem?.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
-                    {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }} {{ '사용 예정' }}
+                    {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }}
+                    {{ paymentItem['schedule_at'] ? '사용 예정' : '' }}
                 </div>
             </div>
 
             <div class="cmc-top__right">
-                <rwa-ghost-button [borderWidth]="'1px'" [padding]="'5px 11px 3px'">
-                    <ng-template gbtIdleContent><span class="button-text">해지</span></ng-template>
-                </rwa-ghost-button>
+                <ng-container *ngIf="paymentItem['status'] == 'cancelled'">
+                    <div class="cmc-top__right-cancelled">
+                        {{ paymentItem.product_code == 'subscription_membership' ? '해지 완료' : '환불 완료' }}
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="paymentItem['status'] == 'paid'">
+                    <rwa-ghost-button
+                        [borderWidth]="'1px'"
+                        [padding]="'5px 11px 3px'"
+                        [status]="buttonLoading"
+                        [loadingName]="'cancel-payment'"
+                        [loadingColor]="'var(--gray-90)'"
+                        (onClick)="openCancelPaymentModal()"
+                    >
+                        <ng-template gbtIdleContent>
+                            <span class="button-text"> {{ buttonText }} </span>
+                        </ng-template>
+                        <ng-template gbtPendingContent>
+                            <span class="button-text"> {{ buttonText }} </span>
+                        </ng-template>
+                    </rwa-ghost-button>
+                </ng-container>
             </div>
         </div>
 
         <div class="cmc-bottom">
             <div class="l-payment-date">
                 <div class="payment-category-name">결제일</div>
-                <div class="payment-category-value">{{ '23년 00월 00일' }}</div>
+                <div class="payment-category-value">
+                    {{ paymentItem['schedule_at'] || paymentItem['paid_at'] | dateFormat : 'YY년 MM월 DD일' }}
+                </div>
             </div>
             <div class="divider"></div>
             <div class="l-payment-method">
@@ -57,13 +79,155 @@
             <div class="l-payment-price">
                 <div class="payment-category-name">결제 금액</div>
                 <div class="payment-category-value">
-                    <span class="discount-price">{{ '000,000원' }}</span>
-                    <div class="total-price">
-                        <span>{{ '000,000원' }}</span>
-                        <div class="caret-circle-down-icon"></div>
+                    <span *ngIf="paymentItem.amount != paymentItem.product_price" class="origin-price">
+                        {{ paymentItem.product_price | numberWithCommas }}원
+                    </span>
+                    <div class="product-price" (mouseenter)="getPaymentPromotion(); setTooltipPos()">
+                        <span>{{ paymentItem.amount | numberWithCommas }}원</span>
+                        <div class="l-caret-circle-down-icon">
+                            <div class="caret-circle-down-icon" #caret_down_icon></div>
+                            <div class="l-tooltip" #l_tooltip>
+                                <rwa-vacant-tooltip [tail]="isLast ? 'top' : 'bottom'" borderRadius="9px">
+                                    <div class="tooltip">
+                                        <ng-container *ngIf="promotionLoading == 'pending'">
+                                            <div class="d-flex flex-column">
+                                                <ngx-skeleton-loader
+                                                    *ngFor="let __ of [1, 2]"
+                                                    count="1"
+                                                    appearance="line"
+                                                    [theme]="{
+                                                        width: '203px',
+                                                        height: '22px',
+                                                        'border-radius': '5px',
+                                                        margin: '0 0 0 0'
+                                                    }"
+                                                ></ngx-skeleton-loader>
+                                            </div>
+                                        </ng-container>
+                                        <ng-container *ngIf="promotionLoading == 'idle'">
+                                            <ng-container>
+                                                <div class="tooltip__item">
+                                                    <span class="category">환불 금액</span>
+                                                    <span class="value">
+                                                        {{ paymentItem.amount | numberWithCommas }}원
+                                                    </span>
+                                                </div>
+                                                <div class="divider--white"></div>
+                                                <div class="tooltip__item">
+                                                    <span class="category">결제 금액</span>
+                                                    <span class="value">
+                                                        {{ paymentItem.amount | numberWithCommas }}원
+                                                    </span>
+                                                </div>
+                                                <div class="divider--gray"></div>
+                                            </ng-container>
+                                            <div class="tooltip__item">
+                                                <span class="category">상품 금액</span>
+                                                <span class="value">
+                                                    {{ paymentItem.product_price | numberWithCommas }}원
+                                                </span>
+                                            </div>
+                                            <div class="d-flex flex-column">
+                                                <div class="tooltip__item">
+                                                    <span class="category"> 할인 금액 </span>
+                                                    <span class="value"
+                                                        >- {{ totalDiscount | numberWithCommas }}원</span
+                                                    >
+                                                </div>
+                                                <div class="tooltip__sub-item" *ngFor="let item of promotionData">
+                                                    <span class="sub-category">
+                                                        <div class="ellipse-icon"></div>
+                                                        {{ item.fe_title }}
+                                                    </span>
+                                                    <span class="sub-value">
+                                                        - {{ item.discount | numberWithCommas }}원
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="tooltip__item">
+                                                <span class="category">부가세 (10%)</span>
+                                                <span class="value">{{ tax | numberWithCommas }}원</span>
+                                            </div>
+                                        </ng-container>
+                                    </div>
+                                </rwa-vacant-tooltip>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<rwa-vacant-modal
+    [(visible)]="showCancelPaymentModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-cancel-payment-modal">
+        <div class="title">
+            레드웨일 {{ membershipName }}을<br />
+            환불하시겠어요?
+        </div>
+
+        <div class="l-refund">
+            <div class="refund__item">
+                <span class="category">환불 예정 금액</span>
+                <span class="value"> {{ paymentItem.amount | numberWithCommas }}원 </span>
+            </div>
+            <div class="divider--gray-100"></div>
+            <div class="refund__item">
+                <span class="category">결제 금액</span>
+                <span class="value"> {{ paymentItem.amount | numberWithCommas }}원 </span>
+            </div>
+            <div class="divider--gray-60"></div>
+            <div class="refund__item">
+                <span class="category">상품 금액</span>
+                <span class="value"> {{ paymentItem.product_price | numberWithCommas }}원 </span>
+            </div>
+            <div class="d-flex flex-column">
+                <div class="refund__item">
+                    <span class="category"> 할인 금액 </span>
+                    <span class="value">- {{ totalDiscount | numberWithCommas }}원</span>
+                </div>
+                <div class="l-refund__sub-item">
+                    <div class="refund__sub-item" *ngFor="let item of promotionData">
+                        <span class="sub-category"> · {{ item.fe_title }} </span>
+                        <span class="sub-value"> - {{ item.discount | numberWithCommas }}원 </span>
+                    </div>
+                </div>
+            </div>
+            <div class="refund__item">
+                <span class="category">부가세 (10%)</span>
+                <span class="value">{{ tax | numberWithCommas }}원</span>
+            </div>
+        </div>
+
+        <div class="desc">
+            <div class="desc__item" *ngFor="let item of cancelDesc">
+                {{ item }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                [status]="cancelModalButtonLoading"
+                [loadingName]="'cmc-refund-button'"
+                (onClick)="showCancelPaymentModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
+            </rwa-button>
+            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onCancelPaymentButtonClick()">
+                <ng-template btIdleContent><span class="white-button-text">환불 신청</span></ng-template>
+                <ng-template btPendingContent><span class="white-button-text">환불 신청</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>

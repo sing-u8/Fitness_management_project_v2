@@ -1,0 +1,18 @@
+<div
+    #tooltip
+    class="l-tooltip"
+    [style.padding]="padding"
+    [style.border-radius]="borderRadius"
+    [ngClass]="{
+        white: colorType == 'white',
+        black: colorType == 'black',
+        red: colorType == 'red',
+        movable: movable,
+        'tooltip-top': tail == 'top',
+        'tooltip-right': tail == 'right',
+        'tooltip-bottom': tail == 'bottom',
+        'tooltip-left': tail == 'left'
+    }"
+>
+    <ng-content></ng-content>
+</div>

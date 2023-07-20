@@ -84,6 +84,10 @@
             }
             .cmc-top__right {
                 margin-top: 2px;
+                .cmc-top__right-cancelled {
+                    @include rw-type-r(1.7rem, 28.3px, var(--gray-100));
+                    padding: 0 11px;
+                }
                 .button-text {
                     @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
                 }
@@ -120,32 +124,94 @@
 
                     .payment-method-text {
                         //max-width: 47px;
-                        max-width: 37px;
+                        max-width: 28px;
                     }
 
                     @include rw-type-r(1.5rem, 24px, var(--font-color));
-                    .discount-price {
+                    .origin-price {
                         @include rw-type-r(1.4rem, 18.8px, var(--gray-90));
                         margin-right: 6px;
+                        text-decoration: line-through;
                     }
 
-                    .total-price {
+                    .product-price {
                         display: flex;
                         align-items: center;
                         @include rw-type-b(1.5rem, 24px, var(--font-color));
                         cursor: pointer;
 
-                        .caret-circle-down-icon {
-                            margin-left: 6px;
-                            transition: transform 0.2s linear;
-                            -moz-transition: transform 0.2s linear;
-                            -webkit-transition: transform 0.2s linear;
-                            -o-transition: transform 0.2s linear;
+                        .l-caret-circle-down-icon {
+                            position: relative;
+                            .caret-circle-down-icon {
+                                margin-left: 6px;
+                                transition: transform 0.2s linear;
+                                -moz-transition: transform 0.2s linear;
+                                -webkit-transition: transform 0.2s linear;
+                                -o-transition: transform 0.2s linear;
+                            }
+                            .l-tooltip {
+                                visibility: hidden;
+                                position: fixed;
+                                opacity: 0;
+                                z-index: 10;
+                                @include opacity-ani-modal();
+                                .tooltip {
+                                    display: grid;
+                                    gap: 8px;
+                                    flex-direction: column;
+                                    .divider--white {
+                                        width: 100%;
+                                        height: 1px;
+                                        border-top: 1px solid var(--white);
+                                    }
+                                    .divider--gray {
+                                        width: 100%;
+                                        height: 1px;
+                                        border-top: 1px solid var(--gray-90);
+                                    }
+                                    .tooltip__item {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        width: 203px;
+                                        height: 24px;
+                                        .category {
+                                            @include rw-type-r(1.5rem, 23.1px, var(--gray-60));
+                                        }
+                                        .value {
+                                            @include rw-type-r(1.5rem, 23.1px, var(--white));
+                                        }
+                                    }
+                                    .tooltip__sub-item {
+                                        display: flex;
+                                        justify-content: space-between;
+                                        align-items: center;
+                                        width: 203px;
+                                        height: 24px;
+                                        margin-top: 5px;
+                                        .sub-category {
+                                            display: flex;
+                                            align-items: center;
+                                            @include rw-type-r(1.4rem, 18.8px, var(--gray-60));
+                                            .ellipse-icon {
+                                                margin-right: 7.5px;
+                                            }
+                                        }
+                                        .sub-value {
+                                            @include rw-type-r(1.4rem, 18.8px, var(--white));
+                                        }
+                                    }
+                                }
+                            }
                         }
 
                         &:hover {
                             .caret-circle-down-icon {
                                 transform: rotateX(180deg);
+                            }
+                            .l-tooltip {
+                                visibility: initial !important;
+                                opacity: 1 !important;
                             }
                         }
                     }
@@ -157,6 +223,33 @@
             .l-payment-method {
             }
             .l-payment-price {
+            }
+        }
+    }
+
+    &.cancelled {
+        .cmc-top__left {
+            opacity: 0.5 !important;
+        }
+        .cmc-bottom {
+            background-color: hsla(0, 9%, 98%, 0.5) !important;
+            .l-payment-date,
+            .divider,
+            .payment-category-name,
+            .caret-circle-down-icon {
+                opacity: 0.5 !important;
+            }
+            .origin-price {
+                opacity: 0.5 !important;
+            }
+            .payment-category-name {
+                color: hsla(0, 1%, 34%, 0.5) !important;
+            }
+            .payment-category-value {
+                color: hsla(232, 7%, 9%, 0.5) !important;
+            }
+            .product-price {
+                color: hsla(232, 7%, 9%, 0.5) !important;
             }
         }
     }
@@ -200,6 +293,123 @@
                 .l-payment-price {
                 }
             }
+        }
+    }
+}
+
+.l-cancel-payment-modal {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .title {
+        width: 100%;
+        @include rw-type-b(2rem, 31px, var(--font-color));
+        white-space: pre-line;
+    }
+
+    .l-refund {
+        display: grid;
+        flex-direction: column;
+        grid-gap: 20px;
+        margin: 20px 0;
+        border-bottom: 1px solid var(--gray-60);
+        padding-bottom: 20px;
+
+        .divider--gray-60 {
+            width: 100%;
+            height: 1px;
+            border-top: 1px solid var(--gray-60);
+        }
+        .divider--gray-100 {
+            width: 100%;
+            height: 1px;
+            border-top: 1px solid var(--gray-100);
+        }
+
+        .refund__item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 5px;
+            .category {
+                @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
+            }
+            .value {
+                @include rw-type-r(1.7rem, 28.3px, var(--font-color));
+            }
+        }
+        .l-refund__sub-item {
+            width: 100%;
+            padding: 12px 15px;
+            background-color: var(--gray-30);
+            display: grid;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 5px;
+            border-radius: 12px;
+        }
+        .refund__sub-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            .sub-category {
+                display: flex;
+                align-items: center;
+                @include rw-type-r(1.5rem, 23.1px, var(--gray-90));
+                .ellipse-icon {
+                    margin-right: 7.5px;
+                }
+            }
+            .sub-value {
+                @include rw-type-r(1.5rem, 23.1px, var(--font-color));
+            }
+        }
+    }
+
+    .desc {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .desc__item {
+            @include rw-type-r(1.5rem, 23px, var(--gray-100));
+            position: relative;
+            padding-left: 11px;
+            &:before {
+                content: '';
+                display: inline-block;
+                width: 5px;
+                height: 5px;
+                vertical-align: middle;
+                background: var(--gray-90);
+                border-radius: 50%;
+                top: 7.5px;
+                left: 0;
+                position: absolute;
+            }
+            &:not(:last-of-type) {
+                margin-bottom: 7px;
+            }
+        }
+    }
+    .l-button {
+        margin-top: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        rwa-button {
+            &:not(:last-of-type) {
+                margin-right: 10px;
+            }
+        }
+        .button-text {
+            @include rw-type-b(1.7rem, 28px, var(--gray-90));
+        }
+        .white-button-text {
+            @include rw-type-b(1.7rem, 28px, var(--white));
         }
     }
 }

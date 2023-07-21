@@ -5,62 +5,67 @@
     (mousedown)="resetMouseModalDown()"
     #modalWrapperElement
 >
-    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
-        <div class="header">
-            <div class="title">
-                <div class="title-left">
-                    <span>센터 설정</span>
-                    <div class="divider"></div>
-                    <span>{{ center.name }}</span>
+    <ng-template #center_empty *ngIf="!center; else center_exist">
+        <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()"></div>
+    </ng-template>
+    <ng-template #center_exist>
+        <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+            <div class="header">
+                <div class="title">
+                    <div class="title-left">
+                        <span>센터 설정</span>
+                        <div class="divider"></div>
+                        <span>{{ center.name }}</span>
+                    </div>
+                    <rwa-icon-ghost-button
+                        sizeType="md"
+                        borderRadius="14px"
+                        borderColor="var(--gray-60)"
+                        (onClick)="onClose(false)"
+                    >
+                        <ng-template iconGhostBtIdleContent>
+                            <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
+                        </ng-template>
+                    </rwa-icon-ghost-button>
                 </div>
-                <rwa-icon-ghost-button
-                    sizeType="md"
-                    borderRadius="14px"
-                    borderColor="var(--gray-60)"
-                    (onClick)="onClose(false)"
-                >
-                    <ng-template iconGhostBtIdleContent>
-                        <rwa-svg-close width="22px" height="22px" color="var(--gray-100)"></rwa-svg-close>
-                    </ng-template>
-                </rwa-icon-ghost-button>
+                <div class="category">
+                    <rwa-tab-sm [tabs]="categoris" (onTabItemSelected)="categoris = $event"></rwa-tab-sm>
+                    <div class="border-bottom"></div>
+                </div>
             </div>
-            <div class="category">
-                <rwa-tab-sm [tabs]="categoris" (onTabItemSelected)="categoris = $event"></rwa-tab-sm>
-                <div class="border-bottom"></div>
+            <div class="body" #body>
+                <!-- 센터 정보 -->
+                <rwm-set-center-info
+                    class="center-info"
+                    [class.open]="categoris[0].selected"
+                    [isOpen]="categoris[0].selected && visible"
+                    [center]="center"
+                    (goEmployeeManagement)="goEmployeeManagement()"
+                ></rwm-set-center-info>
+                <!-- 직원 관리 -->
+                <rwm-set-center-employee-management
+                    class="employee-management"
+                    [class.open]="categoris[1].selected"
+                    [center]="center"
+                    [(isEmpInit)]="categInitObj.employeeManagement.employeeListInit"
+                    [(isRpsInit)]="categInitObj.employeeManagement.rolePermissionInit"
+                    [isOpen]="categoris[1].selected && visible"
+                ></rwm-set-center-employee-management>
+                <!-- 운영 정책 -->
+                <rwm-set-center-policy-management
+                    class="policy-management"
+                    [class.open]="categoris[2].selected"
+                ></rwm-set-center-policy-management>
+                <!-- 이용권 결제 관리 -->
+                <rwm-set-center-payment-management
+                    class="payment-management"
+                    [class.open]="categoris[3].selected"
+                    [(isInit)]="categInitObj.centerPaymentManagement"
+                    [center]="center"
+                    [isOpen]="categoris[3].selected && visible"
+                    (closeModal)="onClose()"
+                ></rwm-set-center-payment-management>
             </div>
         </div>
-        <div class="body" #body>
-            <!-- 센터 정보 -->
-            <rwm-set-center-info
-                class="center-info"
-                [class.open]="categoris[0].selected"
-                [isOpen]="categoris[0].selected && visible"
-                [center]="center"
-                (goEmployeeManagement)="goEmployeeManagement()"
-            ></rwm-set-center-info>
-            <!-- 직원 관리 -->
-            <rwm-set-center-employee-management
-                class="employee-management"
-                [class.open]="categoris[1].selected"
-                [center]="center"
-                [(isEmpInit)]="categInitObj.employeeManagement.employeeListInit"
-                [(isRpsInit)]="categInitObj.employeeManagement.rolePermissionInit"
-                [isOpen]="categoris[1].selected && visible"
-            ></rwm-set-center-employee-management>
-            <!-- 운영 정책 -->
-            <rwm-set-center-policy-management
-                class="policy-management"
-                [class.open]="categoris[2].selected"
-            ></rwm-set-center-policy-management>
-            <!-- 이용권 결제 관리 -->
-            <rwm-set-center-payment-management
-                class="payment-management"
-                [class.open]="categoris[3].selected"
-                [(isInit)]="categInitObj.centerPaymentManagement"
-                [center]="center"
-                [isOpen]="categoris[3].selected && visible"
-                (closeModal)="onClose()"
-            ></rwm-set-center-payment-management>
-        </div>
-    </div>
+    </ng-template>
 </div>

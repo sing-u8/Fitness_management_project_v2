@@ -31,7 +31,14 @@ export class CenterListComponent implements OnInit, OnDestroy {
 
     public centerLoading: Loading = 'idle'
     public centerList: Center[] = []
-    public invitedCenterList: Center[] = []
+
+    public selectedCenter: Center = undefined
+    public setCenterModalVisible = false
+    onSetCenter(center: Center) {
+        this.selectedCenter = center
+        this.setCenterModalVisible = true
+    }
+
     constructor(
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,

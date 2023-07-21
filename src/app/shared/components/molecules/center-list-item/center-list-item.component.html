@@ -40,7 +40,7 @@
             *ngIf="!(headerState == 'freeTrialEnd' || headerState == 'expired')"
             [sizeType]="'md'"
             class="center-setting-icon"
-            (onClick)="setCenterModalVisible = true"
+            (onClick)="onSetCenter.emit(center)"
         >
             <ng-template iconGhostBtIdleContent>
                 <div class="gear-icon"></div>
@@ -314,8 +314,8 @@
     </div>
 </rwa-vacant-modal>
 
-<rwm-set-center-modal
-    [center]="center"
-    [(visible)]="setCenterModalVisible"
-    (close)="setCenterModalVisible = false"
-></rwm-set-center-modal>
+<!--<rwm-set-center-modal-->
+<!--    [center]="center"-->
+<!--    [(visible)]="setCenterModalVisible"-->
+<!--    (close)="setCenterModalVisible = false"-->
+<!--&gt;</rwm-set-center-modal>-->

@@ -24,10 +24,10 @@ export type DetailInfo = { title: string; desc: string[] }
 })
 export class CenterListItemComponent implements AfterViewInit, OnChanges {
     @Input() center: Center
+    @Output() onSetCenter = new EventEmitter<Center>()
 
     public user: User
 
-    public setCenterModalVisible = false
     constructor(
         private router: Router,
         private storageService: StorageService,

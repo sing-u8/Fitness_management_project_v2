@@ -79,6 +79,7 @@
                             [center]="centerItem"
                             (onAgreeInvite)="onAgreeInvite($event)"
                             (onRefuseInvite)="onRefuseInvite($event)"
+                            (onSetCenter)="onSetCenter($event)"
                         ></rwm-center-list-item>
                     </ng-container>
                 </ng-container>
@@ -108,3 +109,8 @@
     (open)="openMyInfoModal()"
 ></rwm-my-profile-modal>
 
+<rwm-set-center-modal
+    [center]="selectedCenter"
+    [(visible)]="setCenterModalVisible"
+    (close)="setCenterModalVisible = false"
+></rwm-set-center-modal>

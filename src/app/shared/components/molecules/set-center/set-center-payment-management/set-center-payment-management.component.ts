@@ -29,6 +29,7 @@ import { OnCancelPayment } from '@shared/components/molecules/center-payment-car
 import { forkJoin } from 'rxjs'
 
 import _ from 'lodash'
+import dayjs from 'dayjs'
 import { ModalInput } from '@schemas/components/modal'
 
 @Component({
@@ -43,6 +44,8 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     @Input() isInit = false
     @Output() isInitChange = new EventEmitter<boolean>()
     @Input() isOpen = false
+
+    @Output() closeModal = new EventEmitter()
 
     constructor(
         private usersCustomersService: UsersCustomersService,
@@ -87,16 +90,18 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
         })
     }
 
-    cancelPaymentData: OnCancelPayment = undefined
-
     onCancelPayment(value: OnCancelPayment) {
         value.btLoadingFn.showLoading()
-        if (value.paymentItem.product_code == 'subscription_membership') {
+        if (value.paymentType == 'payment-scheduled') {
             this.centerPaymentsService.cancelSubscribePayment(this.center.id).subscribe({
-                next: (res) => {
+                next: (center) => {
                     value.btLoadingFn.hideLoading()
-                    this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
-                    console.log('cancelSubscribePayment -- ', res)
+                    this.nxStore.dispatch(showToast({ text: '이용권이 해지되었어요.' }))
+                    this.centerListService.centerChangeSubject.next({
+                        center,
+                        type: 'change',
+                    })
+                    console.log('cancelSubscribePayment -- ', center)
                 },
                 error: (err) => {
                     value.btLoadingFn.hideLoading()
@@ -112,6 +117,25 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                     next: (res) => {
                         value.btLoadingFn.hideLoading()
                         this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
+                        const paymentIdx = _.findIndex(
+                            this.paymentItemList,
+                            (v) => v.merchant_uid == value.paymentItem.merchant_uid
+                        )
+                        this.paymentItemList[paymentIdx] = _.cloneDeep({
+                            ...this.paymentItemList[paymentIdx],
+                            ...{ status: 'cancelled', cancelled_at: dayjs().format('YYYY-MM-DD') },
+                        })
+
+                        const centerCopy = _.cloneDeep({
+                            ...this.center,
+                            ...{ end_date: dayjs().subtract(1, 'day').format('YYYY-MM-DD') },
+                        })
+                        // 나중에 로직 변경되면 수정 필요
+                        this.centerListService.centerChangeSubject.next({
+                            center: centerCopy,
+                            type: 'change',
+                        })
+                        this.closeModal.emit()
                         console.log('cancelPayment -- ', res)
                     },
                     error: (err) => {

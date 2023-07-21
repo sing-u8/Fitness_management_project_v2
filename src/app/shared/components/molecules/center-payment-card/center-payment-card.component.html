@@ -58,10 +58,27 @@
                         (onClick)="openCancelPaymentModal()"
                     >
                         <ng-template gbtIdleContent>
-                            <span class="button-text"> {{ buttonText }} </span>
+                            <span class="button-text"> {{ '환불' }} </span>
                         </ng-template>
                         <ng-template gbtPendingContent>
-                            <span class="button-text"> {{ buttonText }} </span>
+                            <span class="button-text"> {{ '환불' }} </span>
+                        </ng-template>
+                    </rwa-ghost-button>
+                </ng-container>
+                <ng-container *ngIf="paymentItem['schedule_at']">
+                    <rwa-ghost-button
+                        [borderWidth]="'1px'"
+                        [padding]="'5px 11px 3px'"
+                        [status]="buttonLoading"
+                        [loadingName]="'cancel-reserved-payment'"
+                        [loadingColor]="'var(--gray-90)'"
+                        (onClick)="openCancelReservedPaymentModal()"
+                    >
+                        <ng-template gbtIdleContent>
+                            <span class="button-text"> {{ '해지' }} </span>
+                        </ng-template>
+                        <ng-template gbtPendingContent>
+                            <span class="button-text"> {{ '해지' }} </span>
                         </ng-template>
                     </rwa-ghost-button>
                 </ng-container>
@@ -70,7 +87,9 @@
 
         <div class="cmc-bottom">
             <div class="l-payment-date">
-                <div class="payment-category-name">{{ paidDateText }}</div>
+                <div class="payment-category-name">
+                    {{ paidDateText }}
+                </div>
                 <div class="payment-category-value">
                     <span *ngIf="paymentItem['status'] == 'cancelled'">
                         {{ paymentItem['cancelled_at'] | dateFormat : 'YY년 MM월 DD일' }}
@@ -209,7 +228,7 @@
                 <span class="category">상품 금액</span>
                 <span class="value"> {{ paymentItem.product_price | numberWithCommas }}원 </span>
             </div>
-            <div class="d-flex flex-column">
+            <div class="d-flex flex-column" *ngIf="totalDiscount > 0">
                 <div class="refund__item">
                     <span class="category"> 할인 금액 </span>
                     <span class="value">- {{ totalDiscount | numberWithCommas }}원</span>
@@ -240,15 +259,69 @@
                 [bgColor]="'var(--white)'"
                 [hoverBgColor]="'var(--gray-30)'"
                 [loadingColor]="'var(--font-color)'"
-                [status]="cancelModalButtonLoading"
                 [loadingName]="'cmc-refund-button'"
                 (onClick)="showCancelPaymentModal = false"
             >
                 <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
             </rwa-button>
-            <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onCancelPaymentButtonClick()">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [status]="cancelModalButtonLoading"
+                (onClick)="onCancelPaymentButtonClick('payment')"
+            >
                 <ng-template btIdleContent><span class="white-button-text">환불 신청</span></ng-template>
                 <ng-template btPendingContent><span class="white-button-text">환불 신청</span></ng-template>
+            </rwa-button>
+        </div>
+    </div>
+</rwa-vacant-modal>
+
+<rwa-vacant-modal
+    [(visible)]="showCancelReservedPaymentModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+>
+    <div class="l-cancel-payment-modal">
+        <div class="title">
+            레드웨일 {{ membershipName }}을<br />
+            해지하시겠어요?
+        </div>
+
+        <div class="available-date">
+            <span class="available-date__category"> 해지 후 사용 가능한 기간 </span>
+            <span class="available-date__value">
+                {{ '00년 00월 00일까지 사용 가능' }}
+            </span>
+        </div>
+
+        <div class="desc">
+            <div class="desc__item" *ngFor="let item of cancelDesc">
+                {{ item }}
+            </div>
+        </div>
+        <div class="l-button">
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [fontColor]="'var(--gray-90)'"
+                [bgColor]="'var(--white)'"
+                [hoverBgColor]="'var(--gray-30)'"
+                [loadingColor]="'var(--font-color)'"
+                [loadingName]="'cmc-refund-button'"
+                (onClick)="showCancelReservedPaymentModal = false"
+            >
+                <ng-template btIdleContent><span class="button-text">취소</span></ng-template>
+            </rwa-button>
+            <rwa-button
+                [padding]="'9px 25px 7px'"
+                [height]="'45px'"
+                [status]="cancelModalButtonLoading"
+                (onClick)="onCancelPaymentButtonClick('payment-scheduled')"
+            >
+                <ng-template btIdleContent><span class="white-button-text">해지 신청</span></ng-template>
+                <ng-template btPendingContent><span class="white-button-text">해지 신청</span></ng-template>
             </rwa-button>
         </div>
     </div>

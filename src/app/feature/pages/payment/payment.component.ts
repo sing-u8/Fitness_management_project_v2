@@ -243,7 +243,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                                     this.setCurCenter(() => {
                                         this.showPaymentResultModal = true
                                         this.isPurchaseInProcess = false
-                                        this.router.navigate([`${this.center.name}`, 'main'])
+                                        // this.router.navigate([`${this.center.name}`, 'main'])
                                     })
                                 })
                         } else {

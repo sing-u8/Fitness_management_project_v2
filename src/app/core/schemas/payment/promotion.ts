@@ -24,26 +24,15 @@ export type Promotion = {
 }
 
 export type PaymentPromotion = {
-    activation: boolean
-    center_code: string
-    center_id: string
     code: string
-    count: number
-    created_at: string // '2023-07-18 03:19:07' YYYY-MM-DD HH:mm:ss
-    description: string
-    discount: number
-    discount_unit_code: DiscountUnitCode
-    end_datetime: string // YYYY-MM-DD HH:mm:ss
-    id: string
-    merchant_uid: string
-    months: number
-    product_code: ProductCode
-    promotion_code: string
-    select_yn: boolean
-    sequence_number: number
-    start_datetime: string // YYYY-MM-DD HH:mm:ss
     title: string
-    user_id: string
+    description: string
+    center_code: string
+    count: number
+    months: number
+    discount_unit_code: string
+    discount: number
+
     // used for frontend
     fe_title?: string
 }

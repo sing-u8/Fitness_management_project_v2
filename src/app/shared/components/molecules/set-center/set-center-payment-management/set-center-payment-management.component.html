@@ -28,7 +28,34 @@
             </div>
 
             <div class="l-pm-items">
-                <ng-container *ngIf="paymentLoading == 'pending'"></ng-container>
+                <ng-container *ngIf="paymentLoading == 'pending'">
+                    <div class="pm-items__tab_pending">
+                        <ngx-skeleton-loader
+                            *ngFor="let _ of [1, 2]"
+                            count="1"
+                            appearance="line"
+                            [theme]="{
+                                width: '490px',
+                                height: '180px',
+                                'border-radius': '20px',
+                                margin: '0'
+                            }"
+                        ></ngx-skeleton-loader>
+                    </div>
+                    <div class="pm-items__pc_pending">
+                        <ngx-skeleton-loader
+                            *ngFor="let _ of [1, 2]"
+                            count="1"
+                            appearance="line"
+                            [theme]="{
+                                width: '665px',
+                                height: '180px',
+                                'border-radius': '20px',
+                                margin: '0'
+                            }"
+                        ></ngx-skeleton-loader>
+                    </div>
+                </ng-container>
                 <ng-container *ngIf="paymentLoading == 'idle'">
                     <rwm-center-payment-card
                         *ngFor="let item of paymentItemList; let isLast = last; let isFirst = first"

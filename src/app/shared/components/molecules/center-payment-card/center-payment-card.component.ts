@@ -9,6 +9,8 @@ import {
     Output,
     Renderer2,
     ViewChild,
+    OnChanges,
+    SimpleChanges,
 } from '@angular/core'
 
 import { CenterPaymentsService } from '@services/center-payments.service'
@@ -23,22 +25,25 @@ import { PaymentBadge, PaymentBadgeKey } from '@schemas/payment/payment-badge-st
 import _ from 'lodash'
 import dayjs from 'dayjs'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 dayjs.extend(isSameOrBefore)
 
 export interface OnCancelPayment {
     paymentItem: BasePaymentItem //  PaymentHistoryItem
+    paymentType: OnCancelPaymentType
     btLoadingFn: {
         showLoading: () => void
         hideLoading: () => void
     }
 }
+export type OnCancelPaymentType = 'payment' | 'payment-scheduled'
 
 @Component({
     selector: 'rwm-center-payment-card',
     templateUrl: './center-payment-card.component.html',
     styleUrls: ['./center-payment-card.component.scss'],
 })
-export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
+export class CenterPaymentCardComponent implements AfterViewInit, OnInit, OnChanges {
     @Input() isLast = false
     @Input() paymentItem: BasePaymentItem // PaymentHistoryItem
     @Input() center: Center
@@ -83,6 +88,16 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
         this.initPaidDateText()
         this.initPriceText()
         this.initPaymentMethodText()
+    }
+
+    ngOnChanges(changes: SimpleChanges) {
+        changesOn(changes, 'paymentItem', () => {
+            this.initPaymentItemInfo()
+            this.getBadgeState()
+            this.initPaidDateText()
+            this.initPriceText()
+            this.initPaymentMethodText()
+        })
     }
 
     ngAfterViewInit() {
@@ -144,7 +159,7 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
                 console.log('getPaymentPromotion : ', res)
                 this.totalDiscount = 0
                 this.promotionData = _.map(res, (v) => {
-                    v.fe_title = v.product_code == 'subscription_membership' ? `${v.title} (${v.count}회차)` : v.title
+                    v.fe_title = v.count > 0 ? `${v.title} (${v.count}회차)` : v.title
                     this.totalDiscount += v.discount
                     return v
                 })
@@ -162,7 +177,6 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
         this.cardNumber = `(${this.paymentItem.card_number.slice(0, 4)})`
     }
 
-    public buttonText = ''
     public buttonLoading: Loading = 'idle'
     public cancelModalButtonLoading: Loading = 'idle'
     showButtonLoading() {
@@ -171,16 +185,11 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
     hideButtonLoading() {
         this.cancelModalButtonLoading = 'idle'
     }
-    initButtonText() {
-        if (this.paymentItem.product_code == 'subscription_membership') {
-            this.buttonText = '해지'
-        } else {
-            this.buttonText = '환불'
-        }
-    }
-    onCancelPaymentButtonClick() {
+
+    onCancelPaymentButtonClick(type: OnCancelPaymentType) {
         this.onCancelPayment.emit({
             paymentItem: this.paymentItem,
+            paymentType: type,
             btLoadingFn: {
                 showLoading: () => {
                     this.showButtonLoading()
@@ -210,14 +219,14 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
             dayjs().isSameOrBefore(dayjs(this.paymentItem.start_date).add(29, 'day'))
         ) {
             this.showCancelPaymentButton = true
+        } else {
+            this.showCancelPaymentButton = false
         }
-        this.showCancelPaymentButton = false
     }
 
     initPaymentItemInfo() {
         this.initMembershipName()
         this.initCardNumber()
-        this.initButtonText()
         this.getTax()
         this.checkShowCancelPaymentButton()
     }
@@ -243,8 +252,7 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
             this.centerPaymentApi.getPaymentPromotion(this.center.id, this.paymentItem.merchant_uid).subscribe({
                 next: (res) => {
                     this.promotionData = _.map(res, (v) => {
-                        v.fe_title =
-                            v.product_code == 'subscription_membership' ? `${v.title} (${v.count}회차)` : v.title
+                        v.fe_title = v.count > 0 ? `${v.title} (${v.count}회차)` : v.title
                         this.totalDiscount += v.discount
                         return v
                     })
@@ -270,5 +278,43 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
         '환불 신청과 동시에 센터에 입장하실 수 없으며, 카드사 영업일 기준 약 2~3일 후 환불이 완료될 예정이에요.',
         '직원은 환불된 센터에 입장할 수 없지만, 회원은 앱을 통해 환불된 센터에 계속 입장할 수 있어요.',
     ]
+    public readonly cancelReservedSubscriptionDesc = [
+        '해지 신청 즉시 자동 결제가 해지되며 남은 사용일까지만 센터에 입장하실 수 있어요.',
+        '할인을 받고 있는 경우, 해지 후 이용권을 재구매하더라도 더 이상 할인 혜택이 적용되지 않아요.',
+        '직원은 해지된 센터에 입장할 수 없지만, 회원은 앱을 통해 해지된 센터에 계속 입장할 수 있어요.',
+    ]
     public cancelDesc: string[] = []
+
+    public showCancelReservedPaymentModal = false
+    openCancelReservedPaymentModal() {
+        const innerFn = () => {
+            this.showCancelReservedPaymentModal = true
+            this.cancelDesc = this.cancelReservedSubscriptionDesc
+        }
+        if (
+            this.paymentItem.product_price != this.paymentItem.amount &&
+            this.promotionData &&
+            this.promotionData.length == 0
+        ) {
+            this.buttonLoading = 'pending'
+            this.totalDiscount = 0
+            this.centerPaymentApi.getPaymentPromotion(this.center.id, this.paymentItem.merchant_uid).subscribe({
+                next: (res) => {
+                    this.promotionData = _.map(res, (v) => {
+                        v.fe_title = v.count > 0 ? `${v.title} (${v.count}회차)` : v.title
+                        this.totalDiscount += v.discount
+                        return v
+                    })
+                    this.buttonLoading = 'idle'
+                    this.isPromotionInit = true
+                    innerFn()
+                },
+                error: (err) => {
+                    this.buttonLoading = 'idle'
+                },
+            })
+        } else {
+            innerFn()
+        }
+    }
 }

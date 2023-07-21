@@ -72,6 +72,7 @@ export class CenterListComponent implements OnInit, OnDestroy {
 
     onCenterChanged(center: Center) {
         const curCenterIdx = _.findIndex(this.centerList, (v) => v.id == center.id)
+        // this.centerList[curCenterIdx] = center
         _.forEach(_.keys(center), (key) => {
             this.centerList[curCenterIdx][key] = center[key]
         })

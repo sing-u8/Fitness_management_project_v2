@@ -12,16 +12,18 @@ import {
 } from '@angular/core'
 
 import { CenterPaymentsService } from '@services/center-payments.service'
-import { PaymentStatusHelperService } from '@services/helper/payment-status-helper.service'
-import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
+import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
 
-import dayjs from 'dayjs'
 import { Loading } from '@schemas/loading'
 import { Center } from '@schemas/center'
 import { PaymentPromotion } from '@schemas/payment/promotion'
-import _ from 'lodash'
 import { BasePaymentItem } from '@schemas/base-payment-item'
 import { PaymentBadge, PaymentBadgeKey } from '@schemas/payment/payment-badge-state'
+
+import _ from 'lodash'
+import dayjs from 'dayjs'
+import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
+dayjs.extend(isSameOrBefore)
 
 export interface OnCancelPayment {
     paymentItem: BasePaymentItem //  PaymentHistoryItem
@@ -61,16 +63,16 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
     }
 
     public badgeState: PaymentBadgeKey = 'normal'
-    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
+    public badgeStateObj: PaymentBadge = _.cloneDeep(this.centerPaymentHelperService.stateBadge)
     getBadgeState() {
-        const badgeStatus = this.paymentStatusHelperService.getCenterBadgeStatus(this.center)
+        const badgeStatus = this.centerPaymentHelperService.getCenterPaymentCardBadge(this.paymentItem)
         this.badgeState = badgeStatus.paymentBadgeKey
         this.badgeStateObj = badgeStatus.paymentBadge
     }
 
     constructor(
         private centerPaymentApi: CenterPaymentsService,
-        private paymentStatusHelperService: PaymentStatusHelperService,
+        private centerPaymentHelperService: CenterPaymentHelperService,
         private cd: ChangeDetectorRef,
         private renderer: Renderer2
     ) {}
@@ -196,11 +198,28 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit {
         this.tax = this.paymentItem.amount - _.round(this.paymentItem.amount / 1.1)
     }
 
+    public showCancelPaymentButton = true
+    checkShowCancelPaymentButton() {
+        if (
+            this.paymentItem.product_code == 'subscription_membership' &&
+            dayjs().isSameOrBefore(dayjs(this.paymentItem.start_date).add(6, 'day'))
+        ) {
+            this.showCancelPaymentButton = true
+        } else if (
+            this.paymentItem.product_code != 'subscription_membership' &&
+            dayjs().isSameOrBefore(dayjs(this.paymentItem.start_date).add(29, 'day'))
+        ) {
+            this.showCancelPaymentButton = true
+        }
+        this.showCancelPaymentButton = false
+    }
+
     initPaymentItemInfo() {
         this.initMembershipName()
         this.initCardNumber()
         this.initButtonText()
         this.getTax()
+        this.checkShowCancelPaymentButton()
     }
 
     // --------------------------------------------------------------------------------------------------------------

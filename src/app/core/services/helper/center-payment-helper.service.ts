@@ -8,7 +8,7 @@ import { BasePaymentItem } from '@schemas/base-payment-item'
 @Injectable({
     providedIn: 'root',
 })
-export class PaymentStatusHelperService {
+export class CenterPaymentHelperService {
     constructor() {}
 
     public readonly stateBadge: PaymentBadge = {
@@ -72,7 +72,7 @@ export class PaymentStatusHelperService {
                 paymentBadgeKey = 'freeTrialEnd'
             }
         } else if (center.product_code == 'subscription_membership') {
-            if (dayRemains > 14) {
+            if (dayRemains > 14 || (dayRemains <= 14 && !_.isEmpty(center.next_start_date))) {
                 paymentBadgeKey = 'normal'
             } else if (dayRemains <= 14 && dayRemains > 1) {
                 paymentBadge.expirationExpected.day = dayRemains
@@ -131,6 +131,10 @@ export class PaymentStatusHelperService {
             } else {
                 paymentBadgeKey = 'expired'
             }
+        }
+        return {
+            paymentBadgeKey,
+            paymentBadge,
         }
     }
 }

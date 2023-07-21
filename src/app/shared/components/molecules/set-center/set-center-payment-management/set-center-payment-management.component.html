@@ -50,6 +50,13 @@
     (open)="openPaymentMethodManagement = true"
 ></rwm-payment-method-management-modal>
 
+<rwa-modal
+    [(visible)]="showDisableToGoPaymentPageModal"
+    [data]="disableToGoPaymentPageModalData"
+    [type]="'oneButton'"
+    (confirm)="showDisableToGoPaymentPageModal = false"
+></rwa-modal>
+
 <!--<rwm-register-card-modal-->
 <!--    [(visible)]="showRegisterCardModal"-->
 <!--    [isError]="isRegisterCardError"-->

@@ -29,6 +29,7 @@ import { OnCancelPayment } from '@shared/components/molecules/center-payment-car
 import { forkJoin } from 'rxjs'
 
 import _ from 'lodash'
+import { ModalInput } from '@schemas/components/modal'
 
 @Component({
     selector: 'rwm-set-center-payment-management',
@@ -65,10 +66,6 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     // -------------------------------------------------------------------------------------
 
     public openPaymentMethodManagement = false
-
-    goPayment() {
-        this.router.navigate([`${this.center.name}`, 'payment'])
-    }
 
     public paymentLoading: Loading = 'idle'
     public paymentItemList: BasePaymentItem[] = []
@@ -122,5 +119,26 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                     },
                 })
         }
+    }
+
+    // -------------------------------------------------------------------------------------
+    goPayment() {
+        if (this.checkIsAbleToGoPaymentPage()) {
+            this.router.navigate([`${this.center.name}`, 'payment'])
+        } else {
+            this.showDisableToGoPaymentPageModal = true
+        }
+    }
+
+    public showDisableToGoPaymentPageModal = false
+    public disableToGoPaymentPageModalData: ModalInput = {
+        title: '이미 사용 예정인 이용권이 있어요.',
+        desc: `새로운 이용권을 구매하기 전에 사용 예정인
+                이용권을 해지하거나 환불해 주세요.`,
+        confirm: '확인',
+    }
+    checkIsAbleToGoPaymentPage() {
+        // 이후에 수정할 필요 있음
+        return !(this.center.next_start_date && this.center.next_end_date)
     }
 }

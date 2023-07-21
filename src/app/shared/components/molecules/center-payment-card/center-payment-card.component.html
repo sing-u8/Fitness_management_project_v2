@@ -49,6 +49,7 @@
                 </ng-container>
                 <ng-container *ngIf="paymentItem['status'] == 'paid'">
                     <rwa-ghost-button
+                        *ngIf="showCancelPaymentButton"
                         [borderWidth]="'1px'"
                         [padding]="'5px 11px 3px'"
                         [status]="buttonLoading"

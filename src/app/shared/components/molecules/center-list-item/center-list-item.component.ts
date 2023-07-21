@@ -7,7 +7,7 @@ import _ from 'lodash'
 
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
-import { PaymentStatusHelperService } from '@services/helper/payment-status-helper.service'
+import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
 
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
@@ -27,14 +27,12 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
 
     public user: User
 
-
-
     public setCenterModalVisible = false
     constructor(
         private router: Router,
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
-        private paymentStatusHelperService: PaymentStatusHelperService,
+        private centerPaymentHelperService: CenterPaymentHelperService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
@@ -100,16 +98,17 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     // -------------------------------------------------------------------------------------------------------------------
 
     public badgeState: PaymentBadgeKey = 'normal'
-    public badgeStateObj: PaymentBadge = _.cloneDeep(this.paymentStatusHelperService.stateBadge)
+    public badgeStateObj: PaymentBadge = _.cloneDeep(this.centerPaymentHelperService.stateBadge)
 
     public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
     getBadgeState() {
-        const badgeStatus = this.paymentStatusHelperService.getCenterBadgeStatus(this.center)
+        const badgeStatus = this.centerPaymentHelperService.getCenterBadgeStatus(this.center)
         this.badgeState = badgeStatus.paymentBadgeKey
         this.badgeStateObj = badgeStatus.paymentBadge
     }
 
     getHeaderState() {
+        const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (this.center.connection_status == 'employee_connection_status_pending') {
             this.headerState = 'invite'
         } else if (this.center.product_code == 'free_trial_membership') {
@@ -120,9 +119,12 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             }
         } else if (this.center.product_code == 'subscription_membership') {
             if (this.badgeState == 'normal') {
-                this.headerState = 'normal'
+                if (dayRemains <= 5) {
+                    this.headerState = 'subscribeFailed'
+                } else {
+                    this.headerState = 'normal'
+                }
             } else if (this.badgeState == 'expirationExpected' || this.badgeState == 'expiredToday') {
-                const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
                 if (dayRemains <= 5) {
                     this.headerState = 'subscribeFailed'
                 } else {

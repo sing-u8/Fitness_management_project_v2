@@ -18,6 +18,8 @@ import { CenterEmployeeService } from '@services/center-employee.service'
 import { Center } from '@schemas/center'
 import { TabInput } from '@schemas/components/tab'
 
+import _ from 'lodash'
+
 @Component({
     selector: 'rwm-set-center-modal',
     templateUrl: './set-center-modal.component.html',
@@ -35,12 +37,13 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
 
-    public categoris: TabInput[] = [
+    private readonly categoriesInit: TabInput[] = [
         { name: '센터 정보', selected: true },
         { name: '직원 관리', selected: false },
         { name: '운영 정책', selected: false },
         { name: '이용권 결제 관리', selected: false },
     ]
+    public categories: TabInput[] = _.cloneDeep(this.categoriesInit)
 
     public categInitObj = {
         centerInfo: false,
@@ -76,9 +79,9 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
+                this.categories = _.cloneDeep(this.categoriesInit)
             }
         })
-        detectChangesOn(changes, 'center', (v) => {})
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
@@ -86,8 +89,8 @@ export class SetCenterModalComponent implements OnChanges, AfterViewChecked, Aft
     // -----------------------------------------------------------------------------------------------------------
 
     goEmployeeManagement() {
-        this.categoris[0].selected = false
-        this.categoris[1].selected = true
+        this.categories[0].selected = false
+        this.categories[1].selected = true
     }
 
     // -----------------------------------------------------------------------------------------------------------

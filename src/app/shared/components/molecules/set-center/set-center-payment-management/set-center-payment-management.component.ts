@@ -41,8 +41,6 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     public user: User
 
     @Input() center: Center
-    @Input() isInit = false
-    @Output() isInitChange = new EventEmitter<boolean>()
     @Input() isOpen = false
 
     @Output() closeModal = new EventEmitter()
@@ -60,7 +58,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     }
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'isOpen', (v) => {
-            if (v && !this.isInit) {
+            if (v) {
                 this.getPaymentItems()
             }
         })

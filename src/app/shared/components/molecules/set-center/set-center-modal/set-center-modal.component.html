@@ -29,40 +29,37 @@
                     </rwa-icon-ghost-button>
                 </div>
                 <div class="category">
-                    <rwa-tab-sm [tabs]="categoris" (onTabItemSelected)="categoris = $event"></rwa-tab-sm>
+                    <rwa-tab-sm [tabs]="categories" (onTabItemSelected)="categories = $event"></rwa-tab-sm>
                     <div class="border-bottom"></div>
                 </div>
             </div>
             <div class="body" #body>
                 <!-- 센터 정보 -->
                 <rwm-set-center-info
+                    *ngIf="categories[0].selected"
                     class="center-info"
-                    [class.open]="categoris[0].selected"
-                    [isOpen]="categoris[0].selected && visible"
+                    [isOpen]="categories[0].selected && visible"
                     [center]="center"
                     (goEmployeeManagement)="goEmployeeManagement()"
                 ></rwm-set-center-info>
                 <!-- 직원 관리 -->
                 <rwm-set-center-employee-management
+                    *ngIf="categories[1].selected"
                     class="employee-management"
-                    [class.open]="categoris[1].selected"
                     [center]="center"
-                    [(isEmpInit)]="categInitObj.employeeManagement.employeeListInit"
-                    [(isRpsInit)]="categInitObj.employeeManagement.rolePermissionInit"
-                    [isOpen]="categoris[1].selected && visible"
+                    [isOpen]="categories[1].selected && visible"
                 ></rwm-set-center-employee-management>
                 <!-- 운영 정책 -->
                 <rwm-set-center-policy-management
+                    *ngIf="categories[2].selected"
                     class="policy-management"
-                    [class.open]="categoris[2].selected"
                 ></rwm-set-center-policy-management>
                 <!-- 이용권 결제 관리 -->
                 <rwm-set-center-payment-management
+                    *ngIf="categories[3].selected"
                     class="payment-management"
-                    [class.open]="categoris[3].selected"
-                    [(isInit)]="categInitObj.centerPaymentManagement"
                     [center]="center"
-                    [isOpen]="categoris[3].selected && visible"
+                    [isOpen]="categories[3].selected && visible"
                     (closeModal)="onClose()"
                 ></rwm-set-center-payment-management>
             </div>

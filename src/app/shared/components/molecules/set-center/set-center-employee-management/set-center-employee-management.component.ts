@@ -37,16 +37,11 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
 
     @Input() center: Center
 
-    @Input() isEmpInit: boolean
-    @Output() isEmpInitChange = new EventEmitter<boolean>()
-    @Input() isRpsInit: boolean
-    @Output() isRpsInitChange = new EventEmitter<boolean>()
-
     @Input() isOpen: boolean
     @Output() isOpenChange = new EventEmitter<boolean>()
 
     empInit() {
-        if (this.isEmpInit || !this.isOpen) return
+        // if (this.isEmpInit || !this.isOpen) return
         this.empLoading = 'pending'
         this.centerEmployeeService.getEmployee(this.center.id).subscribe({
             next: (emps) => {
@@ -54,33 +49,24 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
                 this.administrators = emps.administrator
                 this.owners = emps.owner
                 this.employeeNumber = this.instructors.length + this.administrators.length + this.owners.length
-
                 this.empLoading = 'idle'
-                this.isEmpInit = true
-                this.isEmpInitChange.emit(this.isEmpInit)
             },
             error: (err) => {
                 this.empLoading = 'idle'
-                this.isEmpInit = false
-                this.isEmpInitChange.emit(this.isEmpInit)
             },
         })
     }
     rpsInit() {
-        if (this.isRpsInit || !this.isOpen || !this.permissionObj.settings_update_permission) return
+        // if (this.isRpsInit || !this.isOpen || !this.permissionObj.settings_update_permission) return
+        if (!this.permissionObj.settings_update_permission) return
         this.rpsLoading = 'pending'
         this.centerRolePermissionService.getRolePermission(this.center.id).subscribe({
             next: (rps) => {
                 this.rolePermission = rps
-
                 this.rpsLoading = 'idle'
-                this.isRpsInit = true
-                this.isRpsInitChange.emit(this.isRpsInit)
             },
             error: (err) => {
                 this.rpsLoading = 'idle'
-                this.isRpsInit = false
-                this.isRpsInitChange.emit(this.isRpsInit)
             },
         })
     }
@@ -110,8 +96,9 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         console.log('ngOnInit -- set center employee management ')
     }
     ngOnChanges(changes: SimpleChanges) {
-        detectChangesOn(changes, 'isOpen', (v) => {
-            if (v) {
+        detectChangesOn(changes, 'center', (curValue: Center, prevValue: Center) => {
+            if (_.isObject(curValue) && curValue.id != prevValue?.id && this.isOpen) {
+                console.log('detectChangesOn -- set center employee management : ', curValue, prevValue, this.isOpen)
                 this.initPermission()
                 this.rpsInit()
                 this.empInit()

@@ -42,15 +42,11 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     @Input() center: Center
     @Input() isOpen = false
 
-    @Input() isInit: boolean
-    @Output() isInitChange = new EventEmitter<boolean>()
-
     @Output() goEmployeeManagement = new EventEmitter()
 
     @ViewChild('businessLicense') businessLicense_el: ElementRef
 
-    public centerPicture: FileList = undefined
-    public centerPictureSrc = ''
+    prevCenter: Center = undefined
     onCenterPictureChange(res: { pictureFile: FileList; pictureSrc: string }) {
         this.fileService.uploadFile('file_type_center_picture', res.pictureFile, this.center.id).subscribe({
             next: (v) => {
@@ -142,7 +138,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     break
                 case 'business-license':
                     this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
-                    if (!_.isEmpty(this.centerInfoList[idx].value)) break
+                    if (!_.isEmpty(this.centerInfoList[idx].value) && this.center.id == this.prevCenter?.id) break
                     this.businessLicenseLoading = 'pending'
                     this.fileService
                         .getFile({ center_id: this.center.id, type_code: 'file_type_center_business_registration' })
@@ -182,8 +178,10 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private cd: ChangeDetectorRef
     ) {}
     ngOnChanges(changes: SimpleChanges) {
-        changesOn(changes, 'isOpen', (v) => {
-            if (v) {
+        detectChangesOn(changes, 'center', (curValue, prevValue) => {
+            console.log('detectChangesOn -- set center info : ', curValue)
+            this.prevCenter = prevValue
+            if (curValue) {
                 this.centerInfoInit()
             }
         })

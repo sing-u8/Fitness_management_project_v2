@@ -38,7 +38,7 @@ export class CenterNoticeService {
             this.SERVER +
             `/${centerId}/notice` +
             (page ? `&page=${page}` : '') +
-            (pageSize ? `&pageSize=${pageSize}` : '')
+            (pageSize ? `&page_size=${pageSize}` : '')
 
         const options = {
             headers: new HttpHeaders({

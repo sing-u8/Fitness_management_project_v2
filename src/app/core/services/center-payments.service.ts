@@ -40,7 +40,7 @@ export class CenterPaymentsService {
             this.SERVER +
             `/${centerId}/payments` +
             (page ? `?page=${page}` : '') +
-            (pageSize ? `&pageSize=${pageSize}` : '')
+            (pageSize ? `&page_size=${pageSize}` : '')
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
                 return res.dataset

@@ -22,7 +22,7 @@ export class UsersCenterService {
             this.SERVER +
             `/${userId}/center?platform=${isApp ? 'app' : 'web'}` +
             (page ? `&page=${page}` : '') +
-            (pageSize ? `&pageSize=${pageSize}` : '')
+            (pageSize ? `&page_size=${pageSize}` : '')
 
         const options = {
             headers: new HttpHeaders({

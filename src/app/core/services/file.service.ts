@@ -67,7 +67,7 @@ export class FileService {
             this.SERVER +
             `?type_code=${param.type_code}&center_id=${param.center_id}` +
             (param.page ? `&page=${param.page}` : ``) +
-            (param.pageSize ? `&pageSize=${param.pageSize}` : ``)
+            (param.pageSize ? `&page_size=${param.pageSize}` : ``)
 
         const options = {
             headers: new HttpHeaders({

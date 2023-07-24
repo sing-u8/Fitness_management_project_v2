@@ -1043,6 +1043,24 @@
                     <rwa-svg-user-list [width]="'24px'" [height]="'24px'"></rwa-svg-user-list>
                 </ng-template>
             </rwa-icon-ghost-button>
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                #igb1
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="회원 리스트"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                borderColor="var(--gray-60)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-user-list
+                        [width]="'24px'"
+                        [height]="'24px'"
+                        [color]="'var(--gray-60)'"
+                    ></rwa-svg-user-list>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
         <p class="v-padding"></p>
         <h3>아이콘 M</h3>
@@ -1061,6 +1079,36 @@
                     <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-ghost-button>
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="자세히 보기"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                borderColor="var(--red-100)"
+                hoverBgColor="var(--red-5)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-pencil [width]="'22px'" [height]="'22px'" [color]="'var(--red-100)'"></rwa-svg-pencil>
+                </ng-template>
+            </rwa-icon-ghost-button>
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="자세히 보기"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                borderColor="var(--red-100)"
+                hoverBgColor="var(--red-5)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-pencil [width]="'22px'" [height]="'22px'" [color]="'var(--gray-60)'"></rwa-svg-pencil>
+                </ng-template>
+            </rwa-icon-ghost-button>
         </div>
         <p class="v-padding"></p>
         <h3>아이콘 S</h3>
@@ -1077,6 +1125,25 @@
             >
                 <ng-template iconGhostBtIdleContent>
                     <rwa-svg-dots-three [width]="'19px'" [height]="'19px'"></rwa-svg-dots-three>
+                </ng-template>
+            </rwa-icon-ghost-button>
+            <p class="h-padding"></p>
+            <rwa-icon-ghost-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="자세히 보기"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                borderColor="var(--gray-60)"
+            >
+                <ng-template iconGhostBtIdleContent>
+                    <rwa-svg-dots-three
+                        [width]="'19px'"
+                        [height]="'19px'"
+                        [color]="'var(--gray-60)'"
+                    ></rwa-svg-dots-three>
                 </ng-template>
             </rwa-icon-ghost-button>
         </div>
@@ -1129,6 +1196,21 @@
                     <rwa-svg-pencil [width]="'24px'" [height]="'24px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                [sizeType]="'lg'"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil [width]="'24px'" [height]="'24px'" [color]="'var(--gray-60)'"></rwa-svg-pencil>
+                </ng-template>
+            </rwa-icon-button>
         </div>
         <p class="v-padding"></p>
         <h3>아이콘 M</h3>
@@ -1174,6 +1256,22 @@
             >
                 <ng-template iconBtIdleContent>
                     <rwa-svg-pencil [width]="'22px'" [height]="'22px'"></rwa-svg-pencil>
+                </ng-template>
+            </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                [sizeType]="'md'"
+                borderRadius="14px"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil [width]="'22px'" [height]="'22px'" [color]="'var(--gray-60)'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
         </div>
@@ -1223,15 +1321,31 @@
                     <rwa-svg-pencil [width]="'19px'" [height]="'19px'"></rwa-svg-pencil>
                 </ng-template>
             </rwa-icon-button>
+            <p class="h-padding"></p>
+            <rwa-icon-button
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="수정하기"
+                [rwTooltipDisabled]="true"
+                [disabled]="true"
+                [sizeType]="'sm'"
+                borderRadius="12px"
+                bgColor="var(--white)"
+                hoverBgColor="var(--gray-30)"
+            >
+                <ng-template iconBtIdleContent>
+                    <rwa-svg-pencil [width]="'19px'" [height]="'19px'" [color]="'var(--gray-60)'"></rwa-svg-pencil>
+                </ng-template>
+            </rwa-icon-button>
         </div>
         <p class="v-padding"></p>
         <p class="v-padding"></p>
-        <h3>아이콘 XS (작업중)</h3>
+        <h3>아이콘 XS</h3>
         <p class="v-padding"></p>
         <div class="d-flex align-items-center">
             <p class="h-padding"></p>
-            <rwa-xs-icon-button class="ccd" [width]="'26px'" [height]="'26px'">
-                <div class="caret-circle-down"></div>
+            <rwa-xs-icon-button [width]="'26px'" [height]="'26px'">
+                <div class="ccd"></div>
             </rwa-xs-icon-button>
             <p class="h-padding"></p>
             <div
@@ -1239,7 +1353,8 @@
                 [ngStyle]="{
                     width: '40px',
                     height: '40px',
-                    'background-color': 'var(--gray-90)'
+                    'background-color': 'var(--gray-90)',
+                    'border-radius': '10px'
                 }"
             >
                 <rwa-xs-icon-button [type]="'fill'" width="27px" height="27px" borderRadius="12px">
@@ -1330,6 +1445,28 @@
         <rwa-tab-sm [tabs]="tabInputs3" (onTabItemSelected)="onItemSelected3($event)"></rwa-tab-sm>
         <div class="h-padding"></div>
         <rwa-tab-sm [tabs]="tabInputs4" (onTabItemSelected)="tabInputs4 = $event"></rwa-tab-sm>
+    </div>
+    <p class="v-padding"></p>
+    <h2>탭 S- 폴더</h2>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-sm-icon-tab [tabs]="tabInputs3" (onTabItemSelected)="onItemSelected3($event)"></rwa-sm-icon-tab>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-sm-icon-tab
+            [tabs]="tabInputs4"
+            [tabColor]="'rgba(255, 232, 133, 1)'"
+            (onTabItemSelected)="tabInputs4 = $event"
+        ></rwa-sm-icon-tab>
+    </div>
+    <p class="v-padding"></p>
+    <div class="d-flex align-items-center">
+        <rwa-sm-icon-tab
+            [tabs]="tabInputs4"
+            [tabColor]="'rgba(187, 225, 123, 1)'"
+            (onTabItemSelected)="tabInputs4 = $event"
+        ></rwa-sm-icon-tab>
     </div>
     <p class="v-padding"></p>
     <h2>페이지 버튼</h2>
@@ -2211,149 +2348,149 @@
     </div>
     <p class="v-padding"></p>
     <p class="v-padding"></p>
-<!--    <h1>내 정보</h1>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
+    <!--    <h1>내 정보</h1>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
 
-<!--    <rwa-button (onClick)="showMyProfileModal = !showMyProfileModal">-->
-<!--        <ng-template btIdleContent>내 정보 버튼</ng-template>-->
-<!--    </rwa-button>-->
+    <!--    <rwa-button (onClick)="showMyProfileModal = !showMyProfileModal">-->
+    <!--        <ng-template btIdleContent>내 정보 버튼</ng-template>-->
+    <!--    </rwa-button>-->
 
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <rwa-button (onClick)="showMyProfileModal2 = !showMyProfileModal2">-->
-<!--        <ng-template btIdleContent>내 정보 버튼</ng-template>-->
-<!--    </rwa-button>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h2>내 정보 / 프로필 사진</h2>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-profile-photo [user]="dummyUser2"></rwm-profile-photo>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h1>내 센터</h1>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h2>내 센터 / 센터 리스트</h2>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>내 센터 / 센터 리스트 / 초대 및 기본</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>내 센터 / 센터 리스트 / 무료 체험</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[1]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[2]"></rwm-center-list-item>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>내 센터 / 센터 리스트 / 1년, 2년 이용권</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-list-item [center]="centerList[3]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[4]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[5]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[6]"></rwm-center-list-item>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>내 센터 / 센터 리스트 / 월 이용권</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-list-item [center]="centerList[7]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[8]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[9]"></rwm-center-list-item>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-list-item [center]="centerList[10]"></rwm-center-list-item>-->
-<!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <rwa-button (onClick)="showMyProfileModal2 = !showMyProfileModal2">-->
+    <!--        <ng-template btIdleContent>내 정보 버튼</ng-template>-->
+    <!--    </rwa-button>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h2>내 정보 / 프로필 사진</h2>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-profile-photo [user]="dummyUser"></rwm-profile-photo>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-profile-photo [user]="dummyUser2"></rwm-profile-photo>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h1>내 센터</h1>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h2>내 센터 / 센터 리스트</h2>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>내 센터 / 센터 리스트 / 초대 및 기본</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>내 센터 / 센터 리스트 / 무료 체험</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[0]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[1]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[2]"></rwm-center-list-item>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>내 센터 / 센터 리스트 / 1년, 2년 이용권</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-list-item [center]="centerList[3]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[4]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[5]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[6]"></rwm-center-list-item>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>내 센터 / 센터 리스트 / 월 이용권</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-list-item [center]="centerList[7]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[8]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[9]"></rwm-center-list-item>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-list-item [center]="centerList[10]"></rwm-center-list-item>-->
+    <!--    </div>-->
 
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h2>메인 메뉴 / 센터 정보 드롭다운</h2>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-info-dropdown [center]="centers[0]"></rwm-center-info-dropdown>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-info-dropdown [center]="centers[1]" [centerList]="centers"></rwm-center-info-dropdown>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h2>메인 메뉴 / 무료 체험 및 이용권 기간 안내</h2>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 무료 체험</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-product-info-box [center]="centerList[0]"></rwm-center-product-info-box>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-product-info-box [center]="centerList[1]"></rwm-center-product-info-box>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 1년, 2년 이용권</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-product-info-box [center]="centerList[4]"></rwm-center-product-info-box>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-product-info-box [center]="centerList[5]"></rwm-center-product-info-box>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 월 이용권</h3>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwm-center-product-info-box [center]="centerList[8]"></rwm-center-product-info-box>-->
-<!--        <div class="h-padding"></div>-->
-<!--        <rwm-center-product-info-box [center]="centerList[9]"></rwm-center-product-info-box>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h1>센터 설정</h1>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center">-->
-<!--        <rwa-button (onClick)="openSetCenter = true">-->
-<!--            <ng-template btIdleContent>센터 설정</ng-template>-->
-<!--        </rwa-button>-->
-<!--    </div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <h2>센터 설정 / 직원 카드</h2>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <div class="d-flex align-items-center"></div>-->
-<!--    <p class="v-padding"></p>-->
-<!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h2>메인 메뉴 / 센터 정보 드롭다운</h2>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-info-dropdown [center]="centers[0]"></rwm-center-info-dropdown>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-info-dropdown [center]="centers[1]" [centerList]="centers"></rwm-center-info-dropdown>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h2>메인 메뉴 / 무료 체험 및 이용권 기간 안내</h2>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 무료 체험</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-product-info-box [center]="centerList[0]"></rwm-center-product-info-box>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-product-info-box [center]="centerList[1]"></rwm-center-product-info-box>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 1년, 2년 이용권</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-product-info-box [center]="centerList[4]"></rwm-center-product-info-box>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-product-info-box [center]="centerList[5]"></rwm-center-product-info-box>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h3>메인 메뉴 / 무료 체험 및 이용권 기간 안내 &#45;&#45; 월 이용권</h3>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwm-center-product-info-box [center]="centerList[8]"></rwm-center-product-info-box>-->
+    <!--        <div class="h-padding"></div>-->
+    <!--        <rwm-center-product-info-box [center]="centerList[9]"></rwm-center-product-info-box>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h1>센터 설정</h1>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center">-->
+    <!--        <rwa-button (onClick)="openSetCenter = true">-->
+    <!--            <ng-template btIdleContent>센터 설정</ng-template>-->
+    <!--        </rwa-button>-->
+    <!--    </div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <h2>센터 설정 / 직원 카드</h2>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <div class="d-flex align-items-center"></div>-->
+    <!--    <p class="v-padding"></p>-->
+    <!--    <p class="v-padding"></p>-->
 </div>
 
 <rwm-my-profile-modal

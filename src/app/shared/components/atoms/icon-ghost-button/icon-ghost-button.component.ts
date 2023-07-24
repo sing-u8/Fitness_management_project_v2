@@ -65,9 +65,11 @@ export class IconGhostButtonComponent implements AfterViewInit, OnChanges {
 
     @Input() hoverBgColor = 'var(--gray-30)'
     onHover() {
+        if (this.disabled) return
         this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.hoverBgColor)
     }
     onHoverOut() {
+        if (this.disabled) return
         this.renderer.setStyle(this.l_button_el.nativeElement, 'backgroundColor', this.bgColor)
     }
 
@@ -83,6 +85,8 @@ export class IconGhostButtonComponent implements AfterViewInit, OnChanges {
     @Input() loadingColor = 'var(--white)'
     @Input() loadingName = 'icon-ghost-button-loading'
     @Input() loadingMargin = '0 0 0 0'
+
+    @Input() disabled = false
 
     @Input() status: Loading = 'idle'
 

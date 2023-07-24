@@ -11,6 +11,7 @@ div.l-tap {
         display: flex;
         align-items: center;
         position: relative;
+
         button {
             box-sizing: border-box;
             outline: none;
@@ -29,46 +30,50 @@ div.l-tap {
             &:not(:first-of-type) {
                 margin-left: 30px;
             }
-
-            div.name {
+            .name {
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 @include rw-type-b(1.7rem, 28.3px, var(--gray-80));
                 text-align: center;
             }
-            div.underline {
+            .icon {
+                margin-right: 6px;
+            }
+            .underline,
+            .icon {
+                opacity: 0.3;
+            }
+            .underline {
                 display: none;
                 width: 100%;
                 height: 5px;
-                background-color: var(--red-100);
                 border-radius: 5px;
             }
 
             &:hover,
             &:active {
-                div.name {
+                .name {
                     color: var(--gray-90);
                 }
-                div.underline {
+                .underline,
+                .icon {
+                    opacity: 0.4;
+                }
+                .underline {
                     display: block;
-                    background-color: var(--gray-50);
                 }
             }
-
             &.selected {
-                div.name {
-                    color: var(--red-100);
+                .name {
+                    color: var(--font-color);
                 }
-                div.underline {
+                .underline,
+                .icon {
+                    opacity: 1;
+                }
+                .underline {
                     display: block;
-                    background-color: var(--red-100);
-                }
-                &:hover,
-                &:active {
-                    div.name {
-                        color: var(--red-200);
-                    }
-                    div.underline {
-                        background-color: var(--red-200);
-                    }
                 }
             }
 

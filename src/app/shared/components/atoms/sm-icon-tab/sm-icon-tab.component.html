@@ -1,0 +1,24 @@
+<div class="l-tap user-select-none" (mousedown)="onMouseDown()" (mouseup)="onMouseUp()">
+    <div class="l-button">
+        <button
+            *ngFor="let item of tabs; let idx = index"
+            #button
+            type="button"
+            [class.selected]="item.selected"
+            [class.focus]="!isMouseDown"
+            (click)="onItemSelected(idx)"
+        >
+            <div class="name">
+                <rwa-svg-folder-open class="icon" *ngIf="item.selected" [color]="tabColor"></rwa-svg-folder-open>
+                <rwa-svg-folder class="icon" *ngIf="!item.selected" [color]="tabColor"></rwa-svg-folder>
+                <span>{{ item.name }}</span>
+            </div>
+            <div
+                [ngStyle]="{
+                    'background-color': tabColor
+                }"
+                class="underline"
+            ></div>
+        </button>
+    </div>
+</div>

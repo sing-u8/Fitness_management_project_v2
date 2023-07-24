@@ -532,6 +532,24 @@ ng-scrollbar {
         --scrollbar-track-transition: height ease-out 0ms, width ease-out 0ms;
         //border: 1px solid gray;
     }
+    &.rw-scroll-middle {
+        --scrollbar-size: 7px;
+        --scrollbar-thumb-color: var(--gray-60);
+        --scrollbar-thumb-hover-color: var(--gray-100);
+        --scrollbar-border-radius: 10px;
+        --scrollbar-thumb-transition: height ease-out 0ms, width ease-out 0ms;
+        --scrollbar-track-transition: height ease-out 0ms, width ease-out 0ms;
+        //border: 1px solid gray;
+    }
+    &.rw-scroll-small {
+        --scrollbar-size: 7px;
+        --scrollbar-thumb-color: var(--gray-60);
+        --scrollbar-thumb-hover-color: var(--gray-100);
+        --scrollbar-border-radius: 10px;
+        --scrollbar-thumb-transition: height ease-out 0ms, width ease-out 0ms;
+        --scrollbar-track-transition: height ease-out 0ms, width ease-out 0ms;
+        //border: 1px solid gray;
+    }
 }
 
 .w-100 {

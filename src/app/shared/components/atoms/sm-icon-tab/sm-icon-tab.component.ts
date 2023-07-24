@@ -4,12 +4,13 @@ import _ from 'lodash'
 import { TabInput } from '@schemas/components/tab'
 
 @Component({
-    selector: 'rwa-tab-sm',
-    templateUrl: './tab-sm.component.html',
-    styleUrls: ['./tab-sm.component.scss'],
+    selector: 'rwa-sm-icon-tab',
+    templateUrl: './sm-icon-tab.component.html',
+    styleUrls: ['./sm-icon-tab.component.scss'],
 })
-export class TabSmComponent {
+export class SmIconTabComponent {
     @Input() tabs: Array<TabInput> = []
+    @Input() tabColor = 'var(--red-100)'
 
     @Output() onTabItemSelected = new EventEmitter<TabInput[]>()
 
@@ -31,6 +32,5 @@ export class TabSmComponent {
     onMouseUp() {
         this.isMouseDown = false
     }
-
     constructor() {}
 }

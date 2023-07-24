@@ -15,6 +15,7 @@
     (mouseup)="onMouseUp()"
     (focusin)="onFocus()"
     (focusout)="onFocusOut()"
+    [disabled]="disabled"
 >
     <div *ngIf="status == 'idle'" class="idle d-flex align-items-center justify-content-center">
         <ng-template [ngTemplateOutlet]="idleRef.templateRef"></ng-template>

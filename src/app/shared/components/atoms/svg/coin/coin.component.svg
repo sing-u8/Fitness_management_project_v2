@@ -1,7 +1,7 @@
 <svg
     class="d-flex align-items-center justify-content-center"
     [style.width]="width"
-    [style.height]="width"
+    [style.height]="height"
     [style.margin]="margin"
     [attr.fill] = "bgColor"
     viewBox="0 0 24 24"

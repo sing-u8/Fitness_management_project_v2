@@ -36,6 +36,8 @@ import { QuestionDuotoneComponent } from './svg/question-duotone/question-duoton
 import { CaretUpComponent } from './svg/caret-up/caret-up.component'
 import { CoinComponent } from '@shared/components/atoms/svg/coin/coin.component'
 import { InfoComponent } from './svg/info/info.component'
+import { FolderComponent } from './svg/folder/folder.component'
+import { FolderOpenComponent } from './svg/folder-open/folder-open.component'
 
 // comp
 import {
@@ -89,6 +91,7 @@ import { FlipComponent } from './flip/flip.component'
 import { AddCardButtonComponent } from './add-card-button/add-card-button.component'
 import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
 import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.component'
+import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
 
 @NgModule({
     declarations: [
@@ -117,6 +120,8 @@ import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.componen
         CoinComponent,
         InfoComponent,
         CircleBoldComponent,
+        FolderComponent,
+        FolderOpenComponent,
         // etc
         // components
         ButtonComponent,
@@ -161,6 +166,7 @@ import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.componen
         AddCardButtonComponent,
 
         VacantTooltipComponent,
+        SmIconTabComponent,
     ],
     imports: [
         ScrollViewport,
@@ -197,6 +203,8 @@ import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.componen
         CoinComponent,
         InfoComponent,
         CircleBoldComponent,
+        FolderComponent,
+        FolderOpenComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,
@@ -239,8 +247,8 @@ import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.componen
         BadgeComponent,
         FlipComponent,
         AddCardButtonComponent,
-
         VacantTooltipComponent,
+        SmIconTabComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

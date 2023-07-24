@@ -1,4 +1,4 @@
-@import '../../../../../styles';
+@import './src/styles.scss';
 * {
     @include css-init;
 }
@@ -36,5 +36,10 @@
     }
     &.border-none {
         border: none !important;
+    }
+
+    &:disabled {
+        cursor: not-allowed;
+        border: 1px solid var(--gray-60) !important;
     }
 }

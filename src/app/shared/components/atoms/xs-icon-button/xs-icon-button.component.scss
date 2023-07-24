@@ -12,6 +12,7 @@
     box-sizing: border-box;
     cursor: pointer;
     background-color: transparent;
+
     &.focused {
         &:focus {
             border: 2px solid var(--font-color);

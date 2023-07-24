@@ -95,6 +95,9 @@ div.payment-error-modal {
     min-height: 24px;
 }
 .ccd {
+    width: 24px;
+    height: 24px;
+    background-image: url('/assets/icons/arrow/caret-circle-down.svg');
     &:active {
         background-image: url('/assets/icons/arrow/caret-circle-down-duotone.svg');
     }

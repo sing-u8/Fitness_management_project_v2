@@ -444,7 +444,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     public cancelEditEmplyeeData: ModalInput = {
         title: `직원 정보 수정을 취소하시겠어요?`,
         desc: `취소 시, 수정한 내용이 모두 삭제돼요.`,
-        cancel: '아니요',
+        cancel: '계속 수정',
         confirm: '수정 취소',
     }
     onEditCancelClick() {

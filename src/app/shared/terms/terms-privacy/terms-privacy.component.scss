@@ -35,7 +35,8 @@
     .rw-modal {
         position: relative;
         width: 540px;
-        height: 540px;
+        max-height: 940px;
+        height: calc(100vh - 120px);
         padding: 0 0 15px 0;
         border: 1px solid var(--border-color);
         border-radius: 20px;

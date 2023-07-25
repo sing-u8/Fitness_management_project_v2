@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, Output, EventEmitter } from '@angular/core'
 import { Center } from '@schemas/center'
 import { Loading } from '@schemas/loading'
 
@@ -11,5 +11,9 @@ export class CenterInfoDropdownComponent {
     @Input() center: Center
     @Input() centerList: Center[] = []
     @Input() centerListLoading: Loading = 'idle'
+    @Input() isInvitedCenterExist = false
+
+    @Output() onCenterClick = new EventEmitter<Center>()
+    @Output() onRedwhaleHomeClick = new EventEmitter<any>()
     constructor() {}
 }

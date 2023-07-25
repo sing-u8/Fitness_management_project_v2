@@ -29,21 +29,37 @@
                                         alt="user-picture.png"
                                     />
                                 </div>
-                                <div class="d-flex flex-column">
+                                <div class="d-flex flex-column" (rwClickOutside)="showCenterDropdown = false">
                                     <rwa-text-button
                                         class="center-title-button"
                                         (onClick)="showCenterDropdown = !showCenterDropdown"
                                     >
-                                        <span class="rw-type-b20 center-title line-ellipsis-one">{{
-                                            center.name
-                                        }}</span>
+                                        <div class="l-center-title">
+                                            <span class="rw-type-b20 center-title line-ellipsis-one">
+                                                {{ center.name }}
+                                            </span>
+                                            <rwa-tooltip
+                                                *ngIf="isInvitedCenterExist && !showCenterDropdown"
+                                                class="center-invite"
+                                                [textObj]="inviteTooltip"
+                                                colorType="red"
+                                                [type]="'normal'"
+                                                [minWidth]="'100px'"
+                                                [tail]="'top'"
+                                                [movable]="true"
+                                            ></rwa-tooltip>
+                                        </div>
                                     </rwa-text-button>
+
                                     <rwm-center-info-dropdown
                                         class="center-dropdown"
                                         [class.show-dropdown]="showCenterDropdown"
                                         [center]="center"
                                         [centerList]="centerList"
                                         [centerListLoading]="centerLoading"
+                                        [isInvitedCenterExist]="isInvitedCenterExist"
+                                        (onCenterClick)="routeToOtherCenter($event)"
+                                        (onRedwhaleHomeClick)="routeToRedwhaleHome()"
                                     ></rwm-center-info-dropdown>
                                 </div>
                                 <div class="l-icon-gbt">

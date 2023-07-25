@@ -10,7 +10,10 @@ import { Router, RouterLink } from '@angular/router'
 import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { UsersCenterService } from '@services/users-center.service'
+import { CenterListService } from '@services/center-list/center-list.service'
 import { Loading } from '@schemas/loading'
+
+import _ from 'lodash'
 
 @Component({
     selector: 'rwm-main-menu',
@@ -73,38 +76,39 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private storageService: StorageService,
         public route: Router,
-        private usersCenterService: UsersCenterService
+        private usersCenterService: UsersCenterService,
+        private centerListService: CenterListService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
-        // this.centerUser = this.storageService.getCenterUser()
         this.center = this.storageService.getCenter()
+        // this.centerUser = this.storageService.getCenterUser()
 
         this.getCenterList()
 
         this.storageService.userChangeSubject.pipe(takeUntil(this.unDescriber$)).subscribe(() => {
             this.user = this.storageService.getUser()
-            // this.centerUser = this.storageService.getCenterUser()
             this.center = this.storageService.getCenter()
+            // this.centerUser = this.storageService.getCenterUser()
         })
     }
     ngAfterViewInit() {
-        this.resizeListener = this.renderer.listen(window, 'resize', (e) => {
-            if (window.innerWidth < 1920) {
-                if (this.mode == 'tablet') {
-                } else if (this.mode == 'pc') {
-                    // this.menuWidth = '80px'
-                }
-            } else if (window.innerWidth >= 1920) {
-                if (this.mode == 'tablet') {
-                } else if (this.mode == 'pc') {
-                    // this.menuWidth = '275px'
-                }
-            }
-        })
+        // this.resizeListener = this.renderer.listen(window, 'resize', (e) => {
+        //     if (window.innerWidth < 1920) {
+        //         if (this.mode == 'tablet') {
+        //         } else if (this.mode == 'pc') {
+        //             // this.menuWidth = '80px'
+        //         }
+        //     } else if (window.innerWidth >= 1920) {
+        //         if (this.mode == 'tablet') {
+        //         } else if (this.mode == 'pc') {
+        //             // this.menuWidth = '275px'
+        //         }
+        //     }
+        // })
     }
     ngOnDestroy() {
-        this.resizeListener()
+        // this.resizeListener()
         this.unDescriber$.next(true)
         this.unDescriber$.complete()
     }
@@ -118,6 +122,17 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         })
     }
 
+    routeToRedwhaleHome() {
+        this.route.navigate(['redwhale-home'])
+    }
+    routeToOtherCenter(center: Center) {
+        this.storageService.setCenter(center)
+        window.open(`${window.location.origin}/${center.name}/main`, '_self')
+        // this.route.navigate([`${center.name}`, 'main']).then(() => {
+        //     window.location.reload()
+        // })
+    }
+
     public showMyInformation = false
     openMyInfoModal() {
         this.showMyInformation = true
@@ -127,13 +142,22 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public centerLoading: Loading = 'idle'
+    public originCenterList: Center[] = []
     public centerList: Center[] = []
+    public isInvitedCenterExist = false
+    public inviteTooltip = { title: '💌 초대 도착' }
     getCenterList() {
         this.centerLoading = 'pending'
         this.usersCenterService.getCenterList(this.user.id).subscribe({
             next: (centerList) => {
-                console.log('')
-                this.centerList = centerList
+                this.originCenterList = centerList
+                this.centerList = _.filter(
+                    centerList,
+                    (v) => this.centerListService.isCenterAvailable(v) && this.center.id != v.id
+                )
+                this.isInvitedCenterExist =
+                    _.findIndex(centerList, (v) => v.connection_status == 'employee_connection_status_pending') != -1
+                console.log('getCenterList -- main-menu : ', this.centerList, centerList)
                 this.centerLoading = 'idle'
             },
             error: (err) => {

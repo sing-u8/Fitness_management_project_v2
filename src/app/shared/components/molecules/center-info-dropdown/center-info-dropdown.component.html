@@ -45,7 +45,11 @@
 
                 <div class="other-center-list">
                     <ng-container *ngIf="centerListLoading == 'idle'">
-                        <div class="other-center-item" *ngFor="let centerItem of centerList">
+                        <div
+                            class="other-center-item"
+                            *ngFor="let centerItem of centerList"
+                            (click)="onCenterClick.emit(centerItem)"
+                        >
                             <div class="center-avatar" [class.empty]="!!!centerItem.picture">
                                 <img
                                     *ngIf="!!!centerItem.picture"
@@ -82,7 +86,7 @@
     <div class="center-info-dropdown__bottom">
         <div class="l-text-button">
             <rwa-tooltip
-                *ngIf="false"
+                *ngIf="isInvitedCenterExist"
                 class="cid-tooltip"
                 [textObj]="{ title: '💌 초대 도착' }"
                 colorType="red"
@@ -91,7 +95,13 @@
                 [tail]="'left'"
                 [movable]="true"
             ></rwa-tooltip>
-            <rwa-text-button [fontWeight]="'700'" [fontSize]="'1.5rem'" [lineHeight]="'23px'" [showUnderLine]="true">
+            <rwa-text-button
+                [fontWeight]="'700'"
+                [fontSize]="'1.5rem'"
+                [lineHeight]="'23px'"
+                [showUnderLine]="true"
+                (onClick)="onRedwhaleHomeClick.emit()"
+            >
                 내 센터 모두 보기
             </rwa-text-button>
         </div>

@@ -229,6 +229,7 @@ $nd_width: 275px;
                     margin: 15px 0;
                     position: relative;
                 }
+
                 .center-dropdown {
                     z-index: 1;
                     transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 0.8);
@@ -245,9 +246,18 @@ $nd_width: 275px;
                         opacity: 1;
                     }
                 }
-                .center-title {
-                    max-width: 228px;
+                .l-center-title {
+                    position: relative;
+                    .center-title {
+                        max-width: 228px;
+                    }
+                    .center-invite {
+                        position: absolute;
+                        left: calc(50% - 50px);
+                        top: -40px;
+                    }
                 }
+
                 .l-icon-gbt {
                     display: flex;
                     align-items: center;

@@ -49,6 +49,7 @@ import { ChangeCenterAddressModalComponent } from './change-center-address-modal
 import { PaymentMethodManagementModalComponent } from './payment-method-management-modal/payment-method-management-modal.component'
 import { PaymentCardListItemComponent } from '@shared/components/molecules/payment-card-list-item/payment-card-list-item.component'
 import { CenterPaymentCardComponent } from '@shared/components/molecules/center-payment-card/center-payment-card.component'
+import { CenterExpiredModalComponent } from './center-expired-modal/center-expired-modal.component'
 
 @NgModule({
     declarations: [
@@ -87,6 +88,7 @@ import { CenterPaymentCardComponent } from '@shared/components/molecules/center-
         PaymentMethodManagementModalComponent,
         PaymentCardListItemComponent,
         CenterPaymentCardComponent,
+        CenterExpiredModalComponent,
     ],
     imports: [
         NgScrollbar,
@@ -137,6 +139,7 @@ import { CenterPaymentCardComponent } from '@shared/components/molecules/center-
         PaymentMethodManagementModalComponent,
         PaymentCardListItemComponent,
         CenterPaymentCardComponent,
+        CenterExpiredModalComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

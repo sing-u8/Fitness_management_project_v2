@@ -3,7 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChange
 import { StorageService } from '@services/storage.service'
 import { CenterEmployeeService } from '@services/center-employee.service'
 import { CenterRolePermissionService } from '@services/center-role-permission.service'
-import { CenterListService } from '@services/center-list/center-list.service'
+import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { Center } from '@schemas/center'
 import { Employee } from '@schemas/employee'
 import { Loading } from '@schemas/loading'
@@ -90,7 +90,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         private storageService: StorageService,
         private centerEmployeeService: CenterEmployeeService,
         private centerRolePermissionService: CenterRolePermissionService,
-        private centerListService: CenterListService
+        private centerListService: CenterListItemService
     ) {}
     ngOnInit() {
         console.log('ngOnInit -- set center employee management ')

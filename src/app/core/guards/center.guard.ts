@@ -14,6 +14,7 @@ import { Store, select } from '@ngrx/store'
 // import * as CenterCommonActions from '@centerStore/actions/center.common.actions'
 // import { curCenterRefreshed } from '@centerStore/selectors/center.common.selector'
 import { CenterUser } from '@schemas/center-user'
+import { debugLog } from '@store/app/actions/log.action'
 
 @Injectable({
     providedIn: 'root',
@@ -32,42 +33,19 @@ export class CenterGuard implements CanActivate {
     ) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        const address = route.params['address']
+        const centerName = route.params['center-name']
         const center: Center = this.storageService.getCenter()
-        const centerUser: CenterUser = this.storageService.getCenterUser()
 
-        return of(true)
-
-        if (address == this.addrData.addr && this.addrData.isChecked && !_.isEmpty(centerUser)) {
-            // this.nxStore.dispatch(CenterCommonActions.startGetCenterPermission({ centerId: center.id }))
+        this.nxStore.dispatch(
+            debugLog({
+                log: ['address in center guard : ', centerName, center, center.name == centerName],
+            })
+        )
+        if (_.isObject(center) && center.name == centerName) {
             return of(true)
         } else {
-            return of(true)
-            // return this.CenterService.checkMemeber(address).pipe(
-            //     map((cu) => {
-            //         this.storageService.setCenterUser(cu)
-            //         this.addrData.addr = address
-            //         this.addrData.isChecked = true
-            //
-            //         // this.nxStore.dispatch(CenterCommonActions.setCurCenter({ center }))
-            //         // this.nxStore.dispatch(CenterCommonActions.startGetInstructors({ centerId: center.id }))
-            //         // this.nxStore.dispatch(CenterCommonActions.startGetMembers({ centerId: center.id }))
-            //         // this.nxStore.dispatch(CenterCommonActions.startGetCenterPermission({ centerId: center.id }))
-            //         //
-            //         // this.nxStore.pipe(select(curCenterRefreshed), take(1)).subscribe((ccr) => {
-            //         //     if (!ccr) {
-            //         //         this.nxStore.dispatch(CenterCommonActions.startGetCurCenter({ centerId: center.id }))
-            //         //     }
-            //         // })
-            //         return true
-            //     }),
-            //     catchError((error: any) => {
-            //         this.addrData.addr = ''
-            //         this.addrData.isChecked = false
-            //         this.router.navigateByUrl('/redwhale-home')
-            //         return of(false)
-            //     })
-            // )
+            this.router.navigate(['redwhale-home'])
+            return of(false)
         }
     }
 }

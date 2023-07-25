@@ -14,7 +14,7 @@ import { Center } from '@schemas/center'
 import { Router } from '@angular/router'
 
 import { StorageService } from '@services/storage.service'
-import { CenterListService } from '@services/center-list/center-list.service'
+import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { CenterPaymentsService } from '@services/center-payments.service'
 import { UsersCustomersService } from '@services/users-customers.service'
 
@@ -47,7 +47,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
 
     constructor(
         private usersCustomersService: UsersCustomersService,
-        private centerListService: CenterListService,
+        private centerListService: CenterListItemService,
         private storageService: StorageService,
         private cd: ChangeDetectorRef,
         private nxStore: Store,

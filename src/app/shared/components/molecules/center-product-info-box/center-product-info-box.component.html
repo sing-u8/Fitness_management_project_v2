@@ -13,7 +13,7 @@
             <div class="info-desc">
                 {{ curInfoData.desc }}
             </div>
-            <rwa-text-button [showUnderLine]="true" [fontWeight]="'700'">
+            <rwa-text-button [showUnderLine]="true" [fontWeight]="'700'" (onClick)="curInfoData.btFn()">
                 {{ curInfoData.btText }}
             </rwa-text-button>
         </div>

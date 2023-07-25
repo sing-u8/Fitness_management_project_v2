@@ -95,7 +95,12 @@
                             </div>
                         </div>
                     </div>
-                    <rwm-center-product-info-box [center]="center" [mode]="'pc'"></rwm-center-product-info-box>
+                    <rwm-center-product-info-box
+                        [center]="center"
+                        [mode]="'pc'"
+                        (onPaymentMethodClick)="(false)"
+                        (onPurchaseCenterMembershipClick)="routeToPayment()"
+                    ></rwm-center-product-info-box>
                     <div class="content">
                         <div class="l-igb">
                             <rwa-icon-ghost-button
@@ -530,7 +535,12 @@
                             alt="user-picture.png"
                         />
                     </div>
-                    <rwm-center-product-info-box [center]="center" [mode]="'tablet'"></rwm-center-product-info-box>
+                    <rwm-center-product-info-box
+                        [center]="center"
+                        [mode]="'tablet'"
+                        (onPaymentMethodClick)="(false)"
+                        (onPurchaseCenterMembershipClick)="routeToPayment()"
+                    ></rwm-center-product-info-box>
                 </div>
             </div>
             <div class="content menu-scroll-y-overlay">

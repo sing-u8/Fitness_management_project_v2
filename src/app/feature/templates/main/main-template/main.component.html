@@ -28,4 +28,13 @@
     (confirm)="onPhoneVerifModalConfirm()"
 ></rwm-phone-certification-modal>
 
-
+<rwm-center-expired-modal
+    [(visible)]="showCenterExpiredModal"
+    [blockClickOutside]="true"
+    [width]="'345px'"
+    [padding]="'30px 25px 25px'"
+    [center]="center"
+    [centerExpiredInfo]="centerExpiredInfo"
+    [centerStatus]="centerExpiredStatus"
+    (close)="showCenterExpiredModal = false"
+></rwm-center-expired-modal>

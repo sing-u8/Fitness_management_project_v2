@@ -19,7 +19,7 @@ import { ChangeCenterPhoneNumberOutput } from '@shared/components/molecules/chan
 
 import { CenterService } from '@services/center.service'
 import { FileService } from '@services/file.service'
-import { CenterListService } from '@services/center-list/center-list.service'
+import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { StorageService } from '@services/storage.service'
 
@@ -171,7 +171,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private fileService: FileService,
         private nxStore: Store,
         private centerService: CenterService,
-        private centerListService: CenterListService,
+        private centerListService: CenterListItemService,
         private wordService: WordService,
         private usersCenterService: UsersCenterService,
         private storageService: StorageService,

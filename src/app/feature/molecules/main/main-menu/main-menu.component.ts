@@ -10,7 +10,7 @@ import { Router, RouterLink } from '@angular/router'
 import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { UsersCenterService } from '@services/users-center.service'
-import { CenterListService } from '@services/center-list/center-list.service'
+import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { Loading } from '@schemas/loading'
 
 import _ from 'lodash'
@@ -77,7 +77,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         private storageService: StorageService,
         public route: Router,
         private usersCenterService: UsersCenterService,
-        private centerListService: CenterListService
+        private centerListItemService: CenterListItemService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -132,6 +132,9 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         //     window.location.reload()
         // })
     }
+    routeToPayment() {
+        this.route.navigate([`${this.center.name}`, 'payment'])
+    }
 
     public showMyInformation = false
     openMyInfoModal() {
@@ -153,7 +156,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
                 this.originCenterList = centerList
                 this.centerList = _.filter(
                     centerList,
-                    (v) => this.centerListService.isCenterAvailable(v) && this.center.id != v.id
+                    (v) => this.centerListItemService.isCenterAvailable(v) && this.center.id != v.id
                 )
                 this.isInvitedCenterExist =
                     _.findIndex(centerList, (v) => v.connection_status == 'employee_connection_status_pending') != -1

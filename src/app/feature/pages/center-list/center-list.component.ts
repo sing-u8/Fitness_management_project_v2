@@ -4,7 +4,7 @@ import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
-import { CenterListService } from '@services/center-list/center-list.service'
+import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Center } from '@schemas/center'
@@ -42,7 +42,7 @@ export class CenterListComponent implements OnInit, OnDestroy {
     constructor(
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
-        private centerListService: CenterListService
+        private centerListService: CenterListItemService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()

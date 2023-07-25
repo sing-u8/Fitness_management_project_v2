@@ -1,0 +1,71 @@
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div
+        class="rw-modal user-select-none"
+        [style.width]="width"
+        [style.height]="height"
+        [style.padding]="padding"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
+        <div class="l-detail-modal">
+            <div class="error-icon" *ngIf="centerStatus == 'subscriptionFailed'"></div>
+            <div class="title">
+                {{ centerExpiredInfo.title }}
+            </div>
+            <div class="center-info">
+                <div class="center-info-item">
+                    <div class="center-info-item__title">센터 이름</div>
+                    <div class="center-info-item__content line-ellipsis-one">{{ center.name }}</div>
+                </div>
+                <div class="center-info-item" *ngIf="centerStatus != 'subscriptionFailed'">
+                    <div class="center-info-item__title">
+                        {{ centerStatus == 'freeTrial' ? '무료 체험 기간' : '이용권 이용 기간' }}
+                    </div>
+                    <div class="center-info-item__content">
+                        {{ center.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
+                        {{ center.end_date | dateFormat : 'YY년 MM월 DD일' }}
+                    </div>
+                </div>
+            </div>
+            <div class="center-info-desc">
+                <div class="center-info-desc__item" *ngFor="let item of centerExpiredInfo.desc">
+                    {{ item }}
+                </div>
+            </div>
+            <div class="l-button">
+                <rwa-button
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [fontColor]="'var(--gray-90)'"
+                    [bgColor]="'var(--white)'"
+                    [hoverBgColor]="'var(--gray-30)'"
+                    [loadingColor]="'var(--font-color)'"
+                    (onClick)="onClose(); routeToRedWhaleHome()"
+                >
+                    <ng-template btIdleContent><span class="button-text">확인</span></ng-template>
+                </rwa-button>
+                <rwa-button
+                    *ngIf="centerStatus != 'subscriptionFailed'"
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    (onClick)="routeToPayment()"
+                >
+                    <ng-template btIdleContent><span class="white-button-text">이용권 구매</span></ng-template>
+                </rwa-button>
+                <rwa-button
+                    *ngIf="centerStatus == 'subscriptionFailed'"
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    (onClick)="(false)"
+                >
+                    <ng-template btIdleContent><span class="white-button-text">결제 수단 관리</span></ng-template>
+                </rwa-button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,7 @@ const routes: Routes = [
     },
     {
         path: ':center-name/main',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, CenterGuard],
         loadChildren: () => import('@routes/main.routes').then((r) => r.MainRoutes),
     },
     {

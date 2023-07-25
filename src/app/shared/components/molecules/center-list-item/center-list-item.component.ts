@@ -8,14 +8,13 @@ import _ from 'lodash'
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
+import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
 
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
 import { PaymentBadgeKey, PaymentBadge } from '@schemas/payment/payment-badge-state'
-
-export type DetailInfo = { title: string; desc: string[] }
 
 @Component({
     selector: 'rwm-center-list-item',
@@ -33,6 +32,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
         private centerPaymentHelperService: CenterPaymentHelperService,
+        private centerListService: CenterListItemService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
@@ -108,113 +108,18 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     getHeaderState() {
-        const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        if (this.center.connection_status == 'employee_connection_status_pending') {
-            this.headerState = 'invite'
-        } else if (this.center.product_code == 'free_trial_membership') {
-            if (this.badgeState == 'freeTrialEnd') {
-                this.headerState = 'freeTrialEnd'
-            } else {
-                this.headerState = 'needToBuy'
-            }
-        } else if (this.center.product_code == 'subscription_membership') {
-            if (this.badgeState == 'normal') {
-                if (dayRemains <= 5) {
-                    this.headerState = 'subscribeFailed'
-                } else {
-                    this.headerState = 'normal'
-                }
-            } else if (this.badgeState == 'expirationExpected' || this.badgeState == 'expiredToday') {
-                if (dayRemains <= 5) {
-                    this.headerState = 'subscribeFailed'
-                } else {
-                    this.headerState = 'needToBuy'
-                }
-            } else if (this.badgeState == 'expired') {
-                this.headerState = 'expired'
-            }
-        } else {
-            // 1, 2년 구독
-            if (this.badgeState == 'normal') {
-                this.headerState = 'normal'
-            } else if (this.badgeState == 'expirationExpected' || this.badgeState == 'expiredToday') {
-                this.headerState = 'needToBuy'
-            } else if (this.badgeState == 'expired') {
-                this.headerState = 'expired'
-            }
-        }
+        this.headerState = this.centerListService.getCenterHeaderState(this.center, this.badgeState)
     }
 
     // -------------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------
     // detail modal vars and funcs
     public showDetailModal = false
-    public detailModalMode:
-        | 'freeTrial'
-        | 'monthSubscription'
-        | '1yearSubscription'
-        | '2yearSubscription'
-        | 'subscriptionFailed' = undefined
+    public detailModalMode: CenterStatus = undefined
     getDetailModalData() {
-        if (this.headerState == 'subscribeFailed') {
-            this.detailModalMode = 'subscriptionFailed'
-            this.detailInfo = _.cloneDeep(this.subFailedDetail)
-        } else if (this.center.product_code == 'subscription_membership') {
-            this.detailModalMode = 'monthSubscription'
-            this.detailInfo = _.cloneDeep(this.monthSubDetail)
-        } else if (this.center.product_code == '1_years_membership') {
-            this.detailModalMode = '1yearSubscription'
-            this.detailInfo = _.cloneDeep(this.oneYearSubDetail)
-        } else if (this.center.product_code == '2_years_membership') {
-            this.detailModalMode = '2yearSubscription'
-            this.detailInfo = _.cloneDeep(this.twoYearSubDetail)
-        } else if (this.center.product_code == 'free_trial_membership') {
-            this.detailModalMode = 'freeTrial'
-            this.detailInfo = _.cloneDeep(this.freeTrialDetail)
-        }
+        const { centerStatus, centerExpiredInfo } = this.centerListService.getExpiredData(this.center, this.headerState)
+        this.detailModalMode = centerStatus
+        this.detailInfo = _.cloneDeep(centerExpiredInfo)
     }
-    public detailInfo: DetailInfo = undefined
-    public readonly freeTrialDetail: DetailInfo = {
-        title: `무료 체험이 종료되어
-        센터에 입장하실 수 없어요.`,
-        desc: [
-            '이용권을 구매하면 무료 체험 기간에 사용한 센터 정보를 그대로 이어서 사용할 수 있어요.',
-            '이용권을 구매한 센터에 한해 무료로 회원 정보를 이동해 드려요.',
-            '무료 체험 종료 후 30일 내에 이용권을 구매하지 않으면, 해당 센터의 모든 정보가 삭제돼요.',
-        ],
-    }
-    public readonly monthSubDetail: DetailInfo = {
-        title: `사용 중이던 월 이용권이
-            만료되어 센터에 입장하실 수 없어요.`,
-        desc: [
-            '이용권을 구매하면 사용 중이던 센터 정보를 그대로 이어서 사용할 수 있어요.',
-            '이용권을 구매한 센터에 한해 무료로 회원 정보를 이동해 드려요.',
-            '직원은 만료된 센터에 입장할 없지만, 회원은 앱을 통해 만료된 센터에 계속 입장할 수 있어요.',
-        ],
-    }
-    public readonly oneYearSubDetail: DetailInfo = {
-        title: `사용 중이던 1년 이용권이
-            만료되어 센터에 입장하실 수 없어요.`,
-        desc: [
-            '이용권을 구매하면 사용 중이던 센터 정보를 그대로 이어서 사용할 수 있어요.',
-            '이용권을 구매한 센터에 한해 무료로 회원 정보를 이동해 드려요.',
-            '직원은 만료된 센터에 입장할 없지만, 회원은 앱을 통해 만료된 센터에 계속 입장할 수 있어요.',
-        ],
-    }
-    public readonly twoYearSubDetail: DetailInfo = {
-        title: `사용 중이던 2년 이용권이
-            만료되어 센터에 입장하실 수 없어요.`,
-        desc: [
-            '이용권을 구매하면 사용 중이던 센터 정보를 그대로 이어서 사용할 수 있어요.',
-            '이용권을 구매한 센터에 한해 무료로 회원 정보를 이동해 드려요.',
-            '직원은 만료된 센터에 입장할 없지만, 회원은 앱을 통해 만료된 센터에 계속 입장할 수 있어요.',
-        ],
-    }
-    public readonly subFailedDetail: DetailInfo = {
-        title: `결제 도중 오류가 발생하여
-            월 이용권 결제에 실패했어요.`,
-        desc: [
-            '카드 잔액 부족, 카드 정보 오류, 결제 시스템 장애 등으로 결제에 실패했어요. 문제가 계속되면 카드사로 문의해 주시기 바랍니다.',
-            '할인을 받는 경우 이용권 기간 내에 결제가 이루어진 경우에만 할인 혜택이 유지되며, 기간 만료 후부터는 할인 혜택이 적용되지 않아요.',
-        ],
-    }
+    public detailInfo: CenterExpiredInfo = undefined
 }

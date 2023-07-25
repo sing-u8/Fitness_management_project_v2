@@ -1,9 +1,9 @@
 import { on } from '@ngrx/store'
 import { createImmerReducer } from 'ngrx-immer/store'
 
-import { environment } from '../../../../environments/environment'
+import { environment } from '@environments/environment'
 
-import { AppStateInterface } from '../../../core/schemas/appStore/appState.interface'
+import { AppStateInterface } from '@schemas/appStore/appState.interface'
 
 import { showToast, hideToast } from '../actions/toast.action'
 import { showModal, hideModal } from '../actions/modal.action'

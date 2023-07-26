@@ -128,7 +128,15 @@ export class CenterProductInfoToastComponent implements OnChanges, AfterViewInit
             borderColor: 'var(--state-error-100)',
         },
     }
-    public curInfoData: CenterProductInfo = undefined
+    public curInfoData: CenterProductInfo = {
+        title: '',
+        desc: ``,
+        btText: '',
+        btFn: () => {},
+        bgColor: 'var(--state-warning-5)',
+        borderColor: 'var(--state-warning-100)',
+        day: 0,
+    }
     getCenterInfo() {
         const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (this.center.product_code == 'free_trial_membership') {
@@ -168,5 +176,5 @@ export class CenterProductInfoToastComponent implements OnChanges, AfterViewInit
         }
     }
 
-    protected readonly undefined = undefined;
+    protected readonly undefined = undefined
 }

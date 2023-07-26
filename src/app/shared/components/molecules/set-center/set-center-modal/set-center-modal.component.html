@@ -36,28 +36,28 @@
             <div class="body" #body>
                 <!-- 센터 정보 -->
                 <rwm-set-center-info
-                    *ngIf="categories[0].selected"
                     class="center-info"
+                    [class.body-content-display]="categories[0].selected"
                     [isOpen]="categories[0].selected && visible"
                     [center]="center"
                     (goEmployeeManagement)="goEmployeeManagement()"
                 ></rwm-set-center-info>
                 <!-- 직원 관리 -->
                 <rwm-set-center-employee-management
-                    *ngIf="categories[1].selected"
                     class="employee-management"
+                    [class.body-content-display]="categories[1].selected"
                     [center]="center"
                     [isOpen]="categories[1].selected && visible"
                 ></rwm-set-center-employee-management>
                 <!-- 운영 정책 -->
                 <rwm-set-center-policy-management
-                    *ngIf="categories[2].selected"
                     class="policy-management"
+                    [class.body-content-display]="categories[2].selected"
                 ></rwm-set-center-policy-management>
                 <!-- 이용권 결제 관리 -->
                 <rwm-set-center-payment-management
-                    *ngIf="categories[3].selected"
                     class="payment-management"
+                    [class.body-content-display]="categories[3].selected"
                     [center]="center"
                     [isOpen]="categories[3].selected && visible"
                     (closeModal)="onClose()"

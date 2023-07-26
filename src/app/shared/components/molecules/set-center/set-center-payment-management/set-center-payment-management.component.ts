@@ -45,6 +45,8 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
 
     @Output() closeModal = new EventEmitter()
 
+    public prevCenter: Center
+
     constructor(
         private usersCustomersService: UsersCustomersService,
         private centerListService: CenterListItemService,
@@ -58,8 +60,9 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     }
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'isOpen', (v) => {
-            if (v) {
+            if (this.isOpen && this.center && this.center.id != this.prevCenter?.id) {
                 this.getPaymentItems()
+                this.prevCenter = this.center
             }
         })
     }

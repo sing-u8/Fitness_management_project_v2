@@ -2,24 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges, AfterViewInit, Output, Even
 import { Center } from '@schemas/center'
 import { detectChangesOn } from '@shared/helper/component-helper'
 import dayjs from 'dayjs'
-
-export type ProductInfo = {
-    title: string
-    desc: string
-    bgColor: string
-    borderColor: string
-    btText: string
-    btFn?: () => void
-    day?: number
-}
-export type InfoState =
-    | 'normal'
-    | 'freeTrialEndExpected'
-    | 'freeTrialEndToday'
-    | 'expirationExpected'
-    | 'expiredToday'
-    | 'subEndExpected'
-    | 'subEndToday'
+import { CenterProductInfo, InfoState } from '@schemas/components/center-product-info/center-product-info'
 
 @Component({
     selector: 'rwm-center-product-info-box',
@@ -44,7 +27,7 @@ export class CenterProductInfoBoxComponent implements OnChanges, AfterViewInit {
     }
 
     public state: InfoState = 'normal'
-    public productInfoData: Record<Exclude<InfoState, 'normal'>, ProductInfo> = {
+    public productInfoData: Record<Exclude<InfoState, 'normal'>, CenterProductInfo> = {
         freeTrialEndExpected: {
             title: '일 후 무료 체험이 종료돼요.',
             desc: `무료 체험 종료 후에는
@@ -116,7 +99,7 @@ export class CenterProductInfoBoxComponent implements OnChanges, AfterViewInit {
             borderColor: 'var(--state-error-100)',
         },
     }
-    public curInfoData: ProductInfo = undefined
+    public curInfoData: CenterProductInfo = undefined
     getCenterInfo() {
         const dayRemains = dayjs(this.center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (this.center.product_code == 'free_trial_membership') {
@@ -155,6 +138,4 @@ export class CenterProductInfoBoxComponent implements OnChanges, AfterViewInit {
             }
         }
     }
-
-    protected readonly undefined = undefined
 }

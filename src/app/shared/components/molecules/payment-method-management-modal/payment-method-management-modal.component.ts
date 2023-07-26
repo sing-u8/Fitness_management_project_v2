@@ -31,8 +31,6 @@ import { ButtonEmit } from '@schemas/components/button'
     styleUrls: ['./payment-method-management-modal.component.scss'],
 })
 export class PaymentMethodManagementModalComponent {
-    @Input() center: Center
-
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
     @Input() blockClickOutside = true
@@ -90,6 +88,7 @@ export class PaymentMethodManagementModalComponent {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
+                console.log('ngOnChanges -- pmmm - cardListLoading ', this.cardListLoading)
                 if (this.cardListLoading == 'idle') {
                     this.initPaymentMethods()
                 }

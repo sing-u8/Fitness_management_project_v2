@@ -3,9 +3,19 @@
     @include css-init;
 }
 
-.l-center-info {
-    padding: 30px 25px 0;
+.rw-scroll {
     width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.l-center-info {
+    width: 100%;
+    padding: 30px 25px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-sizing: border-box;
     .l-center-avatar {
         display: flex;
         flex-direction: column;

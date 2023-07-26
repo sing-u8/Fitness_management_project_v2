@@ -178,11 +178,10 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private cd: ChangeDetectorRef
     ) {}
     ngOnChanges(changes: SimpleChanges) {
-        detectChangesOn(changes, 'center', (curValue, prevValue) => {
-            console.log('detectChangesOn -- set center info : ', curValue)
-            this.prevCenter = prevValue
-            if (curValue) {
+        detectChangesOn(changes, 'isOpen', (curValue, prevValue) => {
+            if (this.isOpen && this.center && this.center.id != this.prevCenter?.id) {
                 this.centerInfoInit()
+                this.prevCenter = this.center
             }
         })
     }

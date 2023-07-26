@@ -36,6 +36,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     public rpsLoading: Loading = 'idle'
 
     @Input() center: Center
+    public prevCenter: Center
 
     @Input() isOpen: boolean
     @Output() isOpenChange = new EventEmitter<boolean>()
@@ -92,16 +93,14 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         private centerRolePermissionService: CenterRolePermissionService,
         private centerListService: CenterListItemService
     ) {}
-    ngOnInit() {
-        console.log('ngOnInit -- set center employee management ')
-    }
+    ngOnInit() {}
     ngOnChanges(changes: SimpleChanges) {
-        detectChangesOn(changes, 'center', (curValue: Center, prevValue: Center) => {
-            if (_.isObject(curValue) && curValue.id != prevValue?.id && this.isOpen) {
-                console.log('detectChangesOn -- set center employee management : ', curValue, prevValue, this.isOpen)
+        detectChangesOn(changes, 'isOpen', (curValue: Center, prevValue: Center) => {
+            if (this.isOpen &&  this.center && this.center.id != this.prevCenter?.id) {
                 this.initPermission()
                 this.rpsInit()
                 this.empInit()
+                this.prevCenter = this.center
             }
         })
     }

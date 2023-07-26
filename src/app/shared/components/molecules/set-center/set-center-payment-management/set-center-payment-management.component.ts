@@ -31,6 +31,7 @@ import { forkJoin } from 'rxjs'
 import _ from 'lodash'
 import dayjs from 'dayjs'
 import { ModalInput } from '@schemas/components/modal'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 
 @Component({
     selector: 'rwm-set-center-payment-management',
@@ -54,7 +55,8 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
         private cd: ChangeDetectorRef,
         private nxStore: Store,
         private router: Router,
-        private centerPaymentsService: CenterPaymentsService
+        private centerPaymentsService: CenterPaymentsService,
+        private paymentMethodManagementService: PaymentMethodManagementService
     ) {
         this.user = this.storageService.getUser()
     }
@@ -69,7 +71,10 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
 
     // -------------------------------------------------------------------------------------
 
-    public openPaymentMethodManagement = false
+    // public openPaymentMethodManagement = false
+    setPaymentMethodModalVisible(flag: boolean) {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(flag)
+    }
 
     public paymentLoading: Loading = 'idle'
     public paymentItemList: BasePaymentItem[] = []

@@ -21,7 +21,7 @@
                     class="payment-management-button"
                     height="42px"
                     padding="7.5px 15px 5.5px"
-                    (onClick)="openPaymentMethodManagement = true"
+                    (onClick)="setPaymentMethodModalVisible(true)"
                 >
                     <ng-template gbtIdleContent><span class="text">결제 수단 관리</span></ng-template>
                 </rwa-ghost-button>
@@ -70,11 +70,11 @@
     </div>
 </ng-scrollbar>
 
-<rwm-payment-method-management-modal
-    [(visible)]="openPaymentMethodManagement"
-    (close)="openPaymentMethodManagement = false"
-    (open)="openPaymentMethodManagement = true"
-></rwm-payment-method-management-modal>
+<!--<rwm-payment-method-management-modal-->
+<!--    [(visible)]="openPaymentMethodManagement"-->
+<!--    (close)="openPaymentMethodManagement = false"-->
+<!--    (open)="openPaymentMethodManagement = true"-->
+<!--&gt;</rwm-payment-method-management-modal>-->
 
 <rwa-modal
     [(visible)]="showDisableToGoPaymentPageModal"

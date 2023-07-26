@@ -5,6 +5,7 @@ import { SharedModule } from '@shared/shared.module'
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Center } from '@schemas/center'
@@ -39,10 +40,16 @@ export class CenterListComponent implements OnInit, OnDestroy {
         this.setCenterModalVisible = true
     }
 
+    public paymentMethodModalVisible = false
+    setPaymentMethodModalVisible(flag: boolean) {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(flag)
+    }
+
     constructor(
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
-        private centerListService: CenterListItemService
+        private centerListService: CenterListItemService,
+        private paymentMethodManagementService: PaymentMethodManagementService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -56,6 +63,11 @@ export class CenterListComponent implements OnInit, OnDestroy {
                 this.onCenterRemoved(cc.center)
             }
         })
+        this.paymentMethodManagementService.paymentMethodModalVisible$
+            .pipe(takeUntil(this.unDescriber$))
+            .subscribe((visible) => {
+                this.paymentMethodModalVisible = visible
+            })
         this.getCenterList()
     }
     ngOnDestroy() {

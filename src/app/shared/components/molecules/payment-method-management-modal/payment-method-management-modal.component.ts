@@ -10,11 +10,13 @@ import {
     AfterViewChecked,
     ViewChild,
     AfterViewInit,
+    OnDestroy,
 } from '@angular/core'
 
 import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
 import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { Center } from '@schemas/center'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import _ from 'lodash'
@@ -24,13 +26,15 @@ import { Loading } from '@schemas/loading'
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/toast.action'
 import { ButtonEmit } from '@schemas/components/button'
+import { Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 
 @Component({
     selector: 'rwm-payment-method-management-modal',
     templateUrl: './payment-method-management-modal.component.html',
     styleUrls: ['./payment-method-management-modal.component.scss'],
 })
-export class PaymentMethodManagementModalComponent {
+export class PaymentMethodManagementModalComponent implements OnDestroy {
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
     @Input() blockClickOutside = true
@@ -43,39 +47,55 @@ export class PaymentMethodManagementModalComponent {
     public cardList: PaymentCard[] = []
     public cardListLoading: Loading = 'idle'
 
-    initPaymentMethods() {
-        this.cardListLoading = 'pending'
-        this.usersCustomersService.getCustomer(this.user.id).subscribe({
-            next: (cards) => {
-                this.cardListLoading = 'done'
-                this.cardList = cards
-                this.initSelectedCard(this.cardList)
-                console.log('initPaymentMethods - ', this.cardList)
-            },
-            error: (err) => {
-                this.cardListLoading = 'idle'
-            },
-        })
-    }
+    public unSubscriber$ = new Subject<boolean>()
+
+    // initPaymentMethods() {
+    //     this.cardListLoading = 'pending'
+    //     this.usersCustomersService.getCustomer(this.user.id).subscribe({
+    //         next: (cards) => {
+    //             this.cardListLoading = 'done'
+    //             this.cardList = cards
+    //             this.initSelectedCard(this.cardList)
+    //             console.log('initPaymentMethods - ', this.cardList)
+    //         },
+    //         error: (err) => {
+    //             this.cardListLoading = 'idle'
+    //         },
+    //     })
+    // }
 
     public selectedCard: PaymentCard = undefined
     initSelectedCard(cardList: PaymentCard[]) {
         this.selectedCard = _.find(cardList, (v) => v.checked)
     }
-    setCardSelect(paymentCard: PaymentCard) {
-        _.forEach(this.cardList, (v, idx) => {
-            this.cardList[idx].checked = v.id == paymentCard.id
-        })
-    }
+    // setCardSelect(paymentCard: PaymentCard) {
+    //     _.forEach(this.cardList, (v, idx) => {
+    //         this.cardList[idx].checked = v.id == paymentCard.id
+    //     })
+    // }
 
     constructor(
         private el: ElementRef,
         private renderer: Renderer2,
         private usersCustomersService: UsersCustomersService,
         private storageService: StorageService,
+        private paymentMethodManagementService: PaymentMethodManagementService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
+        this.paymentMethodManagementService.cardList$
+            .asObservable()
+            .pipe(takeUntil(this.unSubscriber$))
+            .subscribe((paymentCards) => {
+                this.cardList = paymentCards
+                this.initSelectedCard(paymentCards)
+            })
+        this.paymentMethodManagementService.cardListLoading$
+            .asObservable()
+            .pipe(takeUntil(this.unSubscriber$))
+            .subscribe((loading) => {
+                this.cardListLoading = loading
+            })
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -88,9 +108,8 @@ export class PaymentMethodManagementModalComponent {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
-                console.log('ngOnChanges -- pmmm - cardListLoading ', this.cardListLoading)
                 if (this.cardListLoading == 'idle') {
-                    this.initPaymentMethods()
+                    this.paymentMethodManagementService.initPaymentMethods(this.user.id)
                 }
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
@@ -104,11 +123,15 @@ export class PaymentMethodManagementModalComponent {
     }
     ngAfterViewChecked() {}
     ngAfterViewInit() {}
+    ngOnDestroy() {
+        this.unSubscriber$.next(true)
+        this.unSubscriber$.complete()
+    }
 
     onSelectPaymentCard(paymentCard: PaymentCard) {
         this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe((v) => {
             console.log('onSelectPaymentCard -- ', v)
-            this.setCardSelect(paymentCard)
+            this.paymentMethodManagementService.setCardSelect(paymentCard)
 
             this.nxStore.dispatch(showToast({ text: '자동 결제 수단이 변경되었어요.' }))
         })
@@ -116,7 +139,7 @@ export class PaymentMethodManagementModalComponent {
     onRemovePaymentCard(paymentCard: PaymentCard) {
         // 월 이용권에 따른 분기 설정 필요
         this.usersCustomersService.deleteCustomer(this.user.id, paymentCard.id).subscribe((v) => {
-            _.remove(this.cardList, (v) => v.id == paymentCard.id)
+            this.paymentMethodManagementService.removePaymentCard(paymentCard)
             this.nxStore.dispatch(showToast({ text: '선택한 결제 수단이 삭제되었어요.' }))
         })
     }
@@ -141,8 +164,12 @@ export class PaymentMethodManagementModalComponent {
                 this.showRegisterCardModal = false
                 this.open.emit()
                 res.btLoading.hideLoading()
-                this.cardList.unshift(paymentCard)
-                this.setCardSelect(paymentCard)
+                // this.cardList.unshift(paymentCard)
+                // this.setCardSelect(paymentCard)
+
+                this.paymentMethodManagementService.addPaymentCard(paymentCard)
+                this.paymentMethodManagementService.setCardSelect(paymentCard)
+
                 this.nxStore.dispatch(showToast({ text: '결제 수단이 추가되었어요.' }))
             },
             error: () => {

@@ -23,6 +23,12 @@
     </div>
 </section>
 
+<rwm-center-product-info-toast
+    [center]="center"
+    (onPaymentMethodClick)="(false)"
+    (onPurchaseCenterMembershipClick)="routeToPayment()"
+></rwm-center-product-info-toast>
+
 <rwm-phone-certification-modal
     [(visible)]="showPhoneVerifModal"
     (confirm)="onPhoneVerifModalConfirm()"

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
+import { Router, RouterOutlet } from '@angular/router'
 import { CommonModule } from '@angular/common'
 
 import { SharedModule } from '@shared/shared.module'
@@ -49,7 +49,8 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
         private centerPaymentHelperService: CenterPaymentHelperService,
-        private centerListItemService: CenterListItemService
+        private centerListItemService: CenterListItemService,
+        public route: Router
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -99,6 +100,11 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         this.showDrawer = e.showDrawer
         this.viewDrawer = e.viewDrawer
     }
+
+    routeToPayment() {
+        this.route.navigate([`${this.center.name}`, 'payment'])
+    }
+
     // -------------------------------------------------------------------------------------------------------------------
     public badgeState: PaymentBadgeKey = 'normal'
     public badgeStateObj: PaymentBadge = _.cloneDeep(this.centerPaymentHelperService.stateBadge)

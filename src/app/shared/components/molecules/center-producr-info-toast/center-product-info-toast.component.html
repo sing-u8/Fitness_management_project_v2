@@ -1,0 +1,14 @@
+<div
+    #center_info_toast
+    class="center-product-info-toast"
+    [class.display-none]="state == 'normal'"
+    [style.background-color]="curInfoData.bgColor"
+    [style.border-color]="curInfoData.borderColor"
+>
+    <span class="title">
+        {{ '⏱ ' }}{{ curInfoData['day'] ? curInfoData['day'] + curInfoData.title : curInfoData.title }}
+    </span>
+    <rwa-text-button [showUnderLine]="true" [fontWeight]="'700'" (onClick)="curInfoData.btFn()">
+        {{ curInfoData.btText }}
+    </rwa-text-button>
+</div>

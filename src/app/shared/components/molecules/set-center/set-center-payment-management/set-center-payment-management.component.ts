@@ -103,6 +103,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                 next: (center) => {
                     value.btLoadingFn.hideLoading()
                     this.nxStore.dispatch(showToast({ text: '이용권이 해지되었어요.' }))
+                    this.center = center
                     this.centerListService.centerChangeSubject.next({
                         center,
                         type: 'change',
@@ -125,6 +126,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                     next: (center) => {
                         value.btLoadingFn.hideLoading()
                         this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
+                        this.center = center
                         this.centerListService.centerChangeSubject.next({
                             center: center,
                             type: 'change',

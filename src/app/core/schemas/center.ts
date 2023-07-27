@@ -15,8 +15,10 @@ export interface Center {
     product_code: 'free_trial_membership' | '1_years_membership' | '2_years_membership' | 'subscription_membership'
     start_date: string
     end_date: string
+    schedule_at: string
     next_end_date: string
     next_start_date: string
+    next_product_code: string
     picture: string
     background: string
     connection_status:

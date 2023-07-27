@@ -11,6 +11,7 @@ import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
 import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 
 import { User } from '@schemas/user'
 import { ViewDrawer } from '@schemas/components/main/ViewDrawer'
@@ -50,6 +51,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
         private usersCenterService: UsersCenterService,
         private centerPaymentHelperService: CenterPaymentHelperService,
         private centerListItemService: CenterListItemService,
+        private paymentMethodManagementService: PaymentMethodManagementService,
         public route: Router
     ) {}
     ngOnInit() {
@@ -103,6 +105,9 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
 
     routeToPayment() {
         this.route.navigate([`${this.center.name}`, 'payment'])
+    }
+    openPaymentMethodModal() {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(true)
     }
 
     // -------------------------------------------------------------------------------------------------------------------

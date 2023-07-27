@@ -98,7 +98,7 @@
                     <rwm-center-product-info-box
                         [center]="center"
                         [mode]="'pc'"
-                        (onPaymentMethodClick)="(false)"
+                        (onPaymentMethodClick)="openPaymentMethodModal()"
                         (onPurchaseCenterMembershipClick)="routeToPayment()"
                     ></rwm-center-product-info-box>
                     <div class="content">
@@ -538,7 +538,7 @@
                     <rwm-center-product-info-box
                         [center]="center"
                         [mode]="'tablet'"
-                        (onPaymentMethodClick)="(false)"
+                        (onPaymentMethodClick)="openPaymentMethodModal()"
                         (onPurchaseCenterMembershipClick)="routeToPayment()"
                     ></rwm-center-product-info-box>
                 </div>

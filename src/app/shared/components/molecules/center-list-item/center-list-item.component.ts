@@ -9,6 +9,7 @@ import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
 import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
@@ -33,6 +34,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         private usersCenterService: UsersCenterService,
         private centerPaymentHelperService: CenterPaymentHelperService,
         private centerListService: CenterListItemService,
+        private paymentMethodManagementService: PaymentMethodManagementService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
@@ -59,6 +61,10 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     goCenter() {
         this.storageService.setCenter(this.center)
         this.router.navigate([`${this.center.name}`, 'main'])
+    }
+
+    openPaymentMethodModal() {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(true)
     }
 
     public showAgreeInviteModal = false

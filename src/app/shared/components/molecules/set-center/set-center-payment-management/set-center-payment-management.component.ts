@@ -107,6 +107,8 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                         center,
                         type: 'change',
                     })
+                    //
+                    _.remove(this.paymentItemList, (v) => v['schedule_at'])
                     console.log('cancelSubscribePayment -- ', center)
                 },
                 error: (err) => {
@@ -120,29 +122,18 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
                     amount: value.paymentItem.amount,
                 })
                 .subscribe({
-                    next: (res) => {
+                    next: (center) => {
                         value.btLoadingFn.hideLoading()
                         this.nxStore.dispatch(showToast({ text: '환불 신청이 완료되었어요.' }))
-                        const paymentIdx = _.findIndex(
-                            this.paymentItemList,
-                            (v) => v.merchant_uid == value.paymentItem.merchant_uid
-                        )
-                        this.paymentItemList[paymentIdx] = _.cloneDeep({
-                            ...this.paymentItemList[paymentIdx],
-                            ...{ status: 'cancelled', cancelled_at: dayjs().format('YYYY-MM-DD') },
-                        })
-
-                        const centerCopy = _.cloneDeep({
-                            ...this.center,
-                            ...{ end_date: dayjs().subtract(1, 'day').format('YYYY-MM-DD') },
-                        })
-                        // 나중에 로직 변경되면 수정 필요
                         this.centerListService.centerChangeSubject.next({
-                            center: centerCopy,
+                            center: center,
                             type: 'change',
                         })
-                        this.closeModal.emit()
-                        console.log('cancelPayment -- ', res)
+                        this.getPaymentItems()
+                        if (dayjs().isAfter(center.end_date)) {
+                            this.closeModal.emit()
+                        }
+                        console.log('cancelPayment -- ', center)
                     },
                     error: (err) => {
                         value.btLoadingFn.hideLoading()
@@ -168,7 +159,6 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
         confirm: '확인',
     }
     checkIsAbleToGoPaymentPage() {
-        // 이후에 수정할 필요 있음
-        return !(this.center.next_start_date && this.center.next_end_date)
+        return !(this.center.next_start_date && this.center.next_end_date) && !this.center.schedule_at
     }
 }

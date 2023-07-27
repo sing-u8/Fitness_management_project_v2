@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { Loading } from '@schemas/loading'
 
 import _ from 'lodash'
@@ -77,7 +78,8 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         private storageService: StorageService,
         public route: Router,
         private usersCenterService: UsersCenterService,
-        private centerListItemService: CenterListItemService
+        private centerListItemService: CenterListItemService,
+        private paymentMethodManagementService: PaymentMethodManagementService,
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -134,6 +136,9 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     routeToPayment() {
         this.route.navigate([`${this.center.name}`, 'payment'])
+    }
+    openPaymentMethodModal() {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(true)
     }
 
     public showMyInformation = false

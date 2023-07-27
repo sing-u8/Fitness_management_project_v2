@@ -7,7 +7,7 @@
                 <span class="price-item-value">{{ paymentItemInfo.itemInfo.originalPrice | numberWithCommas }}원</span>
             </div>
         </div>
-        <div *ngIf="paymentItemInfo.promotions.length > 0" class="l-price-item">
+        <div *ngIf="totalDiscountPrice > 0" class="l-price-item">
             <div class="price-item">
                 <span class="price-item-key">할인 금액</span>
                 <span class="price-item-value">- {{ totalDiscountPrice | numberWithCommas }}원</span>

@@ -59,11 +59,11 @@ export class CenterPaymentsService {
         )
     }
 
-    cancelPayment(centerId: string, reqBody: CancelPaymentReqBody): Observable<Response> {
+    cancelPayment(centerId: string, reqBody: CancelPaymentReqBody): Observable<Center> {
         const url = this.SERVER + `/${centerId}/payments/cancel`
         return this.http.post<Response>(url, reqBody, this.options).pipe(
             map((res) => {
-                return res
+                return res.dataset[0]
             }),
             catchError(handleError)
         )

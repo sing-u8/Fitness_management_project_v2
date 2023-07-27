@@ -46,6 +46,7 @@ export type OnCancelPaymentType = 'payment' | 'payment-scheduled'
 export class CenterPaymentCardComponent implements AfterViewInit, OnInit, OnChanges {
     @Input() isLast = false
     @Input() paymentItem: BasePaymentItem // PaymentHistoryItem
+    @Input() paymentItems: BasePaymentItem[]
     @Input() center: Center
 
     @Output() onCancelPayment = new EventEmitter<OnCancelPayment>()
@@ -130,6 +131,11 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit, OnChan
         } else {
             this.paymentMethodText = '환불 금액'
         }
+    }
+
+    public isUsedLater = false
+    checkIsUsedLater() {
+        this.isUsedLater = dayjs(this.paymentItem.start_date).isAfter(dayjs().format('YYYY-MM-DD'))
     }
 
     // --------------------------------------------------------------------------------------------------
@@ -229,6 +235,7 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit, OnChan
         this.initCardNumber()
         this.getTax()
         this.checkShowCancelPaymentButton()
+        this.checkIsUsedLater()
     }
 
     // --------------------------------------------------------------------------------------------------------------
@@ -286,10 +293,27 @@ export class CenterPaymentCardComponent implements AfterViewInit, OnInit, OnChan
     public cancelDesc: string[] = []
 
     public showCancelReservedPaymentModal = false
+    public lastAvailablePayment: BasePaymentItem = undefined
     openCancelReservedPaymentModal() {
+        const getLastAvailablePayment = () => {
+            let item = undefined
+            const pl = _.filter(
+                this.paymentItems,
+                (v) => v.merchant_uid != this.paymentItem.merchant_uid && v['status'] == 'paid'
+            )
+            _.forEach(pl, (v) => {
+                if (_.isEmpty(item)) {
+                    item = v
+                } else if (dayjs(v.end_date).isAfter(item.end_date)) {
+                    item = v
+                }
+            })
+            return item
+        }
         const innerFn = () => {
             this.showCancelReservedPaymentModal = true
             this.cancelDesc = this.cancelReservedSubscriptionDesc
+            this.lastAvailablePayment = getLastAvailablePayment()
         }
         if (
             this.paymentItem.product_price != this.paymentItem.amount &&

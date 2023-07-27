@@ -22,7 +22,7 @@
                     <span>
                         {{ paymentItem?.start_date | dateFormat : 'YY년 MM월 DD일' }} ~
                         {{ paymentItem?.end_date | dateFormat : 'YY년 MM월 DD일' }}
-                        {{ paymentItem['schedule_at'] ? '사용 예정' : '' }}
+                        {{ isUsedLater ? '사용 예정' : '' }}
                     </span>
                     <rwa-badge
                         class="badge"
@@ -292,7 +292,7 @@
         <div class="available-date">
             <span class="available-date__category"> 해지 후 사용 가능한 기간 </span>
             <span class="available-date__value">
-                {{ '00년 00월 00일까지 사용 가능' }}
+                {{ lastAvailablePayment?.end_date | dateFormat : 'YY년 MM월 DD일' }}{{ '까지 사용 가능' }}
             </span>
         </div>
 

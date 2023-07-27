@@ -42,7 +42,7 @@
                     <div class="value">{{ paymentItem.itemInfo.originalPrice | numberWithCommas }}원</div>
                 </div>
             </div>
-            <div class="l-pi-item">
+            <div class="l-pi-item" *ngIf="totalDiscountPrice > 0">
                 <div class="pi-item">
                     <div class="key">할인 금액</div>
                     <div class="value">- {{ totalDiscountPrice | numberWithCommas }}원</div>

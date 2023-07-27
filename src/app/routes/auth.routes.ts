@@ -12,7 +12,7 @@ import { LoginComponent } from '../feature/pages/auth/login/login.component'
 import { ResetPasswordComponent } from '../feature/pages/auth/reset-password/reset-password.component'
 import { TermsComponent } from '../feature/pages/auth/terms/terms.component'
 
-export const AuthRoutes = [
+export const AuthRoutes: Routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', canActivate: [AuthGuard], component: LoginComponent },
     { path: 'terms', canActivate: [TermsGuard], component: TermsComponent },
@@ -42,4 +42,4 @@ export const AuthRoutes = [
     //     canActivate: [AuthGuard],
     //     component: ResetPasswordComponent,
     // },
-] as Routes
+]

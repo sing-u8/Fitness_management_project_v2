@@ -33,7 +33,9 @@ export class UsersService {
         return this.http.get<Response>(url, options).pipe(
             map((res) => {
                 const resData = res.dataset[0]
-                resData.birth_date = _.replace(resData.birth_date, /[-]/gi, '.')
+                resData.birth_date = _.isEmpty(resData?.birth_date)
+                    ? undefined
+                    : _.replace(resData.birth_date, /[-]/gi, '.')
                 return resData
             }),
             catchError(handleError)
@@ -52,7 +54,10 @@ export class UsersService {
         return this.http.put<Response>(url, requestBody, options).pipe(
             map((res) => {
                 const resData = res.dataset[0]
-                resData.birth_date = _.replace(resData.birth_date, /[-]/gi, '.')
+                console.log('updateUser - ', resData, res)
+                resData.birth_date = _.isEmpty(resData?.birth_date)
+                    ? undefined
+                    : _.replace(resData.birth_date, /[-]/gi, '.')
                 const user: User = this.storageService.getUser()
                 this.storageService.setUser({
                     ...user,

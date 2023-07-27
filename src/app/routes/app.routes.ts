@@ -6,7 +6,7 @@ import { NotFoundComponent } from '@shared/route-components/not-found/not-found.
 import { ComponentComponent } from '@pages/component/component.component'
 import { CenterGuard } from '@guards/center.guard'
 
-const routes: Routes = [
+export const AppRoutes: Routes = [
     { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
     {
         path: 'auth',
@@ -34,9 +34,3 @@ const routes: Routes = [
     { path: '404', component: NotFoundComponent },
     { path: '**', redirectTo: '/404' },
 ]
-
-@NgModule({
-    imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule],
-})
-export class AppRoutingModule {}

@@ -1,4 +1,4 @@
-import { Route } from '@angular/router'
+import { Route, Routes } from '@angular/router'
 import { MainComponent } from '@feature/templates/main/main-template/main.component'
 import { importProvidersFrom } from '@angular/core'
 
@@ -14,7 +14,7 @@ import { SalesEffect } from '@store/main/effects/sales.effect'
 import { FeatureKey as MainFeatureKey } from '@store/main/selectors/main.selector'
 import { FeatureKey as SalesFeatureKey } from '@store/main/selectors/sales.selector'
 
-export const MainRoutes = [
+export const MainRoutes: Routes = [
     {
         path: '',
         component: MainComponent,
@@ -117,7 +117,7 @@ export const MainRoutes = [
             },
         ],
     },
-] as Route[]
+]
 
 export type MainPath =
     | 'member-management'

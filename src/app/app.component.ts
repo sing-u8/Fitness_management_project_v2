@@ -2,12 +2,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
-import { Auth, authState } from '@angular/fire/auth'
+import { Auth } from '@angular/fire/auth'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
 import { modalSelector, toastSelector } from '@store/app/selectors/selectors'
-import { hideModal } from '@store/app/actions/modal.action'
 import { hideToast } from '@store/app/actions/toast.action'
 
 // schemas
@@ -15,10 +14,13 @@ import { Modal } from '@schemas/appStore/modal.interface'
 import { Toast } from '@schemas/appStore/toast.interface'
 import { RoleModal } from '@schemas/appStore/modal.interface'
 
-import _ from 'lodash'
+import { CoreModule } from './core/core.module'
+import { CommonModule } from '@angular/common'
 
 @Component({
     selector: 'app-root',
+    standalone: true,
+    imports: [CommonModule, CoreModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })

@@ -22,16 +22,10 @@ import { metaReducers } from '@store/app/reducers/meta-reducers'
 import { AppEffect } from '@store/app/effects/effects'
 
 // Firebase
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app'
-import {
-    connectFirestoreEmulator,
-    enableIndexedDbPersistence,
-    getFirestore,
-    provideFirestore,
-} from '@angular/fire/firestore'
-import { AuthModule as AngularFireAuthModule } from '@angular/fire/auth'
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
+import { getFirestore, provideFirestore } from '@angular/fire/firestore'
+import { AuthModule as AngularFireAuthModule, getAuth, provideAuth } from '@angular/fire/auth'
 import { StorageModule as AngularFirestoreModule } from '@angular/fire/storage'
-import { provideAuth, connectAuthEmulator, getAuth } from '@angular/fire/auth'
 
 // Google reCAPTCHA
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha'
@@ -44,13 +38,7 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha'
         AppRoutingModule,
         // firebase
         provideFirebaseApp(() => initializeApp(environment.firebase)),
-        provideFirestore(() => {
-            const fireStore = getFirestore()
-            // console.log('in app module fireStore: ', fireStore)
-            // connectFirestoreEmulator(fireStore, 'localhost', 4200);
-            // enableIndexedDbPersistence(fireStore);
-            return fireStore
-        }),
+        provideFirestore(() => getFirestore()),
         provideAuth(() => getAuth()),
         AngularFireAuthModule,
         AngularFirestoreModule,

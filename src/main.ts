@@ -4,7 +4,6 @@ import { provideRouter } from '@angular/router'
 import { AppComponent } from './app/app.component'
 import { AppRoutes } from '@routes/app.routes'
 
-
 import { environment } from '@environments/environment'
 import { HttpClientModule } from '@angular/common/http'
 import { initializeApp, provideFirebaseApp } from '@angular/fire/app'
@@ -22,6 +21,7 @@ import { AppEffect } from '@store/app/effects/effects'
 import { StoreDevtoolsModule } from '@ngrx/store-devtools'
 import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from 'ng-recaptcha'
 import { COMPOSITION_BUFFER_MODE } from '@angular/forms'
+import { CoreModule } from './app/core/core.module'
 
 if (environment.production) {
     enableProdMode()
@@ -30,7 +30,7 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
     providers: [
         provideRouter(AppRoutes),
-        importProvidersFrom([
+        importProvidersFrom(
             BrowserModule,
             BrowserAnimationsModule,
             HttpClientModule,
@@ -38,8 +38,8 @@ bootstrapApplication(AppComponent, {
             provideFirebaseApp(() => initializeApp(environment.firebase)),
             provideFirestore(() => getFirestore()),
             provideAuth(() => getAuth()),
-            AngularFireAuthModule,
-            AngularFirestoreModule,
+            // AngularFireAuthModule,
+            // AngularFirestoreModule,
             // ngrx
             StoreModule.forRoot(
                 {
@@ -56,7 +56,9 @@ bootstrapApplication(AppComponent, {
             }),
             // Google reCAPTCHA
             RecaptchaV3Module,
-        ]),
+            // etc
+            CoreModule
+        ),
         {
             provide: RECAPTCHA_V3_SITE_KEY,
             useValue: environment.RECAPTCHA_SITE_KEY,
@@ -64,7 +66,7 @@ bootstrapApplication(AppComponent, {
         // 한글 바로 입력되게 설정
         { provide: COMPOSITION_BUFFER_MODE, useValue: false },
     ],
-})
+}).catch((err) => console.error(err))
 
 // platformBrowserDynamic()
 //     .bootstrapModule(AppModule)

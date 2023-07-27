@@ -16,11 +16,13 @@ import { RoleModal } from '@schemas/appStore/modal.interface'
 
 import { CoreModule } from './core/core.module'
 import { CommonModule } from '@angular/common'
+import { SharedModule } from '@shared/shared.module'
+import { RouterModule } from '@angular/router'
 
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [CommonModule, CoreModule],
+    imports: [CommonModule, SharedModule, RouterModule],
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })

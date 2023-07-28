@@ -299,10 +299,10 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     public statusText = ''
     public showTag = false
     initStatus() {
-        if (this.employee.connection_status == 'employee_connection_status_connected') {
+        if (this.employee.connection_status_code == 'employee_connection_status_connected') {
             this.statusText = '연동'
             this.showTag = true
-        } else if (this.employee.connection_status == 'employee_connection_status_disconnected') {
+        } else if (this.employee.connection_status_code == 'employee_connection_status_disconnected') {
             this.statusText = '미연동'
             this.showTag = !_.isEmpty(this.employee.email)
         } else {
@@ -328,7 +328,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         this.onClose()
     }
     onYieldConfirm(mo: ModalOutPut) {
-        if (this._employee.connection_status != 'employee_connection_status_connected') {
+        if (this._employee.connection_status_code != 'employee_connection_status_connected') {
             this.onClose()
             this.yieldOwnerOpen = false
             this.disableToYieldModalOpen = true

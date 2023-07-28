@@ -171,7 +171,8 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
                     (v) => this.centerListItemService.isCenterAvailable(v) && this.center.id != v.id
                 )
                 this.isInvitedCenterExist =
-                    _.findIndex(centerList, (v) => v.connection_status == 'employee_connection_status_pending') != -1
+                    _.findIndex(centerList, (v) => v.connection_status_code == 'employee_connection_status_pending') !=
+                    -1
                 console.log('getCenterList -- main-menu : ', this.centerList, centerList)
                 this.centerLoading = 'idle'
             },

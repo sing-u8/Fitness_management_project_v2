@@ -21,10 +21,8 @@ export interface Center {
     next_product_code: string
     picture: string
     background: string
-    connection_status:
-        | 'employee_connection_status_disconnected'
-        | 'employee_connection_status_pending'
-        | 'employee_connection_status_connected'
+    connection_status_code: CenterConnectionStatus
+
     role_code: RoleCode
     role_name: string
     permissions: Array<{ permission_code: string }> // 권한 코드 리스트
@@ -53,3 +51,8 @@ export interface Center {
 }
 
 export type RoleCode = 'owner' | 'member' | 'administrator' | 'instructor'
+
+export type CenterConnectionStatus =
+    | 'employee_connection_status_disconnected'
+    | 'employee_connection_status_pending'
+    | 'employee_connection_status_connected'

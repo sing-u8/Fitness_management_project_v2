@@ -38,9 +38,9 @@
             <div
                 class="tag"
                 [ngClass]="
-                    employee.connection_status == 'employee_connection_status_connected'
+                    employee.connection_status_code == 'employee_connection_status_connected'
                         ? 'connected'
-                        : employee.connection_status == 'employee_connection_status_disconnected'
+                        : employee.connection_status_code == 'employee_connection_status_disconnected'
                         ? 'disconnected'
                         : 'pending'
                 "

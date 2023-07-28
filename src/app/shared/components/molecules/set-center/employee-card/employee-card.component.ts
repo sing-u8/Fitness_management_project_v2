@@ -17,9 +17,9 @@ export class EmployeeCardComponent implements OnInit {
 
     public statusText = ''
     initStatus() {
-        if (this.employee.connection_status == 'employee_connection_status_connected') {
+        if (this.employee.connection_status_code == 'employee_connection_status_connected') {
             this.statusText = '연동'
-        } else if (this.employee.connection_status == 'employee_connection_status_disconnected') {
+        } else if (this.employee.connection_status_code == 'employee_connection_status_disconnected') {
             this.statusText = '미연동'
         } else {
             this.statusText = '연동 요청중'

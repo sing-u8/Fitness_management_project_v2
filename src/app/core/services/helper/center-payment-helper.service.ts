@@ -58,7 +58,7 @@ export class CenterPaymentHelperService {
         const paymentBadge: PaymentBadge = _.cloneDeep(this.stateBadge)
 
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        if (center.connection_status == 'employee_connection_status_pending') {
+        if (center.connection_status_code == 'employee_connection_status_pending') {
             paymentBadgeKey = 'normal'
         } else if (center.product_code == 'free_trial_membership') {
             if (dayRemains > 14) {

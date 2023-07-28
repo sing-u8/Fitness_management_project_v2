@@ -40,14 +40,14 @@ export class CenterListItemService {
     }
     isCenterAvailable(center: Center) {
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        return dayRemains >= 1 && center.connection_status == 'employee_connection_status_connected'
+        return dayRemains >= 1 && center.connection_status_code == 'employee_connection_status_connected'
     }
 
     // -------------------------------------------------------------------------------------------------------------------
 
     getCenterHeaderState(center: Center, badgeState: PaymentBadgeKey): CenterHeaderStatus {
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
-        if (center.connection_status == 'employee_connection_status_pending') {
+        if (center.connection_status_code == 'employee_connection_status_pending') {
             return 'invite'
         } else if (center.product_code == 'free_trial_membership') {
             if (badgeState == 'freeTrialEnd') {

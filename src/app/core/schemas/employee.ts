@@ -2,7 +2,7 @@ import { RoleCode } from "@schemas/center";
 
 export interface Employee {
     id: string
-    connection_status: EmployeeConnectionStatus
+    connection_status_code: EmployeeConnectionStatus
     membership_number: string
     name: string
     sex: string

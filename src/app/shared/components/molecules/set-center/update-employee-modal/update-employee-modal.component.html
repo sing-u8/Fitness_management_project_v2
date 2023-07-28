@@ -112,9 +112,9 @@
                                     *ngIf="showTag"
                                     class="email-tag"
                                     [ngClass]="
-                                        _employee?.connection_status == 'employee_connection_status_connected'
+                                        _employee?.connection_status_code == 'employee_connection_status_connected'
                                             ? 'connected'
-                                            : _employee?.connection_status == 'employee_connection_status_disconnected'
+                                            : _employee?.connection_status_code == 'employee_connection_status_disconnected'
                                             ? 'disconnected'
                                             : 'pending'
                                     "

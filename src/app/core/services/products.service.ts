@@ -8,12 +8,13 @@ import { Response } from '@schemas/response'
 import { environment } from '@environments/environment'
 import { Product } from '@schemas/product'
 import { Promotion, PromotionCode } from '@schemas/payment/promotion'
+import { ProductCategory, ProductCategoryCode } from '@schemas/product-category'
 
 @Injectable({
     providedIn: 'root',
 })
 export class ProductsService {
-    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/products`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/products-categories`
 
     private options = {
         headers: new HttpHeaders({
@@ -22,8 +23,17 @@ export class ProductsService {
     }
     constructor(private http: HttpClient) {}
 
-    getProduct(): Observable<Product[]> {
+    getProductCategory(): Observable<ProductCategory[]> {
         const url = this.SERVER
+        return this.http.get<Response>(url, this.options).pipe(
+            map((res) => {
+                return res.dataset
+            }),
+            catchError(handleError)
+        )
+    }
+    getProduct(categoryCode: ProductCategoryCode): Observable<Product[]> {
+        const url = this.SERVER + `/${categoryCode}/products`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
                 return res.dataset

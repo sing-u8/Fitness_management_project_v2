@@ -1,4 +1,4 @@
-export interface CodeItem {
+export interface Code {
     code: string
     text_ko: string
     text_en: string

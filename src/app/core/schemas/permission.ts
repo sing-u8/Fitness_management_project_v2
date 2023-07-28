@@ -1,4 +1,4 @@
-export interface PermissionItem {
+export interface Permission {
     code: string
     name: string
     sequence_number: number

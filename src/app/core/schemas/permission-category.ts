@@ -1,9 +1,9 @@
-import { PermissionItem } from '@schemas/permission-item'
+import { Permission } from '@schemas/permission'
 export interface PermissionCategory {
     code: PermissionKeys
     name: string
     sequence_number: number
-    items: Array<PermissionItem>
+    items: Array<Permission>
 }
 
 export type CenterPermissionCode = 'read_center' | 'update_center'

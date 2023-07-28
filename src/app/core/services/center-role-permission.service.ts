@@ -9,7 +9,7 @@ import { StorageService } from '@services/storage.service'
 
 import { Response } from '@schemas/response'
 import { PermissionCategory } from '@schemas/permission-category'
-import { PermissionItem } from '@schemas/permission-item'
+import { Permission } from '@schemas/permission'
 import { Role } from '@schemas/role-permission'
 import { RolePermission } from '@schemas/role-permission'
 
@@ -136,7 +136,7 @@ export class CenterRolePermissionService {
         roleCode: string,
         permissionCode: string,
         reqBody: UpdatePermission
-    ): Observable<PermissionItem> {
+    ): Observable<Permission> {
         const url = this.SERVER + `/${centerId}/role/${roleCode}/permission/${permissionCode}`
 
         const options = {

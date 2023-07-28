@@ -9,19 +9,19 @@ import { StorageService } from '@services/storage.service'
 import { CodeCategory } from '@schemas/code-category'
 import { Response } from '@schemas/response'
 import _ from 'lodash'
-import { CodeItem } from '@schemas/code-item'
+import { Code } from '@schemas/code'
 
 @Injectable({
     providedIn: 'root',
 })
 export class CodeService {
-    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/code`
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/code-categories`
     constructor(
         private http: HttpClient,
         private storageService: StorageService // private WsChat: WsChatService
     ) {}
 
-    getCategoryCode(): Observable<CodeCategory> {
+    getCodeCategory(): Observable<CodeCategory[]> {
         const url = this.SERVER
 
         const options = {
@@ -32,14 +32,14 @@ export class CodeService {
 
         return this.http.get<Response>(url, options).pipe(
             map((res) => {
-                return res.dataset[0]
+                return res.dataset
             }),
             catchError(handleError)
         )
     }
 
-    getCategoryCodeItem(categoryCode: string): Observable<CodeItem> {
-        const url = this.SERVER + `/${categoryCode}/item`
+    getCodeCategoryItem(categoryCode: string): Observable<Code> {
+        const url = this.SERVER + `/${categoryCode}/code`
 
         const options = {
             headers: new HttpHeaders({

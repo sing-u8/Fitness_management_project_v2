@@ -7,7 +7,7 @@ import { Auth } from '@angular/fire/auth'
 // ngrx
 import { Store, select } from '@ngrx/store'
 import { modalSelector, toastSelector } from '@store/app/selectors/selectors'
-import { hideToast } from '@store/app/actions/toast.action'
+import { hideToast } from '@store/app/actions/app.actions'
 
 // schemas
 import { Modal } from '@schemas/appStore/modal.interface'
@@ -18,6 +18,7 @@ import { CoreModule } from './core/core.module'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { RouterModule } from '@angular/router'
+import { hideModal } from '@store/app/actions/app.actions'
 
 @Component({
     selector: 'app-root',
@@ -51,5 +52,9 @@ export class AppComponent {
 
     hideToast() {
         this.nxStore.dispatch(hideToast())
+    }
+
+    hideModal() {
+        this.nxStore.dispatch(hideModal())
     }
 }

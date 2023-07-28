@@ -11,7 +11,7 @@ import { SharedModule } from '@shared/shared.module'
 
 // ngrx
 import { Store } from '@ngrx/store'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { Loading } from '@schemas/loading'
 
 @Component({

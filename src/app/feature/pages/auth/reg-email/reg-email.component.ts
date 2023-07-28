@@ -25,7 +25,7 @@ import { Observable, Subscription } from 'rxjs'
 import { distinctUntilChanged, debounceTime, filter } from 'rxjs/operators'
 // ngrx
 import { Store, select } from '@ngrx/store'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { registrationSelector } from '@store/app/selectors/selectors'
 import { SharedModule } from '@shared/shared.module'
 import { Loading } from '@schemas/loading'

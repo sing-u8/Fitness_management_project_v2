@@ -28,9 +28,7 @@ import { SharedModule } from '@shared/shared.module'
 
 // ngrx
 import { Store } from '@ngrx/store'
-import { showToast } from '@store/app/actions/toast.action'
-import { showModal } from '@store/app/actions/modal.action'
-import { removeRegistration } from '@store/app/actions/registration.action'
+import { showToast, showModal, removeRegistration } from '@store/app/actions/app.actions'
 
 // schemas
 import { Loading } from '@schemas/loading'
@@ -201,7 +199,7 @@ export class LoginComponent {
             },
             error: (e) => {
                 this.kakaoBtLoadingFns.hideLoading()
-                this.nxStore.dispatch(showModal({ data: { text: this.TAG, subText: e.message } }))
+                this.nxStore.dispatch(showModal({ data: { title: this.TAG, desc: e.message } }))
             },
         })
     }
@@ -218,7 +216,7 @@ export class LoginComponent {
                     }
                 },
                 error: (e) => {
-                    this.nxStore.dispatch(showModal({ data: { text: this.TAG, subText: e.message } }))
+                    this.nxStore.dispatch(showModal({ data: { title: this.TAG, desc: e.message } }))
                     if (!_.isEmpty(cb)) {
                         cb()
                     }

@@ -18,9 +18,7 @@ import _ from 'lodash'
 // ngrx
 import { Store, select } from '@ngrx/store'
 import { registrationSelector } from '@store/app/selectors/selectors'
-import { showModal } from '@store/app/actions/modal.action'
-import { setRegistration } from '@store/app/actions/registration.action'
-import { showToast } from '@store/app/actions/toast.action'
+import { showModal, setRegistration, showToast } from '@store/app/actions/app.actions'
 
 @Component({
     selector: 'rwp-terms',
@@ -161,7 +159,7 @@ export class TermsComponent implements OnInit, OnDestroy {
                     this.router.navigateByUrl('/redwhale-home')
                 },
                 error: (err) => {
-                    this.nxStore.dispatch(showModal({ data: { text: this.TAG, subText: err.message } }))
+                    this.nxStore.dispatch(showModal({ data: { title: this.TAG, desc: err.message } }))
                 },
             })
         } else {

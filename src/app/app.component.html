@@ -1,3 +1,14 @@
 <router-outlet></router-outlet>
 
-<rwa-toast [(visible)]="toastState.visible" [text]="toastState.text" [timeOutCount]="3" (cancel)="hideToast()"></rwa-toast>
+<rwa-toast
+    [(visible)]="toastState.visible"
+    [text]="toastState.text"
+    [timeOutCount]="3"
+    (cancel)="hideToast()"
+></rwa-toast>
+<rwa-modal
+    [(visible)]="modalState.isVisible"
+    [data]="modalState.data"
+    [type]="'oneButton'"
+    (cancel)="hideModal()"
+></rwa-modal>

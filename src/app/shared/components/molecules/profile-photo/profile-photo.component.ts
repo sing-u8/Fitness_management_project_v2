@@ -5,7 +5,7 @@ import { Center } from '@schemas/center'
 import { FileService } from '@services/file.service'
 import { UsersService } from '@services/users.service'
 import { StorageService } from '@services/storage.service'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { Store, select } from '@ngrx/store'
 
 @Component({

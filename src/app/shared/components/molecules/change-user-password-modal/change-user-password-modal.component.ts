@@ -20,7 +20,7 @@ import { UsersService } from '@services/users.service'
 import { User } from '@schemas/user'
 import { PasswordErrors } from '@schemas/errors/password-error'
 
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { Store, select } from '@ngrx/store'
 import { isPassword, passwordValidator } from '@shared/helper/form-helper'
 

@@ -21,9 +21,8 @@ import { distinctUntilChanged, debounceTime, filter, map, takeUntil } from 'rxjs
 
 // ngrx
 import { select, Store } from '@ngrx/store'
-import { setRegistration } from '@store/app/actions/registration.action'
+import { setRegistration,showToast } from '@store/app/actions/app.actions'
 import { registrationSelector } from '@store/app/selectors/selectors'
-import { showToast } from '@store/app/actions/toast.action'
 import { Loading } from '@schemas/loading'
 import _ from 'lodash'
 

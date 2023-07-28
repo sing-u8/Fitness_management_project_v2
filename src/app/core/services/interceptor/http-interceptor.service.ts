@@ -9,7 +9,7 @@ import { AuthService } from '@services/auth.service'
 import { ErrorObj } from '@schemas/error'
 
 import { Store } from '@ngrx/store'
-import { debugLog } from '@store/app/actions/log.action'
+import { debugLog } from '@store/app/actions/app.actions'
 
 @Injectable({
     providedIn: 'root',

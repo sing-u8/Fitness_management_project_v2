@@ -5,10 +5,15 @@ import { environment } from '@environments/environment'
 
 import { AppStateInterface } from '@schemas/appStore/appState.interface'
 
-import { showToast, hideToast } from '../actions/toast.action'
-import { showModal, hideModal } from '../actions/modal.action'
-import { setRegistration, removeRegistration } from '../actions/registration.action'
-import { debugLog } from '../actions/log.action'
+import {
+    showToast,
+    hideToast,
+    showModal,
+    hideModal,
+    setRegistration,
+    removeRegistration,
+    debugLog,
+} from '@store/app/actions/app.actions'
 
 export const appFeatureKey = 'App'
 
@@ -29,10 +34,10 @@ const initialState: AppStateInterface = {
     modal: {
         isVisible: false,
         data: {
-            text: '',
-            subText: '',
-            cancelButtonText: '',
-            confirmButtonText: '',
+            title: '',
+            desc: '',
+            cancel: '',
+            confirm: '',
         },
     },
 }

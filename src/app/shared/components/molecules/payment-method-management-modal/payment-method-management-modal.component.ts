@@ -24,7 +24,7 @@ import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 
 import { Store } from '@ngrx/store'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { ButtonEmit } from '@schemas/components/button'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'

@@ -4,7 +4,7 @@ import { Router, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate } from
 import { StorageService } from '@services/storage.service'
 
 import { Store } from '@ngrx/store'
-import { debugLog } from '@store/app/actions/log.action'
+import { debugLog } from '@store/app/actions/app.actions'
 import { Registration } from '@schemas/appStore/registration.interface'
 import { registrationSelector } from '@store/app/selectors/selectors'
 import { take } from 'rxjs/operators'

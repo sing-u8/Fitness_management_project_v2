@@ -14,7 +14,7 @@ import { PaymentMethodManagementService } from '@services/helper/payment-method-
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Store } from '@ngrx/store'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { PaymentBadgeKey, PaymentBadge } from '@schemas/payment/payment-badge-state'
 
 @Component({

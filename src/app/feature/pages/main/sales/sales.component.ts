@@ -10,7 +10,7 @@ import dayjs from 'dayjs'
 import { Store, select } from '@ngrx/store'
 import * as SaleSelector from '@store/main/selectors/sales.selector'
 import * as SalesAction from '@store/main/actions/sales.action'
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 // rxjs
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'

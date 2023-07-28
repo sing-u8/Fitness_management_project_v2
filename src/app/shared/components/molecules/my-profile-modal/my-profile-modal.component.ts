@@ -26,7 +26,7 @@ import { ChangeUserNameOutput } from '@shared/components/molecules/change-user-n
 import dayjs from 'dayjs'
 import _ from 'lodash'
 
-import { showToast } from '@store/app/actions/toast.action'
+import { showToast } from '@store/app/actions/app.actions'
 import { Store, select } from '@ngrx/store'
 import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
 import { ChangeUserMarketingOutput } from '@shared/components/molecules/change-user-marketing-modal/change-user-marketing-modal.component'

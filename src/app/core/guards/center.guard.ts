@@ -11,10 +11,7 @@ import { StorageService } from '@services/storage.service'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
-// import * as CenterCommonActions from '@centerStore/actions/center.common.actions'
-// import { curCenterRefreshed } from '@centerStore/selectors/center.common.selector'
-import { CenterUser } from '@schemas/center-user'
-import { debugLog } from '@store/app/actions/log.action'
+import { debugLog } from '@store/app/actions/app.actions'
 
 @Injectable({
     providedIn: 'root',

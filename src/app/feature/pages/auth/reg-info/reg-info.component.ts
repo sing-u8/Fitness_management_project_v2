@@ -20,7 +20,7 @@ import { getLinkedAccountStr } from '@shared/helper/account-helper'
 // ngrx
 import { Store, select } from '@ngrx/store'
 import { registrationSelector } from '@store/app/selectors/selectors'
-import { setRegistration } from '@store/app/actions/registration.action'
+import { setRegistration } from '@store/app/actions/app.actions'
 import { Loading } from '@schemas/loading'
 
 @Component({

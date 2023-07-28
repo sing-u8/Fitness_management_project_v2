@@ -1,1 +1,130 @@
-<p>delete-account-modal works!</p>
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onCancel()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div
+        class="rw-modal user-select-none"
+        [ngClass]="step == 'two' ? 'step-two' : 'step-one'"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
+        <ng-container *ngIf="step == 'one'">
+            <div class="text d-flex">정말로 계정을 삭제하시겠어요?</div>
+            <div class="sub-text d-flex">
+                계정을 삭제하면 연동된 모든 계정이<br />
+                삭제되어 레드웨일을 사용하실 수 없으며,<br />
+                삭제된 정보는 복구가 불가능해요.
+            </div>
+
+            <div class="l-user-data" *ngIf="linkedAccountString">
+                <div class="user-data">
+                    <span class="user-category"> 이메일 주소 </span>
+                    <span class="user-value">
+                        {{ user?.email }}
+                    </span>
+                </div>
+                <div class="divider"></div>
+                <div class="user-data">
+                    <span class="user-category"> 연동된 계정 </span>
+                    <span class="user-value">
+                        {{ linkedAccountString }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="button-group d-flex align-items-center justify-content-end">
+                <rwa-button
+                    class="cancel-button"
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [bgColor]="'var(--white)'"
+                    [hoverBgColor]="'var(--gray-30)'"
+                    (onClick)="onCancel()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="cancel-text">아니요</span>
+                    </ng-template>
+                </rwa-button>
+
+                <rwa-button
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [status]="deleteUserLoading"
+                    [loadingName]="'delete-user'"
+                    (onClick)="checkAvailableToDelete()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="confirm-text">삭제할게요</span>
+                    </ng-template>
+                    <ng-template btPendingContent>
+                        <span class="confirm-text">삭제할게요</span>
+                    </ng-template>
+                </rwa-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 'two'">
+            <div class="delete-title">
+                계정을 삭제하면 더 이상 해당 계정으로<br />
+                레드웨일을 사용하실 수 없으며,<br />
+                삭제된 정보는 복구가 불가능해요.
+            </div>
+            <rwa-text-field
+                [label]="'‘계정 삭제’ 문구를 입력해 주세요.'"
+                placeholder="계정 삭제"
+                width="380px"
+                [textFieldType]="'normal'"
+                [formControl]="deleteUserForm"
+            ></rwa-text-field>
+            <div class="button-group d-flex align-items-center justify-content-end">
+                <rwa-button
+                    class="cancel-button"
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [bgColor]="'var(--white)'"
+                    [hoverBgColor]="'var(--gray-30)'"
+                    (onClick)="onCancel()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="cancel-text">아니요</span>
+                    </ng-template>
+                </rwa-button>
+
+                <rwa-button
+                    [padding]="'9px 25px 7px'"
+                    [height]="'45px'"
+                    [status]="deleteUserConfirmLoading"
+                    [loadingMargin]="'0'"
+                    [loadingName]="'delete-user-confirm'"
+                    [disable]="deleteUserForm.invalid"
+                    (onClick)="deleteUserConfirm()"
+                >
+                    <ng-template btIdleContent>
+                        <span class="confirm-text">계정 삭제</span>
+                    </ng-template>
+                    <ng-template btPendingContent>
+                        <span class="confirm-text">계정 삭제</span>
+                    </ng-template>
+                </rwa-button>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="step == 'disableToDelete'">
+            <div class="text d-flex">운영자는 계정을 삭제하실 수 없어요.</div>
+            <div class="sub-text d-flex">
+                센터 운영자는 운영자 권한을 다른 사람에게<br />
+                양도한 후에 계정을 삭제할 수 있어요.
+            </div>
+
+            <div class="button-group d-flex align-items-center justify-content-end">
+                <rwa-button [padding]="'9px 25px 7px'" [height]="'45px'" (onClick)="onCancel()">
+                    <ng-template btIdleContent>
+                        <span class="confirm-text">확인</span>
+                    </ng-template>
+                </rwa-button>
+            </div>
+        </ng-container>
+    </div>
+</div>

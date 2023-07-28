@@ -127,4 +127,10 @@
     (close)="showChangePasswordModal = false"
     (onPasswordConfirm)="showChangePasswordModal = false"
 ></rwm-change-user-password-modal>
-<!--<rwm-delete-account-modal [(visible)]="showDeleteUserModal" (close)="showDeleteUserModal = false"></rwm-delete-account-modal>-->
+
+<rwm-delete-account-modal
+    [user]="user"
+    [(visible)]="showDeleteUserModal"
+    (cancel)="showDeleteUserModal = false"
+    (confirm)="showDeleteUserModal = false"
+></rwm-delete-account-modal>

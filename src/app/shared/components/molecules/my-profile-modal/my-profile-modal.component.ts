@@ -30,6 +30,7 @@ import { showToast } from '@store/app/actions/toast.action'
 import { Store, select } from '@ngrx/store'
 import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
 import { ChangeUserMarketingOutput } from '@shared/components/molecules/change-user-marketing-modal/change-user-marketing-modal.component'
+import { ModalInput } from '@schemas/components/modal'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -239,7 +240,21 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
     public showChangeBirthDateModal = false
     public showChangeMarketingModal = false
     public showChangePasswordModal = false
+
     public showDeleteUserModal = false
+    // public showCheckDeleteUserModal = false
+    // public showCheckDeleteUserData: ModalInput = {
+    //     title: '정말로 계정을 삭제하시겠어요?',
+    //     desc: `계정을 삭제하면 더 이상 해당 계정으로
+    //             레드웨일을 사용하실 수 없으며,
+    //             삭제된 정보는 복구가 불가능해요.`,
+    //     cancel: '아니요',
+    //     confirm: '삭제할게요',
+    // }
+    onCheckDeleteUserConfirm() {
+        // this.showCheckDeleteUserData = false
+        this.showDeleteUserModal = true
+    }
 
     onBasicInfoClick(type: string) {
         const _type = type as MyInfo

@@ -6,6 +6,7 @@ import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 import { Center } from '@schemas/center'
@@ -33,23 +34,17 @@ export class CenterListComponent implements OnInit, OnDestroy {
     public centerLoading: Loading = 'idle'
     public centerList: Center[] = []
 
-    public selectedCenter: Center = undefined
-    public setCenterModalVisible = false
     onSetCenter(center: Center) {
-        this.selectedCenter = center
-        this.setCenterModalVisible = true
-    }
-
-    public paymentMethodModalVisible = false
-    setPaymentMethodModalVisible(flag: boolean) {
-        this.paymentMethodManagementService.setPaymentMethodModalVisible(flag)
+        this.setCenterService.setCenter(center)
+        this.setCenterService.setCenterModalVisible(true)
     }
 
     constructor(
         private storageService: StorageService,
         private usersCenterService: UsersCenterService,
         private centerListService: CenterListItemService,
-        private paymentMethodManagementService: PaymentMethodManagementService
+        private paymentMethodManagementService: PaymentMethodManagementService,
+        private setCenterService: SetCenterService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -63,11 +58,7 @@ export class CenterListComponent implements OnInit, OnDestroy {
                 this.onCenterRemoved(cc.center)
             }
         })
-        this.paymentMethodManagementService.paymentMethodModalVisible$
-            .pipe(takeUntil(this.unDescriber$))
-            .subscribe((visible) => {
-                this.paymentMethodModalVisible = visible
-            })
+
         this.getCenterList()
     }
     ngOnDestroy() {

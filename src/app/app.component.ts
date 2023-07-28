@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-
 import { Auth } from '@angular/fire/auth'
+
+import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 
 // ngrx
 import { Store, select } from '@ngrx/store'
@@ -14,11 +16,11 @@ import { Modal } from '@schemas/appStore/modal.interface'
 import { Toast } from '@schemas/appStore/toast.interface'
 import { RoleModal } from '@schemas/appStore/modal.interface'
 
-import { CoreModule } from './core/core.module'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { RouterModule } from '@angular/router'
 import { hideModal } from '@store/app/actions/app.actions'
+import { Center } from '@schemas/center'
 
 @Component({
     selector: 'app-root',
@@ -32,15 +34,44 @@ export class AppComponent {
 
     public modalState: Modal
     public toastState: Toast
-    public roleModalState: RoleModal
 
-    constructor(private nxStore: Store, private fireAuth: Auth) {
+    public selectedCenter: Center = undefined
+    public setCenterModalVisible = false
+    public paymentMethodModalVisible = false
+    setPaymentMethodModalVisible(flag: boolean) {
+        this.paymentMethodManagementService.setPaymentMethodModalVisible(flag)
+    }
+
+    constructor(
+        private nxStore: Store,
+        private paymentMethodManagementService: PaymentMethodManagementService,
+        private setCenterService: SetCenterService
+    ) {
         this.nxStore.pipe(select(modalSelector), takeUntil(this.unSubscriber$)).subscribe((modal) => {
             this.modalState = modal
         })
         this.nxStore.pipe(select(toastSelector), takeUntil(this.unSubscriber$)).subscribe((toast) => {
             this.toastState = toast
         })
+
+        this.setCenterService.center$
+            .asObservable()
+            .pipe(takeUntil(this.unSubscriber$))
+            .subscribe((center) => {
+                this.selectedCenter = center
+            })
+        this.setCenterService.setCenterModalVisible$
+            .asObservable()
+            .pipe(takeUntil(this.unSubscriber$))
+            .subscribe((visible) => {
+                this.setCenterModalVisible = visible
+            })
+        this.paymentMethodManagementService.paymentMethodModalVisible$
+            .asObservable()
+            .pipe(takeUntil(this.unSubscriber$))
+            .subscribe((visible) => {
+                this.paymentMethodModalVisible = visible
+            })
     }
 
     ngOnInit(): void {}

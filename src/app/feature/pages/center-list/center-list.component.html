@@ -109,14 +109,3 @@
     (open)="openMyInfoModal()"
 ></rwm-my-profile-modal>
 
-<rwm-set-center-modal
-    [center]="selectedCenter"
-    [(visible)]="setCenterModalVisible"
-    (close)="setCenterModalVisible = false"
-></rwm-set-center-modal>
-
-<rwm-payment-method-management-modal
-    [(visible)]="paymentMethodModalVisible"
-    (close)="setPaymentMethodModalVisible(false)"
-    (open)="setPaymentMethodModalVisible(true)"
-></rwm-payment-method-management-modal>

@@ -10,6 +10,7 @@ import {
     AfterViewChecked,
     ViewChild,
     AfterViewInit,
+    ChangeDetectorRef,
 } from '@angular/core'
 import { NgxSpinnerService } from 'ngx-spinner'
 
@@ -62,7 +63,8 @@ export class DeleteAccountModalComponent implements OnChanges, AfterViewChecked,
         private fb: FormBuilder,
         private usersCenterService: UsersCenterService,
         private usersService: UsersService,
-        private storageService: StorageService
+        private storageService: StorageService,
+        private cd: ChangeDetectorRef
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -92,6 +94,7 @@ export class DeleteAccountModalComponent implements OnChanges, AfterViewChecked,
     ngAfterViewChecked() {}
     ngAfterViewInit() {
         this.getLinkedAccountString()
+        this.cd.detectChanges()
     }
 
     // ----------------------------------------------------------------------------------------------------

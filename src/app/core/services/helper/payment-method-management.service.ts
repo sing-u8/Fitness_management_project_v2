@@ -3,7 +3,6 @@ import { BehaviorSubject, Subscription } from 'rxjs'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import { Loading } from '@schemas/loading'
 import { UsersCustomersService } from '@services/users-customers.service'
-import { User } from '@schemas/user'
 import _ from 'lodash'
 
 @Injectable({
@@ -12,7 +11,13 @@ import _ from 'lodash'
 export class PaymentMethodManagementService {
     public cardList$: BehaviorSubject<PaymentCard[]> = new BehaviorSubject<PaymentCard[]>([])
     public cardListLoading$: BehaviorSubject<Loading> = new BehaviorSubject<Loading>('idle')
+    public paymentMethodModalVisible$ = new BehaviorSubject<boolean>(false)
     constructor(private usersCustomersService: UsersCustomersService) {}
+
+    setPaymentMethodModalVisible(flag: boolean) {
+        this.paymentMethodModalVisible$.next(flag)
+    }
+    // -----------------------------------------------------------------------------------------------------------
 
     addPaymentCard(paymentCard: PaymentCard) {
         const cardList = this.cardList$.getValue()
@@ -44,10 +49,5 @@ export class PaymentMethodManagementService {
                 this.cardListLoading$.next('idle')
             },
         })
-    }
-    // -----------------------------------------------------------------------------------------------------------
-    public paymentMethodModalVisible$ = new BehaviorSubject<boolean>(false)
-    setPaymentMethodModalVisible(flag: boolean) {
-        this.paymentMethodModalVisible$.next(flag)
     }
 }

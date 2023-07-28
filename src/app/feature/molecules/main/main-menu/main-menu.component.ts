@@ -12,6 +12,7 @@ import { forkJoin, Subject } from 'rxjs'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 import { Loading } from '@schemas/loading'
 
 import _ from 'lodash'
@@ -80,6 +81,7 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
         private usersCenterService: UsersCenterService,
         private centerListItemService: CenterListItemService,
         private paymentMethodManagementService: PaymentMethodManagementService,
+        private setCenterService: SetCenterService
     ) {}
     ngOnInit() {
         this.user = this.storageService.getUser()
@@ -139,6 +141,11 @@ export class MainMenuComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     openPaymentMethodModal() {
         this.paymentMethodManagementService.setPaymentMethodModalVisible(true)
+    }
+
+    onSetCenterClick() {
+        this.setCenterService.setCenter(this.center)
+        this.setCenterService.setCenterModalVisible(true)
     }
 
     public showMyInformation = false

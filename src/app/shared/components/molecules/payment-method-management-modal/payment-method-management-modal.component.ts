@@ -108,6 +108,7 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
+                this.user = this.storageService.getUser()
                 if (this.cardListLoading == 'idle') {
                     this.paymentMethodManagementService.initPaymentMethods(this.user.id)
                 }

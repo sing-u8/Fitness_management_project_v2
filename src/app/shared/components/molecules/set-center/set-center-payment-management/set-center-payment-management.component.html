@@ -71,22 +71,9 @@
     </div>
 </ng-scrollbar>
 
-<!--<rwm-payment-method-management-modal-->
-<!--    [(visible)]="openPaymentMethodManagement"-->
-<!--    (close)="openPaymentMethodManagement = false"-->
-<!--    (open)="openPaymentMethodManagement = true"-->
-<!--&gt;</rwm-payment-method-management-modal>-->
-
 <rwa-modal
     [(visible)]="showDisableToGoPaymentPageModal"
     [data]="disableToGoPaymentPageModalData"
     [type]="'oneButton'"
     (confirm)="showDisableToGoPaymentPageModal = false"
 ></rwa-modal>
-
-<!--<rwm-register-card-modal-->
-<!--    [(visible)]="showRegisterCardModal"-->
-<!--    [isError]="isRegisterCardError"-->
-<!--    (confirm)="onRegisterCardConfirm($event)"-->
-<!--    (cancel)="showRegisterCardModal = false"-->
-<!--&gt;</rwm-register-card-modal>-->

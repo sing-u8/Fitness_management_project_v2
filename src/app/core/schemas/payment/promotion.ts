@@ -12,6 +12,7 @@ export type Promotion = {
     end_datetime: string
     discount_unit_code: DiscountUnitCode
     discount: number
+    sequence_number: number
 
     // only for front end
     discount_price_for_percent?: number

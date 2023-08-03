@@ -60,6 +60,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
     public center: Center
     public user: User
 
+    @ViewChild(NgScrollbar) scrollable: NgScrollbar
+
     constructor(
         private storageService: StorageService,
         private domSanitizer: DomSanitizer,
@@ -147,6 +149,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
     onNextInTheFirstStep() {
         this.stepBS.next('two')
         this.step = 'two'
+        this.scrollable.scrollTo({ top: 0, duration: 0 })
     }
 
     // modal vars and funcs  --------------------------------------------------------------
@@ -161,6 +164,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
     onBackToStepOneConfirm() {
         this.backToStepOneModal = false
         this.selectedPaymentItem = undefined
+        this.scrollable.scrollTo({ top: 0, duration: 0 })
         this.stepBS.next('one')
     }
 

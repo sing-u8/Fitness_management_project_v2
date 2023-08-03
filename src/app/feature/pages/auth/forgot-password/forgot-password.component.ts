@@ -60,11 +60,12 @@ export class ForgotPasswordComponent {
             },
             error: (e) => {
                 this.sendResetPwLinkStatus = 'idle'
-                if (e.code == 'FUNCTION_AUTH_002') {
-                    this.nxStore.dispatch(showToast({ text: '가입되지 않은 이메일이에요.' }))
-                } else {
-                    this.nxStore.dispatch(showToast({ text: e.message }))
-                }
+                this.nxStore.dispatch(showToast({ text: '가입되지 않은 이메일이에요.' }))
+                // if (e.code == 'FUNCTION_AUTH_002') {
+                //     this.nxStore.dispatch(showToast({ text: '가입되지 않은 이메일이에요.' }))
+                // } else {
+                //     this.nxStore.dispatch(showToast({ text: e.message }))
+                // }
             },
         })
     }

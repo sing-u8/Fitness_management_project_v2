@@ -67,7 +67,9 @@
                         <div class="l-db-item-value">
                             <div class="value-main">
                                 <span class="value-bold1">{{ promotions[0].title }}</span>
-                                <span class="value-bold1">- {{ promotions[0].discount_price_for_money }}원</span>
+                                <span class="value-bold1"
+                                    >- {{ promotions[0].discount_price_for_money | numberWithCommas }}원</span
+                                >
                             </div>
                             <div class="value-desc" [innerHTML]="promotions[0].description"></div>
                             <div class="l-month-detail">

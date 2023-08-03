@@ -12,18 +12,19 @@ import {
     AfterViewInit,
     ChangeDetectorRef,
 } from '@angular/core'
-import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { ModalOutPut } from '@schemas/components/modal'
 import { UsersCenterService } from '@services/users-center.service'
 import { UsersService } from '@services/users.service'
 import { StorageService } from '@services/storage.service'
 import { changesOn } from '@shared/helper/component-helper'
 import { User } from '@schemas/user'
+import { Store } from '@ngrx/store'
 
 import _ from 'lodash'
 import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'
+import { showToast } from '@store/app/actions/app.actions'
 
 @Component({
     selector: 'rwm-delete-account-modal',
@@ -64,7 +65,8 @@ export class DeleteAccountModalComponent implements OnChanges, AfterViewChecked,
         private usersCenterService: UsersCenterService,
         private usersService: UsersService,
         private storageService: StorageService,
-        private cd: ChangeDetectorRef
+        private cd: ChangeDetectorRef,
+        private nxStore: Store
     ) {}
 
     ngOnChanges(changes: SimpleChanges) {
@@ -149,6 +151,7 @@ export class DeleteAccountModalComponent implements OnChanges, AfterViewChecked,
         this.deleteUserConfirmLoading = 'pending'
         this.usersService.deleteUser(this.user.id).subscribe(() => {
             this.deleteUserConfirmLoading = 'idle'
+            this.nxStore.dispatch(showToast({ text: '계정이 삭제되었습니다. 그 동안 이용해주셔서 감사합니다.' }))
             this.confirm.emit()
             this.storageService.logout()
         })

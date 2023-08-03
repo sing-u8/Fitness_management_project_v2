@@ -11,7 +11,7 @@ export function getLinkedAccountStr(str: string) {
         } else if (v == 'kakao.com') {
             return '카카오'
         } else {
-            return '레드웨일'
+            return '이메일'
         }
     })
     return _.join(linkedAccountArray, ', ')

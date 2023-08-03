@@ -45,12 +45,14 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             this.getBadgeState()
             this.getHeaderState()
             this.getDetailModalData()
+            this.initCenterName()
         })
     }
     ngAfterViewInit() {
         this.getBadgeState()
         this.getHeaderState()
         this.getDetailModalData()
+        this.initCenterName()
     }
 
     goPayment() {
@@ -128,4 +130,12 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         this.detailInfo = _.cloneDeep(centerExpiredInfo)
     }
     public detailInfo: CenterExpiredInfo = undefined
+    // -------------------------------------------------------------------------------------------------------------------
+
+    public centerName = ''
+    initCenterName() {
+        this.centerName = !_.isEmpty(_.trim(this.center.addr_detail))
+            ? `(${this.center.zip_no}) ${this.center.road_full_addr}, ${this.center.addr_detail}`
+            : `(${this.center.zip_no}) ${this.center.road_full_addr}`
+    }
 }

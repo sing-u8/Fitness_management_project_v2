@@ -128,9 +128,9 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.centerInfoList[idx].changeAvailable = this.permissionObj.settings_update_center
                     break
                 case 'center-address':
-                    this.centerInfoList[
-                        idx
-                    ].value = `(${this.center.zip_no}) ${this.center.road_full_addr}, ${this.center.addr_detail}`
+                    this.centerInfoList[idx].value = !_.isEmpty(_.trim(this.center.addr_detail))
+                        ? `(${this.center.zip_no}) ${this.center.road_full_addr}, ${this.center.addr_detail}`
+                        : `(${this.center.zip_no}) ${this.center.road_full_addr}`
                     this.centerInfoList[idx].onChangeClick = () => {
                         this.showChangeAddressModal = true
                     }
@@ -274,7 +274,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             .updateCenter(this.center.id, {
                 zip_no: res.value.zonecode,
                 road_full_addr: res.value.roadAddress,
-                addr_detail: res.value.detailedAddress,
+                addr_detail: res.value.detailedAddress ?? '',
             })
             .subscribe({
                 next: (center) => {
@@ -282,7 +282,9 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     this.showChangeAddressModal = false
 
                     this.nxStore.dispatch(showToast({ text: '주소가 변경되었어요.' }))
-                    this.centerInfoList[2].value = `(${center.zip_no}) ${center.road_full_addr}, ${center.addr_detail}`
+                    this.centerInfoList[2].value = !_.isEmpty(_.trim(center.addr_detail))
+                        ? `(${center.zip_no}) ${center.road_full_addr}, ${center.addr_detail}`
+                        : `(${center.zip_no}) ${center.road_full_addr}`
                     this.center = center
                     this.centerListService.setChangedCenter(center, 'change')
                 },

@@ -14,6 +14,6 @@ export class PaymentProductInfoComponent {
     @Input() paymentItem: PaymentItem
     @Input() paymentItemInfo: PaymentItemInfo
 
-    public productDetailOpen = false
+    public productDetailOpen = true
     constructor() {}
 }

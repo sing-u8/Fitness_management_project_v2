@@ -45,7 +45,7 @@
                                 {{ item.value['value'] ?? '-' }}
                             </span>
                             <span *ngIf="item.key == 'phoneNumber'">
-                                {{ (item.value['value'] | phoneNumber) ?? '-' }}
+                                {{ item.value['value'] ?? '-' }}
                             </span>
                         </div>
                         <rwa-ghost-button

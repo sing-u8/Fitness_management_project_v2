@@ -136,6 +136,8 @@ export class ChangeUserPhoneNumberModalComponent
                 setTimeout(() => {
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
+                    this.phoneNumber.reset()
+                    this.verificationCode.reset()
                 }, 200)
             }
         }

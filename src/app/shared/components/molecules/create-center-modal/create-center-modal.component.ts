@@ -64,7 +64,7 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
         phoneNumber: ['', Validators.required],
         zonecode: ['', [Validators.required, Validators.pattern(/^[0-9]/)]],
         roadAddress: ['', Validators.required],
-        detailedAddress: [''],
+        detailedAddress: ['', Validators.required],
     })
     get centerName() {
         return this.centerForm.get('centerName')
@@ -191,13 +191,13 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                 name: this.centerName.value,
                 zip_no: this.zonecode.value,
                 road_full_addr: this.roadAddress.value,
-                addr_detail: this.detailedAddress.value,
+                addr_detail: this.detailedAddress.value ?? '',
                 phone_number: _.replace(this.phoneNumber.value, /[^0-9]/gi, ''),
                 free_trial_terms: this.freeTrialAgree,
             })
             .subscribe((center) => {
                 console.log('create center : ', center)
-                const cb = () => {
+                const cb = (center: Center) => {
                     this.nxStore.dispatch(showToast({ text: '✨ 새로운 센터를 만들었어요.' }))
                     this.onCenterCreated.emit(center)
                     this.onClose(false)
@@ -212,16 +212,17 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                             center.id
                         ),
                     ]).subscribe(([centerPictureFile, businessLicenseFile]) => {
-                        cb()
+                        center.picture = centerPictureFile[0].url
+                        cb(center)
                     })
                 } else if (_.isEmpty(this.centerPicture) && !_.isEmpty(this.businessLicenseFile)) {
                     this.fileService
                         .uploadFile('file_type_center_business_registration', this.businessLicenseFile, center.id)
                         .subscribe((businessLicenseFile) => {
-                            cb()
+                            cb(center)
                         })
                 } else {
-                    cb()
+                    cb(center)
                 }
             })
     }

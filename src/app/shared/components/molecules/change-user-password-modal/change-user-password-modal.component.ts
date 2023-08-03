@@ -12,16 +12,15 @@ import {
     ViewChild,
 } from '@angular/core'
 import { Loading } from '@schemas/loading'
-import { FormBuilder, Validators } from '@angular/forms'
+import { AbstractControl, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms'
 import { changesOn } from '@shared/helper/component-helper'
-import { ModalOutPut } from '@schemas/components/modal'
 
 import { UsersService } from '@services/users.service'
 import { User } from '@schemas/user'
 import { PasswordErrors } from '@schemas/errors/password-error'
 
 import { showToast } from '@store/app/actions/app.actions'
-import { Store, select } from '@ngrx/store'
+import { Store } from '@ngrx/store'
 import { isPassword, passwordValidator } from '@shared/helper/form-helper'
 
 export type ChangeUserPasswordOutput = {
@@ -125,10 +124,10 @@ export class ChangeUserPasswordModalComponent implements OnChanges, AfterViewIni
     }
 
     public newPassword = this.fb.control('', {
-        validators: [passwordValidator(), Validators.required],
+        validators: [this.changePasswordValidator(), Validators.required],
     })
     public confirmNewPassword = this.fb.control('', {
-        validators: [passwordValidator(), Validators.required],
+        validators: [this.changePasswordConfirmValidator(), Validators.required],
     })
     public matchNewPasswordLoading: Loading = 'idle'
 
@@ -155,87 +154,110 @@ export class ChangeUserPasswordModalComponent implements OnChanges, AfterViewIni
         this.confirmNewPasswordValid = false
     }
 
-    onKeyup(event, type) {
-        if (event.key == 'Enter') {
-            // if (this.formCheck()) {
-            //     this.changePassword()
-            // }
-        } else {
-            if (event.key != 'Tab' && type == 'password') {
-                this.checkPassword()
+    changePasswordValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            console.log('passwordValidator -- ', control, control.value)
+            const pattern1 = /[0-9]/
+            const pattern2 = /[a-zA-Z]/
+            const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
+            const pattern4 = /\s/
+
+            if (control.value.length == 0) {
+                this.newPasswordError = ''
+                this.newPasswordValid = false
+                this.newPasswordStatus = 'none'
+                return null
+            } else if (pattern4.test(control.value)) {
+                this.newPasswordError = '공백을 포함할 수 없어요.'
+                this.newPasswordValid = false
+                this.newPasswordStatus = 'warning'
+                return {
+                    include_space: true,
+                }
+            } else if (control.value.length < 8) {
+                this.newPasswordError = '비밀번호가 너무 짧아요. (8자 이상)'
+                this.newPasswordValid = false
+                this.newPasswordStatus = 'warning'
+                return {
+                    short_length: true,
+                }
+            } else if (
+                !pattern1.test(control.value) ||
+                !pattern2.test(control.value) ||
+                !pattern3.test(control.value)
+            ) {
+                this.newPasswordError = '영어, 숫자, 특수문자가 모두 포함되어야 해요.'
+                this.newPasswordValid = false
+                this.newPasswordStatus = 'warning'
+                return {
+                    not_complicated: true,
+                }
+            } else {
+                this.newPasswordError = ''
+                this.newPasswordValid = true
+                this.newPasswordStatus = 'success'
+                return null
             }
         }
     }
+    changePasswordConfirmValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            console.log(
+                'passwordValidator confirm -- ',
+                control.value,
+                '  -  ',
+                control.value,
+                '  -  ',
+                this.confirmNewPassword?.value
+            )
+            const pattern1 = /[0-9]/
+            const pattern2 = /[a-zA-Z]/
+            const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
+            const pattern4 = /\s/
 
-    checkPassword() {
-        const pattern1 = /[0-9]/
-        const pattern2 = /[a-zA-Z]/
-        const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
-        const pattern4 = /\s/
-
-        if (this.newPassword.value.length == 0) {
-            this.newPasswordError = ''
-            this.newPasswordValid = false
-            this.newPasswordStatus = 'none'
-        } else if (pattern4.test(this.newPassword.value)) {
-            this.newPasswordError = '공백을 포함할 수 없어요.'
-            this.newPasswordValid = false
-            this.newPasswordStatus = 'warning'
-        } else if (this.newPassword.value.length < 8) {
-            this.newPasswordError = '비밀번호가 너무 짧아요. (8자 이상)'
-            this.newPasswordValid = false
-            this.newPasswordStatus = 'warning'
-        } else if (
-            !pattern1.test(this.newPassword.value) ||
-            !pattern2.test(this.newPassword.value) ||
-            !pattern3.test(this.newPassword.value)
-        ) {
-            this.newPasswordError = '영어, 숫자, 특수문자가 모두 포함되어야 해요.'
-            this.newPasswordValid = false
-            this.newPasswordStatus = 'warning'
-        } else {
-            this.newPasswordError = ''
-            this.newPasswordValid = true
-            this.newPasswordStatus = 'success'
-        }
-
-        this.checkConfirmPassword()
-    }
-
-    checkConfirmPassword() {
-        const pattern1 = /[0-9]/
-        const pattern2 = /[a-zA-Z]/
-        const pattern3 = /[~!@#$%^&*()_+|<>?:{}]/
-        const pattern4 = /\s/
-
-        if (this.confirmNewPassword.value.length == 0) {
-            this.confirmNewPasswordError = ''
-            this.confirmNewPasswordValid = false
-            this.confirmNewPasswordStatus = 'none'
-        } else if (pattern4.test(this.confirmNewPassword.value)) {
-            this.confirmNewPasswordError = '공백을 포함할 수 없어요.'
-            this.confirmNewPasswordValid = false
-            this.confirmNewPasswordStatus = 'warning'
-        } else if (this.confirmNewPassword.value.length < 8) {
-            this.confirmNewPasswordError = '비밀번호가 너무 짧아요. (8자 이상)'
-            this.confirmNewPasswordValid = false
-            this.confirmNewPasswordStatus = 'warning'
-        } else if (
-            !pattern1.test(this.confirmNewPassword.value) ||
-            !pattern2.test(this.confirmNewPassword.value) ||
-            !pattern3.test(this.confirmNewPassword.value)
-        ) {
-            this.confirmNewPasswordError = '영어, 숫자, 특수문자가 모두 포함되어야 해요.'
-            this.confirmNewPasswordValid = false
-            this.confirmNewPasswordStatus = 'warning'
-        } else if (this.newPassword.value != this.confirmNewPassword.value) {
-            this.confirmNewPasswordError = '비밀번호가 일치하지 않아요.'
-            this.confirmNewPasswordValid = false
-            this.confirmNewPasswordStatus = 'error'
-        } else {
-            this.confirmNewPasswordError = ''
-            this.confirmNewPasswordValid = true
-            this.confirmNewPasswordStatus = 'success'
+            if (control.value.length == 0) {
+                this.confirmNewPasswordError = ''
+                this.confirmNewPasswordValid = false
+                this.confirmNewPasswordStatus = 'none'
+                return null
+            } else if (pattern4.test(control.value)) {
+                this.confirmNewPasswordError = '공백을 포함할 수 없어요.'
+                this.confirmNewPasswordValid = false
+                this.confirmNewPasswordStatus = 'warning'
+                return {
+                    include_space: true,
+                }
+            } else if (control.value.length < 8) {
+                this.confirmNewPasswordError = '비밀번호가 너무 짧아요. (8자 이상)'
+                this.confirmNewPasswordValid = false
+                this.confirmNewPasswordStatus = 'warning'
+                return {
+                    short_length: true,
+                }
+            } else if (
+                !pattern1.test(control.value) ||
+                !pattern2.test(control.value) ||
+                !pattern3.test(control.value)
+            ) {
+                this.confirmNewPasswordError = '영어, 숫자, 특수문자가 모두 포함되어야 해요.'
+                this.confirmNewPasswordValid = false
+                this.confirmNewPasswordStatus = 'warning'
+                return {
+                    not_complicated: true,
+                }
+            } else if (control.value != this.newPassword.value) {
+                this.confirmNewPasswordError = '비밀번호가 일치하지 않아요.'
+                this.confirmNewPasswordValid = false
+                this.confirmNewPasswordStatus = 'error'
+                return {
+                    not_matched: true,
+                }
+            } else {
+                this.confirmNewPasswordError = ''
+                this.confirmNewPasswordValid = true
+                this.confirmNewPasswordStatus = 'success'
+                return null
+            }
         }
     }
 

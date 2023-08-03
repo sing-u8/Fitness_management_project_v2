@@ -2,13 +2,10 @@ import { Component, Input, Renderer2, ViewChild, ElementRef, AfterViewInit } fro
 import { Subject } from 'rxjs'
 
 import {
-    AsyncValidatorFn,
-    ValidatorFn,
     NG_VALUE_ACCESSOR,
     NG_VALIDATORS,
     FormBuilder,
     FormControl,
-    Validators,
     AbstractControl,
     ValidationErrors,
 } from '@angular/forms'

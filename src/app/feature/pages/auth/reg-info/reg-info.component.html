@@ -34,7 +34,7 @@
             [hint]="'영어, 숫자, 특수문자 조합 8~15자 이내'"
             label="비밀번호"
             placeholder="비밀번호"
-            [status]="passwordStatus"
+            [(status)]="passwordStatus"
             [statusText]="passwordError"
             (keyup)="onKeyup($event, 'password')"
         ></rwa-text-field>

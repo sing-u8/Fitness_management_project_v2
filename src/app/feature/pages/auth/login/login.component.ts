@@ -78,6 +78,14 @@ export class LoginComponent {
     public emailChecked = false
     public password: string
 
+    settingEmailCheckedAfterLogin() {
+        if (this.emailChecked) {
+            localStorage.setItem('email', this.email)
+        } else {
+            localStorage.removeItem('email')
+        }
+    }
+
     // button vars
     public loginBtStatus: Loading = 'idle'
     public kakaoBtStatus: Loading = 'idle'
@@ -94,11 +102,7 @@ export class LoginComponent {
         this.signInMethod = 'email'
         this.authService.signInWithEmail({ email: this.email, password: this.password }).subscribe({
             next: (user) => {
-                if (this.emailChecked) {
-                    localStorage.setItem('email', this.email)
-                } else {
-                    localStorage.removeItem('email')
-                }
+                this.settingEmailCheckedAfterLogin()
                 signInWithCustomToken(this.fireAuth, user.custom_token)
                     .then((userCredential) => {
                         this.storageService.setSignInMethod(this.signInMethod)
@@ -128,6 +132,7 @@ export class LoginComponent {
     signInWithGoogle() {
         this.googleBtStatus = 'pending'
         this.signInMethod = 'google'
+        // this.settingEmailCheckedAfterLogin()
         signInWithPopup(this.fireAuth, new GoogleAuthProvider())
             .then((userCredential) => {
                 this.loginWithSocial(userCredential, () => {
@@ -142,6 +147,7 @@ export class LoginComponent {
     signInWithApple() {
         this.appleBtStatus = 'pending'
         this.signInMethod = 'apple'
+        // this.settingEmailCheckedAfterLogin()
         signInWithPopup(this.fireAuth, new OAuthProvider('apple.com'))
             .then((userCredential) => {
                 this.loginWithSocial(userCredential, () => {
@@ -184,6 +190,7 @@ export class LoginComponent {
                 const access_token = user['access_token']
                 console.log('kakao login access token : ', user['access_token'])
                 this.kakaoBtLoadingFns.showLoading()
+                // this.settingEmailCheckedAfterLogin()
                 this.authService.signInWithKakao({ access_token }).subscribe({
                     next: (user) => {
                         signInWithCustomToken(this.fireAuth, String(user.custom_token)).then(() => {
@@ -209,6 +216,7 @@ export class LoginComponent {
         uc.user.getIdToken().then((access_token) => {
             this.authService.signInWithFirebase({ access_token }).subscribe({
                 next: (user) => {
+                    // this.settingEmailCheckedAfterLogin()
                     this.storageService.setSignInMethod(this.signInMethod)
                     this.router.navigateByUrl('/redwhale-home')
                     if (!_.isEmpty(cb)) {

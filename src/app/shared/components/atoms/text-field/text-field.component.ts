@@ -55,6 +55,7 @@ export class TextFieldComponent implements AfterViewInit, OnChanges {
     @Input() advice = ''
     @Input() hint = ''
     @Input() status: Status = 'none'
+    @Output() statusChange = new EventEmitter<Status>()
     @Input() statusText = ''
     @Input() isImportant = false
 
@@ -72,6 +73,7 @@ export class TextFieldComponent implements AfterViewInit, OnChanges {
     public textField: FormControl = this.fb.control('')
     resetTextField() {
         this.textField.setValue('')
+        this.statusChange.emit('none')
         this.input_el.nativeElement.focus()
     }
 

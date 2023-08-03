@@ -21,6 +21,7 @@
         <div *ngIf="textFieldType == 'search'" class="search-icon"></div>
         <input
             #input
+            autocomplete="one-time-code"
             [type]="textFieldType == 'password' && passwordVisible == false ? 'password' : 'text'"
             [maxlength]="maxLength"
             [style.width]="width"

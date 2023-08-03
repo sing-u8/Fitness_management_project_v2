@@ -257,7 +257,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
                     res.loadingFn.hideLoading()
                     this.showChangePhoneNumberModal = false
 
-                    this.nxStore.dispatch(showToast({ text: '센터 이름이 변경되었어요.' }))
+                    this.nxStore.dispatch(showToast({ text: '전화번호가 변경되었어요.' }))
                     this.centerInfoList[1].value = center.phone_number
                     this.center = center
                     this.centerListService.setChangedCenter(center, 'change')

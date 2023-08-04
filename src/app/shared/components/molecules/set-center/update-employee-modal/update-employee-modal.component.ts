@@ -74,7 +74,11 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         this.initPositionTab()
         this.initStatus()
 
-        if (this.user.email == this.employee.email) this.email.disable()
+        if (this.user.email == this._employee.email) {
+            this.email.disable()
+        } else {
+            this.email.enable()
+        }
     }
 
     @Input() visible: boolean

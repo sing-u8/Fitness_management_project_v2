@@ -8,7 +8,6 @@ import { Center } from '@schemas/center'
 import { Employee } from '@schemas/employee'
 import { Loading } from '@schemas/loading'
 import { detectChangesOn } from '@shared/helper/component-helper'
-import { forkJoin } from 'rxjs'
 import { Role, RolePermission } from '@schemas/role-permission'
 import _ from 'lodash'
 
@@ -26,6 +25,11 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     public instructorFlipOpen = true
     public administratorFlipOpen = true
     public ownerFlipOpen = true
+    initFlips() {
+        this.instructorFlipOpen = true
+        this.administratorFlipOpen = true
+        this.ownerFlipOpen = true
+    }
 
     public rolePermission: Record<Role, RolePermission[]> = undefined
 
@@ -40,6 +44,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
 
     @Input() isOpen: boolean
     @Output() isOpenChange = new EventEmitter<boolean>()
+    @Input() modalVisible: boolean
 
     empInit() {
         // if (this.isEmpInit || !this.isOpen) return
@@ -49,7 +54,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
                 this.instructors = emps.instructor
                 this.administrators = emps.administrator
                 this.owners = emps.owner
-                this.employeeNumber = this.instructors.length + this.administrators.length + this.owners.length
+                this.getEmployeeNumber()
                 this.empLoading = 'idle'
             },
             error: (err) => {
@@ -70,6 +75,10 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
                 this.rpsLoading = 'idle'
             },
         })
+    }
+
+    getEmployeeNumber() {
+        this.employeeNumber = this.instructors.length + this.administrators.length + this.owners.length
     }
 
     public permissionObj = {
@@ -95,12 +104,17 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     ) {}
     ngOnInit() {}
     ngOnChanges(changes: SimpleChanges) {
-        detectChangesOn(changes, 'isOpen', (curValue: Center, prevValue: Center) => {
-            if (this.isOpen &&  this.center && this.center.id != this.prevCenter?.id) {
+        detectChangesOn(changes, 'isOpen', () => {
+            if (this.isOpen && this.center && this.center.id != this.prevCenter?.id) {
                 this.initPermission()
                 this.rpsInit()
                 this.empInit()
                 this.prevCenter = this.center
+            }
+        })
+        detectChangesOn(changes, 'modalVisible', () => {
+            if (this.modalVisible) {
+                this.initFlips()
             }
         })
     }
@@ -165,7 +179,6 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         } else if (emp.role_code == 'administrator') {
             this.administrators.push(emp)
         }
+        this.getEmployeeNumber()
     }
-
-    protected readonly undefined = undefined
 }

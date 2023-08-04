@@ -13,7 +13,7 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { NgxSpinnerService } from 'ngx-spinner'

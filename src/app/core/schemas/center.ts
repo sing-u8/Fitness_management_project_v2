@@ -25,7 +25,7 @@ export interface Center {
 
     role_code: RoleCode
     role_name: string
-    permissions: Array<{ permission_code: string }> // 권한 코드 리스트
+    permissions: Array<string> // 권한 코드 리스트
 
     // 아래 삭제 예정
     product_start_date?: string // YYYY-MM-DD

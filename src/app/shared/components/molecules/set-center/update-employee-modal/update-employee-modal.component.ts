@@ -65,7 +65,9 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         this.reset()
         if (!_.isEmpty(this._employee.email)) {
             this.email.setValue(this._employee.email ?? '', { emitEvent: false })
-            this.linkEmailAccount = this.email.value?.length != 0
+            this.linkEmailAccount =
+                this.email.value?.length != 0 &&
+                this._employee.connection_status_code != 'employee_connection_status_disconnected'
         }
         this.employeeName.setValue(this._employee.name)
         this.phoneNumber.setValue(this._employee.phone_number)
@@ -201,7 +203,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             this.phoneNumber.setValue(value, { emitEvent: false })
         })
         this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-            this.linkEmailAccount = v?.length != 0
+            // this.linkEmailAccount = v?.length != 0
             this.showTag = false
         })
     }
@@ -215,6 +217,9 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
+                if (!this.keepData) {
+                    this.initEmployee()
+                }
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
@@ -222,9 +227,6 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
-                if (!this.keepData) {
-                    this.initEmployee()
-                }
             }
         })
 
@@ -452,8 +454,8 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         this.cancelEditEmployeeOpen = true
     }
     onCancelConfirm() {
-        this.cancelEditEmployeeOpen = false
         this.onClose(false)
+        this.cancelEditEmployeeOpen = false
     }
     onCancelModalCancel() {
         this.open.emit()

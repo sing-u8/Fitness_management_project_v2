@@ -56,6 +56,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
                 this.owners = emps.owner
                 this.getEmployeeNumber()
                 this.empLoading = 'idle'
+                console.log('empInit : ', this.instructors, this.administrators)
             },
             error: (err) => {
                 this.empLoading = 'idle'
@@ -88,10 +89,10 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     initPermission() {
         this.permissionObj = {
             settings_update_employee:
-                !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_employee') ||
+                !!_.find(this.center.permissions, (v) => v == 'settings_update_employee') ||
                 this.center.role_code == 'owner',
             settings_update_permission:
-                !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_permission') ||
+                !!_.find(this.center.permissions, (v) => v == 'settings_update_permission') ||
                 this.center.role_code == 'owner',
         }
     }
@@ -105,7 +106,8 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     ngOnInit() {}
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'isOpen', () => {
-            if (this.isOpen && this.center && this.center.id != this.prevCenter?.id) {
+            // && this.center.id != this.prevCenter?.id
+            if (this.isOpen && this.center) {
                 this.initPermission()
                 this.rpsInit()
                 this.empInit()

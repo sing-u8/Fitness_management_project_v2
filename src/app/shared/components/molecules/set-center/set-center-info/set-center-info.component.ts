@@ -22,6 +22,7 @@ import { FileService } from '@services/file.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { StorageService } from '@services/storage.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 
 import { showToast } from '@store/app/actions/app.actions'
 import { Store } from '@ngrx/store'
@@ -163,8 +164,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
     }
     initPermission() {
         this.permissionObj.settings_update_center =
-            !!_.find(this.center.permissions, (v) => v.permission_code == 'settings_update_center') ||
-            this.center.role_code == 'owner'
+            !!_.find(this.center.permissions, (v) => v == 'settings_update_center') || this.center.role_code == 'owner'
     }
 
     constructor(
@@ -175,6 +175,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
         private wordService: WordService,
         private usersCenterService: UsersCenterService,
         private storageService: StorageService,
+        private setCenterService: SetCenterService,
         private cd: ChangeDetectorRef
     ) {}
     ngOnChanges(changes: SimpleChanges) {
@@ -321,6 +322,7 @@ export class SetCenterInfoComponent implements OnChanges, AfterViewInit {
             const user: User = this.storageService.getUser()
             this.usersCenterService.leaveCenter(user.id, this.center.id).subscribe({
                 next: () => {
+                    this.setCenterService.setCenterModalVisible(false)
                     this.showLeaveCenterModal = false
                     this.nxStore.dispatch(showToast({ text: '센터 나가기가 완료되었어요.' }))
                     this.centerListService.setChangedCenter(this.center, 'remove')

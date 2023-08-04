@@ -37,7 +37,7 @@
         "
     >
         <rwa-icon-ghost-button
-            *ngIf="!(headerState == 'freeTrialEnd' || headerState == 'expired')"
+            *ngIf="!(headerState == 'freeTrialEnd' || headerState == 'expired' || headerState == 'invite')"
             [sizeType]="'md'"
             class="center-setting-icon"
             (onClick)="onSetCenter.emit(center)"

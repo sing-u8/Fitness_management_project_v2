@@ -14,9 +14,9 @@ import {
 import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
 
 import { Loading } from '@schemas/loading'
-import { ModalInput, ModalOutPut } from '@schemas/components/modal'
+import { ModalOutPut } from '@schemas/components/modal'
 import { changesOn } from '@shared/helper/component-helper'
-import { passwordValidator } from '@shared/helper/form-helper'
+import { changeUserBirthDateValidator, passwordValidator } from '@shared/helper/form-helper'
 import dayjs from 'dayjs'
 import _ from 'lodash'
 
@@ -66,7 +66,7 @@ export class ChangeUserBirthDateModalComponent implements OnChanges, AfterViewIn
     }
 
     public birthDateForm = this.fb.control(this.birthDate, {
-        validators: [Validators.required, Validators.pattern(/^[0-9]{6}$/)],
+        validators: [Validators.required, changeUserBirthDateValidator()],
     })
 
     constructor(private el: ElementRef, private renderer: Renderer2, private fb: FormBuilder) {}

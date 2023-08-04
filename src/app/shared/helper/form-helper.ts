@@ -1,5 +1,6 @@
-import _ from 'lodash'
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms'
+import _ from 'lodash'
+import dayjs from 'dayjs'
 
 export const emailReg = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
 export function isEmail(email: string, regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/): boolean {
@@ -19,6 +20,15 @@ export function isPassword(
     )
 }
 
+export const shortBirthDateReg = [
+    /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/,
+    /^\d{2}-(0[1-9]|1[0-2])-([0-2][1-9]|3[01])$/,
+]
+export const longBirthDateReg = [
+    /^(19|20)\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])$/,
+    /^(19|20)\d{2}-(0[1-9]|1[0-2])-([0-2][1-9]|3[01])$/,
+]
+
 export function passwordValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
         if (!isPassword(control.value)) {
@@ -27,5 +37,21 @@ export function passwordValidator(): ValidatorFn {
             }
         }
         return null
+    }
+}
+
+export function changeUserBirthDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+        const strVal = String(control.value)
+        if (
+            shortBirthDateReg[0].test(control.value) &&
+            (strVal == dayjs('19' + strVal).format('YYMMDD') || strVal == dayjs('20' + strVal).format('YYMMDD'))
+        ) {
+            return null
+        } else {
+            return {
+                invalid_date_of_birth: true,
+            }
+        }
     }
 }

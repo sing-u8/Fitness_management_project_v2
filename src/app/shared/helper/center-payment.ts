@@ -58,7 +58,7 @@ export const paymentItemList: PaymentItem[] = [
         },
         bottom: [
             { left: '기능 제한', right: '없음' },
-            { left: '결제 방식', right: '직접 결제 (선납)' },
+            { left: '결제 방식', right: '직접 결제 (선납, 할부)' },
             { left: '상품 금액', right: '655,000원 / 2년' },
             { left: '환불 정책', right: '결제일로부터\n' + '30일 내 환불 가능' },
         ],

@@ -74,7 +74,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
         this.initPositionTab()
         this.initStatus()
 
-        if (this.user.email == this._employee.email) {
+        if (this.user.email == this._employee.email || this._employee.role_code == 'owner') {
             this.email.disable()
         } else {
             this.email.enable()
@@ -134,11 +134,11 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     initPositionTab() {
         if (this.center.role_code == 'owner') {
             _.forEach(this.positionTabsForOwner, (v, idx) => {
-                this.positionTabsForOwner[idx].selected = this.employee.role_code == v.value
+                this.positionTabsForOwner[idx].selected = this._employee.role_code == v.value
             })
         } else {
             _.forEach(this.positionTabs, (v, idx) => {
-                this.positionTabs[idx].selected = this.employee.role_code == v.value
+                this.positionTabs[idx].selected = this._employee.role_code == v.value
             })
         }
     }
@@ -206,10 +206,10 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             }
             this.phoneNumber.setValue(value, { emitEvent: false })
         })
-        this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-            // this.linkEmailAccount = v?.length != 0
-            this.showTag = false
-        })
+        // this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+        //     // this.linkEmailAccount = v?.length != 0
+        //     this.showTag = false
+        // })
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -305,16 +305,18 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     public statusText = ''
     public showTag = false
     initStatus() {
-        if (this.employee.connection_status_code == 'employee_connection_status_connected') {
+        this.showTag = false
+        if (this._employee.connection_status_code == 'employee_connection_status_connected') {
             this.statusText = '연동'
             this.showTag = true
-        } else if (this.employee.connection_status_code == 'employee_connection_status_disconnected') {
+        } else if (this._employee.connection_status_code == 'employee_connection_status_disconnected') {
             this.statusText = '미연동'
             this.showTag = !_.isEmpty(this.employee.email)
         } else {
             this.statusText = '연동 요청중'
             this.showTag = true
         }
+        console.log('initStatus -- ', this._employee, this.statusText, this.showTag)
     }
 
     // -----------------------------------------------------------------------------------------------------------

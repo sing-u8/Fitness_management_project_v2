@@ -348,8 +348,10 @@ export class PaymentComponent implements OnDestroy, OnInit {
     }
 
     getPaymentItemPeriod(productCode: ProductCode) {
+        let monthArr = []
         switch (productCode) {
             case '1_years_membership':
+                monthArr = Array.from({ length: 12 }, (_, idx) => idx + 1)
                 if (
                     !_.isEmpty(this.center.product_code) &&
                     dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
@@ -358,28 +360,36 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         .subtract(3, 'day')
                         .add(1, 'day')
                         .format('YYYY.MM.DD HH:mm:ss')
-                    const endDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .add(1, 'year')
-                        .format('YYYY.MM.DD HH:mm:ss')
+
+                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const endDate = startCountDate
+                    _.forEach(monthArr, (number, idx) => {
+                        const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
+                        endDate.add(daysInMonth, 'day')
+                    })
                     this.paymentItemInfo.period = {
                         startDate: startDate,
-                        endDate: endDate,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
                     const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
-                    const endDate = dayjs().add(1, 'year').format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = dayjs()
+                    const endDate = startCountDate
+                    _.forEach(monthArr, (number, idx) => {
+                        const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
+                        endDate.add(daysInMonth, 'day')
+                    })
                     this.paymentItemInfo.period = {
                         startDate: startDate,
-                        endDate: endDate,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 }
 
                 break
             case '2_years_membership':
+                monthArr = Array.from({ length: 12 * 2 }, (_, idx) => idx + 1)
                 if (
                     !_.isEmpty(this.center.product_code) &&
                     dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
@@ -388,28 +398,35 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         .subtract(3, 'day')
                         .add(1, 'day')
                         .format('YYYY.MM.DD HH:mm:ss')
-                    const endDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .add(2, 'year')
-                        .format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const endDate = startCountDate
+                    _.forEach(monthArr, (number, idx) => {
+                        const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
+                        endDate.add(daysInMonth, 'day')
+                    })
                     this.paymentItemInfo.period = {
                         startDate: startDate,
-                        endDate: endDate,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
                     const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
-                    const endDate = dayjs().add(2, 'year').format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = dayjs()
+                    const endDate = startCountDate
+                    _.forEach(monthArr, (number, idx) => {
+                        const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
+                        endDate.add(daysInMonth, 'day')
+                    })
                     this.paymentItemInfo.period = {
                         startDate: startDate,
-                        endDate: endDate,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 }
                 break
-
+            // 월 이용권
             default:
+                monthArr = [0]
                 if (
                     !_.isEmpty(this.center.product_code) &&
                     dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
@@ -418,25 +435,119 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         .subtract(3, 'day')
                         .add(1, 'day')
                         .format('YYYY.MM.DD HH:mm:ss')
-                    const endDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .add(1, 'month')
-                        .format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const endDate = startCountDate
+                    _.forEach(monthArr, (number, idx) => {
+                        const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
+                        endDate.add(daysInMonth, 'day')
+                    })
                     this.paymentItemInfo.period = {
                         startDate: startDate,
-                        endDate: endDate,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
+                    const endDate = dayjs()
+                    const daysInMonth = dayjs().daysInMonth()
+                    endDate.add(daysInMonth, 'day')
                     this.paymentItemInfo.period = {
                         startDate: dayjs().format('YYYY.MM.DD HH:mm:ss'),
-                        endDate: dayjs().add(1, 'month').format('YYYY.MM.DD HH:mm:ss'),
-                        dateStr: `${dayjs().format('YYYY.MM.DD')} ~ ${dayjs().add(1, 'month').format('YYYY.MM.DD')}`,
+                        endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
+                        dateStr: `${dayjs().format('YYYY.MM.DD')} ~ ${endDate.format('YYYY.MM.DD')}`,
                     }
                 }
                 break
         }
+        console.log('init membership date period : ', this.paymentItemInfo)
+        // switch (productCode) {
+        //     case '1_years_membership':
+        //         if (
+        //             !_.isEmpty(this.center.product_code) &&
+        //             dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+        //         ) {
+        //             const startDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             const endDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .add(1, 'year')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             this.paymentItemInfo.period = {
+        //                 startDate: startDate,
+        //                 endDate: endDate,
+        //                 dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
+        //             }
+        //         } else {
+        //             const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
+        //             const endDate = dayjs().add(1, 'year').format('YYYY.MM.DD HH:mm:ss')
+        //             this.paymentItemInfo.period = {
+        //                 startDate: startDate,
+        //                 endDate: endDate,
+        //                 dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
+        //             }
+        //         }
+        //
+        //         break
+        //     case '2_years_membership':
+        //         if (
+        //             !_.isEmpty(this.center.product_code) &&
+        //             dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+        //         ) {
+        //             const startDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             const endDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .add(2, 'year')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             this.paymentItemInfo.period = {
+        //                 startDate: startDate,
+        //                 endDate: endDate,
+        //                 dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
+        //             }
+        //         } else {
+        //             const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
+        //             const endDate = dayjs().add(2, 'year').format('YYYY.MM.DD HH:mm:ss')
+        //             this.paymentItemInfo.period = {
+        //                 startDate: startDate,
+        //                 endDate: endDate,
+        //                 dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
+        //             }
+        //         }
+        //         break
+        //     // 월 이용권
+        //     default:
+        //         if (
+        //             !_.isEmpty(this.center.product_code) &&
+        //             dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+        //         ) {
+        //             const startDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             const endDate = dayjs(this.center.product_end_date)
+        //                 .subtract(3, 'day')
+        //                 .add(1, 'day')
+        //                 .add(1, 'month')
+        //                 .format('YYYY.MM.DD HH:mm:ss')
+        //             this.paymentItemInfo.period = {
+        //                 startDate: startDate,
+        //                 endDate: endDate,
+        //                 dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
+        //             }
+        //         } else {
+        //             this.paymentItemInfo.period = {
+        //                 startDate: dayjs().format('YYYY.MM.DD HH:mm:ss'),
+        //                 endDate: dayjs().add(1, 'month').format('YYYY.MM.DD HH:mm:ss'),
+        //                 dateStr: `${dayjs().format('YYYY.MM.DD')} ~ ${dayjs().add(1, 'month').format('YYYY.MM.DD')}`,
+        //             }
+        //         }
+        //         break
+        // }
     }
     getPaymentPromotion(centerId: string, productCode: ProductCode) {
         this.paymentItemLoading.promotion = 'pending'

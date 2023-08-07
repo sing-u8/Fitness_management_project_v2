@@ -4,6 +4,7 @@ import { PaymentCard } from '@schemas/payment/payment-card'
 import { Loading } from '@schemas/loading'
 import _ from 'lodash'
 import { CenterCustomersService } from '@services/center-customers.service'
+import { Center } from '@schemas/center'
 
 @Injectable({
     providedIn: 'root',

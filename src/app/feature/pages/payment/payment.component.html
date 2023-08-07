@@ -1,4 +1,4 @@
-<ng-scrollbar #scrollable  [track]="'vertical'" class="rw-scroll">
+<ng-scrollbar #scrollable [track]="'vertical'" class="rw-scroll">
     <div scrollViewport>
         <section class="l-payment">
             <div class="l-step-one" *ngIf="step == 'one'">
@@ -152,7 +152,7 @@
                             ></rwa-payment-product-info>
                             <rwa-payment-method
                                 *ngIf="paymentItemInfo.itemInfo.productCode == 'subscription_membership'"
-                                [user]="user"
+                                [center]="center"
                                 [paymentCardList]="paymentCardList"
                                 (paymentCardChange)="onPaymentCardChanged($event)"
                                 (paymentCardListChange)="paymentCardList = $event"
@@ -218,7 +218,7 @@
                             <rwa-checkbox
                                 [checked]="paymentAgree"
                                 (onClick)="paymentAgree = !paymentAgree"
-                                [label]="'(필수) 모든 정보를 확인했으며, 매월 자동 결제 진행에 동의합니다.'"
+                                [label]="bottomPurchaseAgreeText"
                             ></rwa-checkbox>
                         </div>
                         <div class="l-footer-button">

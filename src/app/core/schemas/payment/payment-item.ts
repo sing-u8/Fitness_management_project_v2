@@ -13,7 +13,7 @@ export type PaymentItem = {
         discountRate?: number // ex) 0.15 ( 15% )
         desc: string
     }
-    bottom: { left: string; right: string }[]
+    bottom: { left: string; right: string; origin_right?: string }[]
     highlight?: string
     type?: ProductCode
     count?: number

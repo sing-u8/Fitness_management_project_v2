@@ -31,6 +31,8 @@ import { takeUntil } from 'rxjs/operators'
     styleUrls: ['./payment-method-management-modal.component.scss'],
 })
 export class PaymentMethodManagementModalComponent implements OnDestroy {
+    @Input() center: Center
+
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
     @Input() blockClickOutside = true
@@ -39,36 +41,18 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
 
-    public center: Center
     public cardList: PaymentCard[] = []
     public cardListLoading: Loading = 'idle'
 
-    public unSubscriber$ = new Subject<boolean>()
+    public curCenter: Center = undefined
+    public prevCenter: Center = undefined
 
-    // initPaymentMethods() {
-    //     this.cardListLoading = 'pending'
-    //     this.usersCustomersService.getCustomer(this.user.id).subscribe({
-    //         next: (cards) => {
-    //             this.cardListLoading = 'done'
-    //             this.cardList = cards
-    //             this.initSelectedCard(this.cardList)
-    //             console.log('initPaymentMethods - ', this.cardList)
-    //         },
-    //         error: (err) => {
-    //             this.cardListLoading = 'idle'
-    //         },
-    //     })
-    // }
+    public unSubscriber$ = new Subject<boolean>()
 
     public selectedCard: PaymentCard = undefined
     initSelectedCard(cardList: PaymentCard[]) {
         this.selectedCard = _.find(cardList, (v) => v.checked)
     }
-    // setCardSelect(paymentCard: PaymentCard) {
-    //     _.forEach(this.cardList, (v, idx) => {
-    //         this.cardList[idx].checked = v.id == paymentCard.id
-    //     })
-    // }
 
     constructor(
         private el: ElementRef,
@@ -104,9 +88,15 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
-                this.center = this.storageService.getCenter()
-                if (this.cardListLoading == 'idle') {
+                console.log(
+                    'ngOnChanges - payment method management modal : ',
+                    this.prevCenter,
+                    this.curCenter,
+                    this.cardListLoading
+                )
+                if (this.prevCenter?.id != this.curCenter.id) {
                     this.paymentMethodManagementService.initPaymentMethods(this.center.id)
+                    this.prevCenter = this.curCenter
                 }
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
@@ -116,6 +106,10 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
             }
+        })
+
+        changesOn(changes, 'center', (curCenter) => {
+            this.curCenter = curCenter
         })
     }
     ngAfterViewChecked() {}

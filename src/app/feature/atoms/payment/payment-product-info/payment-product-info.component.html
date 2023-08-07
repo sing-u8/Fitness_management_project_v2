@@ -20,7 +20,7 @@
                 <div class="info-value__detail">
                     <div class="info-value__detail-item" *ngFor="let item of paymentItem.bottom">
                         <div class="detail-item-name">{{ item.left }}</div>
-                        <div class="detail-item-value">{{ item.right }}</div>
+                        <div class="detail-item-value">{{ item?.origin_right ?? item.right }}</div>
                     </div>
                 </div>
             </div>

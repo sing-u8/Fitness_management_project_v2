@@ -30,7 +30,6 @@ import { showToast } from '@store/app/actions/app.actions'
 import { Store, select } from '@ngrx/store'
 import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
 import { ChangeUserMarketingOutput } from '@shared/components/molecules/change-user-marketing-modal/change-user-marketing-modal.component'
-import { ModalInput } from '@schemas/components/modal'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -89,6 +88,11 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
         }
     }
 
+    public isEmailAccount = false
+    public checkIsEmailAccount(user: User) {
+        this.isEmailAccount = user.providers.includes('redwhale.xyz')
+    }
+
     public originalOrder = originalOrder
     constructor(
         private el: ElementRef,
@@ -103,6 +107,8 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
         changesOn(changes, 'visible', (v) => {
             if (v) {
                 this.getBasicInfo(this.user)
+                this.checkIsEmailAccount(this.user)
+
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 setTimeout(() => {
@@ -121,6 +127,7 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
         })
         changesOn(changes, 'user', (v) => {
             this.getBasicInfo(this.user)
+            this.checkIsEmailAccount(this.user)
         })
     }
     ngAfterViewChecked() {}

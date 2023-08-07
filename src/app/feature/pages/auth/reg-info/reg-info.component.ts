@@ -69,6 +69,7 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
     public linkedAccountStr = ''
     getLinkedAccountStr(str: string) {
         this.linkedAccountStr = getLinkedAccountStr(str)
+        console.log('getLinkedAccountStr - ', this.linkedAccountStr)
     }
 
     constructor(

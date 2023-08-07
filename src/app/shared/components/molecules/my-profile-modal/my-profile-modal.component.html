@@ -67,7 +67,7 @@
                     <span>계정 관리</span>
                     <div class="account-management__header-tag"></div>
                 </div>
-                <div class="account-management__item" (click)="showChangePasswordModal = true">
+                <div *ngIf="isEmailAccount" class="account-management__item" (click)="showChangePasswordModal = true">
                     <div class="account-management__item-value">비밀번호 변경</div>
                     <div class="caret-icon"></div>
                 </div>

@@ -20,6 +20,7 @@
 
 <rwm-payment-method-management-modal
     [(visible)]="paymentMethodModalVisible"
+    [center]="selectedCenter"
     (close)="setPaymentMethodModalVisible(false)"
     (open)="setPaymentMethodModalVisible(true)"
 ></rwm-payment-method-management-modal>

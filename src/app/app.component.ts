@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { Auth } from '@angular/fire/auth'
 
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { SetCenterService } from '@services/helper/set-center.service'
@@ -14,7 +13,6 @@ import { hideToast } from '@store/app/actions/app.actions'
 // schemas
 import { Modal } from '@schemas/appStore/modal.interface'
 import { Toast } from '@schemas/appStore/toast.interface'
-import { RoleModal } from '@schemas/appStore/modal.interface'
 
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
@@ -37,6 +35,7 @@ export class AppComponent {
 
     public selectedCenter: Center = undefined
     public setCenterModalVisible = false
+
     public paymentMethodModalVisible = false
     setPaymentMethodModalVisible(flag: boolean) {
         this.paymentMethodManagementService.setPaymentMethodModalVisible(flag)

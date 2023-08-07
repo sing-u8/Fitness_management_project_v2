@@ -5,22 +5,18 @@ import {
     Renderer2,
     Output,
     EventEmitter,
-    OnChanges,
     SimpleChanges,
-    AfterViewChecked,
     ViewChild,
-    AfterViewInit,
     OnDestroy,
 } from '@angular/core'
 
 import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import { StorageService } from '@services/storage.service'
-import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
+import { CreateCustomerReqBody, CenterCustomersService } from '@services/center-customers.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { Center } from '@schemas/center'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import _ from 'lodash'
-import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
 
 import { Store } from '@ngrx/store'
@@ -43,7 +39,7 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     @ViewChild('modalWrapperElement') modalWrapperElement: ElementRef
     @ViewChild('body') bodyElement: ElementRef
 
-    public user: User
+    public center: Center
     public cardList: PaymentCard[] = []
     public cardListLoading: Loading = 'idle'
 
@@ -77,12 +73,12 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     constructor(
         private el: ElementRef,
         private renderer: Renderer2,
-        private usersCustomersService: UsersCustomersService,
+        private centerCustomersService: CenterCustomersService,
         private storageService: StorageService,
         private paymentMethodManagementService: PaymentMethodManagementService,
         private nxStore: Store
     ) {
-        this.user = this.storageService.getUser()
+        this.center = this.storageService.getCenter()
         this.paymentMethodManagementService.cardList$
             .asObservable()
             .pipe(takeUntil(this.unSubscriber$))
@@ -108,9 +104,9 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                     this.bodyElement.nativeElement.scrollTo({ top: this.scrollTop })
                 }, 0)
-                this.user = this.storageService.getUser()
+                this.center = this.storageService.getCenter()
                 if (this.cardListLoading == 'idle') {
-                    this.paymentMethodManagementService.initPaymentMethods(this.user.id)
+                    this.paymentMethodManagementService.initPaymentMethods(this.center.id)
                 }
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
@@ -130,8 +126,7 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     }
 
     onSelectPaymentCard(paymentCard: PaymentCard) {
-        this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe((v) => {
-            console.log('onSelectPaymentCard -- ', v)
+        this.centerCustomersService.selectCustomer(this.center.id, paymentCard.id).subscribe((v) => {
             this.paymentMethodManagementService.setCardSelect(paymentCard)
 
             this.nxStore.dispatch(showToast({ text: '자동 결제 수단이 변경되었어요.' }))
@@ -139,7 +134,7 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     }
     onRemovePaymentCard(paymentCard: PaymentCard) {
         // 월 이용권에 따른 분기 설정 필요
-        this.usersCustomersService.deleteCustomer(this.user.id, paymentCard.id).subscribe((v) => {
+        this.centerCustomersService.deleteCustomer(this.center.id, paymentCard.id).subscribe((v) => {
             this.paymentMethodManagementService.removePaymentCard(paymentCard)
             this.nxStore.dispatch(showToast({ text: '선택한 결제 수단이 삭제되었어요.' }))
         })
@@ -159,7 +154,7 @@ export class PaymentMethodManagementModalComponent implements OnDestroy {
     }
     onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreateCustomerReqBody }) {
         res.btLoading.showLoading()
-        this.usersCustomersService.createCustomer(this.user.id, res.reqBody).subscribe({
+        this.centerCustomersService.createCustomer(this.center.id, res.reqBody).subscribe({
             next: (paymentCard) => {
                 this.isRegisterCardError = false
                 this.showRegisterCardModal = false

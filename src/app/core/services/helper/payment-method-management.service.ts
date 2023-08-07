@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Subscription } from 'rxjs'
 import { PaymentCard } from '@schemas/payment/payment-card'
 import { Loading } from '@schemas/loading'
-import { UsersCustomersService } from '@services/users-customers.service'
 import _ from 'lodash'
+import { CenterCustomersService } from '@services/center-customers.service'
 
 @Injectable({
     providedIn: 'root',
@@ -12,7 +12,7 @@ export class PaymentMethodManagementService {
     public cardList$: BehaviorSubject<PaymentCard[]> = new BehaviorSubject<PaymentCard[]>([])
     public cardListLoading$: BehaviorSubject<Loading> = new BehaviorSubject<Loading>('idle')
     public paymentMethodModalVisible$ = new BehaviorSubject<boolean>(false)
-    constructor(private usersCustomersService: UsersCustomersService) {}
+    constructor(private centerCustomersService: CenterCustomersService) {}
 
     setPaymentMethodModalVisible(flag: boolean) {
         this.paymentMethodModalVisible$.next(flag)
@@ -36,9 +36,9 @@ export class PaymentMethodManagementService {
         })
         this.cardList$.next(cardList)
     }
-    initPaymentMethods(userId: string) {
+    initPaymentMethods(centerId: string) {
         this.cardListLoading$.next('pending')
-        this.usersCustomersService.getCustomer(userId).subscribe({
+        this.centerCustomersService.getCustomer(centerId).subscribe({
             next: (cards) => {
                 this.cardListLoading$.next('done')
                 this.cardList$.next(cards)

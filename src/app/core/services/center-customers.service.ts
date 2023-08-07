@@ -11,8 +11,8 @@ import { PaymentCard } from '@schemas/payment/payment-card'
 @Injectable({
     providedIn: 'root',
 })
-export class UsersCustomersService {
-    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/users`
+export class CenterCustomersService {
+    private SERVER = `${environment.protocol}${environment.prodSubDomain}${environment.domain}${environment.port}${environment.version}/center`
 
     private options = {
         headers: new HttpHeaders({
@@ -21,8 +21,8 @@ export class UsersCustomersService {
     }
     constructor(private http: HttpClient) {}
 
-    createCustomer(userId: string, reqBody: CreateCustomerReqBody): Observable<PaymentCard> {
-        const url = this.SERVER + `/${userId}/customers`
+    createCustomer(centerId: string, reqBody: CreateCustomerReqBody): Observable<PaymentCard> {
+        const url = this.SERVER + `/${centerId}/customers`
         return this.http.post<Response>(url, reqBody, this.options).pipe(
             map((res) => {
                 return res.dataset[0]
@@ -30,8 +30,8 @@ export class UsersCustomersService {
             catchError(handleError)
         )
     }
-    getCustomer(userId: string): Observable<PaymentCard[]> {
-        const url = this.SERVER + `/${userId}/customers`
+    getCustomer(centerId: string): Observable<PaymentCard[]> {
+        const url = this.SERVER + `/${centerId}/customers`
         return this.http.get<Response>(url, this.options).pipe(
             map((res) => {
                 return res.dataset
@@ -39,8 +39,8 @@ export class UsersCustomersService {
             catchError(handleError)
         )
     }
-    selectCustomer(userId: string, customerId: string): Observable<any> {
-        const url = this.SERVER + `/${userId}/customers/${customerId}`
+    selectCustomer(centerId: string, customerId: string): Observable<any> {
+        const url = this.SERVER + `/${centerId}/customers/${customerId}`
         return this.http.put<Response>(url, {}, this.options).pipe(
             map((res) => {
                 return res
@@ -48,8 +48,8 @@ export class UsersCustomersService {
             catchError(handleError)
         )
     }
-    deleteCustomer(userId: string, customerId: string): Observable<any> {
-        const url = this.SERVER + `/${userId}/customers/${customerId}`
+    deleteCustomer(centerId: string, customerId: string): Observable<any> {
+        const url = this.SERVER + `/${centerId}/customers/${customerId}`
         return this.http.delete<Response>(url, this.options).pipe(
             map((res) => {
                 return res

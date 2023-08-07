@@ -16,7 +16,7 @@ import { Router } from '@angular/router'
 import { StorageService } from '@services/storage.service'
 import { CenterListItemService } from '@services/helper/center-list-item.service'
 import { CenterPaymentsService } from '@services/center-payments.service'
-import { UsersCustomersService } from '@services/users-customers.service'
+import { CenterCustomersService } from '@services/center-customers.service'
 
 import { showToast } from '@store/app/actions/app.actions'
 import { Store } from '@ngrx/store'
@@ -49,7 +49,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     public prevCenter: Center
 
     constructor(
-        private usersCustomersService: UsersCustomersService,
+        private centerCustomersService: CenterCustomersService,
         private centerListService: CenterListItemService,
         private storageService: StorageService,
         private cd: ChangeDetectorRef,

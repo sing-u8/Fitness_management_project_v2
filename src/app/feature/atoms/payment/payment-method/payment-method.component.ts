@@ -15,12 +15,12 @@ import { SharedModule } from '@shared/shared.module'
 import { CommonModule } from '@angular/common'
 
 import { PaymentCard } from '@schemas/payment/payment-card'
-import { CreateCustomerReqBody, UsersCustomersService } from '@services/users-customers.service'
+import { CreateCustomerReqBody, CenterCustomersService } from '@services/center-customers.service'
 
 import { ButtonEmit } from '@schemas/components/button'
-import { User } from '@schemas/user'
 import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 import _ from 'lodash'
+import { Center } from '@schemas/center'
 
 @Component({
     selector: 'rwa-payment-method',
@@ -30,7 +30,7 @@ import _ from 'lodash'
     styleUrls: ['./payment-method.component.scss'],
 })
 export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit {
-    @Input() user: User = undefined
+    @Input() center: Center = undefined
     // @Input() paymentCard: PaymentCard = undefined
     @Output() paymentCardChange = new EventEmitter<PaymentCard>()
     @Input() paymentCardList: PaymentCard[] = []
@@ -56,7 +56,7 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
         this.renderer.setStyle(this.card_slide_el.nativeElement, 'transform', `translateX(-${(slide - 1) * 270}px)`)
         this.paymentCard = this.paymentCardList.length + 1 == slide ? undefined : this.paymentCardList[slide - 1]
     }
-    constructor(private renderer: Renderer2, private usersCustomersService: UsersCustomersService) {}
+    constructor(private renderer: Renderer2, private centerCustomersService: CenterCustomersService) {}
 
     ngOnInit(): void {}
     ngOnChanges(changes: SimpleChanges) {
@@ -66,8 +66,6 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
                 this.curSlideNumber = idx + 1
                 this.setCardSlide(this.curSlideNumber)
             }
-
-            console.log('paymentCardList -- on change 1: ', this.curSlideNumber, this.paymentCardList)
         })
     }
     ngAfterViewInit() {
@@ -75,7 +73,6 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
             const idx = _.findIndex(this.paymentCardList, (v) => v.checked)
             this.curSlideNumber = idx + 1
             this.setCardSlide(this.curSlideNumber)
-            console.log('paymentCardList -- on change 2: ', this.curSlideNumber, this.paymentCardList)
         }
     }
 
@@ -84,7 +81,7 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
     public isRegisterCardError = false
     onRegisterCardConfirm(res: { btLoading: ButtonEmit; reqBody: CreateCustomerReqBody }) {
         res.btLoading.showLoading()
-        this.usersCustomersService.createCustomer(this.user.id, res.reqBody).subscribe({
+        this.centerCustomersService.createCustomer(this.center.id, res.reqBody).subscribe({
             next: (paymentCard) => {
                 this.registerCardData = paymentCard
                 this.paymentCardList.unshift(paymentCard)

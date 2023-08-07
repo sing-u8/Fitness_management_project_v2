@@ -32,8 +32,8 @@ import { PaymentMethodComponent } from '@feature/atoms/payment/payment-method/pa
 import { PaymentInformationComponent } from '@feature/atoms/payment/payment-information/payment-information.component'
 import { PaymentResultModalComponent } from '@feature/molecules/payment/payment-result-modal/payment-result-modal.component'
 import { User } from '@schemas/user'
-import { UsersCustomersService } from '@services/users-customers.service'
 import { NgScrollbar, ScrollViewport } from 'ngx-scrollbar'
+import { CenterCustomersService } from '@services/center-customers.service'
 
 type Progress = 'one' | 'two'
 
@@ -67,7 +67,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private domSanitizer: DomSanitizer,
         private centerService: CenterService,
         private centerProductsService: CenterProductsService,
-        private usersCustomersService: UsersCustomersService,
+        private centerCustomersService: CenterCustomersService,
         private centerPaymentsService: CenterPaymentsService,
         private callbackService: CallbackService,
         private router: Router,
@@ -100,7 +100,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
             .pipe(distinctUntilChanged(), debounceTime(500), takeUntil(this.unSubscriber$))
             .subscribe((paymentCard) => {
                 if (_.isObject(paymentCard)) {
-                    this.usersCustomersService.selectCustomer(this.user.id, paymentCard.id).subscribe({
+                    this.centerCustomersService.selectCustomer(this.center.id, paymentCard.id).subscribe({
                         next: () => {
                             _.forEach(this.paymentCardList, (v, idx) => {
                                 this.paymentCardList[idx].checked = v.id == paymentCard.id
@@ -621,7 +621,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
     public paymentCardList: PaymentCard[] = []
     getPaymentMethod() {
         this.paymentItemLoading.paymentMethod = 'pending'
-        this.usersCustomersService.getCustomer(this.user.id).subscribe({
+        this.centerCustomersService.getCustomer(this.center.id).subscribe({
             next: (paymentCards) => {
                 if (paymentCards.length > 0) {
                     const checkIdx = _.findIndex(paymentCards, (v) => v.checked)

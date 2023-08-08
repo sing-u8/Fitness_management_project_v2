@@ -175,7 +175,7 @@
     <div class="l-detail-modal">
         <div class="error-icon" *ngIf="detailModalMode == 'subscriptionFailed'"></div>
         <div class="title">
-            {{ detailInfo.title }}
+            {{ detailInfo?.title }}
         </div>
         <div class="center-info">
             <div class="center-info-item">
@@ -221,7 +221,7 @@
                 *ngIf="detailModalMode == 'subscriptionFailed'"
                 [padding]="'9px 25px 7px'"
                 [height]="'45px'"
-                (onClick)="(false)"
+                (onClick)="openPaymentMethodModal()"
             >
                 <ng-template btIdleContent><span class="white-button-text">결제 수단 관리</span></ng-template>
             </rwa-button>

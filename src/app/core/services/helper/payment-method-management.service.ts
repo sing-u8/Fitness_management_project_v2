@@ -6,6 +6,12 @@ import _ from 'lodash'
 import { CenterCustomersService } from '@services/center-customers.service'
 import { Center } from '@schemas/center'
 
+/*
+    결제 수단 모달 [rwm-payment-method-management-modal]에 필요한 결제 카드 리스트, 카드 리스트 로딩 상태, 모달 노출 여부를
+    control하기 위한 service 파일입니다.
+
+    rwm-payment-method-management-modal은 app.component.html에 하나만 배치되어 있습니다.
+ */
 @Injectable({
     providedIn: 'root',
 })

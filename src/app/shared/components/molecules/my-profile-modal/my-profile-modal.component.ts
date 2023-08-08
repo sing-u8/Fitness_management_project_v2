@@ -30,6 +30,7 @@ import { showToast } from '@store/app/actions/app.actions'
 import { Store, select } from '@ngrx/store'
 import { ChangeUserGenderOutput } from '@shared/components/molecules/change-user-gender-modal/change-user-gender-modal.component'
 import { ChangeUserMarketingOutput } from '@shared/components/molecules/change-user-marketing-modal/change-user-marketing-modal.component'
+import { phoneNumberRegObj } from '@shared/helper/form-helper'
 
 export type MyInfo = 'name' | 'email' | 'phoneNumber' | 'gender' | 'birthDate' | 'marketing' | 'linkedAccount'
 
@@ -73,7 +74,11 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                 visible: isLinkedAccountExist(this.user.providers),
                 category: '연동된 계정',
             },
-            phoneNumber: { value: user.phone_number, visible: true, category: '전화번호' },
+            phoneNumber: {
+                value: user.phone_number.replace(/[^0-9]/g, '').replace(phoneNumberRegObj.without_dash, `$1-$2-$3`),
+                visible: true,
+                category: '전화번호',
+            },
             gender: {
                 value: user.sex == 'female' ? '여성' : user.sex == 'male' ? '남성' : null,
                 visible: true,

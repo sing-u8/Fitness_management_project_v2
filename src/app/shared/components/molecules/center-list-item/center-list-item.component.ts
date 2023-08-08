@@ -10,6 +10,7 @@ import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
 import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 
 import { User } from '@schemas/user'
 import { Loading } from '@schemas/loading'
@@ -35,6 +36,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
         private centerPaymentHelperService: CenterPaymentHelperService,
         private centerListService: CenterListItemService,
         private paymentMethodManagementService: PaymentMethodManagementService,
+        private setCenterService: SetCenterService,
         private nxStore: Store
     ) {
         this.user = this.storageService.getUser()
@@ -66,6 +68,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     }
 
     openPaymentMethodModal() {
+        this.setCenterService.setCenter(this.center)
         this.paymentMethodManagementService.setPaymentMethodModalVisible(true)
     }
 
@@ -124,12 +127,13 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     // detail modal vars and funcs
     public showDetailModal = false
     public detailModalMode: CenterStatus = undefined
+    public detailInfo: CenterExpiredInfo = { title: '', desc: [''] }
     getDetailModalData() {
         const { centerStatus, centerExpiredInfo } = this.centerListService.getExpiredData(this.center, this.headerState)
         this.detailModalMode = centerStatus
         this.detailInfo = _.cloneDeep(centerExpiredInfo)
     }
-    public detailInfo: CenterExpiredInfo = undefined
+
     // -------------------------------------------------------------------------------------------------------------------
 
     public centerName = ''

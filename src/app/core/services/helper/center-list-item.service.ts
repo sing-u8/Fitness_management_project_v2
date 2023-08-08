@@ -139,7 +139,7 @@ export class CenterListItemService {
         headerState: CenterHeaderStatus
     ): { centerStatus: CenterStatus; centerExpiredInfo: CenterExpiredInfo } {
         let centerStatus: CenterStatus = undefined
-        let centerExpiredInfo: CenterExpiredInfo = undefined
+        let centerExpiredInfo: CenterExpiredInfo = { title: '', desc: [''] }
         if (headerState == 'subscribeFailed') {
             centerStatus = 'subscriptionFailed'
             centerExpiredInfo = _.cloneDeep(this.subFailedDetail)

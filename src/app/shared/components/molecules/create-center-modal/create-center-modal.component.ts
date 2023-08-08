@@ -13,7 +13,7 @@ import {
     OnInit,
     OnDestroy,
 } from '@angular/core'
-import { FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
 import { NgxSpinnerService } from 'ngx-spinner'
@@ -36,6 +36,7 @@ import { Store, select } from '@ngrx/store'
 import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { Center } from '@schemas/center'
+import { User } from '@schemas/user'
 
 @Component({
     selector: 'rwm-create-center-modal',
@@ -43,6 +44,7 @@ import { Center } from '@schemas/center'
     styleUrls: ['./create-center-modal.component.scss'],
 })
 export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewChecked, AfterViewInit, OnDestroy {
+    @Input() user: User
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 

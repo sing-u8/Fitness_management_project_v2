@@ -5,7 +5,11 @@
     (mousedown)="resetMouseModalDown()"
     #modalWrapperElement
 >
-    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+    <div
+        class="rw-modal user-select-none"
+        [class.free-trial-modal]="!!!user.free_trial_membership_at"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
         <div class="header">
             <div class="header-title">
                 <span>센터 만들기</span>
@@ -114,7 +118,7 @@
                                     hidden
                                 />
                             </div>
-                            <div class="create-center-content__item">
+                            <div *ngIf="!user?.free_trial_membership_at" class="create-center-content__item">
                                 <span class="tag">약관 동의<span class="required">*</span></span>
                                 <rwa-checkbox
                                     [checked]="freeTrialAgree"
@@ -138,14 +142,22 @@
                                 padding="9px 25px 7px"
                                 loadingName="create-center-button"
                                 [status]="createButtonLoading"
-                                [disable]="centerForm.invalid || !freeTrialAgree || !businessLicenseFileName"
+                                [disable]="
+                                    centerForm.invalid ||
+                                    (!freeTrialAgree && !!!user?.free_trial_membership_at) ||
+                                    !businessLicenseFileName
+                                "
                                 (onClick)="createCenter()"
                             >
                                 <ng-template btIdleContent>
-                                    <span class="create-center-button-text">2주 무료 체험 시작하기</span>
+                                    <span class="create-center-button-text">{{
+                                        user?.free_trial_membership_at ? '센터 만들기' : '2주 무료 체험 시작하기'
+                                    }}</span>
                                 </ng-template>
                                 <ng-template btPendingContent>
-                                    <span class="create-center-button-text">2주 무료 체험 시작하기</span>
+                                    <span class="create-center-button-text">{{
+                                        user?.free_trial_membership_at ? '센터 만들기' : '2주 무료 체험 시작하기'
+                                    }}</span>
                                 </ng-template>
                             </rwa-button>
                         </form>

@@ -14,6 +14,7 @@ import { forkJoin, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 
 import _ from 'lodash'
+import dayjs from 'dayjs'
 
 @Component({
     selector: 'rwp-center-list',
@@ -28,6 +29,11 @@ export class CenterListComponent implements OnInit, OnDestroy {
 
     public showCreateCenterModal = false
     onCreatedCenter(center: Center) {
+        this.storageService.setUser({
+            ..._.cloneDeep(this.user),
+            free_trial_membership_at: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+        })
+        this.user = this.storageService.getUser()
         this.centerList.unshift(center)
     }
 

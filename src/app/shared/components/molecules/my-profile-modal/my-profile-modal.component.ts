@@ -75,7 +75,9 @@ export class MyProfileModalComponent implements OnChanges, AfterViewChecked, Aft
                 category: '연동된 계정',
             },
             phoneNumber: {
-                value: user.phone_number.replace(/[^0-9]/g, '').replace(phoneNumberRegObj.without_dash, `$1-$2-$3`),
+                value: user.phone_number
+                    ? user.phone_number.replace(/[^0-9]/g, '').replace(phoneNumberRegObj.without_dash, `$1-$2-$3`)
+                    : user.phone_number,
                 visible: true,
                 category: '전화번호',
             },

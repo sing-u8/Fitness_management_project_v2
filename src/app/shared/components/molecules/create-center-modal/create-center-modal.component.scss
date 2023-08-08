@@ -34,7 +34,10 @@
 
     .rw-modal {
         width: 540px;
-        height: calc(100vh - 120px);
+        &.free-trial-modal {
+            height: calc(100vh - 120px) !important;
+        }
+        height: calc(100vh - 120px - 44px);
 
         border-radius: 20px;
         position: relative;

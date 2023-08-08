@@ -11,7 +11,6 @@ export interface Center {
     phone_number: string
     color: string
     timezone: string
-    free_trial_terms: boolean
     product_code: 'free_trial_membership' | '1_years_membership' | '2_years_membership' | 'subscription_membership'
     start_date: string
     end_date: string

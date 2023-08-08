@@ -24,6 +24,7 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import _ from 'lodash'
 import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
+import { emailReg, phoneNumberRegObj } from '@shared/helper/form-helper'
 
 export type ChangeCenterPhoneNumberOutput = {
     loadingFn: ModalOutPut
@@ -43,7 +44,7 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
     @Output() onPhoneNumberConfirm = new EventEmitter<ChangeUserNameOutput>()
 
     public phoneNumberForm = this.fb.control('', {
-        validators: [Validators.pattern(/^\d{3}-\d{4}-\d{4}$/), Validators.required],
+        validators: [Validators.pattern(phoneNumberRegObj.with_dash), Validators.required],
     })
     onConfirm() {
         this.onPhoneNumberConfirm.emit({
@@ -83,14 +84,9 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
         private inputHelper: InputHelperService
     ) {
         this.phoneNumberForm.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-            let value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
-            if (value.length > 0) {
-                if (value.length > 3 && value.length < 8) {
-                    value = value.slice(0, 3) + '-' + value.slice(3)
-                } else if (value.length >= 8) {
-                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7)
-                }
-            }
+            const value = _.isEmpty(v)
+                ? ''
+                : v.replace(/[^0-9]/g, '').replace(phoneNumberRegObj.without_dash, `$1-$2-$3`)
             this.phoneNumberForm.setValue(value, { emitEvent: false })
         })
     }

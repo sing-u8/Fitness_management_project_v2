@@ -32,6 +32,7 @@ import {
 
 import { Loading } from '@schemas/loading'
 
+import { emailReg, phoneNumberRegObj } from '@shared/helper/form-helper'
 import { changesOn } from '@shared/helper/component-helper'
 import { originalOrder } from '@shared/helper/pipe/keyvalue-helper'
 
@@ -145,8 +146,8 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
 
     public centerForm = this.fb.group({
         employeeName: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
-        email: ['', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)]],
+        phoneNumber: ['', [Validators.pattern(phoneNumberRegObj.with_dash), Validators.required]],
+        email: ['', [Validators.required, Validators.pattern(emailReg)]],
     })
     get employeeName() {
         return this.centerForm.get('employeeName')
@@ -206,10 +207,9 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             }
             this.phoneNumber.setValue(value, { emitEvent: false })
         })
-        // this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-        //     // this.linkEmailAccount = v?.length != 0
-        //     this.showTag = false
-        // })
+        this.email.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            this.linkEmailAccount = !_.isEmpty(this.email.value)
+        })
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -266,7 +266,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             name: this.employeeName.value,
             phone_number: _.replace(this.phoneNumber.value, /[^0-9]/gi, ''),
             email: this.email.value ?? '',
-            connection: this.linkEmailAccount,
+            connection: this.linkEmailAccount && this.email.valid,
         }
         if (this.center.role_code == 'owner' && this._employee.email == this.user.email) delete reqBody['role_code']
 

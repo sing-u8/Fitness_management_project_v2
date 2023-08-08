@@ -30,6 +30,7 @@ import { showToast } from '@store/app/actions/app.actions'
 import { AuthErrors } from '@schemas/errors/auth-errors'
 import { takeUntil } from 'rxjs/operators'
 import _ from 'lodash'
+import { phoneNumberRegObj } from "@shared/helper/form-helper";
 
 @Component({
     selector: 'rwm-change-user-phone-number-modal',
@@ -59,7 +60,7 @@ export class ChangeUserPhoneNumberModalComponent
     public verificationCodeRef: any
 
     public phoneNumber = this.fb.control('', {
-        validators: [Validators.pattern(/^\d{3}-\d{4}-\d{4}$/), Validators.required],
+        validators: [Validators.pattern(phoneNumberRegObj.with_dash), Validators.required],
     })
 
     public phoneNumberError: string

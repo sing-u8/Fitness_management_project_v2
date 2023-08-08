@@ -22,6 +22,7 @@ export interface User {
     access_token: string
     refresh_token: string
     custom_token: string
+    free_trial_membership_at: string
 
     // default information
     // id: string

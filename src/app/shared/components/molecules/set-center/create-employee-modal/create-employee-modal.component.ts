@@ -31,6 +31,7 @@ import { changesOn } from '@shared/helper/component-helper'
 import { originalOrder } from '@shared/helper/pipe/keyvalue-helper'
 
 import _ from 'lodash'
+import { emailReg, phoneNumberRegObj } from '@shared/helper/form-helper'
 
 import { showToast } from '@store/app/actions/app.actions'
 import { Store } from '@ngrx/store'
@@ -77,8 +78,8 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
 
     public centerForm = this.fb.group({
         employeeName: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
-        email: ['', [Validators.required, Validators.pattern(/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)]],
+        phoneNumber: ['', [Validators.required, Validators.pattern(phoneNumberRegObj.with_dash)]],
+        email: ['', [Validators.required, Validators.pattern(emailReg)]],
     })
     get employeeName() {
         return this.centerForm.get('employeeName')
@@ -182,6 +183,8 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             email: this.email.value ?? '',
             connection: this.linkEmailAccount,
         }
+
+
 
         this.centerEmployeeService.createEmployee(this.center.id, reqBody).subscribe({
             next: (emp) => {

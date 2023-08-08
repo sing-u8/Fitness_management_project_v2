@@ -100,7 +100,7 @@
                             padding="9px 25px 7px"
                             loadingName="create-employee-button"
                             [status]="createButtonLoading"
-                            [disable]="phoneNumber.invalid || employeeName.invalid"
+                            [disable]="phoneNumber.invalid || employeeName.invalid || (email.value && email.invalid)"
                             (onClick)="createEmployee()"
                         >
                             <ng-template btIdleContent>

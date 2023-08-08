@@ -21,7 +21,7 @@ import { PasswordErrors } from '@schemas/errors/password-error'
 
 import { showToast } from '@store/app/actions/app.actions'
 import { Store } from '@ngrx/store'
-import { isPassword, passwordValidator } from '@shared/helper/form-helper'
+import { passwordValidator } from '@shared/helper/form-helper'
 
 export type ChangeUserPasswordOutput = {
     value: string
@@ -196,6 +196,8 @@ export class ChangeUserPasswordModalComponent implements OnChanges, AfterViewIni
                 this.newPasswordError = ''
                 this.newPasswordValid = true
                 this.newPasswordStatus = 'success'
+
+                this.confirmNewPassword.setValue(this.confirmNewPassword.value)
                 return null
             }
         }

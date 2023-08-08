@@ -15,6 +15,9 @@
                 [hoverBgColor]="'var(--gray-30)'"
                 [loadingColor]="'var(--font-color)'"
                 [borderRadius]="'10px'"
+                rwTooltip
+                rwTooltipPlacement="bottom"
+                rwTooltipTitle="내 정보"
                 (onClick)="openMyInfoModal()"
             >
                 <ng-template btIdleContent>
@@ -36,7 +39,7 @@
                             [style.height]="'14px'"
                         />
                     </div>
-                    <span class="user-name">{{ user.name }}</span>
+                    <span class="user-name line-ellipsis-one">{{ user.name }}</span>
                 </ng-template>
             </rwa-button>
         </div>
@@ -108,4 +111,3 @@
     (close)="closeMyInfoModal()"
     (open)="openMyInfoModal()"
 ></rwm-my-profile-modal>
-

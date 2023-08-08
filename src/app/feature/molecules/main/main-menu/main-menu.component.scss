@@ -77,6 +77,7 @@ $nd_width: 275px;
 
 .menu-scroll-y-overlay2 {
     overflow-y: overlay;
+    overflow-x: hidden;
 
     /* width */
     &::-webkit-scrollbar {

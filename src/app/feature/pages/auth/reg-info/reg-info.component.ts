@@ -20,7 +20,7 @@ import { getLinkedAccountStr } from '@shared/helper/account-helper'
 // ngrx
 import { Store, select } from '@ngrx/store'
 import { registrationSelector } from '@store/app/selectors/selectors'
-import { setRegistration } from '@store/app/actions/app.actions'
+import { setRegistration, showToast } from '@store/app/actions/app.actions'
 import { Loading } from '@schemas/loading'
 
 @Component({
@@ -206,10 +206,15 @@ export class RegInfoComponent implements OnInit, AfterViewInit {
                 }
             },
             (e) => {
-                this.errorModalData = this.existedEmailErrData
-                this.linkedAccountStr = ''
-                this.emailError = '이미 사용중인 이메일입니다.'
-                this.setShowEmailExistModal(true)
+                if (e.code == 'FUNCTION_AUTH_005') {
+                    this.errorModalData = this.existedEmailErrData
+                    this.linkedAccountStr = ''
+                    this.emailError = '이미 사용중인 이메일입니다.'
+                    this.setShowEmailExistModal(true)
+                } else {
+                    this.nxStore.dispatch(showToast({ text: '유효하지 않은 이메일 양식입니다.' }))
+                }
+
                 this.nextButtonStatus = 'idle'
             }
         )

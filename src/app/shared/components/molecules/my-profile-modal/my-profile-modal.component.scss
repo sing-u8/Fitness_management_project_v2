@@ -130,11 +130,14 @@
                         display: flex;
                         align-items: center;
                         justify-content: flex-start;
-                        min-width: 251px;
-                        max-width: 251px;
+                        min-width: 245px;
+                        max-width: 245px;
                         @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                         &.gray-value {
                             @include rw-type-r(1.7rem, 28.3px, var(--gray-90));
+                        }
+                        span {
+                            max-width: 245px;
                         }
                     }
                     .basic-info__item-button {

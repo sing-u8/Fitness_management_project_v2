@@ -11,7 +11,7 @@ import {
     ViewChild,
     AfterViewInit,
 } from '@angular/core'
-import { AsyncValidatorFn, ValidatorFn, FormBuilder, FormControl, Validators } from '@angular/forms'
+import { FormBuilder, Validators } from '@angular/forms'
 
 import { Loading } from '@schemas/loading'
 import { ModalOutPut } from '@schemas/components/modal'

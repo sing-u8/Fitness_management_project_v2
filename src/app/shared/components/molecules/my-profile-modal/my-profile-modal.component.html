@@ -22,7 +22,12 @@
         <div class="body scroll-y-overlay" #body>
             <div class="l-profile-photo body-item-gap">
                 <rwm-profile-photo [user]="user"></rwm-profile-photo>
-                <span class="profile-photo__text" rwEllipsisDropdown [lineClamp]="2" [edText]="user.name"></span>
+                <span
+                    class="profile-photo__text"
+                    rwEllipsisDropdown
+                    [lineClamp]="2"
+                    [edText]="user.name + '님, 반가워요. 🙌'"
+                ></span>
                 <rwa-ghost-button width="230px" height="45px" (onClick)="logout()">
                     <ng-template gbtIdleContent>
                         <span class="logout-text">로그아웃</span>
@@ -41,10 +46,7 @@
                             class="basic-info__item-value"
                             [class.gray-value]="item.key == 'email' || item.key == 'linkedAccount'"
                         >
-                            <span *ngIf="item.key != 'phoneNumber'">
-                                {{ item.value['value'] ?? '-' }}
-                            </span>
-                            <span *ngIf="item.key == 'phoneNumber'">
+                            <span class="line-ellipsis-one">
                                 {{ item.value['value'] ?? '-' }}
                             </span>
                         </div>

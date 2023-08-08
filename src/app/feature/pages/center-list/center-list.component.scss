@@ -37,6 +37,7 @@
             .user-name {
                 margin-left: 8px;
                 @include rw-type-r(1.5rem, 23px, var(--gray-100));
+                max-width: 219px;
             }
         }
     }

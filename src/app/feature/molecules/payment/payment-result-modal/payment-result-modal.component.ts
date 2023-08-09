@@ -51,7 +51,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
     changed: boolean
 
     public isMouseModalDown: boolean
-    public day = dayjs().format('D')
+    public nextPaidDate = dayjs().format('YY년 MM월 DD일')
 
     constructor(private el: ElementRef, private renderer: Renderer2, private cd: ChangeDetectorRef) {
         this.isMouseModalDown = false
@@ -76,7 +76,7 @@ export class PaymentResultModalComponent implements OnChanges, AfterViewChecked 
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
-                this.day = dayjs().format('D')
+                this.nextPaidDate = dayjs(this.paymentItem.period.endDate).subtract(5, 'day').format('YY년 MM월 DD일')
                 this.getCardNumber()
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')

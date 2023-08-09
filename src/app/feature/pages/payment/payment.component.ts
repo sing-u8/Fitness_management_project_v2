@@ -15,6 +15,7 @@ import { CenterProductsService } from '@services/center-products.service'
 import { CenterPaymentsService, CreatePaymentReqBody } from '@services/center-payments.service'
 import { CenterService } from '@services/center.service'
 import { CallbackService } from '@services/callback.service'
+import { SetCenterService } from '@services/helper/set-center.service'
 
 import { paymentItemList } from '@shared/helper/center-payment'
 
@@ -70,6 +71,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
         private centerCustomersService: CenterCustomersService,
         private centerPaymentsService: CenterPaymentsService,
         private callbackService: CallbackService,
+        private setCenterService: SetCenterService,
         private router: Router,
         private location: Location,
         private activatedRoute: ActivatedRoute
@@ -257,6 +259,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                                     this.setCurCenter(() => {
                                         this.showPaymentResultModal = true
                                         this.isPurchaseInProcess = false
+                                        this.setCenterService.setCenter(undefined)
                                         // this.router.navigate([`${this.center.name}`, 'main'])
                                     })
                                 })
@@ -273,6 +276,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                     this.showPaymentResultModal = true
                     this.isPurchaseInProcess = false
                     this.purchaseButtonLoading = 'idle'
+                    this.setCenterService.setCenter(undefined)
                 })
             })
         }

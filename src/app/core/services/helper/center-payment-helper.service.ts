@@ -34,6 +34,10 @@ export class CenterPaymentHelperService {
             text2: '일 전',
             day: 14,
         },
+        notFreeTrial: {
+            bgColor: 'var(--gray-50)',
+            color: 'var(--font-color)',
+        },
         expirationExpected: {
             bgColor: 'var(--state-warning-5)',
             color: 'var(--state-warning-100)',
@@ -60,6 +64,8 @@ export class CenterPaymentHelperService {
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (center.connection_status_code == 'employee_connection_status_pending') {
             paymentBadgeKey = 'normal'
+        } else if (_.isEmpty(center.product_code)) {
+            paymentBadgeKey = 'notFreeTrial'
         } else if (center.product_code == 'free_trial_membership') {
             if (dayRemains > 14) {
                 paymentBadgeKey = 'normal'

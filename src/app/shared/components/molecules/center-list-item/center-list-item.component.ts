@@ -8,7 +8,12 @@ import _ from 'lodash'
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
-import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
+import {
+    CenterExpiredInfo,
+    CenterHeaderStatus,
+    CenterListItemService,
+    CenterStatus,
+} from '@services/helper/center-list-item.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 import { SetCenterService } from '@services/helper/set-center.service'
 
@@ -17,6 +22,10 @@ import { Loading } from '@schemas/loading'
 import { Store } from '@ngrx/store'
 import { showToast } from '@store/app/actions/app.actions'
 import { PaymentBadgeKey, PaymentBadge } from '@schemas/payment/payment-badge-state'
+
+/*
+    나중에 결제 재시도 API가 있을 때, *ngIf="headerState == 'subscribeFailed'" -- 자동 결제 재시도 버튼에 함수 연결 필요
+ */
 
 @Component({
     selector: 'rwm-center-list-item',
@@ -111,7 +120,7 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
     public badgeState: PaymentBadgeKey = 'normal'
     public badgeStateObj: PaymentBadge = _.cloneDeep(this.centerPaymentHelperService.stateBadge)
 
-    public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
+    public headerState: CenterHeaderStatus = 'normal'
     getBadgeState() {
         const badgeStatus = this.centerPaymentHelperService.getCenterBadgeStatus(this.center)
         this.badgeState = badgeStatus.paymentBadgeKey
@@ -142,4 +151,6 @@ export class CenterListItemComponent implements AfterViewInit, OnChanges {
             ? `(${this.center.zip_no}) ${this.center.road_full_addr}, ${this.center.addr_detail}`
             : `(${this.center.zip_no}) ${this.center.road_full_addr}`
     }
+
+    protected readonly undefined = undefined
 }

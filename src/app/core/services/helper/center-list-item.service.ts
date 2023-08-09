@@ -11,7 +11,14 @@ export interface CenterChanged {
 }
 export type CenterChangedType = 'change' | 'remove'
 
-export type CenterHeaderStatus = 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd'
+export type CenterHeaderStatus =
+    | 'normal'
+    | 'needToBuy'
+    | 'invite'
+    | 'subscribeFailed'
+    | 'expired'
+    | 'freeTrialEnd'
+    | 'notFreeTrial'
 export type CenterStatus =
     | 'freeTrial'
     | 'monthSubscription'
@@ -49,6 +56,8 @@ export class CenterListItemService {
         const dayRemains = dayjs(center.end_date).diff(dayjs().format('YYYY-MM-DD'), 'day') + 1
         if (center.connection_status_code == 'employee_connection_status_pending') {
             return 'invite'
+        } else if (_.isEmpty(center.product_code)) {
+            return 'notFreeTrial'
         } else if (center.product_code == 'free_trial_membership') {
             if (badgeState == 'freeTrialEnd') {
                 return 'freeTrialEnd'

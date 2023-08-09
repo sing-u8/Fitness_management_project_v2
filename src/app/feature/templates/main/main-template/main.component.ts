@@ -10,7 +10,12 @@ import { MainMenuComponent } from '@feature/molecules/main/main-menu/main-menu.c
 import { StorageService } from '@services/storage.service'
 import { UsersCenterService } from '@services/users-center.service'
 import { CenterPaymentHelperService } from '@services/helper/center-payment-helper.service'
-import { CenterExpiredInfo, CenterListItemService, CenterStatus } from '@services/helper/center-list-item.service'
+import {
+    CenterExpiredInfo,
+    CenterHeaderStatus,
+    CenterListItemService,
+    CenterStatus,
+} from '@services/helper/center-list-item.service'
 import { PaymentMethodManagementService } from '@services/helper/payment-method-management.service'
 
 import { User } from '@schemas/user'
@@ -114,7 +119,7 @@ export class MainComponent implements OnInit, AfterViewInit, OnDestroy {
     public badgeState: PaymentBadgeKey = 'normal'
     public badgeStateObj: PaymentBadge = _.cloneDeep(this.centerPaymentHelperService.stateBadge)
 
-    public headerState: 'normal' | 'needToBuy' | 'invite' | 'subscribeFailed' | 'expired' | 'freeTrialEnd' = 'normal'
+    public headerState: CenterHeaderStatus = 'normal'
     getBadgeState() {
         const badgeStatus = this.centerPaymentHelperService.getCenterBadgeStatus(this.center)
         this.badgeState = badgeStatus.paymentBadgeKey

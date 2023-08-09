@@ -3,6 +3,7 @@ export type PaymentBadgeKey =
     | 'freeTrialEndToday'
     | 'freeTrialEnd'
     | 'freeTrialEndExpected'
+    | 'notFreeTrial'
     | 'expirationExpected'
     | 'expired'
     | 'expiredToday'

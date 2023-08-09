@@ -147,7 +147,7 @@ export class UpdateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     public centerForm = this.fb.group({
         employeeName: ['', Validators.required],
         phoneNumber: ['', [Validators.pattern(phoneNumberRegObj.with_dash), Validators.required]],
-        email: ['', [Validators.required, Validators.pattern(emailReg)]],
+        email: ['', [Validators.required]],
     })
     get employeeName() {
         return this.centerForm.get('employeeName')

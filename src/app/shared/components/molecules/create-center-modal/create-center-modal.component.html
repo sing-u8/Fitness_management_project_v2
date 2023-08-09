@@ -53,15 +53,24 @@
                                     [formControlName]="'centerName'"
                                 ></rwa-text-field>
                             </div>
-                            <div class="create-center-content__item">
+                            <div class="create-center-content__item flex-row align-items-end">
                                 <rwa-text-field
-                                    [width]="'308px'"
+                                    [width]="'110px'"
                                     [label]="'전화번호'"
-                                    [placeholder]="'-없이 숫자만 입력'"
+                                    [placeholder]="'숫자'"
                                     [isImportant]="true"
                                     [type]="'normal'"
-                                    [inputLimit]="13"
-                                    [formControlName]="'phoneNumber'"
+                                    [inputLimit]="4"
+                                    [formControlName]="'firstPhoneNumber'"
+                                ></rwa-text-field>
+                                <div class="dash">-</div>
+                                <rwa-text-field
+                                    [width]="'180px'"
+                                    [placeholder]="'-없이 숫자만 입력'"
+                                    [labelVisible]="false"
+                                    [type]="'normal'"
+                                    [inputLimit]="9"
+                                    [formControlName]="'secondPhoneNumber'"
                                 ></rwa-text-field>
                             </div>
                             <div class="create-center-content__item">

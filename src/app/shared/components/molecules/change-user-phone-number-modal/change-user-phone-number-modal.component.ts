@@ -30,7 +30,7 @@ import { showToast } from '@store/app/actions/app.actions'
 import { AuthErrors } from '@schemas/errors/auth-errors'
 import { takeUntil } from 'rxjs/operators'
 import _ from 'lodash'
-import { phoneNumberRegObj } from "@shared/helper/form-helper";
+import { phoneNumberRegObj } from '@shared/helper/form-helper'
 
 @Component({
     selector: 'rwm-change-user-phone-number-modal',

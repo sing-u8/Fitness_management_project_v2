@@ -139,6 +139,10 @@
                         margin-bottom: 28px;
                         width: 100%;
                     }
+                    .dash {
+                        @include rw-type-b(1.7rem, 28.3px, var(--font-color));
+                        margin: 0 5px 10px 5px;
+                    }
                     .address-box-margin {
                         margin-bottom: 15px;
                     }

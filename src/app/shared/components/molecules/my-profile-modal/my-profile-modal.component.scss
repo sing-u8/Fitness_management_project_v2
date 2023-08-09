@@ -82,7 +82,7 @@
                     max-width: 450px;
                     .profile-photo__text {
                         @include rw-type-b(2rem, 31px, var(--font-color));
-                        max-width: calc(450px - 128px);
+                        max-width: calc(450px - 130px);
                     }
                 }
 

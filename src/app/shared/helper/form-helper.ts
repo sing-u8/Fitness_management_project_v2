@@ -6,8 +6,8 @@ export const emailReg = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/
 export const phoneNumberRegObj = {
     with_dash: /^\d{2,3}-?\d{3,4}-?\d{4}$/,
     without_dash: /^(\d{2,3})(\d{3,4})(\d{4})$/,
-    f4_with_dash: /^(\d{4})-?(\d{3,4})-?(\d{4})$/,
-    f4_without_dash: /^(\d{4})(\d{3,4})(\d{4})$/,
+    // -----------------------------------------
+    second_phone_without_dash: /^(\d{3,4})(\d{4})$/,
 }
 export function isEmail(email: string, regex = /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/): boolean {
     return regex.test(email)

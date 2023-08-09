@@ -37,6 +37,7 @@ import { takeUntil } from 'rxjs/operators'
 import { forkJoin, Subject } from 'rxjs'
 import { Center } from '@schemas/center'
 import { User } from '@schemas/user'
+import { phoneNumberRegObj } from '@shared/helper/form-helper'
 
 @Component({
     selector: 'rwm-create-center-modal',
@@ -63,7 +64,8 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
 
     public centerForm = this.fb.group({
         centerName: ['', Validators.required],
-        phoneNumber: ['', Validators.required],
+        firstPhoneNumber: ['', Validators.required],
+        secondPhoneNumber: ['', Validators.required],
         zonecode: ['', [Validators.required, Validators.pattern(/^[0-9]/)]],
         roadAddress: ['', Validators.required],
         detailedAddress: ['', Validators.required],
@@ -71,8 +73,11 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
     get centerName() {
         return this.centerForm.get('centerName')
     }
-    get phoneNumber() {
-        return this.centerForm.get('phoneNumber')
+    get firstPhoneNumber() {
+        return this.centerForm.get('firstPhoneNumber')
+    }
+    get secondPhoneNumber() {
+        return this.centerForm.get('secondPhoneNumber')
     }
     get zonecode() {
         return this.centerForm.get('zonecode')
@@ -145,16 +150,17 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
     ) {}
 
     ngOnInit() {
-        this.phoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
-            let value = _.isEmpty(v) ? '' : _.replace(v, /[^0-9]/gi, '')
-            if (value.length > 0) {
-                if (value.length > 3 && value.length < 8) {
-                    value = value.slice(0, 3) + '-' + value.slice(3)
-                } else if (value.length >= 8) {
-                    value = value.slice(0, 3) + '-' + value.slice(3, 7) + '-' + value.slice(7)
-                }
-            }
-            this.phoneNumber.setValue(value, { emitEvent: false })
+        this.secondPhoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            const value = _.isEmpty(v)
+                ? ''
+                : String(v)
+                      .replace(/[^0-9]/gi, '')
+                      .replace(phoneNumberRegObj.second_phone_without_dash, `$1-$2`)
+            this.secondPhoneNumber.setValue(value, { emitEvent: false })
+        })
+        this.firstPhoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            const value = _.isEmpty(v) ? '' : String(v).replace(/[^0-9]/gi, '')
+            this.firstPhoneNumber.setValue(value, { emitEvent: false })
         })
     }
 
@@ -194,11 +200,10 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                 zip_no: this.zonecode.value,
                 road_full_addr: this.roadAddress.value,
                 addr_detail: this.detailedAddress.value ?? '',
-                phone_number: _.replace(this.phoneNumber.value, /[^0-9]/gi, ''),
+                phone_number: `${this.firstPhoneNumber.value}${this.secondPhoneNumber.value.replace(/[^0-9]/gi, '')}`,
                 free_trial_terms: this.freeTrialAgree,
             })
             .subscribe((center) => {
-                console.log('create center : ', center)
                 const cb = (center: Center) => {
                     this.nxStore.dispatch(showToast({ text: '✨ 새로운 센터를 만들었어요.' }))
                     this.onCenterCreated.emit(center)

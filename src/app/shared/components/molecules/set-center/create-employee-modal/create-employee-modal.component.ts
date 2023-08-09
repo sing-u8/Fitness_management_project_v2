@@ -79,7 +79,7 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
     public centerForm = this.fb.group({
         employeeName: ['', Validators.required],
         phoneNumber: ['', [Validators.required, Validators.pattern(phoneNumberRegObj.with_dash)]],
-        email: ['', [Validators.required, Validators.pattern(emailReg)]],
+        email: ['', [Validators.required]],
     })
     get employeeName() {
         return this.centerForm.get('employeeName')
@@ -183,8 +183,6 @@ export class CreateEmployeeModalComponent implements OnInit, OnChanges, AfterVie
             email: this.email.value ?? '',
             connection: this.linkEmailAccount,
         }
-
-
 
         this.centerEmployeeService.createEmployee(this.center.id, reqBody).subscribe({
             next: (emp) => {

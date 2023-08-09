@@ -375,6 +375,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
                         endDate = endDate.add(daysInMonth, 'day')
                     })
+                    endDate = endDate.subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: startDate,
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
@@ -388,6 +389,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
                         endDate = endDate.add(daysInMonth, 'day')
                     })
+                    endDate = endDate.subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: startDate,
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
@@ -412,6 +414,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
                         endDate = endDate.add(daysInMonth, 'day')
                     })
+                    endDate = endDate.subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: startDate,
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
@@ -425,6 +428,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
                         endDate = endDate.add(daysInMonth, 'day')
                     })
+                    endDate = endDate.subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: startDate,
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
@@ -449,6 +453,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
                         endDate = endDate.add(daysInMonth, 'day')
                     })
+                    endDate = endDate.subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: startDate,
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
@@ -457,7 +462,7 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 } else {
                     let endDate = dayjs()
                     const daysInMonth = dayjs().daysInMonth()
-                    endDate = endDate.add(daysInMonth, 'day')
+                    endDate = endDate.add(daysInMonth, 'day').subtract(1, 'day')
                     this.paymentItemInfo.period = {
                         startDate: dayjs().format('YYYY.MM.DD HH:mm:ss'),
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),

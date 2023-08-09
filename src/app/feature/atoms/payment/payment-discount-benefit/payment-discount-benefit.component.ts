@@ -77,6 +77,10 @@ export class PaymentDiscountBenefitComponent implements OnInit, OnChanges {
                         this.promotions[idx].friend_event_error = '본인 센터의 코드는 입력하실 수 없어요.'
                     } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_005') {
                         this.promotions[idx].friend_event_error = '본인 센터의 코드는 입력하실 수 없어요.'
+                    } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_006') {
+                        this.promotions[idx].friend_event_error = '무료 체험 중인 센터 코드는 입력하실 수 없어요.'
+                    } else if (err.code == 'FUNCTION_CENTER_PRODUCTS_007') {
+                        this.promotions[idx].friend_event_error = '운영자가 동일한 센터 코드는 입력하실 수 없어요.'
                     }
                 },
             })

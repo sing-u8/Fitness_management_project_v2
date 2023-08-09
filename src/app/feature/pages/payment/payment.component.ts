@@ -357,19 +357,19 @@ export class PaymentComponent implements OnDestroy, OnInit {
 
     getPaymentItemPeriod(productCode: ProductCode) {
         let monthArr = []
+        const _startCountDateInMembership = this.center.end_date
+            ? dayjs(this.center.end_date).add(1, 'day')
+            : dayjs(this.center.end_date).subtract(3, 'day').add(1, 'day')
+        const _startCountDate = this.center.end_date ? dayjs(this.center.end_date).add(1, 'day') : dayjs()
         switch (productCode) {
             case '1_years_membership':
                 monthArr = Array.from({ length: 12 }, (_, idx) => idx + 1)
                 if (
                     !_.isEmpty(this.center.product_code) &&
-                    dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+                    dayjs().isBefore(dayjs(this.center.end_date).subtract(3, 'day'), 'day')
                 ) {
-                    const startDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .format('YYYY.MM.DD HH:mm:ss')
-
-                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const startDate = _startCountDateInMembership.format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = _startCountDateInMembership
                     let endDate = startCountDate
                     _.forEach(monthArr, (number, idx) => {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
@@ -382,8 +382,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
-                    const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
-                    const startCountDate = dayjs()
+                    const startDate = _startCountDate.format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = _startCountDate
                     let endDate = startCountDate
                     _.forEach(monthArr, (number, idx) => {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
@@ -402,13 +402,10 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 monthArr = Array.from({ length: 12 * 2 }, (_, idx) => idx + 1)
                 if (
                     !_.isEmpty(this.center.product_code) &&
-                    dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+                    dayjs().isBefore(dayjs(this.center.end_date).subtract(3, 'day'), 'day')
                 ) {
-                    const startDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .format('YYYY.MM.DD HH:mm:ss')
-                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const startDate = _startCountDateInMembership.format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = _startCountDateInMembership
                     let endDate = startCountDate
                     _.forEach(monthArr, (number, idx) => {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
@@ -421,8 +418,8 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
-                    const startDate = dayjs().format('YYYY.MM.DD HH:mm:ss')
-                    const startCountDate = dayjs()
+                    const startDate = _startCountDate.format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = _startCountDate
                     let endDate = startCountDate
                     _.forEach(monthArr, (number, idx) => {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
@@ -441,13 +438,10 @@ export class PaymentComponent implements OnDestroy, OnInit {
                 monthArr = [0]
                 if (
                     !_.isEmpty(this.center.product_code) &&
-                    dayjs().isBefore(dayjs(this.center.product_end_date).subtract(3, 'day'), 'day')
+                    dayjs().isBefore(dayjs(this.center.end_date).subtract(3, 'day'), 'day')
                 ) {
-                    const startDate = dayjs(this.center.product_end_date)
-                        .subtract(3, 'day')
-                        .add(1, 'day')
-                        .format('YYYY.MM.DD HH:mm:ss')
-                    const startCountDate = dayjs(this.center.product_end_date).subtract(3, 'day').add(1, 'day')
+                    const startDate = _startCountDateInMembership.format('YYYY.MM.DD HH:mm:ss')
+                    const startCountDate = _startCountDateInMembership
                     let endDate = startCountDate
                     _.forEach(monthArr, (number, idx) => {
                         const daysInMonth = startCountDate.add(idx, 'month').daysInMonth()
@@ -460,11 +454,11 @@ export class PaymentComponent implements OnDestroy, OnInit {
                         dateStr: `${dayjs(startDate).format('YYYY.MM.DD')} ~ ${dayjs(endDate).format('YYYY.MM.DD')}`,
                     }
                 } else {
-                    let endDate = dayjs()
-                    const daysInMonth = dayjs().daysInMonth()
+                    let endDate = _startCountDate
+                    const daysInMonth = _startCountDate.daysInMonth()
                     endDate = endDate.add(daysInMonth, 'day').subtract(1, 'day')
                     this.paymentItemInfo.period = {
-                        startDate: dayjs().format('YYYY.MM.DD HH:mm:ss'),
+                        startDate: _startCountDate.format('YYYY.MM.DD HH:mm:ss'),
                         endDate: endDate.format('YYYY.MM.DD HH:mm:ss'),
                         dateStr: `${dayjs().format('YYYY.MM.DD')} ~ ${endDate.format('YYYY.MM.DD')}`,
                     }

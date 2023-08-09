@@ -25,10 +25,6 @@ export interface Center {
     role_code: RoleCode
     role_name: string
     permissions: Array<string> // 권한 코드 리스트
-
-    // 아래 삭제 예정
-    product_start_date?: string // YYYY-MM-DD
-    product_end_date?: string // YYYY-MM-DD
 }
 
 export type RoleCode = 'owner' | 'member' | 'administrator' | 'instructor'

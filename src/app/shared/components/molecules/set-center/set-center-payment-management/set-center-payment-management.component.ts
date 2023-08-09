@@ -147,6 +147,7 @@ export class SetCenterPaymentManagementComponent implements OnChanges {
     // -------------------------------------------------------------------------------------
     goPayment() {
         if (this.checkIsAbleToGoPaymentPage()) {
+            this.storageService.setCenter(this.center)
             this.router.navigate([`${this.center.name}`, 'payment'])
             this.closeModal.emit()
         } else {

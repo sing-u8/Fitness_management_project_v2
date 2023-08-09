@@ -2,7 +2,7 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { PaymentItem, PaymentItemInfo } from '@schemas/payment/payment-item'
-import { changesOn, detectChangesOn } from "@shared/helper/component-helper";
+import { detectChangesOn } from '@shared/helper/component-helper'
 import dayjs from 'dayjs'
 
 @Component({
@@ -19,6 +19,7 @@ export class PaymentProductInfoComponent implements OnChanges {
     public productDetailOpen = true
 
     public subscriptionPaymentDate = dayjs().format('YYYY-MM-DD') // 에러 방지용 초기값
+
     constructor() {}
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'paymentItemInfo', (v) => {

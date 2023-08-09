@@ -23,7 +23,7 @@ export class PaymentProductInfoComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         detectChangesOn(changes, 'paymentItemInfo', (v) => {
             this.subscriptionPaymentDate = dayjs(this.paymentItemInfo.period.endDate)
-                .add(1, 'day')
+                .subtract(5, 'day')
                 .format('YY년 MM월 DD일')
         })
     }

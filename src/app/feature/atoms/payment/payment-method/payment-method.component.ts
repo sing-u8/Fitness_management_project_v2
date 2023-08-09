@@ -44,13 +44,6 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
         this.renderer.setStyle(this.card_slide_el.nativeElement, 'transform', `translateX(-${(slide - 1) * 270}px)`)
         this.paymentCard = this.paymentCardList.length + 1 == slide ? undefined : this.paymentCardList[slide - 1]
         this.paymentCardChange.emit(this.paymentCard)
-        console.log(
-            'onSlideButtonClick - ',
-            slide,
-            this.paymentCard,
-            this.paymentCardList[slide - 1],
-            _.isObject(this.paymentCard)
-        )
     }
     setCardSlide(slide: number) {
         this.renderer.setStyle(this.card_slide_el.nativeElement, 'transform', `translateX(-${(slide - 1) * 270}px)`)
@@ -85,14 +78,17 @@ export class PaymentMethodComponent implements OnInit, OnChanges, AfterViewInit 
             next: (paymentCard) => {
                 this.registerCardData = paymentCard
                 this.paymentCardList.unshift(paymentCard)
-                this.onSlideButtonClick(1)
                 this.paymentCardListChange.emit(this.paymentCardList)
+                setTimeout(() => {
+                    this.onSlideButtonClick(1)
+                }, 200)
                 // this.onPaymentCardChanged.emit(paymentCard)
                 this.isRegisterCardError = false
                 res.btLoading.hideLoading()
                 this.showRegisterCardModal = false
                 this.showRegisterCardResultModal = true
-                console.log('onRegisterCardConfirm -- ', this.registerCardData, this.paymentCardList)
+
+                // console.log('onRegisterCardConfirm -- ', this.registerCardData, this.paymentCardList)
             },
             error: () => {
                 this.isRegisterCardError = true

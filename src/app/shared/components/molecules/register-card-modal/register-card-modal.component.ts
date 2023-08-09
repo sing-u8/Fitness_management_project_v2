@@ -74,6 +74,7 @@ export class RegisterCardModalComponent implements OnChanges, AfterViewChecked {
                     this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                     this.renderer.addClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
                 }, 0)
+                this.formGroup.reset()
             } else {
                 this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'rw-modal-background-show')
                 this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'rw-modal-wrapper-show')
@@ -81,7 +82,6 @@ export class RegisterCardModalComponent implements OnChanges, AfterViewChecked {
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
-
                 this.formGroup.reset()
             }
             this.cd.detectChanges()

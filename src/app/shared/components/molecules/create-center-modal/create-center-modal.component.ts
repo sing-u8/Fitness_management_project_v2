@@ -193,6 +193,7 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
 
     // -----------------------------------------------------------------------------------------------------------
     createCenter() {
+        if (this.createButtonLoading == 'pending') return
         this.createButtonLoading = 'pending'
         this.centerService
             .createCenter({

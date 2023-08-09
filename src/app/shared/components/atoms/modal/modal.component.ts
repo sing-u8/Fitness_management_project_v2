@@ -52,7 +52,7 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
         this.confirmButtonLoading = 'idle'
     }
 
-    constructor(private el: ElementRef, private renderer: Renderer2, private spinner: NgxSpinnerService) {}
+    constructor(private el: ElementRef, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges) {
         changesOn(changes, 'visible', (v) => {

@@ -503,10 +503,10 @@
                             <rwa-text-button
                                 [fontWeight]="'700'"
                                 [fontSize]="'1.7rem'"
-                                [lineHeight]="'28px'"
+                                [lineHeight]="'28.3px'"
                                 (onClick)="openMyInfoModal()"
                             >
-                                {{ user.name }}
+                                <span rwEllipsisDropdown [lineClamp]="1" [edText]="user.name">{{ user.name }}</span>
                             </rwa-text-button>
                             <div class="user-position">
                                 {{ center.role_name }}

@@ -491,7 +491,6 @@ $nd_width: 275px;
         //padding: 19px 14px 28px 22px;
         padding: 19px 0 28px;
         border-radius: 0 0 30px 0;
-        overflow-x: hidden;
         min-height: 102px;
         .l-center-user {
             width: 100%;
@@ -529,7 +528,8 @@ $nd_width: 275px;
                 .user-name {
                     max-height: 29px;
                     min-width: 173px;
-                    @include rw-type-r(1.8rem, 29px, var(--font-color));
+                    max-width: 173px;
+                    @include rw-type-r(1.7rem, 28.3px, var(--font-color));
                 }
                 .user-position {
                     max-height: 23px;

@@ -17,6 +17,11 @@ import { CenterProductInfo, InfoState } from '@schemas/components/center-product
 import dayjs from 'dayjs'
 import _ from 'lodash'
 
+/*
+    ***확인메모***
+    - 2023/08/09
+    나중에 결제 재시도 API가 있을 때, onRetryPaymentClick event에 자동 결제 재시도 관련 함수 연결 필요
+ */
 @Component({
     selector: 'rwm-center-product-info-toast',
     templateUrl: './center-product-info-toast.component.html',
@@ -26,7 +31,8 @@ export class CenterProductInfoToastComponent implements OnChanges, AfterViewInit
     @Input() center: Center
 
     @Output() onPurchaseCenterMembershipClick = new EventEmitter()
-    @Output() onPaymentMethodClick = new EventEmitter()
+    // @Output() onPaymentMethodClick = new EventEmitter()
+    @Output() onRetryPaymentClick = new EventEmitter()
 
     @ViewChild('center_info_toast') center_info_toast_el: ElementRef
     constructor(private renderer: Renderer2) {}
@@ -110,9 +116,10 @@ export class CenterProductInfoToastComponent implements OnChanges, AfterViewInit
         },
         subEndExpected: {
             title: '일 후 이용권이 만료돼요.',
-            btText: '결제 수단 관리',
+            btText: '자동 결제 재시도',
             btFn: () => {
-                this.onPaymentMethodClick.emit()
+                this.onRetryPaymentClick.emit()
+                // this.onPaymentMethodClick.emit()
             },
             bgColor: 'var(--state-warning-5)',
             borderColor: 'var(--state-warning-100)',
@@ -120,9 +127,10 @@ export class CenterProductInfoToastComponent implements OnChanges, AfterViewInit
         },
         subEndToday: {
             title: '오늘 이용권이 만료돼요.',
-            btText: '결제 수단 관리',
+            btText: '자동 결제 재시도',
             btFn: () => {
-                this.onPaymentMethodClick.emit()
+                this.onRetryPaymentClick.emit()
+                // this.onPaymentMethodClick.emit()
             },
             bgColor: 'var(--state-error-5)',
             borderColor: 'var(--state-error-100)',

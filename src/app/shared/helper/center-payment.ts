@@ -2,6 +2,7 @@ import { PaymentItem } from '@schemas/payment/payment-item'
 import { PaymentHistoryItem } from '@schemas/payment/payment-history-item'
 
 /**
+ *
  *  ProductCategories 상품 카테고리의 'membership' category_code로 상품 조회가 가능하지만,
  *  API 로부터 받은 정보가 웹에서 보여줘여할 정보에 비해 부족하기 때문에
  *  피그마를 토대로 보여줘야할 정보를 담은 변수를 따로 선언했습니다.

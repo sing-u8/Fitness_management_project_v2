@@ -12,6 +12,7 @@ import {
 } from '@angular/core'
 
 import { PaymentCard } from '@schemas/payment/payment-card'
+import { changesOn } from '@shared/helper/component-helper'
 
 @Component({
     selector: 'rwm-register-card-result-modal',
@@ -36,8 +37,6 @@ export class RegisterCardResultModalComponent implements OnChanges, AfterViewChe
     @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<any>()
 
-    changed: boolean
-
     public isMouseModalDown: boolean
 
     constructor(private el: ElementRef, private renderer: Renderer2) {
@@ -45,18 +44,8 @@ export class RegisterCardResultModalComponent implements OnChanges, AfterViewChe
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (!changes['visible'].firstChange) {
-            if (changes['visible'].previousValue != changes['visible'].currentValue) {
-                this.changed = true
-            }
-        }
-    }
-
-    ngAfterViewChecked() {
-        if (this.changed) {
-            this.changed = false
-
-            if (this.visible) {
+        changesOn(changes, 'visible', (v) => {
+            if (v) {
                 this.renderer.addClass(this.modalBackgroundElement.nativeElement, 'display-block')
                 this.renderer.addClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 setTimeout(() => {
@@ -71,8 +60,10 @@ export class RegisterCardResultModalComponent implements OnChanges, AfterViewChe
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
             }
-        }
+        })
     }
+
+    ngAfterViewChecked() {}
 
     onCancel(): void {
         this.cancel.emit({})

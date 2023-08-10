@@ -1,6 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core'
 import _ from 'lodash'
 
+// 휴대폰 전화번호 양식으로 변환 - 01023145123 --> 010-2314-5123
 @Pipe({
     name: 'phoneNumber',
 })

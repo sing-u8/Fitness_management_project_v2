@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core'
 
+// 증감률 계산을 위한 파이프
 @Pipe({
     name: 'rateOfChange',
 })

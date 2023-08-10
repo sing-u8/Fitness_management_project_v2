@@ -1,5 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild } from '@angular/core'
-import { ActivatedRoute, Router } from '@angular/router'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { SharedModule } from '@shared/shared.module'
 import { StorageService } from '@services/storage.service'
@@ -16,6 +15,10 @@ import { takeUntil } from 'rxjs/operators'
 import _ from 'lodash'
 import dayjs from 'dayjs'
 
+/*
+ ***확인메모***
+ * 현재 센터를 한 번에 다 불러오는데 필요에 따라 pagenation(스크롤이 끝에 도착했을 때, 다음 센터 리스트 호출)이 필요할 거 같습니다.
+ */
 @Component({
     selector: 'rwp-center-list',
     standalone: true,

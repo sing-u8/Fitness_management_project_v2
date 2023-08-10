@@ -19,6 +19,9 @@ import { changesOn, detectChangesOn } from '@shared/helper/component-helper'
 
 import { Loading } from '@schemas/loading'
 
+// 해당 컴포넌트의 각 로딩 상태에 따라 다른 내용을 보여주게 하기 위한 디렉티브
+// html 파일에서 <ng-container [ngTemplateOutlet]="idleRef.templateRef"></ng-container> 와 비슷한 부분 참고 - line 17
+// ts 파일에서 @ContentChild(ButtonIdleContentDirective) idleRef!: ButtonIdleContentDirective 와 비슷한 부분 참고 - line 90
 @Directive({
     selector: '[btIdleContent]',
 })

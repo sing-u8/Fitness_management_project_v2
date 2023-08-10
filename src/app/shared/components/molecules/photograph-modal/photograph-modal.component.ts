@@ -18,6 +18,7 @@ import { changesOn } from '@shared/helper/component-helper'
 /*
  ***확인메모***
  * 피그마 파일 센터 설정 / 직원 관리 / 직원 등록 / 사진 에 나오는 사진 촬영 모달 컴포넌트
+ * 참고 - 노션 링크 : https://www.notion.so/QA-v3-4052d534d027497f92e680366671c9ef?p=6aae7af6ed1541c7b4e3ed94770482ed&pm=c
  */
 @Component({
     selector: 'rwm-photograph-modal',

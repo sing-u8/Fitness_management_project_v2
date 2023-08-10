@@ -1,1 +1,9 @@
-<p>photograph-modal works!</p>
+<div class="rw-modal-background" #modalBackgroundElement></div>
+<div
+    class="rw-modal-wrapper justify-content-center align-items-center"
+    (mouseup)="!isMouseModalDown && !blockClickOutside && onClose()"
+    (mousedown)="resetMouseModalDown()"
+    #modalWrapperElement
+>
+    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()"></div>
+</div>

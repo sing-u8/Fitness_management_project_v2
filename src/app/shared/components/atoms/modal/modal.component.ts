@@ -11,7 +11,6 @@ import {
     ViewChild,
     AfterViewInit,
 } from '@angular/core'
-import { NgxSpinnerService } from 'ngx-spinner'
 
 import { Loading } from '@schemas/loading'
 import { ModalInput, ModalOutPut } from '@schemas/components/modal'
@@ -39,8 +38,6 @@ export class ModalComponent implements OnChanges, AfterViewChecked, AfterViewIni
 
     @Output() cancel = new EventEmitter<any>()
     @Output() confirm = new EventEmitter<ModalOutPut>()
-
-    public changed: boolean
 
     public isMouseModalDown = false
 

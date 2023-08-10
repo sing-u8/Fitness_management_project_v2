@@ -21,6 +21,7 @@ import { Loading } from '@schemas/loading'
 // 해당 컴포넌트의 각 로딩 상태에 따라 다른 내용을 보여주게 하기 위한 디렉티브
 // html 파일에서 <ng-template [ngTemplateOutlet]="idleRef.templateRef"></ng-template> 와 비슷한 부분 참고
 // 해당 ts 파일에서 @ContentChild(IconGhostButtonIdleContentDirective) idleRef!: IconGhostButtonIdleContentDirective 와 비슷한 부분 참고 부분 참고
+// 참고 링크 : https://angular.io/guide/content-projection
 @Directive({
     selector: '[iconGhostBtIdleContent]',
 })

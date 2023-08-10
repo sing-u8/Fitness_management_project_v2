@@ -79,6 +79,8 @@ export class TextInputComponent implements AfterViewInit {
     }
 
     // for NG_VALUE_ACCESSOR
+    // Custom Form Controls: ControlValueAccessor 와 관련된 메서드
+    // 참고 링크 : https://blog.angular-university.io/angular-custom-form-controls/
     touched = false
     // onChange = (_) => {}
     onTouched = () => {}

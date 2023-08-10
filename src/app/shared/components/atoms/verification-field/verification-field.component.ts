@@ -127,6 +127,8 @@ export class VerificationFieldComponent implements OnChanges, OnDestroy {
     }
 
     //
+    // Custom Form Controls: ControlValueAccessor 와 관련된 메서드
+    // 참고 링크 : https://blog.angular-university.io/angular-custom-form-controls/
     onTouched: () => void = () => {}
     registerOnChange(onChange: any) {
         const sub = this.form.valueChanges.subscribe(onChange)

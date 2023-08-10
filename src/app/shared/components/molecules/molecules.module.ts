@@ -51,6 +51,7 @@ import { PaymentCardListItemComponent } from '@shared/components/molecules/payme
 import { CenterPaymentCardComponent } from '@shared/components/molecules/center-payment-card/center-payment-card.component'
 import { CenterExpiredModalComponent } from './center-expired-modal/center-expired-modal.component'
 import { CenterProductInfoToastComponent } from './center-producr-info-toast/center-product-info-toast.component'
+import { PhotographModalComponent } from './photograph-modal/photograph-modal.component'
 
 @NgModule({
     declarations: [
@@ -91,6 +92,7 @@ import { CenterProductInfoToastComponent } from './center-producr-info-toast/cen
         CenterPaymentCardComponent,
         CenterExpiredModalComponent,
         CenterProductInfoToastComponent,
+        PhotographModalComponent,
     ],
     imports: [
         NgScrollbar,
@@ -143,6 +145,7 @@ import { CenterProductInfoToastComponent } from './center-producr-info-toast/cen
         CenterPaymentCardComponent,
         CenterExpiredModalComponent,
         CenterProductInfoToastComponent,
+        PhotographModalComponent,
     ],
     schemas: [NO_ERRORS_SCHEMA],
 })

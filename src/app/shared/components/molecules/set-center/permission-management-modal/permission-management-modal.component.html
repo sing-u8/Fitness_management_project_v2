@@ -5,11 +5,17 @@
     (mousedown)="resetMouseModalDown()"
     #modalWrapperElement
 >
-    <div class="rw-modal user-select-none" (mousedown)="onMouseModalDown(); $event.stopPropagation()">
+    <div
+        class="rw-modal user-select-none"
+        [class.update-disabled]="!enableToUpdate"
+        (mousedown)="onMouseModalDown(); $event.stopPropagation()"
+    >
         <div class="header">
             <div class="header-title">
                 <span>권한 관리</span>
-                <span class="header-title--desc"> 운영자는 모든 기능을 제한 없이 사용할 수 있어요. </span>
+                <span *ngIf="enableToUpdate" class="header-title--desc">
+                    운영자는 모든 기능을 제한 없이 사용할 수 있어요.
+                </span>
             </div>
             <rwa-icon-ghost-button
                 sizeType="md"
@@ -46,21 +52,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[0]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[0].approved =
-                                            !_rolePermission.administrator[0].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[0]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[0].approved = !_rolePermission.instructor[0].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[0]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[0].approved =
+                                                !_rolePermission.administrator[0].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[0]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[0].approved =
+                                                !_rolePermission.instructor[0].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[0]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[0]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -89,21 +108,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[1]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[1].approved =
-                                            !_rolePermission.administrator[1].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[1]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[1].approved = !_rolePermission.instructor[1].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[1]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[1].approved =
+                                                !_rolePermission.administrator[1].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[1]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[1].approved =
+                                                !_rolePermission.instructor[1].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[1]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[1]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -132,21 +164,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[2]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[2].approved =
-                                            !_rolePermission.administrator[2].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[2]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[2].approved = !_rolePermission.instructor[2].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[2]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[2].approved =
+                                                !_rolePermission.administrator[2].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[2]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[2].approved =
+                                                !_rolePermission.instructor[2].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[2]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[2]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -170,21 +215,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[3]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[3].approved =
-                                            !_rolePermission.administrator[3].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[3]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[3].approved = !_rolePermission.instructor[3].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[3]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[3].approved =
+                                                !_rolePermission.administrator[3].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[3]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[3].approved =
+                                                !_rolePermission.instructor[3].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[3]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[3]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -208,21 +266,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[4]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[4].approved =
-                                            !_rolePermission.administrator[4].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[4]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[4].approved = !_rolePermission.instructor[4].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[4]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[4].approved =
+                                                !_rolePermission.administrator[4].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[4]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[4].approved =
+                                                !_rolePermission.instructor[4].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[4]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[4]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -246,21 +317,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[5]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[5].approved =
-                                            !_rolePermission.administrator[5].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[5]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[5].approved = !_rolePermission.instructor[5].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[5]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[5].approved =
+                                                !_rolePermission.administrator[5].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[5]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[5].approved =
+                                                !_rolePermission.instructor[5].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[5]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[5]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -289,21 +373,34 @@
                         </div>
                         <div class="permission-value__right">
                             <ng-container *ngIf="loading == 'idle'">
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.administrator[6]?.approved"
-                                    (onClick)="
-                                        _rolePermission.administrator[6].approved =
-                                            !_rolePermission.administrator[6].approved
-                                    "
-                                ></rwa-checkbox>
-                                <rwa-checkbox
-                                    class="role-categ"
-                                    [checked]="_rolePermission?.instructor[6]?.approved"
-                                    (onClick)="
-                                        _rolePermission.instructor[6].approved = !_rolePermission.instructor[6].approved
-                                    "
-                                ></rwa-checkbox>
+                                <ng-container *ngIf="enableToUpdate">
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.administrator[6]?.approved"
+                                        (onClick)="
+                                            _rolePermission.administrator[6].approved =
+                                                !_rolePermission.administrator[6].approved
+                                        "
+                                    ></rwa-checkbox>
+                                    <rwa-checkbox
+                                        class="role-categ"
+                                        [checked]="_rolePermission?.instructor[6]?.approved"
+                                        (onClick)="
+                                            _rolePermission.instructor[6].approved =
+                                                !_rolePermission.instructor[6].approved
+                                        "
+                                    ></rwa-checkbox>
+                                </ng-container>
+                                <ng-container *ngIf="!enableToUpdate">
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.administrator[6]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                    <rwa-svg-xor-o-icon
+                                        class="role-categ"
+                                        [value]="_rolePermission?.instructor[6]?.approved"
+                                    ></rwa-svg-xor-o-icon>
+                                </ng-container>
                             </ng-container>
                             <ng-container *ngIf="loading == 'pending'">
                                 <ngx-skeleton-loader
@@ -327,6 +424,7 @@
 
         <div class="footer">
             <rwa-button
+                *ngIf="enableToUpdate"
                 padding="9px 25px 7px"
                 loadingName="permission-management-button"
                 [status]="updateButtonLoading"

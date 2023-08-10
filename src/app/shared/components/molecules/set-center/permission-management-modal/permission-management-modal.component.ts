@@ -18,7 +18,6 @@ import { Location } from '@angular/common'
 import { NgxSpinnerService } from 'ngx-spinner'
 
 import { UsersService } from '@services/users.service'
-import { StorageService } from '@services/storage.service'
 import { CenterRolePermissionService, UpdateRolePermissionReqBody } from '@services/center-role-permission.service'
 
 import { Loading } from '@schemas/loading'
@@ -28,8 +27,7 @@ import { changesOn } from '@shared/helper/component-helper'
 import _ from 'lodash'
 
 import { showToast } from '@store/app/actions/app.actions'
-import { Store, select } from '@ngrx/store'
-import { takeUntil } from 'rxjs/operators'
+import { Store } from '@ngrx/store'
 import { Subject } from 'rxjs'
 import { Role, RolePermission } from '@schemas/role-permission'
 import { Center } from '@schemas/center'
@@ -43,14 +41,21 @@ import { AuthErrors } from '@schemas/errors/auth-errors'
 export class PermissionManagementModalComponent
     implements OnInit, OnChanges, AfterViewChecked, AfterViewInit, OnDestroy
 {
+    @Input() enableToUpdate = false
     @Input() loading: Loading = 'idle'
     @Input() visible: boolean
     @Output() visibleChange = new EventEmitter<boolean>()
 
     @Input() center: Center
     // 현재 API에서 디자인 순서대로 값을 주고있는데 나중에 그렇지 못할 경우 sequence_number에 맞게 정렬할 필요가 생김
-    @Input() rolePermission: Record<Role, RolePermission[]> = undefined
-    public _rolePermission: Record<Role, RolePermission[]> = undefined
+    @Input() rolePermission: Record<Role, RolePermission[]> = {
+        administrator: [],
+        instructor: [],
+    }
+    public _rolePermission: Record<Role, RolePermission[]> = {
+        administrator: [],
+        instructor: [],
+    }
     @Output() onSave = new EventEmitter<Record<Role, RolePermission[]>>()
 
     @Input() blockClickOutside = true

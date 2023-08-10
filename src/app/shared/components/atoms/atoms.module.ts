@@ -93,6 +93,7 @@ import { AddCardButtonComponent } from './add-card-button/add-card-button.compon
 import { CircleBoldComponent } from './svg/circle-bold/circle-bold.component'
 import { VacantTooltipComponent } from './vacant-tooltip/vacant-tooltip.component'
 import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
+import { XorOIconComponent } from './svg/xor-o-icon/xor-o-icon.component'
 
 @NgModule({
     declarations: [
@@ -124,6 +125,7 @@ import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
         FolderComponent,
         FolderOpenComponent,
         XBoldComponent,
+        XorOIconComponent,
         // etc
         // components
         ButtonComponent,
@@ -208,6 +210,7 @@ import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
         FolderComponent,
         FolderOpenComponent,
         XBoldComponent,
+        XorOIconComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,

@@ -31,7 +31,10 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
         this.ownerFlipOpen = true
     }
 
-    public rolePermission: Record<Role, RolePermission[]> = undefined
+    public rolePermission: Record<Role, RolePermission[]> = {
+        administrator: [],
+        instructor: [],
+    }
 
     public createEmployeeOpen = false
     public managePermissionOpen = false
@@ -65,7 +68,7 @@ export class SetCenterEmployeeManagementComponent implements OnInit, OnChanges {
     }
     rpsInit() {
         // if (this.isRpsInit || !this.isOpen || !this.permissionObj.settings_update_permission) return
-        if (!this.permissionObj.settings_update_permission) return
+        // if (!this.permissionObj.settings_update_permission) return
         this.rpsLoading = 'pending'
         this.centerRolePermissionService.getRolePermission(this.center.id).subscribe({
             next: (rps) => {

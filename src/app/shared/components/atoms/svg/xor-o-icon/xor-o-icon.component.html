@@ -1,0 +1,14 @@
+<div class="l-x-or-o">
+    <rwa-svg-x-bold
+        *ngIf="!value"
+        [width]="'26px'"
+        [height]="'26px'"
+        [color]="'var(--state-error-100)'"
+    ></rwa-svg-x-bold>
+    <rwa-svg-circle-bold
+        *ngIf="value"
+        [width]="'26px'"
+        [height]="'26px'"
+        [color]="'var(--state-warning-100)'"
+    ></rwa-svg-circle-bold>
+</div>

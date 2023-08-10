@@ -21,12 +21,7 @@
                             <span class="register-employee-text">직원 등록</span>
                         </ng-template>
                     </rwa-ghost-button>
-                    <rwa-ghost-button
-                        *ngIf="permissionObj.settings_update_permission"
-                        height="42px"
-                        padding="7.5px 15px 5.5px"
-                        (onClick)="managePermissionOpen = true"
-                    >
+                    <rwa-ghost-button height="42px" padding="7.5px 15px 5.5px" (onClick)="managePermissionOpen = true">
                         <ng-template gbtIdleContent><span class="set-permission-text">권한 설정</span></ng-template>
                     </rwa-ghost-button>
                 </div>
@@ -148,6 +143,7 @@
 ></rwm-update-employee-modal>
 
 <rwm-permission-management-modal
+    [enableToUpdate]="permissionObj.settings_update_permission"
     [loading]="rpsLoading"
     [(visible)]="managePermissionOpen"
     (close)="managePermissionOpen = false"

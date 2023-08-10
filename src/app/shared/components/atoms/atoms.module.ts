@@ -38,6 +38,7 @@ import { CoinComponent } from '@shared/components/atoms/svg/coin/coin.component'
 import { InfoComponent } from './svg/info/info.component'
 import { FolderComponent } from './svg/folder/folder.component'
 import { FolderOpenComponent } from './svg/folder-open/folder-open.component'
+import { XBoldComponent } from './svg/x-bold/x-bold.component'
 
 // comp
 import {
@@ -122,6 +123,7 @@ import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
         CircleBoldComponent,
         FolderComponent,
         FolderOpenComponent,
+        XBoldComponent,
         // etc
         // components
         ButtonComponent,
@@ -205,6 +207,7 @@ import { SmIconTabComponent } from './sm-icon-tab/sm-icon-tab.component'
         CircleBoldComponent,
         FolderComponent,
         FolderOpenComponent,
+        XBoldComponent,
         // components
         ButtonComponent,
         ButtonIdleContentDirective,

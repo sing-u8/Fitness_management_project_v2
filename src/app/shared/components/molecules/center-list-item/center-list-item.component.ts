@@ -24,6 +24,7 @@ import { showToast } from '@store/app/actions/app.actions'
 import { PaymentBadgeKey, PaymentBadge } from '@schemas/payment/payment-badge-state'
 
 /*
+    ***확인메모***
     나중에 결제 재시도 API가 있을 때, *ngIf="headerState == 'subscribeFailed'" -- 자동 결제 재시도 버튼에 함수 연결 필요
  */
 

@@ -15,19 +15,34 @@
             </rwa-icon-ghost-button>
         </div>
         <div class="body">
-            <rwa-text-field
-                #phoneNumberRef
-                [label]="'실제로 연락이 가능한 전화번호를 입력해 주세요.'"
-                placeholder="-없이 숫자만 입력"
-                [inputLimit]="13"
-                width="320px"
-                [formControl]="phoneNumberForm"
-                label="인증번호"
-                (keydown)="restrictToNumber($event)"
-                (keyup.enter)="formCheck() && save()"
-            ></rwa-text-field>
+            <div class="l-text-input">
+                <div class="text-input__label">실제로 연락이 가능한 전화번호를 입력해 주세요.</div>
+                <div class="text-input__content">
+                    <rwa-text-field
+                        #phoneNumberRef
+                        [width]="'110px'"
+                        [placeholder]="'숫자'"
+                        [labelVisible]="false"
+                        [type]="'normal'"
+                        [inputLimit]="4"
+                        [formControl]="firstPhoneNumber"
+                        (keyup.enter)="formCheck() && save()"
+                    ></rwa-text-field>
+                    <div class="dash">-</div>
+                    <rwa-text-field
+                        [width]="'180px'"
+                        [placeholder]="'-없이 숫자만 입력'"
+                        [labelVisible]="false"
+                        [type]="'normal'"
+                        [inputLimit]="9"
+                        [formControl]="secondPhoneNumber"
+                        (keyup.enter)="formCheck() && save()"
+                    ></rwa-text-field>
+                </div>
+            </div>
+
             <rwa-button
-                [disable]="phoneNumberForm.invalid"
+                [disable]="firstPhoneNumber.invalid && secondPhoneNumber.invalid"
                 class="save-button"
                 padding="9px 25px 7px"
                 (onClick)="onConfirm()"

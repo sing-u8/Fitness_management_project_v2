@@ -67,6 +67,23 @@
             position: relative;
             padding: 21px 25px 25px;
 
+            .l-text-input {
+                display: flex;
+                flex-direction: column;
+                .text-input__label {
+                    @include rw-type-r(1.5rem, 23px, var(--gray-100));
+                    margin-bottom: 3px;
+                }
+                .text-input__content {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+            .dash {
+                @include rw-type-b(1.7rem, 28.3px, var(--font-color));
+                margin: 0 5px;
+            }
+
             .save-button {
                 margin-top: 20px;
             }

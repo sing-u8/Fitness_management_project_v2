@@ -201,7 +201,7 @@ export class CreateCenterModalComponent implements OnInit, OnChanges, AfterViewC
                 zip_no: this.zonecode.value,
                 road_full_addr: this.roadAddress.value,
                 addr_detail: this.detailedAddress.value ?? '',
-                phone_number: `${this.firstPhoneNumber.value}${this.secondPhoneNumber.value.replace(/[^0-9]/gi, '')}`,
+                phone_number: `${this.firstPhoneNumber.value}-${this.secondPhoneNumber.value}`,
                 free_trial_terms: this.freeTrialAgree,
             })
             .subscribe((center) => {

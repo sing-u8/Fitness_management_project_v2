@@ -24,7 +24,7 @@ import { Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import _ from 'lodash'
 import { TextFieldComponent } from '@shared/components/atoms/text-field/text-field.component'
-import { emailReg, phoneNumberRegObj } from '@shared/helper/form-helper'
+import { phoneNumberRegObj } from '@shared/helper/form-helper'
 
 export type ChangeCenterPhoneNumberOutput = {
     loadingFn: ModalOutPut
@@ -43,16 +43,20 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
     @Input() phoneNumber = ''
     @Output() onPhoneNumberConfirm = new EventEmitter<ChangeUserNameOutput>()
 
-    public phoneNumberForm = this.fb.control('', {
-        validators: [Validators.pattern(phoneNumberRegObj.with_dash), Validators.required],
+    public firstPhoneNumber = this.fb.control('', {
+        validators: [Validators.required],
     })
+    public secondPhoneNumber = this.fb.control('', {
+        validators: [Validators.required],
+    })
+
     onConfirm() {
         this.onPhoneNumberConfirm.emit({
             loadingFn: {
                 showLoading: this.showLoading.bind(this),
                 hideLoading: this.hideLoading.bind(this),
             },
-            value: _.replace(this.phoneNumberForm.value, /[^0-9]/gi, ''),
+            value: `${this.firstPhoneNumber.value}-${this.secondPhoneNumber.value}`,
         })
     }
 
@@ -83,11 +87,17 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
         private fb: FormBuilder,
         private inputHelper: InputHelperService
     ) {
-        this.phoneNumberForm.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+        this.secondPhoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
             const value = _.isEmpty(v)
                 ? ''
-                : v.replace(/[^0-9]/g, '').replace(phoneNumberRegObj.without_dash, `$1-$2-$3`)
-            this.phoneNumberForm.setValue(value, { emitEvent: false })
+                : String(v)
+                      .replace(/[^0-9]/gi, '')
+                      .replace(phoneNumberRegObj.second_phone_without_dash, `$1-$2`)
+            this.secondPhoneNumber.setValue(value, { emitEvent: false })
+        })
+        this.firstPhoneNumber.valueChanges.pipe(takeUntil(this.unDescriber$)).subscribe((v) => {
+            const value = _.isEmpty(v) ? '' : String(v).replace(/[^0-9]/gi, '')
+            this.firstPhoneNumber.setValue(value, { emitEvent: false })
         })
     }
 
@@ -108,11 +118,15 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
                     this.renderer.removeClass(this.modalBackgroundElement.nativeElement, 'display-block')
                     this.renderer.removeClass(this.modalWrapperElement.nativeElement, 'display-flex')
                 }, 200)
-                this.phoneNumberForm.setValue(this.phoneNumber)
+                // const phoneNumArr = _.split(this.phoneNumber, '-')
+                // this.firstPhoneNumber.setValue(phoneNumArr[0])
+                // this.secondPhoneNumber.setValue(`${phoneNumArr[1]}-${phoneNumArr[2]}`)
             }
         })
         changesOn(changes, 'visible', (v) => {
-            this.phoneNumberForm.setValue(this.phoneNumber)
+            const phoneNumArr = _.split(this.phoneNumber, '-')
+            this.firstPhoneNumber.setValue(phoneNumArr[0])
+            this.secondPhoneNumber.setValue(`${phoneNumArr[1]}-${phoneNumArr[2]}`)
         })
     }
     ngAfterViewChecked() {}
@@ -136,7 +150,7 @@ export class ChangeCenterPhoneNumberModalComponent implements OnChanges, AfterVi
     save() {}
     formCheck() {
         let isValid = false
-        if (this.phoneNumberForm.valid) {
+        if (this.firstPhoneNumber.valid && this.secondPhoneNumber.valid) {
             isValid = true
         }
         return isValid
